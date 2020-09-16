@@ -1,0 +1,27 @@
+{
+  "name": "@conectate/ct-qr-tools",
+  "version": "1.0.0",
+  "description": "Ct Elements",
+  "main": "ct-qr-tools.js",
+  "license": "BSD-3-Clause",
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+  "scripts": {
+    "test": "yarn start"
+  },
+  "keywords": [
+    "ct-elements"
+  ],
+  "dependencies": {
+    "jsqr-es6": "^1.2.0-3",
+    "qrcode": "^1.4.4",
+    "@types/qrcode": "^1.3.4"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@conectate/ct-input",
+  "version": "1.0.0",
+  "description": "Input element",
+  "main": "dist/ct-input.js",
+  "license": "BSD-3-Clause",
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+  "scripts": {
+    "build2": "rm *.js && tsc",
+    "build": "rm -rf dist && tsc",
+    "prepublish": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  }
+}

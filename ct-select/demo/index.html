@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>ct-select demo</title>
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script type="module">
+        import '../../../src/main/iron-icons/c2-icons.js';
+        import '../ct-select.js'
+
+        import {LitElement, html} from 'lit-element';
+
+        class CtInputDemo extends LitElement {
+            render() {
+                return html`<style>
+    :host {
+        display: block;
+    }
+</style>
+<ct-select id="ctSelect" multi searchable></ct-select>
+
+<ct-select id="ctSelect2"></ct-select>
+
+<ct-select id="ctSelect3" placeholder="Hola!" label="Selecciona una mierda" ttl="Selectiona uno"></ct-select>
+<ct-button @click="${async () => console.log(await showCtSelect('Seleccion tus mierdas', [
+                    {"text": "Item0", "value": 0}, {"text": "Item1", "value": 1}, {"text": "Item2", "value": 2}, {
+                        "text": "Item3",
+                        "value": 3
+                    }, {"text": "Item4", "value": 4}, {"text": "Item5", "value": 5}, {"text": "Item6", "value": 6}, {
+                        "text": "Item7",
+                        "value": 7
+                    }, {"text": "Item8", "value": 8}, {"text": "Item9", "value": 9}, {"text": "Item10", "value": 10}, {
+                        "text": "Item11",
+                        "value": 11
+                    }, {"text": "Item12", "value": 12}, {"text": "Item13", "value": 13}, {"text": "Item14", "value": 14}, {
+                        "text": "Item15",
+                        "value": 15
+                    }, {"text": "Item16", "value": 16}, {"text": "Item17", "value": 17}, {"text": "Item18", "value": 18}, {
+                        "text": "Item19",
+                        "value": 19
+                    }
+                ], [], 'Ok', 'Cancel'))}">Abrir</ct-button>
+
+<ct-button @click="${async () => console.log(await showCtSelect('Seleccion tus mierdas', [
+                    {"text": "Item0", "value": 0}, {"text": "Item1", "value": 1}, {"text": "Item2", "value": 2}, {
+                        "text": "Item3",
+                        "value": 3
+                    }, {"text": "Item4", "value": 4}, {"text": "Item5", "value": 5}, {"text": "Item6", "value": 6}, {
+                        "text": "Item7",
+                        "value": 7
+                    }, {"text": "Item8", "value": 8}, {"text": "Item9", "value": 9}, {"text": "Item10", "value": 10}, {
+                        "text": "Item11",
+                        "value": 11
+                    }, {"text": "Item12", "value": 12}, {"text": "Item13", "value": 13}, {"text": "Item14", "value": 14}, {
+                        "text": "Item15",
+                        "value": 15
+                    }, {"text": "Item16", "value": 16}, {"text": "Item17", "value": 17}, {"text": "Item18", "value": 18}, {
+                        "text": "Item19",
+                        "value": 19
+                    }
+                ], [5, 6, 7, 8, 9, 15], 'Ok', 'Cancel', true))}">Abrir</ct-button>
+
+<ct-button @click="${async () => console.log(await showCtSelect('Seleccion tus mierdas', [
+                    {"text": "Item0", "value": false}, {"text": "Item1", "value": true}
+                ], [true], 'Ok', 'Cancel'))}">Abrir</ct-button>
+
+`;
+            }
+
+            constructor() {
+                super();
+                this.check = false;
+            }
+
+            firstUpdated(e) {
+                this.$ = {
+                    ctSelect: this.shadowRoot.getElementById('ctSelect'),
+                    ctSelect2: this.shadowRoot.getElementById('ctSelect2'),
+                    ctSelect3: this.shadowRoot.getElementById('ctSelect3')
+                }
+                this.$.ctSelect.items = [
+                    {"text": "Ni merga", "value": null},
+                    {"text": "Item0", "value": 0}, {"text": "Item1", "value": 1}, {"text": "Item2", "value": 2}, {
+                        "text": "Item3",
+                        "value": 3
+                    }, {"text": "Item4", "value": 4}, {"text": "Item5", "value": 5}, {"text": "Item6", "value": 6}, {
+                        "text": "Item7",
+                        "value": 7
+                    }, {"text": "Item8", "value": 8}, {"text": "Item9", "value": 9}, {"text": "Item10", "value": 10}, {
+                        "text": "Item11",
+                        "value": 11
+                    }, {"text": "Item12", "value": 12}, {"text": "Item13", "value": 13}, {"text": "Item14", "value": 14}, {
+                        "text": "Item15",
+                        "value": 15
+                    }, {"text": "Item16", "value": 16}, {"text": "Item17", "value": 17}, {"text": "Item18", "value": 18}, {
+                        "text": "Item19",
+                        "value": 19
+                    }];
+                this.$.ctSelect.value = [2, 6];
+                this.$.ctSelect.searchPlaceholder = "filtrar..";
+
+                this.$.ctSelect2.items = [
+                    {"text": "Ni merga", "value": null},
+                    {"text": "Item0", "value": 0}, {"text": "Item1", "value": 1}, {"text": "Item2", "value": 2}, {
+                        "text": "Item3",
+                        "value": 3
+                    }];
+                this.$.ctSelect3.items = this.$.ctSelect.items;
+                this.$.ctSelect2.value = 3;
+            }
+
+            static get properties() {
+                return {
+                    check: String
+                };
+            }
+        }
+
+
+        window.customElements.define('ct-input-demo', CtInputDemo);
+    </script>
+
+
+    <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
+    </custom-style>
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h3>Basic ct-input demo</h3>
+    <demo-snippet>
+        <template>
+            <ct-input-demo></ct-input-demo>
+        </template>
+    </demo-snippet>
+</div>
+</body>
+</html>

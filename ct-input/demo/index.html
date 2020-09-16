@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>ct-input demo</title>
+
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../ct-input.js"></script>
+    <script async src="/static/libs/world/1.0.0/countries.js"></script>
+    <script async src="/static/libs/world/1.0.0/lang-sugg.js"></script>
+
+    <script type="module">
+        import '../ct-input-autocomplete.js';
+        import '../ct-textarea.js';
+        import '../../../src/main/iron-icons/c2-icons.js';
+
+        import {LitElement, html} from 'lit-element';
+
+        class CtInputDemo extends LitElement {
+            render() {
+                return html`<style>
+    :host {
+        display: block;
+    }
+</style>
+<ct-input-autocomplete id="in" showResultsOnFocus></ct-input-autocomplete>
+
+<ct-input-autocomplete id="in2"value="90"></ct-input-autocomplete>
+`;
+            }
+
+            constructor() {
+                super();
+                this.check = false;
+                this.$ = {};
+            }
+
+            firstUpdated(e) {
+                super.firstUpdated(e);
+                this.$.in = this.shadowRoot.getElementById('in');
+                this.$.in.source = countriesByLang.es;
+                this.$.in2 = this.shadowRoot.getElementById('in2');
+                this.$.in2.source = countriesByLang.es;
+            }
+
+            static get properties() {
+                return {
+                    check: String
+                };
+            }
+        }
+
+
+        window.customElements.define('ct-input-demo', CtInputDemo);
+    </script>
+
+
+    <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
+    </custom-style>
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h3>Basic ct-input demo</h3>
+    <demo-snippet>
+        <template>
+
+            <div contentEditable></div>
+
+            <iron-autogrow-textarea></iron-autogrow-textarea>
+
+            <br>
+            <ct-textarea placeholder="Ingresa tu nombre" errorMessage="noo" required label="mierdas"></ct-textarea>
+            <br>
+            <ct-input-demo></ct-input-demo>
+            <br>
+
+            <ct-input></ct-input>
+            <br>
+            <ct-input type="number" label="Edad Minima"></ct-input>
+            <br>
+            <ct-input type="date" label="Edad Minima"></ct-input>
+            <br>
+            <ct-input type="week" label="Edad Minima"></ct-input>
+            <br>
+            <ct-input required label="Label" errorMessage="Campo Requerido"></ct-input>
+            <br>
+            <ct-input label="Label" maxlength="44" charCounter>
+                <iron-icon icon="c2:home" slot="prefix"></iron-icon>
+            </ct-input>
+            <br>
+            <ct-input label="Nombre" value="Hola1!" placeholder="Ingresa tu nombre" errorMessage="noo"></ct-input>
+            <br>
+            <ct-input label="Nombre" value="Hola2!" placeholder="Ingresa tu nombre" errorMessage="Error en su mierda"
+                    pattern="^[a-zA-Z0-9_]$"></ct-input>
+
+            <br>
+            <ct-input disabled label="Nombre" value="Hola3!" placeholder="Ingresa tu nombre" errorMessage="Error en su mierda"
+                    pattern="^[a-zA-Z0-9_]$"></ct-input>
+            <br>
+            <ct-input label="Nombre" placeholder="Ingresa tu nombre" pattern="^[a-zA-Z0-9_]$" maxlength="44" charCounter>
+                <iron-icon icon="c2:home" slot="prefix"></iron-icon>
+            </ct-input>
+            <br>
+            <ct-input label="Nombre" placeholder="Ingresa tu nombre" pattern="^[a-zA-Z0-9_]$">
+                <iron-icon icon="c2:home" slot="suffix"></iron-icon>
+            </ct-input>
+
+
+        </template>
+    </demo-snippet>
+</div>
+</body>
+</html>

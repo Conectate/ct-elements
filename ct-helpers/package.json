@@ -1,0 +1,32 @@
+{
+	"name": "@conectate/ct-helpers",
+	"version": "0.0.1",
+	"description": "Simple helpers for web developers",
+	"main": "dist/ct-helpers.js",
+	"types": "dist/ct-helpers.d.ts",
+	"license": "BSD-3-Clause",
+	"scripts": {
+		"build": "tsc",
+		"prepublish": "rm -rf dist && tsc"
+	},
+	"keywords": [
+		"Get Client",
+		"User Agent",
+		"Web",
+		"Geolocation",
+		"Generate ID"
+	],
+	"dependencies": {},
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"publishConfig": {
+		"access": "public"
+	}
+}

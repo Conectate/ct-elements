@@ -1,0 +1,25 @@
+{
+	"name": "@conectate/ct-tabs",
+	"version": "0.0.1",
+	"main": "dist/ct-tabs.js",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"scripts": {
+		"build": "rm -rf dist && tsc",
+		"prepublish": "rm -rf dist && tsc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"dependencies": {
+		"lit-element": "^2.4.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@conectate/ct-loading-placeholder",
+  "version": "1.0.3",
+  "description": "Is a simple element to use skeleton loading such as Facebook.",
+  "main": "ct-loading-placeholder.js",
+  "license": "BSD-3-Clause",
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+  "scripts": {
+    "build": "rm *.js && tsc"
+  },
+  "keywords": [
+    "LitElement",
+    "React",
+    "Vue",
+    "Angular",
+    "Web Components",
+    "Polymer",
+    "loading",
+    "placeholder"
+  ],
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

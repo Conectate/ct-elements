@@ -1,0 +1,28 @@
+{
+  "name": "@conectate/ct-card",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ct-card.js",
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+  "license": "BSD-3-Clause",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+  "scripts": {
+    "build": "rm *.js && tsc"
+  },
+  "keywords": [
+    "litElement","wrapper","Web Components"
+  ],
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

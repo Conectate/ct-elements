@@ -1,0 +1,28 @@
+{
+	"name": "@conectate/ct-dialog",
+	"version": "1.0.0",
+	"description": "Ct Elements",
+	"scripts": {
+		"build": "rm *.js && tsc"
+	},
+	"keywords": [
+		"ct-elements"
+	],
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"license": "BSD-3-Clause",
+	"dependencies": {
+		"lit-element": "^2.4.0",
+		"@conectate/ct-lit": "^1.1.0",
+		"@conectate/ct-helpers": "file:../ct-helpers",
+		"@conectate/ct-card": "file:../ct-card",
+		"@conectate/ct-button": "file:../ct-button"
+	}
+}

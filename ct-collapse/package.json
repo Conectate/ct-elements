@@ -1,0 +1,30 @@
+{
+	"name": "@conectate/ct-collapse",
+	"version": "1.0.0",
+	"description": "Collapse from LitElement",
+	"main": "ct-collapse.js",
+	"license": "BSD-3-Clause",
+	"scripts": {
+		"build": "rm *.js && tsc"
+	},
+	"keywords": [
+		"litElement",
+		"wrapper",
+		"Web Components"
+	],
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"dependencies": {
+		"lit-element": "^2.4.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -1,0 +1,47 @@
+{
+  "name": "@conectate/ct-elements",
+  "version": "1.0.1",
+  "description": "Ct Elements",
+  "main": "index.js",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "test": "yarn start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "httsp://gitlab.com/"
+  },
+  "keywords": [
+    "ct-elements"
+  ],
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+  "dependencies": {
+    "lit-element": "^2.4.0",
+    "@conectate/ct-button": "file:../ct-button",
+    "@conectate/ct-card": "file:../ct-card",
+    "@conectate/ct-chartjs": "file:../ct-chartjs",
+    "@conectate/ct-checkbox": "file:../ct-checkbox",
+    "@conectate/ct-collapse": "file:../ct-collapse",
+    "@conectate/ct-date": "file:../ct-date",
+    "@conectate/ct-dialog": "file:../ct-dialog",
+    "@conectate/ct-img": "file:../ct-img",
+    "@conectate/ct-input": "file:../ct-input",
+    "@conectate/ct-list": "file:../ct-list",
+    "@conectate/ct-lit": "^1.1.0",
+    "@conectate/ct-loading": "file:../ct-loading",
+    "@conectate/ct-loading-placeholder": "file:../ct-loading-placeholder",
+    "@conectate/ct-menu": "file:../ct-menu",
+    "@conectate/ct-phone-input": "file:../ct-phone-input",
+    "@conectate/ct-qr-tools": "file:../ct-qr-tools",
+    "@conectate/ct-radio": "file:../ct-radio",
+    "@conectate/ct-router": "file:../ct-router",
+    "@conectate/ct-snackbar": "file:../ct-snackbar",
+    "@conectate/ct-select": "file:../ct-select",
+    "@conectate/ct-spinner": "file:../ct-spinner",
+    "@conectate/ct-tabs": "file:../ct-tabs",
+    "@conectate/ct-tooltip": "file:../ct-tooltip",
+    "@conectate/ct-helpers": "file:../ct-helpers",
+    "@conectate/ct-icon": "file:../ct-icon",
+    "@conectate/lit-if": "file:../lit-if"
+  }
+}

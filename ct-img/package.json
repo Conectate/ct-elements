@@ -1,0 +1,22 @@
+{
+  "name": "@conectate/ct-img",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/ct-img.js",
+  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+  "scripts": {
+    "build": "rm *.js && tsc"
+  },
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+	"name": "@conectate/ct-lit",
+	"version": "1.1.1",
+	"description": "Wrapper from LitElement",
+	"main": "dist/ct-lit.js",
+	"types": "dist/ct-lit.d.ts",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"scripts": {
+		"build": "tsc",
+		"prepublish": "rm -rf dist && tsc"
+	},
+	"keywords": [
+		"litElement",
+		"wrapper",
+		"Web Components"
+	],
+	"dependencies": {
+		"lit-element": "^2.4.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

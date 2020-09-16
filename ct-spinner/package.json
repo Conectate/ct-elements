@@ -1,0 +1,25 @@
+{
+	"name": "@conectate/ct-spinner",
+	"version": "1.0.0",
+	"description": "Ct Elements",
+	"main": "ct-spinner.js",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"homepage": "https://github.com/conectate/ct-elements",
+	"scripts": {
+		"test": "yarn start"
+	},
+	"keywords": [
+		"ct-elements"
+	],
+	"dependencies": {
+		"@conectate/ct-lit": "^1.1.0"
+	}
+}

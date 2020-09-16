@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>ct-input demo</title>
+
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../ct-button.js"></script>
+
+
+    <custom-style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
+    </custom-style>
+    <style>
+        ct-button{
+            color: #00aeff;
+        }
+    </style>
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h3>Basic ct-input demo</h3>
+    <demo-snippet>
+        <template>
+            <ct-button>Cancelar</ct-button> <ct-button raised style="color:#fff;">Aceptar</ct-button>
+            <br>
+            <ct-button>
+                <iron-icon icon="c2:home" slot="prefix"></iron-icon>
+                <span>Hola</span>
+            </ct-button>
+            <br>
+            <ct-button raised style="color:#fff;">
+                <iron-icon icon="c2:home" slot="suffix"></iron-icon>
+                Mundo!
+            </ct-button>
+
+
+        </template>
+    </demo-snippet>
+</div>
+</body>
+</html>
