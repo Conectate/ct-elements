@@ -18,11 +18,20 @@ or
 ```sh
 $ npm i @conectate/ct-router
 ```
+### TLDR;
+#### Bind properties to templated elements in LitElement
+You can insert JavaScript expressions as placeholders for HTML text content, attributes, Boolean attributes, properties, and event handlers.
+
+- Text content: `<p>${...}</p>`
+- Attribute: `<p id="${...}"></p>`
+- Boolean attribute: `?disabled="${...}"`
+- Property: `.value="${...}"`
+- Event handler: `@event="${...}"`
 
 ## Usage
 
-### Step 1️⃣
-Add to your HTML like this:
+### Step 1
+Add to your html\`\` (Litelement Template) like this:
 
 ```html
 <ct-router id="ctrouter" 
@@ -32,8 +41,8 @@ Add to your HTML like this:
   @location-changed=${this.pathChanged}>
 </ct-router>
 ```
-### Step 2️⃣
-### Example LitElement in Typescript
+### Step 2
+### Full LitElement example in Typescript
 ```typescript
 import {LitElement, html, property } from 'lit-element';
 import '@conectate/ct-router/ct-router';
@@ -90,6 +99,7 @@ class Example extends LitElement{
     },1500);
   }
 
+  /* You can view state of you web */
   printCurrentState(){
     // More details in interface LocationChanged 
     console.log('Current patternMatched',this.$.ctroute.path);

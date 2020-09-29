@@ -8,7 +8,7 @@ found at http://wc.conectate.today/CONTRIBUTORS.txt Code distributed by Herberth
 part of the Conectate Open Source Project is also subject to an additional IP rights grant
 found at http://wc.conectate.today/PATENTS.txt
  */
-import { LitElement, html, property } from 'lit-element';
+import { LitElement, html, property, customElement } from 'lit-element';
 import '@material/mwc-ripple';
 
 /**
@@ -81,6 +81,7 @@ _None_
  * @attr {Boolean} flat - Shown with a primary color border
  * @attr {Boolean} light - Shown with a primary color border
  */
+@customElement('ct-button')
 export class CtButton extends LitElement {
 	@property({ type: String, reflect: true }) role = 'button';
 	render() {
@@ -168,4 +169,8 @@ export class CtButton extends LitElement {
 	}
 }
 
-window.customElements.define('ct-button', CtButton);
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-button': CtButton;
+	}
+}

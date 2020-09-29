@@ -3,7 +3,7 @@ import { LitElement } from 'lit-element';
 export type PropertyValues = Map<PropertyKey, any>;
 export { unsafeHTML } from 'lit-html/directives/unsafe-html';
 export { until } from 'lit-html/directives/until';
-export { html, svg, css, customElement, property, query, queryAll, queryAssignedNodes, queryAsync } from 'lit-element';
+export { html, svg, css, customElement, property,internalProperty, query, queryAll, queryAssignedNodes, queryAsync } from 'lit-element';
 
 /**
  * It's a simple wrapper for LitElement

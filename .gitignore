@@ -1,10 +1,12 @@
 .idea
 .git
 build
+dist
 node_modules
 .DS_Store
-dist
 .history
 .firebase
 *.log
-.history
+*.map
+*.d.ts
+*.js
