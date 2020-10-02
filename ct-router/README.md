@@ -44,11 +44,12 @@ Add to your html\`\` (Litelement Template) like this:
 ### Step 2
 ### Full LitElement example in Typescript
 ```typescript
-import {LitElement, html, property } from 'lit-element';
+import {CtLit, html, property, customElement } from '@conectate/ct-lit'; /* or 'lit-element' */
 import '@conectate/ct-router/ct-router';
 import { href } from '@conectate/ct-router/ct-router';
 
-class Example extends LitElement{
+@customElement('my-router')
+class MyRouter extends CtLit{
   @property({type : Boolean}) isLogged = false;
 
   /*
@@ -67,8 +68,12 @@ class Example extends LitElement{
   }
 
   firstUpdated(_changedProperties: Map<string, any>) {
-    this.mapIDs(); // map all ID's in this.$ 
-    this.$.ctroute.pages = [
+    this.mapIDs(); // map all ID's in this.$ , only in @conectate/ct-lit
+    
+    // set if user is not isAnonymous
+    this.isLogged = true; // !firebase.auth().currentUser.isAnonymous
+    
+    this.$.ctrouter.pages = [
       {
         path: "/page1",
         element: html`<page-number1></page-number1>`, // you cand use html``
@@ -91,14 +96,9 @@ class Example extends LitElement{
         title: () => null
       }
     ];
-    this.printCurrentState();
-
-    setTimeout(()=>{
-      href('/404');
-      this.printCurrentState();
-    },1500);
   }
 
+  /* =================== (optional) DEBUG ROUTER =================== */
   /* You can view state of you web */
   printCurrentState(){
     // More details in interface LocationChanged 
@@ -118,7 +118,7 @@ class Example extends LitElement{
     console.log('loading...', e.detail);
   }
 
-  pathChanged(_e : CustomEvent<LocationChanged>){
+  pathChanged(e : CustomEvent<LocationChanged>){
     console.log('path changed',location.href);
     console.log('patternMatched',this.$.ctroute.path,'==',e.detail.path);
     console.log('pathname',this.$.ctroute.pathname,'==',e.detail.pathname,'==',location.pathname);
@@ -269,13 +269,6 @@ for this it passes a Boolean parameter to auth of `ct-router`
 3. Commit your changes: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
-## History
-- v0.5.0 add methods & attrs -> href,path,pathname,params,queryParams,loginFallback
-- v0.2.1 CHANGE keys to gruops in custom regex
-- v0.2.0 ADD href method
-- v0.1.8 You can use a html`` or string to define template
-- v0.1.0 Initial Release
 
 ## License
 

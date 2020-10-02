@@ -1,7 +1,8 @@
-import { LitElement, html, customElement } from 'lit-element';
+import { LitElement, customElement, html } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { installRouter } from 'pwa-helpers/router';
-import { EvaluateParams, C2Regexp, C2RegexpType } from './path_to_regexp';
+
+import { C2Regexp, C2RegexpType, EvaluateParams } from './path_to_regexp';
 
 export interface Page {
 	path: string;
@@ -21,6 +22,12 @@ export interface Routes {
 	from: () => any;
 	auth: boolean | null;
 	title: (() => string) | (() => null);
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-router': CtRouter;
+	}
 }
 /**
  * @event login-needed It triggers when a page requires authentication but the user is not yet logged in
@@ -64,16 +71,14 @@ export class CtRouter extends LitElement {
 			</style>
 			<slot id="drawerSlot" name="banner"></slot>
 
-			<div id="content">
-				${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}
-			</div> `;
+			<div id="content">${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}</div> `;
 	}
 
 	constructor() {
 		super();
 		// @ts-ignore
 		window.ctrouter = this;
-		installRouter(l => this.handleRoutes(l));
+		installRouter((l) => this.handleRoutes(l));
 		window.addEventListener('location-changed', () => this.handleRoutes(window.location));
 	}
 

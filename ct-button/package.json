@@ -17,8 +17,7 @@
 		"lit-element": "^2.4.0"
 	},
 	"scripts": {
-		"prepare": "tsc",
-		"postpublish": "rm -rf *.map *.js *.ts"
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",

@@ -1,6 +1,15 @@
-import { CtLit, html, customElement, property, css } from '@conectate/ct-lit';
 import '@material/mwc-radio';
+
+import { getClient } from '@conectate/ct-helpers/ct-helpers';
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { Radio } from '@material/mwc-radio';
 import { CSSResult } from 'lit-element';
+
+// @ts-ignore HACK: temporary patch to fix a safari issue
+Radio.prototype.createRenderRoot = function (): ShadowRoot {
+	// tslint:disable-next-line:no-invalid-this
+	return this.attachShadow({ mode: 'open', delegatesFocus: false });
+};
 
 @customElement('ct-radio')
 export class CtRadio extends CtLit {
@@ -17,6 +26,11 @@ export class CtRadio extends CtLit {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
+			}
+
+			input {
+				zoom: 1.5;
+				margin: 8px;
 			}
 		`
 	];

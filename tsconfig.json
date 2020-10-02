@@ -13,7 +13,8 @@
 		"outDir": "./",
 		// Only necessary because @types/uglify-js can't find types for source-map
 		"skipLibCheck": true,
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"importHelpers": true
 	},
 	"include": [
 		"custom_typings/**/*.ts",

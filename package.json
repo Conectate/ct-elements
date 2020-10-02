@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@conectate/ct-elements": "file:./ct-elements"
+  }
+}
