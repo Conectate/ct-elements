@@ -17,7 +17,6 @@
 		"importHelpers": true
 	},
 	"include": [
-		"custom_typings/**/*.ts",
 		"src/**/*.ts"
 	],
 	"exclude": []

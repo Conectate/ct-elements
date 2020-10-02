@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./",
+	},
+	"include": [
+		"custom_typings/**/*.ts",
+		"src/**/*.ts"
+	],
+	"exclude": []
+}
