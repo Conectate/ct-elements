@@ -16,6 +16,12 @@ import {
 	css
 } from "lit-element";
 
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-card': CtCard;
+	}
+}
+
 /**
  *
  *
@@ -28,7 +34,7 @@ import {
  * @attr padding - Add box-shadow to element
  */
 @customElement("ct-card")
-export class CtCard extends LitElement {
+export default class CtCard extends LitElement {
 	/**
 	 * Add border-top to card with --app-grad  CSS var
 	 */

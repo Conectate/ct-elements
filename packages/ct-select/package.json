@@ -1,22 +1,8 @@
 {
   "name": "@conectate/ct-select",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Ct Elements",
-  "main": "dist/ct-select.js",
-  "license": "BSD-3-Clause",
-	"author": "Herberth Obregón <herberthobregon@gmail.com>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/conectate/ct-elements"
-	},
-	"bugs": {
-		"url": "https://github.com/conectate/ct-elements/issues"
-	},
-	"homepage": "https://github.com/conectate/ct-elements",
-  "scripts": {
-    "build": "rm -rf dist && tsc",
-    "prepublish": "rm -rf dist && tsc"
-  },
+  "main": "ct-select.js",
   "keywords": [
     "ct-elements"
   ],
@@ -26,5 +12,22 @@
     "@conectate/ct-button": "file:../ct-button",
     "@conectate/ct-dialog": "file:../ct-dialog",
     "@conectate/ct-card": "file:../ct-card"
-  }
+  },
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

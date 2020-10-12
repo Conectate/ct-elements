@@ -50,6 +50,13 @@ let bar = {
 	options: {}
 };
 
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-chartjs': CtChartJS;
+	}
+}
+
+
 export default class CtChartJS extends CtLit {
 	@property({ type: Object }) chart!: Chart.ChartConfiguration & Chart;
 	@property({ type: String }) type: Chart.ChartType = pie.type;

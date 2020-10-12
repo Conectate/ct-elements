@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@conectate/ct-elements": "file:./ct-elements"
+    "@conectate/ct-chartjs": "file:./packages/ct-chartjs",
+    "@conectate/ct-elements": "file:./packages/ct-elements"
   }
 }

@@ -37,7 +37,7 @@ export function showCtDialog(
 }
 
 export function closeCtDialog(id?: string) {
-	return new Promise(async resolve => {
+	return new Promise(async (resolve) => {
 		let m = document.querySelectorAll("ct-dialog") as NodeListOf<CtDialog>;
 		for (let mod = 0; mod < m.length; mod++) {
 			let modal = m[mod];
@@ -68,8 +68,9 @@ export enum DialogSizePreferences {
 	fullsize = 1
 }
 export class CtDialog extends CtLit {
-	@property({ type: String, reflect: true }) role: string = 'alert';
-	@property({ type: String, reflect: true,attribute: 'aria-modal' }) ariaModal: string = 'true';
+	@property({ type: String, reflect: true }) role: string = "alert";
+	@property({ type: String, reflect: true, attribute: "aria-modal" })
+	ariaModal: string = "true";
 
 	// Vars
 	disableHistoryAPI: boolean = false;
@@ -106,23 +107,21 @@ export class CtDialog extends CtLit {
 			let elementY = this._element!.offsetHeight;
 			if ((elementY / bodyY) * 100 < 5) {
 				console.warn("El elemento no es visible");
-				// @ts-ignore
-				this._element?.style.height = `${Math.floor(bodyY * 0.8)}px`;
+				if (this._element)
+					this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
 			} else if ((elementY / bodyY) * 100 >= 78) {
 				// console.warn("El elemento esta desbordado");
 				if (this.preferences.indexOf(DialogSizePreferences.fullsreen) == -1) {
-					// @ts-ignore
-					this._element?.style.height = `${Math.floor(bodyY * 0.8)}px`;
+					if (this._element)
+						this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
 				}
 			}
 		});
 
-		if (getClient().os == "ios"){
+		if (getClient().os == "ios") {
 			this.updateComplete.then(async () => {
-				// @ts-ignore
-				this._element?.style.borderRadius = '0px';
-
-			})
+				if (this._element) this._element.style.borderRadius = "0px";
+			});
 		}
 	}
 
@@ -239,7 +238,7 @@ export class CtDialog extends CtLit {
 		.anim-slide-left {
 			animation: in-slide-left 0.5s;
 		}
-		.anim-bottom-sheet{
+		.anim-bottom-sheet {
 			animation: in-bottom-sheet 0.5s;
 		}
 
@@ -277,7 +276,7 @@ export class CtDialog extends CtLit {
 	}
 
 	getStylesPref(pref: DialogSizePreferences[]) {
-		return pref.map(i => {
+		return pref.map((i) => {
 			switch (i) {
 				case DialogSizePreferences.fullsreen:
 					return html`
@@ -351,7 +350,7 @@ export class CtDialog extends CtLit {
 		window.addEventListener("popstate", this._closeDialog, false);
 		document.addEventListener("keyup", this._clseDialogESC, false);
 
-		this.mappingContainer = new Promise(resolve => {
+		this.mappingContainer = new Promise((resolve) => {
 			this.resolveMapping = resolve;
 		});
 	}
@@ -399,10 +398,13 @@ export class CtDialog extends CtLit {
 
 	closeDialog(e?: Event | null, type?: string) {
 		// Este dialog lo elimino de las lista de dialogos
-		return new Promise(async resolve => {
+		return new Promise(async (resolve) => {
 			let finish = async () => {
-				if(!document.body.contains(this)){
-					console.warn(`dialogID ya no se encuentra en el DOM ${this.dialogID}`,this);
+				if (!document.body.contains(this)) {
+					console.warn(
+						`dialogID ya no se encuentra en el DOM ${this.dialogID}`,
+						this
+					);
 					return;
 				}
 				document.body.removeChild(this);

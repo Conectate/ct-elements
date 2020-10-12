@@ -1,22 +1,23 @@
 {
 	"name": "@conectate/ct-chartjs",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Wrapper from LitElement",
 	"main": "ct-chartjs.js",
-	"license": "BSD-3-Clause",
-	"scripts": {
-		"build": "rm *.js && tsc"
+	"devDependencies": {
+		"@types/chart.js": "^2.9.25"
 	},
-	"keywords": [
-		"litElement",
-		"wrapper",
-		"Web Components"
-	],
-	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"dependencies": {
-		"lit-element": "^2.4.0",
+		"@conectate/ct-lit": "^1.1.1",
+		"@conectate/ct-helpers": "0.0.1",
 		"chart.js": "^2.9.3"
 	},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/conectate/ct-elements"
@@ -24,7 +25,6 @@
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
-	"homepage": "https://github.com/conectate/ct-elements",
 	"publishConfig": {
 		"access": "public"
 	}

@@ -1,23 +1,35 @@
-import { LitElement, customElement, html } from 'lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { installRouter } from 'pwa-helpers/router';
+import { LitElement, customElement, html, TemplateResult } from "lit-element";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import { installRouter } from "pwa-helpers/router";
 
-import { C2Regexp, C2RegexpType, EvaluateParams } from './path_to_regexp';
+import { C2Regexp, C2RegexpType, EvaluateParams } from "./path_to_regexp";
 
 export interface Page {
 	path: string;
-	element: any;
+	element: string | TemplateResult | Element | HTMLElement;
 	from: () => any;
 	auth: boolean | null;
 	title: (() => string) | (() => null);
 	regex?: RegExp;
 	groups?: string[];
-	[x: string]: any;
+	extra?: {
+		[x: string]: any;
+	}
+}
+export interface LocationChanged {
+	//patternMatched like a: /:profile/preferences
+	path: string;
+	// pathname like a: /herberthobregon/preferences
+	pathname: string;
+	// if path is /home?hello=word then queryParams is { hello : "world" }
+	queryParams?: { [x: string]: string };
+	// if href is /herberth/preference and path is /:username/preference then params is { username : "herberth" }
+	params?: { [x: string]: string };
 }
 
-export interface Routes {
+interface Routes {
 	path: string;
-	element: string;
+	element: string | TemplateResult | Element | HTMLElement;
 	c2regexp: C2RegexpType;
 	from: () => any;
 	auth: boolean | null;
@@ -25,8 +37,12 @@ export interface Routes {
 }
 
 declare global {
+	interface Window {
+		ctrouter: CtRouter;
+		href(path: string, name?: string): void;
+	}
 	interface HTMLElementTagNameMap {
-		'ct-router': CtRouter;
+		"ct-router": CtRouter;
 	}
 }
 /**
@@ -34,18 +50,18 @@ declare global {
  * @event loading It fires when a page is imported diamicamente and it is fired again when it finishes loading the page
  * @event location-changed it shoots when the route changes
  */
-@customElement('ct-router')
+@customElement("ct-router")
 export class CtRouter extends LitElement {
 	$: { [x: string]: HTMLElement | any } = {};
 	_routes: { [x: string]: Routes } = {};
-	_currentView: any = '';
+	_currentView: any = "";
 	pages: Page[] = [];
-	patternMatched: string = '';
-	pathname: string = '/';
+	patternMatched: string = "";
+	pathname: string = "/";
 	queryParams: { [x: string]: string } = {};
 	params: { [x: string]: string } = {};
 	auth: boolean = false;
-	loginFallback = '/login';
+	loginFallback = "/login";
 
 	render() {
 		return html`<style>
@@ -71,32 +87,27 @@ export class CtRouter extends LitElement {
 			</style>
 			<slot id="drawerSlot" name="banner"></slot>
 
-			<div id="content">${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}</div> `;
+			<div id="content">
+				${typeof this._currentView == "string"
+					? unsafeHTML(this._currentView)
+					: this._currentView}
+			</div> `;
 	}
 
 	constructor() {
 		super();
-		// @ts-ignore
 		window.ctrouter = this;
 		installRouter((l) => this.handleRoutes(l));
-		window.addEventListener('location-changed', () => this.handleRoutes(window.location));
+		window.addEventListener("location-changed", () =>
+			this.handleRoutes(window.location)
+		);
+	}
+	firstUpdated() {
+		this._contentAdded(this.pages);
 	}
 
-	updated(_changedProperties: Map<PropertyKey, unknown>) {
-		super.updated(_changedProperties);
-		if (_changedProperties.has('pages')) {
-			this._contentAdded(this.pages);
-		}
-	}
-
-	/**
-	 *
-	 * @param data {Object}
-	 * @param title {String}
-	 * @param url {string | null}
-	 */
 	replaceState(data: object, title: string, url: string) {
-		window.history && window.history.replaceState(data, title, url);
+		window.history?.replaceState(data, title, url);
 		this._setPath(url);
 	}
 
@@ -181,7 +192,7 @@ export class CtRouter extends LitElement {
 	 * Sets the path property
 	 */
 	_setPath(path: string) {
-		this.pathname = path || '/';
+		this.pathname = path || "/";
 	}
 
 	/**
@@ -204,7 +215,7 @@ export class CtRouter extends LitElement {
 				if (el.regex != null && el.groups != null) {
 					// regex : expresion regular
 					// keys : Array(0)
-					let regex = new RegExp(el.regex, 'i');
+					let regex = new RegExp(el.regex, "i");
 					c2regexp = { regexp: regex, groups: el.groups };
 				} else {
 					c2regexp = C2Regexp(el.path);
@@ -233,7 +244,7 @@ export class CtRouter extends LitElement {
 	 */
 	_pathChanged(path: string) {
 		let routes = this._routes;
-		let patternMatched: any = null;
+		let patternMatched: string | undefined = undefined;
 		this.params = {};
 		let routePaths = this.pages;
 		if (routePaths.length == 0) {
@@ -258,79 +269,96 @@ export class CtRouter extends LitElement {
 		if (patternMatched) {
 			// Si la vista es protegida y no esta logeado entonces lo mando a /login y no esta autenticado
 			if (routes[patternMatched].auth && !this.auth) {
+				console.warn("You need to log in to perform this action");
 				this.patternMatched = patternMatched = this.loginFallback;
-				console.warn('Se necesita iniciar sesion para realizar esta accion');
-				this.fire('login-needed', { path: window.location.pathname });
+				let ce = new CustomEvent("login-needed", {detail:{ path: window.location.pathname }});
+				this.dispatchEvent(ce);
+				window.dispatchEvent(ce)
 				this._currentView = this._routes[this.loginFallback].element;
 			} else {
 				this.patternMatched = patternMatched;
 				this._currentView = this._routes[patternMatched].element;
 			}
 		} else {
-			this.patternMatched = patternMatched = '/404';
-			console.log('/404');
-			this._currentView = this._routes['/404'].element;
+			this.patternMatched = patternMatched = "/404";
+			console.log("/404");
+			this._currentView = this._routes["/404"].element;
 		}
 
-		this.fire('location-changed', {
-			path: patternMatched,
-			pathname: this.pathname,
-			queryParams: this.queryParams,
-			params: this.params
-		});
+		this.dispatchEvent(
+			new CustomEvent("location-changed", {
+				detail: {
+					path: patternMatched,
+					pathname: this.pathname,
+					queryParams: this.queryParams,
+					params: this.params
+				}
+			})
+		);
 		if (patternMatched && routes[patternMatched]) {
 			let fromImport = routes[patternMatched].from;
 			if (fromImport) {
-				this.fire('loading', true);
+				this.dispatchEvent(new CustomEvent("loading", { detail: true }));
 				fromImport()
 					.then(() => {
-						this.fire(patternMatched);
-						setTimeout(() => this.fire('loading', false), 500);
+						if (patternMatched)
+							this.dispatchEvent(new CustomEvent(patternMatched));
+						setTimeout(
+							() =>
+								this.dispatchEvent(
+									new CustomEvent("loading", { detail: false })
+								),
+							500
+						);
 					})
 					.catch((e: any) => {
 						console.error(e);
-						if (`${e}`.includes('ChunkLoadError')) {
+						if (`${e}`.includes("ChunkLoadError")) {
 							setTimeout(() => location.reload(), 10000);
 						}
 						console.error("Can't lazy-import - " + fromImport);
 					});
 			} else {
-				setTimeout(() => this.fire('loading', false), 800);
+				setTimeout(
+					() =>
+						this.dispatchEvent(new CustomEvent("loading", { detail: false })),
+					800
+				);
 			}
 			if (routes[patternMatched].title()) {
 				document.title = routes[patternMatched].title() as string;
 			}
 		}
 	}
-
-	fire(name: string, value?: any) {
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
 }
 
 export function href(path: string, name: string = document.title) {
 	window.history.pushState({}, name, path);
-	window.dispatchEvent(new CustomEvent('location-changed'));
+	window.dispatchEvent(new CustomEvent("location-changed"));
 }
 
-// @ts-ignore
 window.href = href;
 
-export function getCtRouter(): CtRouter {
-	// @ts-ignore
+export function getCtRouter() {
 	return window.ctrouter;
 }
 
+export function getQuery(): URLSearchParams {
+	let u = new URL(location.href);
+	return u.searchParams;
+}
+
+/** @deprecated */
 export function getQueryParams() {
-	let pairs = window.location.search.substring(1).split('&'),
+	let pairs = window.location.search.substring(1).split("&"),
 		obj: { [x: string]: any } = {},
 		pair,
 		i;
 
 	for (i in pairs) {
-		if (pairs[i] === '') continue;
+		if (pairs[i] === "") continue;
 
-		pair = pairs[i].split('=');
+		pair = pairs[i].split("=");
 		obj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 	}
 	return obj || {};
