@@ -1,5 +1,4 @@
 import { css, CtLit, customElement, html, property } from '@conectate/ct-lit';
-import {getClient} from '@conectate/ct-helpers/ct-helpers';
 import '@material/mwc-checkbox';
 import { Checkbox } from '@material/mwc-checkbox';
 // @ts-ignore HACK: temporary patch to fix a safari issue

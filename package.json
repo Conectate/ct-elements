@@ -1,6 +1,8 @@
 {
-  "dependencies": {
-    "@conectate/ct-chartjs": "file:./packages/ct-chartjs",
-    "@conectate/ct-elements": "file:./packages/ct-elements"
-  }
+	"name": "conectate-elements",
+	"version": "2.0.0",
+	"dependencies": {
+		"@conectate/ct-elements": "file:./packages/ct-elements"
+	},
+	"private": true
 }

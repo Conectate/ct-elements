@@ -1,14 +1,10 @@
 {
 	"name": "@conectate/ct-helpers",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Simple helpers for web developers",
-	"main": "dist/ct-helpers.js",
-	"types": "dist/ct-helpers.d.ts",
-	"license": "BSD-3-Clause",
-	"scripts": {
-		"build": "tsc",
-		"prepublish": "rm -rf dist && tsc"
-	},
+	"main": "ct-helpers.js",
+	"module": "ct-helpers.js",
+	"types": "ct-helpers.d.ts",
 	"keywords": [
 		"Get Client",
 		"User Agent",
@@ -17,6 +13,12 @@
 		"Generate ID"
 	],
 	"dependencies": {},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
 	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
@@ -25,7 +27,6 @@
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
-	"homepage": "https://github.com/conectate/ct-elements",
 	"publishConfig": {
 		"access": "public"
 	}

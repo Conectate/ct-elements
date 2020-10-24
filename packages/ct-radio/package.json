@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "lit-element": "^2.4.0",
-    "@material/mwc-radio": "^0.18.0"
+    "@material/mwc-radio": "^0.19.1"
   },
   "publishConfig": {
     "access": "public"

@@ -14,7 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0"
+		"lit-element": "^2.4.0",
+		"@material/mwc-ripple" : "^0.19.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
