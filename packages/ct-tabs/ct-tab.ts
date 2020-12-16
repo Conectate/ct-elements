@@ -31,7 +31,7 @@ export class CtTab extends CtLit {
 					border-top-width: 3px;
 					border-top-style: solid;
 					-webkit-border-radius: 0.4rem 0.4rem 0 0;
-					border-color: var(--ct-tabs-border-color, var(--primary-color, #0e92c1));
+					border-color: var(--ct-tabs-border-color, var(--color-primary, #0e92c1));
 					border-radius: 0.4rem 0.4rem 0 0;
 					bottom: 0;
 					content: '';
@@ -43,7 +43,7 @@ export class CtTab extends CtLit {
 				:host([selected]) {
 					font-weight: bold;
 					/* flex: 30; */
-					color: var(--ct-tabs-border-color, var(--primary-color, #0e92c1));
+					color: var(--ct-tabs-border-color, var(--color-primary, #0e92c1));
 				}
 				@media (max-width: 1001px) {
 					:host {

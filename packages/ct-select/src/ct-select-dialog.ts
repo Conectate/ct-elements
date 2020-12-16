@@ -97,7 +97,7 @@ export class CtSelectDialog extends CtLit {
 				font-size: 1.5em;
 				font-weight: 400;
 				margin: 24px 24px 0;
-				color: var(--on-surface, #535353);
+				color: var(--color-on-surface, #535353);
 			}
 
 			.body {
@@ -115,7 +115,7 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			.body::-webkit-scrollbar-thumb {
-				background-color: var(--primary-color);
+				background-color: var(--color-primary);
 				outline: 1px solid slategrey;
 				border-radius: 8px;
 			}
@@ -125,7 +125,7 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			.buttons {
-				color: var(--primary-color);
+				color: var(--color-primary);
 				display: block;
 				flex-direction: row;
 				text-align: right;
@@ -148,12 +148,12 @@ export class CtSelectDialog extends CtLit {
 
 			a {
 				text-decoration: none;
-				color: var(--primary-color);
+				color: var(--color-primary);
 			}
 
 			button {
 				min-width: 170px;
-				color: var(--on-surface, #535353);
+				color: var(--color-on-surface, #535353);
 				margin: 0;
 				padding: 6px 16px;
 				height: 38px;
@@ -162,14 +162,14 @@ export class CtSelectDialog extends CtLit {
 				outline: none;
 				border: none;
 				text-align: left;
-				border-bottom: 1px solid var(--on-surface-dividers, #e8e8e8);
+				border-bottom: 1px solid var(--color-on-surface-dividers, #e8e8e8);
 				cursor: pointer;
 				transition: all 0.15s ease;
 			}
 
 			button:hover {
-				background: var(--primary-color-light);
-				color: var(--primary-color);
+				background: var(--color-primary-light);
+				color: var(--color-primary);
 				border-radius: 8px;
 			}
 
@@ -195,7 +195,7 @@ export class CtSelectDialog extends CtLit {
 				flex-direction: column;
 				max-height: 100%;
 				margin: 0;
-				background: var(--app-surface, #fff);
+				background: var(--color-surface, #fff);
 			}
 
 			@media (max-width: 800px) {

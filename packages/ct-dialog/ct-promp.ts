@@ -62,7 +62,7 @@ export class CTPromp extends CtLit {
     }
 
     .buttons {
-        color: var(--primary-color);
+        color: var(--color-primary);
         display: flex;
         flex-direction: row;
         text-align: center;
@@ -85,7 +85,7 @@ export class CTPromp extends CtLit {
     
     a {
         text-decoration: none;
-        color: var(--primary-color);
+        color: var(--color-primary);
     }
 
     @media (max-width: 800px) {

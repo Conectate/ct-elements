@@ -36,7 +36,7 @@ class CtMenu extends CtLit {
 			-webkit-transition: all 0.2s ease;
 			transition: all 0.2s ease;
 			z-index: 99;
-			background: var(--app-surface, #fff);
+			background: var(--color-surface, #fff);
 			border-radius: 8px;
 			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 			opacity: 0;
@@ -55,7 +55,7 @@ class CtMenu extends CtLit {
 
 		.dd-menu ::slotted(button) {
 			min-width: 220px;
-			color: var(--on-surface, #474747);
+			color: var(--color-on-surface, #474747);
 			margin: 0;
 			padding: 8px 16px;
 			min-height: 38px;
@@ -66,7 +66,7 @@ class CtMenu extends CtLit {
 			font-size: 1em;
 			text-align: left;
 			font-weight: 500;
-			/* border-bottom: 0.5px solid var(--on-surface-dividers,#dadce0); */
+			/* border-bottom: 0.5px solid var(--color-on-surface-dividers,#dadce0); */
 		}
 		.dd-menu ::slotted(button:last-of-type) {
 			border: none;
@@ -84,14 +84,14 @@ class CtMenu extends CtLit {
 		.dd-menu ::slotted(span:empty),
 		.dd-menu ::slotted(hr) {
 			height: 1px;
-			background: var(--on-surface-dividers, #dadce0);
+			background: var(--color-on-surface-dividers, #dadce0);
 			margin: 4px 2px;
-			border: 0.5px solid var(--on-surface-dividers, #dadce0);
+			border: 0.5px solid var(--color-on-surface-dividers, #dadce0);
 		}
 		.dd-menu ::slotted(h1) {
 			padding: 8px 16px;
 			font-size: 0.8em;
-			color: var(--primary-color);
+			color: var(--color-primary);
 			font-weight: bold;
 			text-transform: uppercase;
 			letter-spacing: 0.15em;
@@ -100,8 +100,8 @@ class CtMenu extends CtLit {
 		}
 
 		.dd-menu ::slotted(button:hover) {
-			background: var(--primary-color-light);
-			color: var(--primary-color);
+			background: var(--color-primary-light);
+			color: var(--color-primary);
 			transition: all 0.15s ease;
 		}
 
@@ -117,7 +117,7 @@ class CtMenu extends CtLit {
 
 		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 			.dd-menu {
-				background: var(--app-blur-surface, rgba(255, 255, 255, 0.5));
+				background: var(--color-blur-surface, rgba(255, 255, 255, 0.5));
 				backdrop-filter: blur(10px);
 				-webkit-backdrop-filter: blur(10px);
 			}

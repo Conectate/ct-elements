@@ -78,7 +78,7 @@ export class CTConfirm extends CtLit {
 				}
 
 				.buttons {
-					color: var(--primary-color);
+					color: var(--color-primary);
 					display: flex;
 					flex-direction: row;
 					text-align: center;
@@ -92,7 +92,7 @@ export class CTConfirm extends CtLit {
 
 				a {
 					text-decoration: none;
-					color: var(--primary-color);
+					color: var(--color-primary);
 				}
 
 				@media (max-width: 800px) {
@@ -214,12 +214,12 @@ export class CTConfirmCupertino extends CtLit {
 					max-height: 80vh;
 					margin: 0;
 					border-radius: 12px;
-					background-color: var(--app-background, rgba(255, 255, 255, 0.85));
+					background-color: var(--color-background, rgba(255, 255, 255, 0.85));
 				}
 
 				@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 					:host {
-						background-color: var(--app-blur, rgba(255, 255, 255, 0.72));
+						background-color: var(--color-blur, rgba(255, 255, 255, 0.72));
 						backdrop-filter: saturate(180%) blur(20px);
 						-webkit-backdrop-filter: saturate(180%) blur(20px);
 					}
@@ -239,7 +239,7 @@ export class CTConfirmCupertino extends CtLit {
 				}
 
 				.body {
-					color: var(--on-background, #474747);
+					color: var(--color-on-background, #474747);
 					font-size: 13px;
 					text-align: center;
 					white-space: pre-wrap;
@@ -253,7 +253,7 @@ export class CTConfirmCupertino extends CtLit {
 				}
 
 				.buttons {
-					color: var(--primary-color);
+					color: var(--color-primary);
 					display: flex;
 					flex-direction: row-reverse;
 					text-align: center;
@@ -264,8 +264,8 @@ export class CTConfirmCupertino extends CtLit {
 					padding: 11px 20px;
 					font-size: 17px;
 					/* color: rgb(24, 126, 251); */
-					border-top: 1px solid var(--on-surface-dividers);
-					border-left: 1px solid var(--on-surface-dividers);
+					border-top: 1px solid var(--color-on-surface-dividers);
+					border-left: 1px solid var(--color-on-surface-dividers);
 					flex: 1;
 				}
 
@@ -275,7 +275,7 @@ export class CTConfirmCupertino extends CtLit {
 
 				a {
 					text-decoration: none;
-					color: var(--primary-color);
+					color: var(--color-primary);
 				}
 
 				.buttons_vert {

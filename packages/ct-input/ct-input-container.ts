@@ -30,7 +30,7 @@ class CtInputContainer extends CtLit {
 			:host {
 				display: inline-block;
 				margin-bottom: 8px;
-				color: var(--on-surface, #535353);
+				color: var(--color-on-surface, #535353);
 			}
 
 			:host([block]) {
@@ -76,7 +76,7 @@ class CtInputContainer extends CtLit {
 				margin: 0 auto;
 				border-radius: 16px;
 				background: rgba(121, 130, 142, 0.1);
-				color: var(--on-surface, #535353);
+				color: var(--color-on-surface, #535353);
 				transition: all 0.2s;
 				padding: 0em 1em;
 			}
@@ -129,7 +129,7 @@ class CtInputContainer extends CtLit {
 				line-height: inherit;
 				text-shadow: inherit;
 				transition: all 0.2s;
-				caret-color: var(--primary-color, #2cb5e8);
+				caret-color: var(--color-primary, #2cb5e8);
 			}
 
 			input:invalid {
@@ -141,7 +141,7 @@ class CtInputContainer extends CtLit {
 			}
 
 			input::selection {
-				background: var(--primary-color, #2cb5e8);
+				background: var(--color-primary, #2cb5e8);
 				color: white;
 			}
 
@@ -152,7 +152,7 @@ class CtInputContainer extends CtLit {
 
 			h4 {
 				margin: 5px 8px 8px;
-				color: var(--on-surface, #535353);
+				color: var(--color-on-surface, #535353);
 				display: block;
 				font-weight: 500;
 				font-size: 0.8rem;

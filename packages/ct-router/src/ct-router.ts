@@ -14,7 +14,7 @@ export interface Page {
 	groups?: string[];
 	extra?: {
 		[x: string]: any;
-	}
+	};
 }
 export interface LocationChanged {
 	//patternMatched like a: /:profile/preferences
@@ -104,6 +104,11 @@ export class CtRouter extends LitElement {
 	}
 	firstUpdated() {
 		this._contentAdded(this.pages);
+	}
+	updated(m: Map<string, any>) {
+		if (m.has("pages")) {
+			this._contentAdded(this.pages || []);
+		}
 	}
 
 	replaceState(data: object, title: string, url: string) {
@@ -208,6 +213,7 @@ export class CtRouter extends LitElement {
 	 * for easy referencing
 	 */
 	_contentAdded(pages: Page[]) {
+		let newContentRoutes: { [key: string]: boolean } = {};
 		for (let el of pages) {
 			if (el && el.path) {
 				let c2regexp: C2RegexpType;
@@ -220,7 +226,8 @@ export class CtRouter extends LitElement {
 				} else {
 					c2regexp = C2Regexp(el.path);
 				}
-				if (!this._routes[el.path]) {
+				if (!newContentRoutes[el.path]) {
+					newContentRoutes[el.path] = true;
 					this._routes[el.path] = {
 						path: el.path,
 						element: el.element,
@@ -229,7 +236,7 @@ export class CtRouter extends LitElement {
 						auth: el.auth,
 						title: el.title
 					};
-				} else {
+				}else{
 					console.warn(new Error(`The Path: '${el.path}' already use`));
 				}
 			}
@@ -271,9 +278,11 @@ export class CtRouter extends LitElement {
 			if (routes[patternMatched].auth && !this.auth) {
 				console.warn("You need to log in to perform this action");
 				this.patternMatched = patternMatched = this.loginFallback;
-				let ce = new CustomEvent("login-needed", {detail:{ path: window.location.pathname }});
+				let ce = new CustomEvent("login-needed", {
+					detail: { path: window.location.pathname }
+				});
 				this.dispatchEvent(ce);
-				window.dispatchEvent(ce)
+				window.dispatchEvent(ce);
 				this._currentView = this._routes[this.loginFallback].element;
 			} else {
 				this.patternMatched = patternMatched;

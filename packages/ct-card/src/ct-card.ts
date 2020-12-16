@@ -34,9 +34,9 @@ declare global {
  * @attr padding - Add box-shadow to element
  */
 @customElement("ct-card")
-export default class CtCard extends LitElement {
+export class CtCard extends LitElement {
 	/**
-	 * Add border-top to card with --app-grad  CSS var
+	 * Add border-top to card with --color-grad  CSS var
 	 */
 	@property({ type: Boolean }) border = false;
 
@@ -45,10 +45,10 @@ export default class CtCard extends LitElement {
 			display: block;
 			position: relative;
 			margin: 16px auto;
-			border: 1px solid var(--on-surface-dividers, #dadce0);
+			border: 1px solid var(--color-on-surface-dividers, #dadce0);
 			border-radius: 16px;
-			color: var(--on-surface);
-			background-color: var(--app-surface, #fff);
+			color: var(--color-on-surface);
+			background-color: var(--color-surface, #fff);
 		}
 		:host([shadow]) {
 			box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02),
@@ -60,7 +60,7 @@ export default class CtCard extends LitElement {
 			overflow: hidden;
 		}
 		:host([padding]){
-			color: var(--on-surface, #535353);
+			color: var(--color-on-surface, #535353);
 			padding: 16px;
 		}
 
@@ -70,14 +70,14 @@ export default class CtCard extends LitElement {
 
 		:host ::slotted(.card-content),
 		:host([data-content]) {
-			color: var(--on-surface, #535353);
+			color: var(--color-on-surface, #535353);
 			padding: 16px;
 		}
 		.div {
 			height: 6px;
 			min-height: 6px;
 			background: var(
-				--app-color,
+				--color-app,
 				linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%)
 			);
 			border-radius: 8px 8px 0 0;

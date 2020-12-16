@@ -4,5 +4,8 @@
 	"dependencies": {
 		"@conectate/ct-elements": "file:./packages/ct-elements"
 	},
-	"private": true
+	"private": true,
+	"devDependencies": {
+		"@types/chart.js": "^2.9.27"
+	}
 }

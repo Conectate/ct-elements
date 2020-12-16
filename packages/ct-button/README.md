@@ -67,7 +67,7 @@ _None_
 
 | Custom property            | Description          | Default                                   |
 | -------------------------- | -------------------- | ----------------------------------------- |
-| `--primary-color`          | Primary color        | `#00aeff`                                 |
+| `--color-primary`          | Primary color        | `#00aeff`                                 |
 | `--dark-primary-color`     | Dark Primary color   | `#00aeff`                                 |
 | `--ct-button-box-shadow`   | Box-Shadow for hover | `0 2px 16px 4px rgba(99, 188, 240, 0.45)` |
 | `--ct-button-shadow-color` | -                    | `rgba(64, 117, 187, 0.1)`                 |

@@ -3,6 +3,8 @@
 	"version": "1.0.1",
 	"description": "Wrapper from LitElement",
 	"main": "ct-chartjs.js",
+	"typings": "ct-chartjs.d.ts",
+	"module": "ct-chartjs.js",
 	"devDependencies": {
 		"@types/chart.js": "^2.9.25"
 	},

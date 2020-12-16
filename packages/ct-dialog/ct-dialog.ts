@@ -46,7 +46,7 @@ export function closeCtDialog(id?: string) {
 				await modal.closeDialog();
 			}
 		}
-		resolve();
+		resolve(0);
 	});
 }
 
@@ -210,9 +210,9 @@ export class CtDialog extends CtLit {
 			-webkit-flex-direction: column;
 			flex-direction: column;
 			box-sizing: border-box;
-			--mdc-theme-secondary: var(--primary-color);
-			--mdc-theme-primary: var(--primary-color);
-			--mdc-checkbox-unchecked-color: var(--on-background);
+			--mdc-theme-secondary: var(--color-primary);
+			--mdc-theme-primary: var(--color-primary);
+			--mdc-checkbox-unchecked-color: var(--color-on-background);
 		}
 
 		.overlay {

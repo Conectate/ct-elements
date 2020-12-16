@@ -61,7 +61,7 @@ _None_
 
 | Custom property            | Description          | Default                                   |
 | -------------------------- | -------------------- | ----------------------------------------- |
-| `--primary-color`          | Primary color        | `#00aeff`                                 |
+| `--color-primary`          | Primary color        | `#00aeff`                                 |
 | `--dark-primary-color`     | Dark Primary color   | `#00aeff`                                 |
 | `--ct-button-box-shadow`   | Box-Shadow for hover | `0 2px 16px 4px rgba(99, 188, 240, 0.45)` |
 | `--ct-button-shadow-color` | -                    | `rgba(64, 117, 187, 0.1)`                 |
@@ -94,7 +94,7 @@ export class CtButton extends LitElement {
 					padding: 0.6em 1.7em;
 					border-radius: 26px;
 					font-size: 1em;
-					color: var(--primary-color, #00aeff);
+					color: var(--color-primary, #00aeff);
 					text-transform: none;
 					transition: background-color 200ms, box-shadow 350ms;
 					border: 1px solid rgba(128, 128, 128, 0.31);
@@ -118,7 +118,7 @@ export class CtButton extends LitElement {
 				}
 
 				:host([raised]) {
-					background: var(--primary-color, #00aeff);
+					background: var(--color-primary, #00aeff);
 					color: #fff;
 					border: none;
 				}
@@ -130,7 +130,7 @@ export class CtButton extends LitElement {
 
 				:host([light]) {
 					background: transparent;
-					border: 1px solid var(--primary-color, #00aeff);
+					border: 1px solid var(--color-primary, #00aeff);
 				}
 
 				:host([hidden]) {

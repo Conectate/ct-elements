@@ -18,14 +18,14 @@ The Conectate Elements (CT) are a collection of [Web Components](https://develop
 | [`<ct-lit>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-lit)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-lit.svg)](https://www.npmjs.com/package/@conectate/ct-lit) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-lit%22)
 
 
-## Quick start
+## Quick start with `ct-button`
 
 #### 1) Install
 
 Install a component (ct-button for example) from NPM:
 
 ```sh
-npm install @conectate/ct-button @webcomponents/webcomponentsjs
+npm i @conectate/ct-button @webcomponents/webcomponentsjs
 # or
 yarn install @conectate/ct-button @webcomponents/webcomponentsjs
 ```
@@ -55,10 +55,10 @@ Import the component's JavaScript module, use the component in your HTML, and co
       // Importing this module registers <ct-button> as an element that you
       // can use in this page.
       //
-      // !!!
+      // ====================================================================
       // Note this import is a BARE MODULE specifier, so it must be converted
       // to a path using a server such as es-dev-server.
-      // !!!
+      // ====================================================================
       import '@conectate/ct-button';
 
       // Standard DOM APIs work with Web Components just like they do for

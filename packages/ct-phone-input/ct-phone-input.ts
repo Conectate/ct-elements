@@ -15,7 +15,7 @@ class CtPhoneInput extends CtLit {
         <style>
             :host {
                 display: block;
-                color: var(--on-surface, #535353);
+                color: var(--color-on-surface, #535353);
             }
 
             *:focus {
@@ -31,7 +31,7 @@ class CtPhoneInput extends CtLit {
                 width: auto;
                 height: 3.3em;
                 line-height: 3.3em;
-                color: var(--on-surface, #535353);
+                color: var(--color-on-surface, #535353);
             }
 
             .sep {

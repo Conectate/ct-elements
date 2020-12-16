@@ -13,7 +13,7 @@ import { CtLit, html, property } from '@conectate/ct-lit';
  * @attr contain - For contain background size
  * @attr background-position - Position of Backgroud
  */
-class CtImg extends CtLit {
+export class CtImg extends CtLit {
     @property({ type: String }) srcset?: string;
     @property({ type: String }) alt: string = '';
     @property({ type: String })src: string = '';
@@ -243,3 +243,9 @@ class CtImg extends CtLit {
 }
 
 customElements.define('ct-img', CtImg);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-img': CtImg;
+	}
+}

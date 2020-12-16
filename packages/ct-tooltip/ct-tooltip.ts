@@ -3,7 +3,7 @@ export let tooltipStyles = css`
 	/* Add this attribute to the element that needs a tooltip */
 	[data-tooltip] {
 		position: relative;
-		z-index: 150;
+		z-index: 100;
 		cursor: pointer;
 	}
 

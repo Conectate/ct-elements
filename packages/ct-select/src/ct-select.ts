@@ -55,7 +55,7 @@ export class CtSelect extends CtLit {
 					margin-bottom: 8px;
 					min-width: 250px;
 					cursor: pointer;
-					color: var(--on-surface, #535353);
+					color: var(--color-on-surface, #535353);
 				}
 				:host > div {
 					width: 100%;
@@ -166,7 +166,7 @@ export class CtSelect extends CtLit {
 
 				.h4 {
 					margin: 5px 8px 8px;
-					color: var(--on-surface, #535353);
+					color: var(--color-on-surface, #535353);
 					display: block;
 					font-weight: 500;
 					font-size: 0.8rem;

@@ -22,8 +22,8 @@ export class CtAutocompleteSuggestions extends CtLit {
 					position: absolute;
 					width: 100%;
 					z-index: 1000;
-					background-color: var(--app-surface);
-					color: var(--on-surface);
+					background-color: var(--color-surface);
+					color: var(--color-on-surface);
 					max-height: 252px;
 					overflow-y: auto;
 					box-shadow: 0 4px 28px 4px rgba(0, 0, 0, 0.4);
@@ -35,7 +35,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 
 				@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 					.wrapper {
-						background: var(--app-blur-surface, rgba(255, 255, 255, 0.5));
+						background: var(--color-blur-surface, rgba(255, 255, 255, 0.5));
 						backdrop-filter: blur(10px);
 						-webkit-backdrop-filter: blur(10px);
 					}

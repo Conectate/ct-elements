@@ -39,41 +39,41 @@
 "@conectate/ct-dialog@file:packages/ct-dialog":
   version "1.0.0"
   dependencies:
-    "@conectate/ct-button" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-e5e124e2-67ab-4c11-bb87-17454174f5c2-1603518494629/node_modules/@conectate/ct-button"
-    "@conectate/ct-card" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-e5e124e2-67ab-4c11-bb87-17454174f5c2-1603518494629/node_modules/@conectate/ct-card"
-    "@conectate/ct-helpers" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-e5e124e2-67ab-4c11-bb87-17454174f5c2-1603518494629/node_modules/@conectate/ct-helpers"
+    "@conectate/ct-button" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-5bf2296f-5f8a-465e-9828-dbd034ee587e-1604641539496/node_modules/@conectate/ct-button"
+    "@conectate/ct-card" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-5bf2296f-5f8a-465e-9828-dbd034ee587e-1604641539496/node_modules/@conectate/ct-card"
+    "@conectate/ct-helpers" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-dialog-1.0.0-5bf2296f-5f8a-465e-9828-dbd034ee587e-1604641539496/node_modules/@conectate/ct-helpers"
     "@conectate/ct-lit" "^1.1.0"
     lit-element "^2.4.0"
 
 "@conectate/ct-elements@file:./packages/ct-elements":
   version "1.0.1"
   dependencies:
-    "@conectate/ct-button" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-button"
-    "@conectate/ct-card" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-card"
-    "@conectate/ct-chartjs" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-chartjs"
-    "@conectate/ct-checkbox" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-checkbox"
-    "@conectate/ct-collapse" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-collapse"
-    "@conectate/ct-date" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-date"
-    "@conectate/ct-dialog" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-dialog"
-    "@conectate/ct-helpers" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-helpers"
-    "@conectate/ct-icon" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-icon"
-    "@conectate/ct-img" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-img"
-    "@conectate/ct-input" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-input"
-    "@conectate/ct-list" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-list"
+    "@conectate/ct-button" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-button"
+    "@conectate/ct-card" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-card"
+    "@conectate/ct-chartjs" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-chartjs"
+    "@conectate/ct-checkbox" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-checkbox"
+    "@conectate/ct-collapse" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-collapse"
+    "@conectate/ct-date" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-date"
+    "@conectate/ct-dialog" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-dialog"
+    "@conectate/ct-helpers" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-helpers"
+    "@conectate/ct-icon" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-icon"
+    "@conectate/ct-img" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-img"
+    "@conectate/ct-input" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-input"
+    "@conectate/ct-list" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-list"
     "@conectate/ct-lit" "^1.1.0"
-    "@conectate/ct-loading" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-loading"
-    "@conectate/ct-loading-placeholder" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-loading-placeholder"
-    "@conectate/ct-menu" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-menu"
-    "@conectate/ct-phone-input" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-phone-input"
-    "@conectate/ct-qr-tools" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-qr-tools"
-    "@conectate/ct-radio" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-radio"
-    "@conectate/ct-router" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-router"
-    "@conectate/ct-select" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-select"
-    "@conectate/ct-snackbar" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-snackbar"
-    "@conectate/ct-spinner" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-spinner"
-    "@conectate/ct-tabs" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-tabs"
-    "@conectate/ct-tooltip" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/ct-tooltip"
-    "@conectate/lit-if" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-d424cf0e-76c9-43d1-a762-447379dfacee-1603518494637/node_modules/@conectate/lit-if"
+    "@conectate/ct-loading" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-loading"
+    "@conectate/ct-loading-placeholder" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-loading-placeholder"
+    "@conectate/ct-menu" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-menu"
+    "@conectate/ct-phone-input" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-phone-input"
+    "@conectate/ct-qr-tools" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-qr-tools"
+    "@conectate/ct-radio" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-radio"
+    "@conectate/ct-router" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-router"
+    "@conectate/ct-select" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-select"
+    "@conectate/ct-snackbar" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-snackbar"
+    "@conectate/ct-spinner" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-spinner"
+    "@conectate/ct-tabs" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-tabs"
+    "@conectate/ct-tooltip" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/ct-tooltip"
+    "@conectate/lit-if" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-elements-1.0.1-85ad19ae-29b6-4f3e-ab41-b5d06c1d3c44-1604641539401/node_modules/@conectate/lit-if"
     lit-element "^2.4.0"
 
 "@conectate/ct-helpers@0.0.1":
@@ -91,8 +91,6 @@
 
 "@conectate/ct-img@file:packages/ct-img":
   version "1.0.0"
-  dependencies:
-    lit-element "^2.4.0"
 
 "@conectate/ct-input@file:packages/ct-input":
   version "1.0.0"
@@ -102,7 +100,7 @@
 "@conectate/ct-list@file:packages/ct-list":
   version "1.0.0"
   dependencies:
-    "@conectate/ct-icon" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-list-1.0.0-4f673fac-3bdd-44ec-928c-107cd13c6002-1603518494630/node_modules/@conectate/ct-icon"
+    "@conectate/ct-icon" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-list-1.0.0-a3c47742-f7e5-46e6-8e39-9eb5316e94f8-1604641539507/node_modules/@conectate/ct-icon"
     lit-element "^2.4.0"
 
 "@conectate/ct-lit@^1.1.0", "@conectate/ct-lit@^1.1.1":
@@ -155,9 +153,9 @@
 "@conectate/ct-select@file:packages/ct-select":
   version "0.0.1"
   dependencies:
-    "@conectate/ct-button" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-cfb429ab-62c0-42c7-998b-1e7796d08487-1603518494634/node_modules/@conectate/ct-button"
-    "@conectate/ct-card" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-cfb429ab-62c0-42c7-998b-1e7796d08487-1603518494634/node_modules/@conectate/ct-card"
-    "@conectate/ct-dialog" "file:../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-cfb429ab-62c0-42c7-998b-1e7796d08487-1603518494634/node_modules/@conectate/ct-dialog"
+    "@conectate/ct-button" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-56e3d8f6-bafe-459b-8100-4d7d5e5e197e-1604641539509/node_modules/@conectate/ct-button"
+    "@conectate/ct-card" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-56e3d8f6-bafe-459b-8100-4d7d5e5e197e-1604641539509/node_modules/@conectate/ct-card"
+    "@conectate/ct-dialog" "file:../../../../Library/Caches/Yarn/v6/npm-@conectate-ct-select-0.0.1-56e3d8f6-bafe-459b-8100-4d7d5e5e197e-1604641539509/node_modules/@conectate/ct-dialog"
     "@conectate/ct-lit" "^1.1.0"
     lit-element "^2.4.0"
 
@@ -301,6 +299,13 @@
   dependencies:
     "@material/base" "8.0.0-canary.774dcfc8e.0"
     "@material/feature-targeting" "8.0.0-canary.774dcfc8e.0"
+
+"@types/chart.js@^2.9.27":
+  version "2.9.27"
+  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.27.tgz#716fd57b4cc791dc592cd424a44df95f2aefb918"
+  integrity sha512-b3ho2RpPLWzLzOXKkFwpvlRDEVWQrCknu2/p90mLY5v2DO8owk0OwWkv4MqAC91kJL52bQGXkVw/De+N/0/1+A==
+  dependencies:
+    moment "^2.10.2"
 
 "@types/node@*":
   version "14.11.5"

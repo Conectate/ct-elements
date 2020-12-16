@@ -1,21 +1,32 @@
-# \<ct-input\>
+# `ct-select`
 
-Input element
+## Basic Example
 
-## Install the Polymer-CLI
+```typescript
+// import { ... } from 'lit-element';
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.
+// @conectate/ct-lit is a base class wrapper of lit-element
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 
-## Viewing Your Element
+@customElement('my-select')
+export class MySelect extends CtLit {
+	items: { text: string; value: any }[] = [
+		{ text: 'Item 1', value: 1 },
+		{ text: 'Item 2', value: 2 },
+		{ text: 'Item 3', value: 3 }
+	];
+	render() {
+		return html` <ct-select id="select" label="selecciona uno" .items=${this.items} @value=${this.onSelectItem}></ct-select> `;
+	}
 
+	firstUpdated() {
+		this.mapIDs(); // map ID's in this.$ = { ... }
+	}
+
+	onSelectItem(e: CustomEvent<{ value: any }>) {
+		console.log(this.$.select.value);
+		// or
+		console.log(e.detail.value);
+	}
+}
 ```
-$ polymer serve
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.

@@ -29,9 +29,9 @@ class CtSnackbar extends CtLit {
 					right: calc(50% - 160px);
 					width: 320px;
 					bottom: 0;
-					background: var(--on-background, #3c3f41);
+					background: var(--color-on-background, #3c3f41);
 					box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-					color: var(--app-background, #e9e9e9);
+					color: var(--color-background, #e9e9e9);
 					padding: 12px;
 					visibility: hidden;
 					border-radius: 16px 16px 0 0;

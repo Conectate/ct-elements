@@ -31,9 +31,9 @@ export class CtCardDialog extends CtLit {
         margin: 16px auto;
         overflow:auto;
         border-radius: 16px;
-        background:var(--app-background,#FFF);
+        background:var(--color-background,#FFF);
         box-shadow: 0 8px 16px 0 rgba(10,14,29,.02), 0 8px 40px 0 rgba(10,14,29,.06);
-        color:var(--on-surface);
+        color:var(--color-on-surface);
     }
 
     :host(::-webkit-scrollbar) {
@@ -45,7 +45,7 @@ export class CtCardDialog extends CtLit {
     }
 
     :host(::-webkit-scrollbar-thumb) {
-        background-color: var(--primary-color);
+        background-color: var(--color-primary);
         outline: 1px solid slategrey;
         border-radius: 8px;
     }
