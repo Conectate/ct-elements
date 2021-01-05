@@ -11,7 +11,7 @@
 	],
 	"dependencies": {
 		"lit-element": "^2.4.0",
-		"@material/mwc-checkbox": "^0.19.1"
+		"@material/mwc-checkbox": "^0.20.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

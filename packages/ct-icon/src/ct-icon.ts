@@ -1,7 +1,8 @@
-import { CtLit, customElement, html, property, unsafeHTML } from '@conectate/ct-lit';
+import { LitElement, customElement, html, property } from 'lit-element';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
 @customElement('ct-icon')
-export class CtIcon extends CtLit {
+export class CtIcon extends LitElement {
 	@property({ type: String }) svg: string = '';
 	render() {
 		return html`<style>

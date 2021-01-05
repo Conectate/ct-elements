@@ -16,6 +16,7 @@ The Conectate Elements (CT) are a collection of [Web Components](https://develop
 | [`<ct-helpers>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-helpers)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-helpers.svg)](https://www.npmjs.com/package/@conectate/ct-helpers) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-helpers%22)
 | [`<ct-loading-placeholder>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-loading-placeholder)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-loading-placeholder.svg)](https://www.npmjs.com/package/@conectate/ct-loading-placeholder) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-loading-placeholder%22)
 | [`<ct-lit>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-lit)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-lit.svg)](https://www.npmjs.com/package/@conectate/ct-lit) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-lit%22)
+| [`<ct-icon>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-icon)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-icon.svg)](https://www.npmjs.com/package/@conectate/ct-icon) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-icon%22)
 
 
 ## Quick start with `ct-button`
