@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Ct Elements",
 	"scripts": {
-		"build": "rm *.js && tsc"
+		"prepare": "rm *.js && tsc"
 	},
 	"keywords": [
 		"ct-elements"

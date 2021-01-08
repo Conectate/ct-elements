@@ -1,8 +1,8 @@
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
-import { showCtSelect } from './ct-select-dialog';
-import { sleep } from '@conectate/ct-helpers';
-import { TemplateResult } from 'lit-element';
-import './ct-select-dialog';
+import { CtLit, customElement, html, property } from "@conectate/ct-lit";
+import { showCtSelect } from "./ct-select-dialog";
+import { sleep } from "@conectate/ct-helpers";
+import { TemplateResult } from "lit-element";
+import "./ct-select-dialog";
 
 export interface KeyValueCtSelect {
 	text: string;
@@ -22,10 +22,10 @@ export interface KeyValueCtSelect {
  * @fires value - Cuando el valor del select Cambia
  * @fires items - Cuando se setean nuevos items al element
  */
-@customElement('ct-select')
+@customElement("ct-select")
 export class CtSelect extends CtLit {
 	@property({ type: Boolean, reflect: true }) disabled = false;
-	@property({ type: String }) raw_placeholder = '';
+	@property({ type: String }) raw_placeholder = "";
 	okPlaceholder: string;
 	cancelPlaceholder: string;
 	selectedPlaceholder: string;
@@ -42,7 +42,7 @@ export class CtSelect extends CtLit {
 	_value: any;
 	_text: any;
 	_items: any;
-	ttl: string = '';
+	ttl: string = "";
 	searchable = false;
 	required: boolean = false;
 	renderItem?: (item: any, index: number, array: any[]) => TemplateResult;
@@ -74,7 +74,7 @@ export class CtSelect extends CtLit {
 				}
 
 				:host([required]) > #c > .label:after {
-					content: var(--ct-indicator, '*');
+					content: var(--ct-indicator, "*");
 					color: #ed4f32;
 					margin-left: 4px;
 					width: 1.5em;
@@ -115,13 +115,13 @@ export class CtSelect extends CtLit {
 					transition: all 0.2s;
 				}
 
-				::slotted([slot='prefix']) {
+				::slotted([slot="prefix"]) {
 					display: inline-block;
 					margin-right: 0.5em;
 				}
 
 				#input.has-value,
-				#container.has-value > ::slotted([slot='prefix']) {
+				#container.has-value > ::slotted([slot="prefix"]) {
 					padding-top: 1.1em;
 				}
 
@@ -239,15 +239,55 @@ export class CtSelect extends CtLit {
 					animation-duration: 0.5s;
 					animation-delay: 0.25s;
 				}
+				.da {
+					-webkit-tap-highlight-color: rgba(31, 45, 61, 0);
+					box-sizing: border-box;
+					margin: 0;
+					font-family: inherit;
+					text-transform: none;
+					display: inline-block;
+					width: 100%;
+					height: calc(1.5em + 1.5rem + 2px);
+					padding: 0.75rem 2.25rem 0.75rem 1.25rem;
+					font-size: 1rem;
+					font-weight: 400;
+					line-height: 1.5;
+					color: #4a5568;
+					vertical-align: middle;
+					background: #fff
+						url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Cpath fill='%232D3748' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E")
+						no-repeat right 1.25rem center/8px 10px;
+					border: 1px solid #e2e8f0;
+					border-radius: 0.375rem;
+					box-shadow: inset 0 1px 2px rgba(31, 45, 61, 0.075);
+					appearance: none;
+					transition: all 0.15s ease-in-out
+				}
 			</style>
 			<div id="c">
-				${this.label ? html` <label class="label h4" for="input">${this.label}</label> ` : ''}
-				<div id="container" @click="${this.onClickContainer}" class="${this.invalid ? 'error' : ''}">
-					${this.placeholder && html` <label class="float-label">${this.placeholder}</label> `}
+				${this.label
+					? html` <label class="label h4" for="input">${this.label}</label> `
+					: ""}
+				<div
+					id="container"
+					@click="${this.onClickContainer}"
+					class="${this.invalid ? "error" : ""}"
+				>
+					${this.placeholder &&
+					html` <label class="float-label">${this.placeholder}</label> `}
 					<slot name="prefix"></slot>
-					<input id="input" .value="${this.valuePlaceholder}" placeholder="${this.placeholder || this.raw_placeholder}" />
+					<input
+						id="input"
+						.value="${this.valuePlaceholder}"
+						placeholder="${this.placeholder || this.raw_placeholder}"
+					/>
 					<div class="icon">
-						<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;fill:currentColor">
+						<svg
+							viewBox="0 0 24 24"
+							preserveAspectRatio="xMidYMid meet"
+							focusable="false"
+							style="pointer-events: none; display: block; width: 100%; height: 100%;fill:currentColor"
+						>
 							<g><path d="M7 10l5 5 5-5z"></path></g>
 						</svg>
 					</div>
@@ -255,35 +295,43 @@ export class CtSelect extends CtLit {
 			</div>
 		`;
 	}
-	searchIn = '';
+	searchIn = "";
 	timeout: any;
 	constructor() {
 		super();
 		this.items = [];
-		this.okPlaceholder = 'Ok';
-		this.cancelPlaceholder = 'Cancel';
-		this.selectedPlaceholder = 'Items selected';
-		this.valuePlaceholder = '';
-		this.placeholder = '';
-		this.searchPlaceholder = 'Search...';
+		this.okPlaceholder = "Ok";
+		this.cancelPlaceholder = "Cancel";
+		this.selectedPlaceholder = "Items selected";
+		this.valuePlaceholder = "";
+		this.placeholder = "";
+		this.searchPlaceholder = "Search...";
 		this.preventClick = false;
 		this.order = null;
-		this.textProperty = 'text';
-		this.valueProperty = 'value';
+		this.textProperty = "text";
+		this.valueProperty = "value";
 		this.timeout = setTimeout(() => {
-			this.searchIn = '';
+			this.searchIn = "";
 		}, 1000);
 
-		this.addEventListener('input', (e: any) => {
-			this.searchIn += e.data || '';
+		this.addEventListener("input", (e: any) => {
+			this.searchIn += e.data || "";
 			clearTimeout(this.timeout);
-			let items = this.items.filter((item) => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
+			let items = this.items.filter((item) =>
+				item[this.textProperty]
+					.toLowerCase()
+					.startsWith(this.searchIn.toLowerCase())
+			);
 			//console.log(this.searchIn, items);
 			if (items.length > 0) {
 				this.$.input.value = items[0][this.textProperty];
 			} else {
 				let _a;
-				this.$.input.value = (_a = this.items.find((item) => item[this.valueProperty] == this.value)) ? _a[this.textProperty] : undefined;
+				this.$.input.value = (_a = this.items.find(
+					(item) => item[this.valueProperty] == this.value
+				))
+					? _a[this.textProperty]
+					: undefined;
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
@@ -293,7 +341,7 @@ export class CtSelect extends CtLit {
 						this.value = [items[0][this.valueProperty]];
 					}
 				}
-				this.searchIn = '';
+				this.searchIn = "";
 			}, 1000);
 		});
 	}
@@ -304,7 +352,7 @@ export class CtSelect extends CtLit {
 	}
 
 	typeOf(obj: any) {
-		return {}.toString.call(obj).split(' ')[1].slice(0, -1).toLowerCase();
+		return {}.toString.call(obj).split(" ")[1].slice(0, -1).toLowerCase();
 	}
 
 	computeValues() {
@@ -316,14 +364,20 @@ export class CtSelect extends CtLit {
 					let values = this.value[j];
 					if (items[this.valueProperty] == values) {
 						strBuilder.push(items[this.textProperty]);
-					} else if (this.typeOf(values) == 'object') {
-						if (JSON.stringify(items[this.valueProperty]) == JSON.stringify(values)) {
+					} else if (this.typeOf(values) == "object") {
+						if (
+							JSON.stringify(items[this.valueProperty]) ==
+							JSON.stringify(values)
+						) {
 							strBuilder.push(items[this.textProperty]);
 						}
 					}
 				}
 			}
-			this.valuePlaceholder = strBuilder.length > 2 ? strBuilder.length + ' ' + this.selectedPlaceholder : strBuilder.join(', ');
+			this.valuePlaceholder =
+				strBuilder.length > 2
+					? strBuilder.length + " " + this.selectedPlaceholder
+					: strBuilder.join(", ");
 		} else {
 			for (let i = 0; i < this.items.length; i++) {
 				let items = this.items[i];
@@ -332,7 +386,7 @@ export class CtSelect extends CtLit {
 					return;
 				}
 			}
-			this.valuePlaceholder = '';
+			this.valuePlaceholder = "";
 			//this.value = null;
 		}
 	}
@@ -344,13 +398,13 @@ export class CtSelect extends CtLit {
 	async setValue(val: any) {
 		this._value = val;
 		await this.updateComplete;
-		this.dispatchEvent(new CustomEvent('value', { detail: { value: val } }));
+		this.dispatchEvent(new CustomEvent("value", { detail: { value: val } }));
 		this.computeValues();
 		if (this.placeholder) {
-			var isEmpty = this.value === '' || this.value == undefined;
+			var isEmpty = this.value === "" || this.value == undefined;
 			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$.container);
-			this.$.container.classList.toggle('has-value', !isEmpty);
-			this.$.input.classList.toggle('has-value', !isEmpty);
+			this.$.container.classList.toggle("has-value", !isEmpty);
+			this.$.input.classList.toggle("has-value", !isEmpty);
 		}
 	}
 
@@ -367,8 +421,11 @@ export class CtSelect extends CtLit {
 					let el = this.items[i];
 					if (el[this.valueProperty] == this.value[j]) {
 						items.push(el[this.textProperty]);
-					} else if (this.typeOf(this.value[j]) == 'object') {
-						if (JSON.stringify(el[this.valueProperty]) == JSON.stringify(this.value[j])) {
+					} else if (this.typeOf(this.value[j]) == "object") {
+						if (
+							JSON.stringify(el[this.valueProperty]) ==
+							JSON.stringify(this.value[j])
+						) {
 							items.push(el[this.textProperty]);
 						}
 					}
@@ -395,27 +452,32 @@ export class CtSelect extends CtLit {
 	}
 
 	set items(val) {
-		if (this.order) this._items = this.burbuja(val, this.textProperty, this.order);
+		if (this.order)
+			this._items = this.burbuja(val, this.textProperty, this.order);
 		else this._items = val;
 		this.updateComplete.then(() => {
-			this.dispatchEvent(new CustomEvent('items', { detail: { value: val } }));
+			this.dispatchEvent(new CustomEvent("items", { detail: { value: val } }));
 			this.computeValues();
 		});
 	}
 
-	burbuja(miArray: any, attr: string, order: 'desc' | 'asc') {
+	burbuja(miArray: any, attr: string, order: "desc" | "asc") {
 		for (let i = 1; i < miArray.length; i++) {
 			for (let j = 0; j < miArray.length - i; j++) {
 				// > 123456789
 				// < 987654321
-				if (order != 'desc') {
-					if (miArray[j][attr].charCodeAt(0) < miArray[j + 1][attr].charCodeAt(0)) {
+				if (order != "desc") {
+					if (
+						miArray[j][attr].charCodeAt(0) < miArray[j + 1][attr].charCodeAt(0)
+					) {
 						let k = miArray[j + 1];
 						miArray[j + 1] = miArray[j];
 						miArray[j] = k;
 					}
 				} else {
-					if (miArray[j][attr].charCodeAt(0) > miArray[j + 1][attr].charCodeAt(0)) {
+					if (
+						miArray[j][attr].charCodeAt(0) > miArray[j + 1][attr].charCodeAt(0)
+					) {
 						let k = miArray[j + 1];
 						miArray[j + 1] = miArray[j];
 						miArray[j] = k;
@@ -499,19 +561,26 @@ export class CtSelect extends CtLit {
 	 */
 	async showDialog(): Promise<void> {
 		this.invalid = false;
-		let ctSelect = showCtSelect(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
-			multi: this.multi,
-			searchable: this.searchable,
-			searchPlaceholder: this.searchPlaceholder,
-			textProperty: this.textProperty,
-			valueProperty: this.valueProperty
-		});
+		let ctSelect = showCtSelect(
+			this.ttl ? this.ttl : this.label,
+			this.items,
+			this.value,
+			this.okPlaceholder,
+			this.cancelPlaceholder,
+			{
+				multi: this.multi,
+				searchable: this.searchable,
+				searchPlaceholder: this.searchPlaceholder,
+				textProperty: this.textProperty,
+				valueProperty: this.valueProperty
+			}
+		);
 		if (this.renderItem) ctSelect.dialog.renderItem = this.renderItem;
 		let value = await ctSelect.result;
 		if (value !== undefined) {
 			this.value = value;
 		} else {
-			this.dispatchEvent(new CustomEvent('dismiss', { detail: {} }));
+			this.dispatchEvent(new CustomEvent("dismiss", { detail: {} }));
 		}
 		if (this.required && this.value == null) {
 			this.invalid = true;
@@ -526,8 +595,8 @@ export class CtSelect extends CtLit {
 	}
 
 	async bounce() {
-		this.$.c.classList.add('bounce');
+		this.$.c.classList.add("bounce");
 		await sleep(1000);
-		this.$.c.classList.remove('bounce');
+		this.$.c.classList.remove("bounce");
 	}
 }

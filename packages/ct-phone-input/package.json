@@ -17,6 +17,6 @@
     "lit-element": "2.4.0"
   },
   "scripts": {
-    "build": "rm *.js && tsc"
+    "prepare": "rm *.js && tsc"
   }
 }

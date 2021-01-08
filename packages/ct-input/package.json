@@ -14,9 +14,7 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
   "scripts": {
-    "build2": "rm *.js && tsc",
-    "build": "rm -rf dist && tsc",
-    "prepublish": "rm -rf dist && tsc"
+    "prepare": "rm -rf dist && tsc"
   },
   "dependencies": {
     "lit-element": "^2.4.0"

@@ -11,8 +11,8 @@ declare global {
 @customElement("ct-chartjs")
 export class CtChartJS extends CtLit {
 	@property({ type: Object }) chart!: Chart.ChartConfiguration & Chart;
-	@property({ type: String }) type: Chart.ChartType = pie.type;
-	@property({ type: Object }) data: Chart.ChartData = pie.data;
+	@property({ type: String }) type!: Chart.ChartType;
+	@property({ type: Object }) data!: Chart.ChartData;
 	@property({ type: Object }) options: Chart.ChartOptions = {};
 	@property({ type: Number }) delay = 0;
 	@property({ type: Boolean }) autopaint = false;
@@ -157,6 +157,7 @@ export class CtChartJS extends CtLit {
 	};
 }
 
+/* 
 let pie = {
 	type: "pie" as Chart.ChartType,
 	data: {
@@ -227,3 +228,4 @@ let bar = {
 	},
 	options: {}
 };
+ */

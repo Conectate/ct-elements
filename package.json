@@ -2,10 +2,7 @@
 	"name": "conectate-elements",
 	"version": "2.0.0",
 	"dependencies": {
-		"@conectate/ct-lit": "^1.1.1",
-		"@material/mwc-checkbox": "^0.20.0",
-		"@material/mwc-ripple": "^0.20.0",
-		"@material/mwc-switch": "^0.20.0",
+		"@conectate/ct-elements": "file:./packages/ct-elements",
 		"lit-element": "^2.4.0",
 		"tslib": "^2.1.0",
 		"typescript": "4.1.3"

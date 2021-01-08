@@ -5,7 +5,7 @@
 	"main": "ct-collapse.js",
 	"license": "BSD-3-Clause",
 	"scripts": {
-		"build": "rm *.js && tsc"
+		"prepare": "rm *.js && tsc"
 	},
 	"keywords": [
 		"litElement",

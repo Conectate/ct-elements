@@ -1,10 +1,10 @@
 {
-  "name": "@conectate/ct-img",
-  "version": "1.0.0",
-  "description": "Lazy load images in web with Web Components and Lit-Element",
-  "module": "ct-img.js",
-  "main": "ct-img.js",
-  "typings": "ct-img.d.ts",
+	"name": "@conectate/ct-img",
+	"version": "1.0.0",
+	"description": "Lazy load images in web with Web Components and Lit-Element",
+	"module": "ct-img.js",
+	"main": "ct-img.js",
+	"typings": "ct-img.d.ts",
 	"keywords": [
 		"Lit-Element",
 		"Web Components",

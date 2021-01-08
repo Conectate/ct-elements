@@ -13,7 +13,7 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
 	"scripts": {
-		"build": "rm *.js && tsc"
+		"prepare": "rm *.js && tsc"
 	},
 	"keywords": [
 		"ct-elements"
