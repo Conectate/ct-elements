@@ -1,6 +1,5 @@
 import "@material/mwc-radio";
 
-import { getClient } from "@conectate/ct-helpers/ct-helpers";
 import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
 import { Radio } from "@material/mwc-radio";
 import { CSSResult } from "lit-element";

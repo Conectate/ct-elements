@@ -3,7 +3,7 @@ import { sleep } from "@conectate/ct-helpers";
 import './ct-autocomplete-suggestions';
 import './ct-input';
 
-class CtInputAutocomplete extends CtLit {
+export class CtInputAutocomplete extends CtLit {
 	render() {
 		return html`
 <style>

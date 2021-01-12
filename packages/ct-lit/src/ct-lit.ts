@@ -118,7 +118,7 @@ export class CtLit extends LitElement {
 		if (new_index >= array.length) {
 			let k = new_index - array.length;
 			while (k-- + 1) {
-				this.push(name, undefined);
+				array.push(undefined);
 			}
 		}
 		// @ts-ignore

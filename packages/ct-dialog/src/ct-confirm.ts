@@ -2,23 +2,19 @@
  @license
  Copyright (c) 2020 Herberth Obregón. All rights reserved.
  This code may only be used under the BSD style license found at
- http://wc.conectate.today/LICENSE.txt The complete set of authors may be found at
- http://wc.conectate.today/AUTHORS.txt The complete set of contributors may be
- found at http://wc.conectate.today/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+ https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
+ https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
+ found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
- found at http://wc.conectate.today/PATENTS.txt
+ found at https://wc.conectate.app/PATENTS.txt
  */
 import { CtLit, html } from '@conectate/ct-lit';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-card/ct-card';
 import { showCtDialog, CtDialog } from './ct-dialog';
-import { getClient } from '@conectate/ct-helpers';
 
 export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
-	let client = getClient();
-	// Si el OS es de Apple
-	// let ctConfirm = client.os == 'mac' || client.os == 'ios' ? new CTConfirmCupertino() : new CTConfirm();
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
 	ctConfirm.body = body;

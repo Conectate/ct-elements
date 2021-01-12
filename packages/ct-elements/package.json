@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "BSD-3-Clause",
   "scripts": {
-    "test": "yarn start"
+    "prepare": "echo \"ok,\""
   },
   "repository": {
     "type": "git",

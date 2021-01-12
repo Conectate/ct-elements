@@ -1,6 +1,6 @@
 import { CtLit, html, property } from "@conectate/ct-lit";
 
-class CtInputWrapper extends CtLit {
+export class CtInputWrapper extends CtLit {
     @property({ type: String }) type: "hidden" | "text" | "search" | "tel" | "url" | "email" | "password" | "datetime" | "date" | "month" | "week" | "time" | "datetime-local" | "number" | "range" | "color" | "checkbox" | "radio" | "file" | "submit" | "image" | "reset" | "button" = 'file';
     @property({ type: String }) accept = 'text';
     @property({ type: Boolean }) multiple = false;

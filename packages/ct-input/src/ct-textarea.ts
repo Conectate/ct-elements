@@ -2,11 +2,11 @@
     @license		
 	Copyright (c) 2020 Herberth Obregón. All rights reserved.
 	This code may only be used under the BSD style license found at
-	http://wc.conectate.today/LICENSE.txt The complete set of authors may be found at
-	http://wc.conectate.today/AUTHORS.txt The complete set of contributors may be
-	found at http://wc.conectate.today/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+	https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
+	https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
+	found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
-	found at http://wc.conectate.today/PATENTS.txt
+	found at https://wc.conectate.app/PATENTS.txt
  */
 import { html, CtLit, property, css } from '@conectate/ct-lit';
 import './ct-textarea-autogrow';
@@ -17,11 +17,11 @@ import './ct-textarea-autogrow';
 	@group Conectate Elements
 	@element ct-textarea
 	@demo demo/index.html
-	@homepage wc.conectate.today
+	@homepage wc.conectate.app
 	@slot prefix - Content placed start the main content
 	@slot suffix - Content placed end the main content
  */
-class CtTextarea extends CtLit {
+export class CtTextarea extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -305,12 +305,14 @@ class CtTextarea extends CtLit {
 		`;
 	}
 
+	@property({ type: String }) step = '';
 	@property({ type: Boolean }) __isFirstValueUpdate = true;
 	@property({ type: Boolean }) charCounter = false;
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) _invalid = false;
 	@property({ type: Boolean }) required = false;
 	@property({ type: Boolean }) noHover = false;
+	@property({ type: String }) inputmode = '';
 	@property({ type: String }) placeholder = '';
 	@property({ type: String }) pattern?: string;
 	@property({ type: String }) errorMessage?: string;

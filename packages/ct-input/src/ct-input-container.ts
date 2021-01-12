@@ -2,11 +2,11 @@
  @license
  Copyright (c) 2020 Herberth Obregón. All rights reserved.
  This code may only be used under the BSD style license found at
- http://wc.conectate.today/LICENSE.txt The complete set of authors may be found at
- http://wc.conectate.today/AUTHORS.txt The complete set of contributors may be
- found at http://wc.conectate.today/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+ https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
+ https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
+ found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
- found at http://wc.conectate.today/PATENTS.txt
+ found at https://wc.conectate.app/PATENTS.txt
  */
 import { html, CtLit, css } from '@conectate/ct-lit';
 
@@ -19,9 +19,9 @@ import { html, CtLit, css } from '@conectate/ct-lit';
  * @element ct-input-container
  * @demo demo/index.html
  * @hero hero.svg
- * @homepage wc.conectate.today
+ * @homepage wc.conectate.app
  */
-class CtInputContainer extends CtLit {
+export class CtInputContainer extends CtLit {
 	_placeholder: string = '';
 	_invalid = false;
 	errorMessage = '';

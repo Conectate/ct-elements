@@ -1,5 +1,5 @@
 CWD="$(pwd)"
-for D in `ls packages`
+for D in `ls -d packages`
 do
     echo "---------------- RUN ON $CWD/packages/$D --------------------"
     cd "$CWD/packages/$D"

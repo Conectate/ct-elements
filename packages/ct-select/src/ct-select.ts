@@ -16,7 +16,7 @@ export interface KeyValueCtSelect {
  * @element ct-select
  * @demo demo/index.html
  * @hero hero.svg
- * @homepage wc.conectate.today
+ * @homepage wc.conectate.app
  * This is my element
  * @prop {KeyValueCtSelect[]} items - items of select
  * @fires value - Cuando el valor del select Cambia

@@ -1,13 +1,31 @@
 {
 	"name": "@conectate/ct-dialog",
-	"version": "1.0.0",
-	"description": "Ct Elements",
-	"scripts": {
-		"prepare": "rm *.js && tsc"
-	},
+	"version": "1.3.0",
+	"description": "HTML dialog made with Web Components",
+	"main": "ct-dialog.js",
+	"typings": "ct-dialog.d.ts",
+	"module": "ct-dialog.js",
 	"keywords": [
-		"ct-elements"
+		"LitElement",
+		"React",
+		"Vue",
+		"Angular",
+		"Web Components",
+		"Polymer"
 	],
+	"dependencies": {
+		"lit-element": "^2.4.0",
+		"@conectate/ct-lit": "^1.1.0",
+		"@conectate/ct-helpers": "^0.0.1",
+		"@conectate/ct-card": "^1.0.0",
+		"@conectate/ct-button": "^1.2.1"
+	},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
 	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
@@ -16,13 +34,7 @@
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
-	"homepage": "https://github.com/conectate/ct-elements",
-	"license": "BSD-3-Clause",
-	"dependencies": {
-		"lit-element": "^2.4.0",
-		"@conectate/ct-lit": "^1.1.0",
-		"@conectate/ct-helpers": "file:../ct-helpers",
-		"@conectate/ct-card": "file:../ct-card",
-		"@conectate/ct-button": "file:../ct-button"
+	"publishConfig": {
+		"access": "public"
 	}
 }
