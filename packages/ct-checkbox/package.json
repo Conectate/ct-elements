@@ -1,7 +1,7 @@
 {
 	"name": "@conectate/ct-checkbox",
-	"version": "1.0.0",
-	"description": "",
+	"version": "1.4.0",
+	"description": "HTML checkbox web component based on Material design",
 	"main": "ct-checkbox.js",
 	"typings": "ct-checkbox.d.ts",
 	"module": "ct-checkbox.js",
@@ -10,8 +10,11 @@
 		"Web Components"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0",
-		"@material/mwc-checkbox": "^0.20.0"
+		"lit-element": "^2.4.0"
+	},
+	"peerDependencies":{
+		"@material/mwc-checkbox" : "^0.20.0",
+		"tslib": "^2.1.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

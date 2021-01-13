@@ -27,7 +27,7 @@
     "@conectate/ct-img": "file:../ct-img",
     "@conectate/ct-input": "file:../ct-input",
     "@conectate/ct-list": "file:../ct-list",
-    "@conectate/ct-lit": "^1.1.0",
+    "@conectate/ct-lit": "^1.4.0",
     "@conectate/ct-loading": "file:../ct-loading",
     "@conectate/ct-loading-placeholder": "file:../ct-loading-placeholder",
     "@conectate/ct-menu": "file:../ct-menu",

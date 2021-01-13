@@ -1,23 +1,12 @@
-import {LitElement, html} from 'lit-element';
+import { LitElement, html, property, customElement } from 'lit-element';
 /**
  * Lit-IF
  * @prop {Boolean} if - condition to show content
  */
+@customElement('lit-if')
 export class LitIf extends LitElement {
-    if: boolean = false;
+    @property({ type: Boolean }) if = false;
     render() {
-        return html`${this.if ? html`<slot></slot>` : html``}`;
+        return html`${this.if ? html `<slot></slot>` : ''}`;
     }
-
-    static get properties() {
-        return {
-            'if': {type: Boolean}
-        };
-    }
-}
-
-window.customElements.define('lit-if', LitIf);
-
-export function If(condition: boolean, template: any) {
-    return condition ? template : '';
 }

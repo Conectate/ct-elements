@@ -4,20 +4,30 @@
 
 The Conectate Elements (CT) are a collection of [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) maintained by [@herberthobregon](https://github.com/herberthobregon) that implement [Material Design](https://material.io/design/).
 
-
 ## Components
 
-| Component | Status | Issues
-| ----------| ------ | ------
-| [`<ct-button>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-button) | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-button.svg)](https://www.npmjs.com/package/@conectate/ct-button) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-button%22)
-| [`<ct-card>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-card)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-card.svg)](https://www.npmjs.com/package/@conectate/ct-card) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-card%22)
-| [`<ct-router>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-router)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-router.svg)](https://www.npmjs.com/package/@conectate/ct-router) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-router%22)
-| [`<ct-tabs>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-tabs)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-tabs.svg)](https://www.npmjs.com/package/@conectate/ct-tabs) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-tabs%22)
-| [`<ct-helpers>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-helpers)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-helpers.svg)](https://www.npmjs.com/package/@conectate/ct-helpers) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-helpers%22)
-| [`<ct-loading-placeholder>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-loading-placeholder)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-loading-placeholder.svg)](https://www.npmjs.com/package/@conectate/ct-loading-placeholder) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-loading-placeholder%22)
-| [`<ct-lit>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-lit)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-lit.svg)](https://www.npmjs.com/package/@conectate/ct-lit) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-lit%22)
-| [`<ct-icon>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-icon)  | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-icon.svg)](https://www.npmjs.com/package/@conectate/ct-icon) | [*Issues*](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-icon%22)
-
+| Component                                                                                                          | Status                                                                                                                                                     | Issues                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| [`<ct-button>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-button)                           | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-button.svg)](https://www.npmjs.com/package/@conectate/ct-button)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-button%22)              |
+| [`<ct-card>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-card)                               | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-card.svg)](https://www.npmjs.com/package/@conectate/ct-card)                               | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-card%22)                |
+| [`<ct-charjs>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-charjs)                           | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-charjs.svg)](https://www.npmjs.com/package/@conectate/ct-charjs)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-charjs%22)              |
+| [`<ct-checkbox>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-checkbox)                       | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-checkbox.svg)](https://www.npmjs.com/package/@conectate/ct-checkbox)                       | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-checkbox%22)            |
+| [`<ct-date>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-date)                               | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-date.svg)](https://www.npmjs.com/package/@conectate/ct-date)                               | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-date%22)                |
+| [`<ct-dialog>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-dialog)                           | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-dialog.svg)](https://www.npmjs.com/package/@conectate/ct-dialog)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-dialog%22)              |
+| [`<ct-helpers>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-helpers)                         | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-helpers.svg)](https://www.npmjs.com/package/@conectate/ct-helpers)                         | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-helpers%22)             |
+| [`<ct-icon>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-icon)                               | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-icon.svg)](https://www.npmjs.com/package/@conectate/ct-icon)                               | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-icon%22)                |
+| [`<ct-img>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-img)                                 | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-img.svg)](https://www.npmjs.com/package/@conectate/ct-img)                                 | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-img%22)                 |
+| [`<ct-input>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-input)                             | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-input.svg)](https://www.npmjs.com/package/@conectate/ct-input)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-input%22)               |
+| [`<ct-lit>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-lit)                                 | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-lit.svg)](https://www.npmjs.com/package/@conectate/ct-lit)                                 | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-lit%22)                 |
+| [`<ct-loading-bar>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-loading-bar)                 | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-loading-bar.svg)](https://www.npmjs.com/package/@conectate/ct-loading-bar)                 | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-loading-bar%22)         |
+| [`<ct-loading-placeholder>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-loading-placeholder) | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-loading-placeholder.svg)](https://www.npmjs.com/package/@conectate/ct-loading-placeholder) | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-loading-placeholder%22) |
+| [`<ct-menu>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-menu)                               | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-menu.svg)](https://www.npmjs.com/package/@conectate/ct-menu)                               | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-menu%22)                |
+| [`<ct-radio>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-radio)                             | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-radio.svg)](https://www.npmjs.com/package/@conectate/ct-radio)                             | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-radio%22)               |
+| [`<ct-radio>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-radio)                             | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-radio.svg)](https://www.npmjs.com/package/@conectate/ct-radio)                             | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-radio%22)               |
+| [`<ct-router>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-router)                           | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-router.svg)](https://www.npmjs.com/package/@conectate/ct-router)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-router%22)              |
+| [`<ct-select>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-select)                           | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-select.svg)](https://www.npmjs.com/package/@conectate/ct-select)                           | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-select%22)              |
+| [`<ct-tabs>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-tabs)                               | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-tabs.svg)](https://www.npmjs.com/package/@conectate/ct-tabs)                               | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-tabs%22)                |
+| [`<ct-tooltip>`](https://github.com/conectate/ct-elements/tree/master/packages/ct-tooltip)                         | [![Published on npm](https://img.shields.io/npm/v/@conectate/ct-tooltip.svg)](https://www.npmjs.com/package/@conectate/ct-tooltip)                         | [_Issues_](https://github.com/conectate/ct-elements/issues?q=is%3Aissue+is%3Aopen+label%3A%22Component%3A+ct-tooltip%22)             |
 
 ## Quick start with `ct-button`
 
@@ -84,14 +94,13 @@ es-dev-server --node-resolve
 
 ## Bare module specifiers
 
-The Conectate Elements are published as standard [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) that use *bare module specifiers*. Bare module specifiers are not yet supported by browsers, so it is necessary to use a tool that transforms
-them to a *path* (for example from `@conectate/ct-button` to `./node_modules/@conectate/ct-button/ct-button.js`).
+The Conectate Elements are published as standard [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) that use _bare module specifiers_. Bare module specifiers are not yet supported by browsers, so it is necessary to use a tool that transforms
+them to a _path_ (for example from `@conectate/ct-button` to `./node_modules/@conectate/ct-button/ct-button.js`).
 
 Two great choices for tools that do this are:
 
 - During local development, use open-wc's [`es-dev-server`](https://open-wc.org/developing/es-dev-server.html) with the `--node-resolve` flag.
 - For your production deployment, build your application with [Webpack](http://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/) with the [`rollup-plugin-node-resolve`](https://github.com/rollup/rollup-plugin-node-resolve) plugin.
-
 
 ## Fonts
 
@@ -99,11 +108,13 @@ Most applications should include the following tags in their main HTML file to e
 render correctly:
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+	rel="stylesheet"
+/>
 ```
 
-The Conectate Elements default to using the [Roboto](https://fonts.google.com/specimen/Roboto) font for text. This fonts are *not* automatically loaded, so it is the application's responsiblity to ensure that they are loaded.
-
+The Conectate Elements default to using the [Roboto](https://fonts.google.com/specimen/Roboto) font for text. This fonts are _not_ automatically loaded, so it is the application's responsiblity to ensure that they are loaded.
 
 ## Supporting older browsers
 
@@ -165,4 +176,4 @@ To support IE11 or other older browsers that do not support JavaScript modules, 
 
 #### ES2015
 
-If you support IE11 or other older browsers that do not support the latest version of JavaScript, you must *transpile* your application to ES5. [Babel](https://babeljs.io/) is a popular tool that does this. You can integrate Babel transpilation into a Rollup or Webpack.
+If you support IE11 or other older browsers that do not support the latest version of JavaScript, you must _transpile_ your application to ES5. [Babel](https://babeljs.io/) is a popular tool that does this. You can integrate Babel transpilation into a Rollup or Webpack.

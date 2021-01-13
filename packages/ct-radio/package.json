@@ -1,12 +1,12 @@
 {
-  "name": "@conectate/ct-radio",
-  "version": "1.0.0",
-  "description": "",
+	"name": "@conectate/ct-radio",
+	"version": "1.4.0",
+	"description": "HTML Radio web component based on Material design",
 	"main": "ct-radio.js",
 	"typings": "ct-radio.d.ts",
 	"module": "ct-radio.js",
-  "license": "BSD-3-Clause",
-  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/conectate/ct-elements"
@@ -15,17 +15,22 @@
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
-  "scripts": {
+	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
-  },
-  "keywords": [
-    "litElement","wrapper","Web Components"
-  ],
-  "dependencies": {
-    "lit-element": "^2.4.0",
-    "@material/mwc-radio": "^0.20.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	},
+	"keywords": [
+		"litElement",
+		"wrapper",
+		"Web Components"
+	],
+	"dependencies": {
+		"lit-element": "^2.4.0"
+	},
+	"peerDependencies": {
+		"@material/mwc-radio": "^0.20.0",
+		"tslib": "^2.1.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

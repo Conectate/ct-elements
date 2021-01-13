@@ -1,17 +1,19 @@
 {
 	"name": "@conectate/ct-chartjs",
-	"version": "1.0.1",
+	"version": "1.4.0",
 	"description": "Wrapper from LitElement",
 	"main": "ct-chartjs.js",
 	"typings": "ct-chartjs.d.ts",
 	"module": "ct-chartjs.js",
 	"devDependencies": {
-		"@types/chart.js": "^2.9.25"
+		"@types/chart.js": "^2.9.29"
 	},
 	"dependencies": {
-		"@conectate/ct-lit": "^1.1.1",
-		"@conectate/ct-helpers": "0.0.1",
-		"chart.js": "^2.9.3"
+		"@conectate/ct-lit": "^1.4.0",
+		"@conectate/ct-helpers": "0.0.1"
+	},
+	"peerDependencies": {
+		"chart.js": "^2.9.4"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

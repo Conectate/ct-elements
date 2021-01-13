@@ -30,14 +30,16 @@ declare global {
  * @demo demo/index.html
  * @homepage wc.conectate.app
  * @attr shadow - Add box-shadow to element
- * @attr border - Add box-shadow to element
+ * @attr decorator - Add box-shadow to element
  * @attr padding - Add box-shadow to element
  */
 @customElement("ct-card")
 export class CtCard extends LitElement {
 	/**
-	 * Add border-top to card with --color-grad  CSS var
+	 * Add border-top to card with --color-app  CSS var
 	 */
+	@property({ type: Boolean }) decorator = false;
+	/** @deprecated */
 	@property({ type: Boolean }) border = false;
 
 	static styles = css`
@@ -56,7 +58,7 @@ export class CtCard extends LitElement {
 			/* box-shadow: 0 4px 28px 4px rgba(0, 0, 0, 0.1); */
 			border: none;
 		}
-		:host([border]) {
+		:host([decorator]) {
 			overflow: hidden;
 		}
 		:host([padding]){
@@ -73,7 +75,7 @@ export class CtCard extends LitElement {
 			color: var(--color-on-surface, #535353);
 			padding: 16px;
 		}
-		.div {
+		.dec {
 			height: 6px;
 			min-height: 6px;
 			background: var(
@@ -86,7 +88,7 @@ export class CtCard extends LitElement {
 
 	render() {
 		return html`
-			<div class="${this.border ? "div" : ""}"></div>
+			${this.decorator || this.border ? html`<div class="dec"></div>` : ''}
 			<slot></slot>
 		`;
 	}

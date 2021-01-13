@@ -3,6 +3,6 @@ for D in `ls packages`
 do
     echo "---------------- RUN ON $CWD/packages/$D --------------------"
     cd "$CWD/packages/$D"
-    yarn prepare
+    npm publish
 done
 cd "$CWD"

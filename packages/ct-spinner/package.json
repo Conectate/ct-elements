@@ -20,6 +20,6 @@
 		"ct-elements"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^1.1.0"
+		"lit-element": "^2.4.0"
 	}
 }

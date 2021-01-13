@@ -1,8 +1,27 @@
 {
 	"name": "@conectate/ct-tooltip",
-	"version": "1.0.0",
-	"description": "Ct Elements",
+	"version": "1.4.0",
+	"description": "Tooltip styles for lit-element",
+	"main": "ct-tooltip.js",
+	"typings": "ct-tooltip.d.ts",
+	"module": "ct-tooltip.js",
+	"keywords": [
+		"LitElement",
+		"React",
+		"Vue",
+		"Angular",
+		"Web Components",
+		"Polymer"
+	],
+	"dependencies": {
+		"lit-element": "^2.4.0"
+	},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
 	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
 	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
@@ -11,14 +30,7 @@
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
-	"homepage": "https://github.com/conectate/ct-elements",
-	"scripts": {
-		"prepare": "rm *.js && tsc"
-	},
-	"keywords": [
-		"ct-elements"
-	],
-	"dependencies": {
-		"lit-element": "^2.4.0"
+	"publishConfig": {
+		"access": "public"
 	}
 }
