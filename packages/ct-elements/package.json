@@ -28,7 +28,7 @@
     "@conectate/ct-input": "file:../ct-input",
     "@conectate/ct-list": "file:../ct-list",
     "@conectate/ct-lit": "^1.4.0",
-    "@conectate/ct-loading": "file:../ct-loading",
+    "@conectate/ct-loading-bar": "file:../ct-loading-bar",
     "@conectate/ct-loading-placeholder": "file:../ct-loading-placeholder",
     "@conectate/ct-menu": "file:../ct-menu",
     "@conectate/ct-phone-input": "file:../ct-phone-input",

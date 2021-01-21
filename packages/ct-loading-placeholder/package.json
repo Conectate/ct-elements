@@ -1,8 +1,10 @@
 {
   "name": "@conectate/ct-loading-placeholder",
-  "version": "1.0.3",
+  "version": "1.4.0",
   "description": "Is a simple element to use skeleton loading such as Facebook.",
-  "main": "ct-loading-placeholder.js",
+	"main": "ct-collapse.js",
+	"typings": "ct-collapse.d.ts",
+	"module": "ct-collapse.js",
   "license": "BSD-3-Clause",
   "author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
@@ -14,7 +16,7 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
   "scripts": {
-    "prepare": "rm *.js && tsc"
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
   },
   "keywords": [
     "LitElement",

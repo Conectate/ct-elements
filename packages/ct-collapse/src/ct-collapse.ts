@@ -1,7 +1,5 @@
 import { CtLit, customElement, html, property } from '@conectate/ct-lit';
 import { sleep } from '@conectate/ct-helpers';
-// @ts-ignore
-import { live } from '@open-wc/lit-helpers'
 
 @customElement('ct-collapse')
 export class CtCollapse extends CtLit {

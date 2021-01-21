@@ -1,71 +1,74 @@
-import { CtLit, html, property } from "@conectate/ct-lit";
+import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
 import { sleep } from "@conectate/ct-helpers";
 
-export async function showSnackBar(msg: string) {
+export function showSnackBar(msg: string) {
 	// @ts-ignore
 	let _networkSnackbar: CtSnackbar | undefined = document.querySelector(
 		"ct-snackbar"
-	);
+	) as CtSnackbar;
 	if (!_networkSnackbar) {
 		_networkSnackbar = new CtSnackbar();
 		// @ts-ignore
 		document.body.appendChild(_networkSnackbar);
 	}
-	await sleep(250);
-	_networkSnackbar.open(msg);
+	setTimeout(() => {
+		_networkSnackbar?.open(msg);
+	}, 250);
 }
 // @ts-ignore
 window.showSnackBar = showSnackBar;
 
-class CtSnackbar extends CtLit {
-	[x: string]: any;
-	render() {
-		return html`
-			<style>
+@customElement('ct-snackbar')
+export class CtSnackbar extends CtLit {
+	static styles = [
+		css`
+			:host {
+				display: block;
+				position: fixed;
+				left: calc(50% - 160px);
+				right: calc(50% - 160px);
+				width: 320px;
+				bottom: 0;
+				background: var(--color-on-background, #3c3f41);
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+				color: var(--color-background, #e9e9e9);
+				padding: 12px;
+				visibility: hidden;
+				border-radius: 16px 16px 0 0;
+				text-align: center;
+				will-change: transform;
+				-webkit-transform: translate3d(0, 100%, 0);
+				transform: translate3d(0, 100%, 0);
+				transition-property: visibility, transform, opacity;
+				transition-duration: 0.2s;
+				font-weight: bold;
+				cursor: pointer;
+				z-index: 150;
+			}
+
+			:host(.opened) {
+				visibility: visible;
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+
+			@media (max-width: 1001px) {
 				:host {
-					display: block;
-					position: fixed;
-					left: calc(50% - 160px);
-					right: calc(50% - 160px);
-					width: 320px;
-					bottom: 0;
-					background: var(--color-on-background, #3c3f41);
-					box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-					color: var(--color-background, #e9e9e9);
-					padding: 12px;
-					visibility: hidden;
-					border-radius: 16px 16px 0 0;
-					text-align: center;
-					will-change: transform;
-					-webkit-transform: translate3d(0, 100%, 0);
-					transform: translate3d(0, 100%, 0);
-					transition-property: visibility, transform, opacity;
-					transition-duration: 0.2s;
-					font-weight: bold;
-					cursor: pointer;
-					z-index: 150;
+					left: 0;
+					right: 0;
+					width: auto;
 				}
 
 				:host(.opened) {
-					visibility: visible;
-					-webkit-transform: translate3d(0, 0, 0);
-					transform: translate3d(0, 0, 0);
+					-webkit-transform: translate3d(0, -113%, 0);
+					transform: translate3d(0, -40px, 0);
 				}
-
-				@media (max-width: 1001px) {
-					:host {
-						left: 0;
-						right: 0;
-						width: auto;
-					}
-
-					:host(.opened) {
-						-webkit-transform: translate3d(0, -113%, 0);
-						transform: translate3d(0, -40px, 0);
-					}
-				}
-			</style>
-
+			}
+		`
+	];
+	[x: string]: any;
+	render() {
+		return html`
 			<span id="msg" @click="${this.closePersist}">${this.msg}</span>
 		`;
 	}
@@ -113,5 +116,3 @@ class CtSnackbar extends CtLit {
 		this.close();
 	}
 }
-
-customElements.define("ct-snackbar", CtSnackbar);

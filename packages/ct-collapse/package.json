@@ -1,17 +1,28 @@
 {
 	"name": "@conectate/ct-collapse",
-	"version": "1.0.0",
-	"description": "Collapse from LitElement",
+	"version": "1.4.0",
+	"description": "HTML webcomponent collapse",
 	"main": "ct-collapse.js",
-	"license": "BSD-3-Clause",
-	"scripts": {
-		"prepare": "rm *.js && tsc"
-	},
+	"typings": "ct-collapse.d.ts",
+	"module": "ct-collapse.js",
 	"keywords": [
-		"litElement",
-		"wrapper",
-		"Web Components"
+		"LitElement",
+		"React",
+		"Vue",
+		"Angular",
+		"Web Components",
+		"Polymer"
 	],
+	"dependencies": {
+		"lit-element": "^2.4.0",
+		"@conectate/ct-helpers": "^0.1.0"
+	},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
 	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
@@ -19,10 +30,6 @@
 	},
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
-	},
-	"homepage": "https://github.com/conectate/ct-elements",
-	"dependencies": {
-		"lit-element": "^2.4.0"
 	},
 	"publishConfig": {
 		"access": "public"
