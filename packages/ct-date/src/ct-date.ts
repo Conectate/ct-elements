@@ -1,7 +1,13 @@
-import { CtLit, html, property } from "@conectate/ct-lit";
+import { CtLit, html, property, customElement } from "@conectate/ct-lit";
 import "@conectate/ct-input/ct-input-container";
 import "@conectate/lit-if/lit-if";
 
+/**
+ * Simple cross-platform Date input for LitElement and Web Components
+ * 
+ * @element ct-date
+ */
+@customElement('ct-date')
 export class CtDate extends CtLit {
 	/**
 	 * No Day Value
@@ -278,5 +284,3 @@ export class CtDate extends CtLit {
 		return `${n}`;
 	}
 }
-
-window.customElements.define("ct-date", CtDate);

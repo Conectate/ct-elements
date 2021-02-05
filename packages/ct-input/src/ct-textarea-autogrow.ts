@@ -1,6 +1,12 @@
 import { CtLit, html, customElement, property, unsafeHTML, css } from '@conectate/ct-lit';
 import { CSSResult } from 'lit-element';
 
+/**
+ * # `ct-textarea-autogrow`
+ *
+ * @group Conectate Elements
+ * @element ct-textarea-autogrow
+ */
 @customElement('ct-textarea-autogrow')
 export class CtTextareaAutogrow extends CtLit {
 	static styles: CSSResult[] = [

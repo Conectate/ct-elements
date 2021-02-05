@@ -84,6 +84,7 @@ _None_
 @customElement('ct-button')
 export class CtButton extends LitElement {
 	@property({ type: String, reflect: true }) role = 'button';
+	@property({ type: Boolean, reflect: true }) disabled = false;
 	render() {
 		return html`<style>
 				:host {

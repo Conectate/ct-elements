@@ -1,5 +1,12 @@
-import { CtLit, html, property } from "@conectate/ct-lit";
+import { CtLit, html, property, customElement } from "@conectate/ct-lit";
 
+/**
+ * # `ct-input-wrapper`
+ *
+ * @group Conectate Elements
+ * @element ct-input-wrapper
+ */
+@customElement("ct-input-wrapper")
 export class CtInputWrapper extends CtLit {
     @property({ type: String }) type: "hidden" | "text" | "search" | "tel" | "url" | "email" | "password" | "datetime" | "date" | "month" | "week" | "time" | "datetime-local" | "number" | "range" | "color" | "checkbox" | "radio" | "file" | "submit" | "image" | "reset" | "button" = 'file';
     @property({ type: String }) accept = 'text';
@@ -50,5 +57,3 @@ export class CtInputWrapper extends CtLit {
     }
 
 }
-
-window.customElements.define('ct-input-wrapper', CtInputWrapper);

@@ -1,8 +1,14 @@
-import { CtLit, html, property } from "@conectate/ct-lit";
+import { CtLit, html, property,customElement } from "@conectate/ct-lit";
 import { sleep } from "@conectate/ct-helpers";
 import './ct-autocomplete-suggestions';
 import './ct-input';
-
+/**
+ * # `ct-input-autocomplete`
+ *
+ * @group Conectate Elements
+ * @element ct-input-autocomplete
+ */
+@customElement("ct-input-autocomplete")
 export class CtInputAutocomplete extends CtLit {
 	render() {
 		return html`
@@ -117,5 +123,3 @@ export class CtInputAutocomplete extends CtLit {
 	}
 
 }
-
-window.customElements.define('ct-input-autocomplete', CtInputAutocomplete);

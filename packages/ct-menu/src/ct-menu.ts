@@ -1,10 +1,12 @@
-import { CtLit, html, property, css } from "@conectate/ct-lit";
+import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
 /**
- *
+ * # `ct-menu`
+ * @element ct-menu
  * @slot - Items in menu
  * @slot dropdown-trigger - Item trigger
  */
-class CtMenu extends CtLit {
+@customElement('ct-menu')
+export class CtMenu extends CtLit {
 	close!: (e: KeyboardEvent) => void;
 	@property({ type: String }) align:
 		| "top"
@@ -224,5 +226,3 @@ class CtMenu extends CtLit {
 		e.stopPropagation();
 	}
 }
-
-window.customElements.define("ct-menu", CtMenu);

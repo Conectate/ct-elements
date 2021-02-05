@@ -7,6 +7,13 @@ Checkbox.prototype.createRenderRoot = function (): ShadowRoot {
     return this.attachShadow({ mode: 'open', delegatesFocus: false });
 };
 
+/**
+ * ## `ct-checkbox`
+ * Checkbox element
+ *
+ * @group Conectate Elements
+ * @element ct-checkbox
+ */
 @customElement('ct-checkbox')
 export class CtCheckbox extends CtLit {
 	_checked = false;

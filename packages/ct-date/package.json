@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-date",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "HTML input date type made with Web Components",
 	"main": "ct-date.js",
 	"typings": "ct-date.d.ts",

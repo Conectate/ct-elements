@@ -9,7 +9,7 @@ export { html, svg, css, customElement, property,internalProperty, query, queryA
  * It's a simple wrapper for LitElement
  */
 export class CtLit extends LitElement {
-	$: { [x: string]: HTMLElement | any } = {};
+	private $: { [x: string]: HTMLElement | any } = {};
 
 	/**
 	 * Returns the first element within node's descendants whose ID is elementId.
@@ -45,6 +45,7 @@ export class CtLit extends LitElement {
 		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
 			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
 		}
+		return this.$;
 	}
 
 	/**

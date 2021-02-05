@@ -1,6 +1,15 @@
-import { CtLit, html, property } from '@conectate/ct-lit';
+import { CtLit, html, property, customElement } from '@conectate/ct-lit';
 
-class CtSpinner extends CtLit {
+
+/**
+ * ## `ct-spinner`
+ * Spinner element
+ *
+ * @group Conectate Elements
+ * @element ct-spinner
+ */
+@customElement('ct-spinner')
+export class CtSpinner extends CtLit {
 	@property({ type: Boolean }) active: boolean = true;
 
 	render() {
@@ -26,5 +35,3 @@ class CtSpinner extends CtLit {
 		`;
 	}
 }
-
-window.customElements.define('ct-spinner', CtSpinner);

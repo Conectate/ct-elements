@@ -1,12 +1,14 @@
-import { CtLit, css, html } from '@conectate/ct-lit';
+import { CtLit, css, html ,customElement} from '@conectate/ct-lit';
 import { CtTab } from './ct-tab';
 /**
  *
+ * @element ct-tabs
  * @cssProp --ct-tabs-background - can be used to document css custom properties.
  * @cssProp --ct-tabs-box-shadow - can be used to document css custom properties.
  * @cssProp --ct-tabs-border-color - can be used to document css custom properties.
  */
-class CtTabs extends CtLit {
+@customElement('ct-tabs')
+export class CtTabs extends CtLit {
 	static get styles() {
 		return css`
 			* {
@@ -140,5 +142,3 @@ class CtTabs extends CtLit {
 		return this.$.container.scrollHeight > this.$.container.clientHeight || this.$.container.scrollWidth > this.$.container.clientWidth;
 	}
 }
-
-window.customElements.define('ct-tabs', CtTabs);

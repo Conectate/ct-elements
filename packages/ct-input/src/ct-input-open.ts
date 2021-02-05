@@ -8,14 +8,23 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtInput } from './ct-input';
-import { unsafeHTML, html } from '@conectate/ct-lit';
+import { CtInput } from "./ct-input";
+import { unsafeHTML, html, customElement } from "@conectate/ct-lit";
+
+/**
+ * # `ct-input-open`
+ *
+ * @group Conectate Elements
+ * @element ct-input-open
+ */
+@customElement("ct-input-open")
 export class CtInputOpen extends CtInput {
 	render() {
-		return html`${unsafeHTML(`<style>${CtInput.styles.map((s) => s.cssText)}</style>`)}${super.render()}`;
+		return html`${unsafeHTML(
+			`<style>${CtInput.styles.map((s) => s.cssText)}</style>`
+		)}${super.render()}`;
 	}
 	createRenderRoot() {
 		return this;
 	}
 }
-window.customElements.define('ct-input-open', CtInputOpen);

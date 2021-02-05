@@ -1,6 +1,8 @@
 import { CtLit, customElement, html, property } from '@conectate/ct-lit';
 import { sleep } from '@conectate/ct-helpers';
-
+/**
+ * @element ct-collapse
+ */
 @customElement('ct-collapse')
 export class CtCollapse extends CtLit {
     @property({ type: Boolean}) opened = false;

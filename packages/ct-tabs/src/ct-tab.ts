@@ -1,5 +1,11 @@
-import { CtLit, html, property } from '@conectate/ct-lit';
+import { CtLit, html, property,customElement } from '@conectate/ct-lit';
 
+/**
+ * # `ct-tab`
+ * 
+ * @element ct-tab
+ */
+@customElement('ct-tab')
 export class CtTab extends CtLit {
 	@property({ type: Boolean, reflect: true }) selected = false;
 
@@ -56,5 +62,3 @@ export class CtTab extends CtLit {
 		`;
 	}
 }
-
-window.customElements.define('ct-tab', CtTab);

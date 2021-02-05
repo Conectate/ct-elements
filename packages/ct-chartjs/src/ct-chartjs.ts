@@ -7,7 +7,9 @@ declare global {
 		"ct-chartjs": CtChartJS;
 	}
 }
-
+/**
+ * @element ct-chartjs
+ */
 @customElement("ct-chartjs")
 export class CtChartJS extends CtLit {
 	@property({ type: Object }) chart!: Chart.ChartConfiguration & Chart;

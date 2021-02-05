@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-chartjs",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "Wrapper from LitElement",
 	"main": "ct-chartjs.js",
 	"typings": "ct-chartjs.d.ts",

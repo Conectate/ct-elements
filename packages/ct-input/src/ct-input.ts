@@ -8,7 +8,7 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, html, property, css } from "@conectate/ct-lit";
+import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
 import { CSSResult } from "lit-element";
 
 /**
@@ -21,6 +21,7 @@ import { CSSResult } from "lit-element";
  * @slot prefix - Content placed start the main content
  * @slot suffix - Content placed end the main content
  */
+@customElement("ct-input")
 export class CtInput extends CtLit {
 	static styles: CSSResult[] = [
 		css`
@@ -133,7 +134,6 @@ export class CtInput extends CtLit {
 				color: var(--color-on-surface, #535353);
 				transition: all 0.2s;
 				padding: 0em 1em;
-				overflow: hidden;
 			}
 
 			.row {
@@ -618,5 +618,3 @@ export class CtInput extends CtLit {
 		this.countChar = this.value.length;
 	}
 }
-
-window.customElements.define("ct-input", CtInput);

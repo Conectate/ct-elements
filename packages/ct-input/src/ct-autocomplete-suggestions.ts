@@ -1,4 +1,4 @@
-import { CtLit, html, property } from "@conectate/ct-lit";
+import { CtLit, html, property, customElement } from "@conectate/ct-lit";
 import "@conectate/ct-card/ct-card";
 
 /* var DIRECTION = {
@@ -14,7 +14,13 @@ var KEY_CODES = {
     ENTER: 13,
     ESCAPE: 27
 }; */
-
+/**
+ * # `ct-autocomplete-suggestions`
+ *
+ * @group Conectate Elements
+ * @element ct-autocomplete-suggestions
+ */
+@customElement("ct-autocomplete-suggestions")
 export class CtAutocompleteSuggestions extends CtLit {
 	render() {
 		return html`<style>
@@ -154,8 +160,3 @@ export class CtAutocompleteSuggestions extends CtLit {
 		return output;
 	}
 }
-
-window.customElements.define(
-	"ct-autocomplete-suggestions",
-	CtAutocompleteSuggestions
-);

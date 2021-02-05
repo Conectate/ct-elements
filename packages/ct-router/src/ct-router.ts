@@ -46,6 +46,10 @@ declare global {
 	}
 }
 /**
+ * ## `ct-router`
+ * It's a simple routing system that changes the viewport depending on the route given
+ * 
+ * @element ct-router
  * @event login-needed It triggers when a page requires authentication but the user is not yet logged in
  * @event loading It fires when a page is imported diamicamente and it is fired again when it finishes loading the page
  * @event location-changed it shoots when the route changes
