@@ -4,7 +4,7 @@ import { CSSResult } from 'lit-element';
 /**
  * # `ct-textarea-autogrow`
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-textarea-autogrow
  */
 @customElement('ct-textarea-autogrow')

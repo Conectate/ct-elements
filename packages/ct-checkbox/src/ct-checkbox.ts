@@ -11,7 +11,7 @@ Checkbox.prototype.createRenderRoot = function (): ShadowRoot {
  * ## `ct-checkbox`
  * Checkbox element
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-checkbox
  */
 @customElement('ct-checkbox')

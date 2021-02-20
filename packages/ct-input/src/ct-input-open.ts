@@ -14,7 +14,7 @@ import { unsafeHTML, html, customElement } from "@conectate/ct-lit";
 /**
  * # `ct-input-open`
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-input-open
  */
 @customElement("ct-input-open")

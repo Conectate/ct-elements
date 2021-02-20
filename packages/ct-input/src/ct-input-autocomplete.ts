@@ -5,7 +5,7 @@ import './ct-input';
 /**
  * # `ct-input-autocomplete`
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-input-autocomplete
  */
 @customElement("ct-input-autocomplete")

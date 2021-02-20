@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-dialog",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "HTML dialog made with Web Components",
 	"main": "ct-dialog.js",
 	"typings": "ct-dialog.d.ts",
@@ -18,7 +18,8 @@
 		"@conectate/ct-lit": "^1.4.0",
 		"@conectate/ct-helpers": "^0.0.1",
 		"@conectate/ct-card": "^1.4.0",
-		"@conectate/ct-button": "^1.4.0"
+		"@conectate/ct-button": "^1.4.0",
+		"@conectate/ct-spinner": "^1.4.3"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

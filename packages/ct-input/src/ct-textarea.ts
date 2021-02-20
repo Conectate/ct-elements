@@ -8,19 +8,20 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
-import { html, CtLit, property, css } from '@conectate/ct-lit';
+import { html, CtLit, property, css, customElement } from '@conectate/ct-lit';
 import './ct-textarea-autogrow';
 
 /**
 	`ct-textarea`
 	Input element
-	@group Conectate Elements
+	@group ct-elements
 	@element ct-textarea
 	@demo demo/index.html
 	@homepage wc.conectate.app
 	@slot prefix - Content placed start the main content
 	@slot suffix - Content placed end the main content
  */
+@customElement('ct-textarea')
 export class CtTextarea extends CtLit {
 	static styles = [
 		css`
@@ -540,5 +541,3 @@ export class CtTextarea extends CtLit {
 		this.countChar = this.value.length;
 	}
 }
-
-window.customElements.define('ct-textarea', CtTextarea);

@@ -8,19 +8,20 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { html, CtLit, css } from '@conectate/ct-lit';
+import { html, CtLit, css, customElement } from '@conectate/ct-lit';
 
 /**
  * `ct-input-container`
  * Input element
  *
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-input-container
  * @demo demo/index.html
  * @hero hero.svg
  * @homepage wc.conectate.app
  */
+@customElement('ct-input-container')
 export class CtInputContainer extends CtLit {
 	_placeholder: string = '';
 	_invalid = false;
@@ -383,5 +384,3 @@ export class CtInputContainer extends CtLit {
 		return this._invalid;
 	}
 }
-
-window.customElements.define('ct-input-container', CtInputContainer);

@@ -15,7 +15,7 @@ import { CSSResult } from "lit-element";
  * ## `ct-input`
  * Input element
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-input
  * @demo demo/index.html
  * @slot prefix - Content placed start the main content

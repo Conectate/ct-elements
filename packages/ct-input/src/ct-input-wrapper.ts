@@ -3,7 +3,7 @@ import { CtLit, html, property, customElement } from "@conectate/ct-lit";
 /**
  * # `ct-input-wrapper`
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-input-wrapper
  */
 @customElement("ct-input-wrapper")

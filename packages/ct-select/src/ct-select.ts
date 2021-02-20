@@ -12,7 +12,7 @@ export interface KeyValueCtSelect {
 /**
  *
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-select
  * @demo demo/index.html
  * @hero hero.svg

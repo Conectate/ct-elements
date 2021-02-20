@@ -17,7 +17,7 @@ var KEY_CODES = {
 /**
  * # `ct-autocomplete-suggestions`
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-autocomplete-suggestions
  */
 @customElement("ct-autocomplete-suggestions")

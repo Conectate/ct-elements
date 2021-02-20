@@ -25,7 +25,7 @@ declare global {
 /**
  *
  *
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-card
  * @demo demo/index.html
  * @homepage wc.conectate.app

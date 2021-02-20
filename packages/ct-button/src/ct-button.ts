@@ -68,7 +68,7 @@ _None_
 
 
 
- * @group Conectate Elements
+ * @group ct-elements
  * @element ct-button
  * @demo demo/index.html 
  * @homepage wc.conectate.app
