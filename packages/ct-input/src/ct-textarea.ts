@@ -1,3 +1,5 @@
+import "./ct-textarea-autogrow";
+
 /**
     @license		
 	Copyright (c) 2020 Herberth Obregón. All rights reserved.
@@ -8,8 +10,8 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
-import { html, CtLit, property, css, customElement } from '@conectate/ct-lit';
-import './ct-textarea-autogrow';
+import { CtLit, css, customElement, html, internalProperty, property } from "@conectate/ct-lit";
+import { ifDefined } from "lit-html/directives/if-defined";
 
 /**
 	`ct-textarea`
@@ -21,7 +23,7 @@ import './ct-textarea-autogrow';
 	@slot prefix - Content placed start the main content
 	@slot suffix - Content placed end the main content
  */
-@customElement('ct-textarea')
+@customElement("ct-textarea")
 export class CtTextarea extends CtLit {
 	static styles = [
 		css`
@@ -108,7 +110,7 @@ export class CtTextarea extends CtLit {
 			}
 
 			:host([required]) > .label:after {
-				content: var(--ct-indicator, '*');
+				content: var(--ct-indicator, "*");
 				color: #ed4f32;
 				position: absolute;
 				width: 1.5em;
@@ -161,30 +163,30 @@ export class CtTextarea extends CtLit {
 			#container.has-value > div > .charCount {
 				transition: all 0.2s;
 			}
-			::slotted([slot='suffix']) {
+			::slotted([slot="suffix"]) {
 				display: inline-block;
 			}
 
-			::slotted([slot='prefix']) {
+			::slotted([slot="prefix"]) {
 				display: inline-block;
 				padding-right: 0.5em;
 			}
 
 			ct-textarea-autogrow:not([type]),
-			input[type='color'],
-			input[type='date'],
-			input[type='datetime-local'],
-			input[type='datetime'],
-			input[type='email'],
-			input[type='month'],
-			input[type='number'],
-			input[type='password'],
-			input[type='search'],
-			input[type='tel'],
-			input[type='text'],
-			input[type='time'],
-			input[type='url'],
-			input[type='week'],
+			input[type="color"],
+			input[type="date"],
+			input[type="datetime-local"],
+			input[type="datetime"],
+			input[type="email"],
+			input[type="month"],
+			input[type="number"],
+			input[type="password"],
+			input[type="search"],
+			input[type="tel"],
+			input[type="text"],
+			input[type="time"],
+			input[type="url"],
+			input[type="week"],
 			select,
 			textarea {
 				min-height: 1em;
@@ -280,21 +282,20 @@ export class CtTextarea extends CtLit {
 								id="input"
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
-								.rows=${this.rows}
-								.value="${this._value}"
 								@input="${this._onInput}"
-								.inputmode="${this.inputmode}"
-								.minlength="${this.minlength}"
-								.maxlength="${this.maxlength}"
-								.min="${this.min}"
-								.max="${this.max}"
-								.step="${this.step}"
-								.placeholder="${this._placeholder || this.rawPlaceholder}"
-								.readonly="${this.readonly}"
+								.value="${this.value!}"
+								.placeholder="${this.placeholder || this.rawPlaceholder}"
 								.size="${this.size}"
-								.autocapitalize="${this.autocapitalize}"
-								.autocorrect="${this.autocorrect}"
-								.tabindex="${this.tabIndex}"
+								?autofocus="${this.autofocus}"
+								?readonly="${this.readonly}"
+								inputMode="${ifDefined(this.inputmode)}"
+								minlength="${ifDefined(this.minlength)}"
+								maxlength="${ifDefined(this.maxlength)}"
+								min="${ifDefined(this.min)}"
+								max="${ifDefined(this.max)}"
+								step="${ifDefined(this.step)}"
+								name="${ifDefined(this.name)}"
+								autocapitalize="${ifDefined(this.autocapitalize)}"
 							></ct-textarea-autogrow>
 							<slot name="suffix"></slot>
 							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength}</div>` : ``}
@@ -306,46 +307,46 @@ export class CtTextarea extends CtLit {
 		`;
 	}
 
-	@property({ type: String }) step = '';
-	@property({ type: Boolean }) __isFirstValueUpdate = true;
+	@internalProperty() __isFirstValueUpdate = true;
+	@internalProperty() _value?: string  = "";
+	@internalProperty() _placeholder = "";
+	@internalProperty() _invalid = false;
+	@property({ type: String }) name?: string;
+	@property({ type: Number }) min?: number;
+	@property({ type: Number }) max?: number;
+	@property({ type: Number }) step?: number;
 	@property({ type: Boolean }) charCounter = false;
 	@property({ type: Boolean }) readonly = false;
-	@property({ type: Boolean }) _invalid = false;
 	@property({ type: Boolean }) required = false;
 	@property({ type: Boolean }) noHover = false;
-	@property({ type: String }) inputmode = '';
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) inputmode = "";
+	@property({ type: String }) placeholder = "";
 	@property({ type: String }) pattern?: string;
 	@property({ type: String }) errorMessage?: string;
-	@property({ type: String }) rawPlaceholder = '';
-	@property({ type: String }) type = 'text';
-	@property({ type: String }) autocorrect = 'off';
-	@property({ type: String }) autocapitalize = 'none';
-	@property({ type: String }) _value = '';
-	@property({ type: String }) _placeholder = '';
-	@property({ type: String }) label = '';
+	@property({ type: String }) rawPlaceholder = "";
+	@property({ type: String }) autocorrect = "off";
+	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
+	@property({ type: String }) label = "";
 	@property({ type: Number }) countChar = 0;
 	@property({ type: Number }) size = 30;
-	@property({ type: Number }) min = 0;
-	@property({ type: Number }) max = 5000;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) maxlength = 5000;
 	@property({ type: Number }) rows = 1;
 
 	constructor() {
 		super();
-		this.value = '';
+		this.value = "";
 	}
 
 	firstUpdated() {
-		this.$.container = this._('container');
-		this.$.input = this._('input');
+		this.$.container = this._("container");
+		this.$.input = this._("input");
 		this.validate();
 		this._onInput();
 	}
 
 	set value(val) {
-		this._value = val || '';
+		this._value = val ||= "";
 		this.updateComplete.then((resp) => {
 			this._onInput();
 		});
@@ -468,9 +469,9 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.$.container.classList.add('active');
-		this.$.container.classList.remove('error');
-		this.set('focused', true);
+		this.$.container.classList.add("active");
+		this.$.container.classList.remove("error");
+		this.set("focused", true);
 		this._placeholder = this.placeholder;
 	}
 
@@ -479,8 +480,8 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.$.container.classList.remove('active');
-		this.set('focused', false);
+		this.$.container.classList.remove("active");
+		this.set("focused", false);
 		this.validate();
 	}
 
@@ -488,24 +489,24 @@ export class CtTextarea extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$.input.value === undefined || this.$.input.value === '') return !this.invalid;
+			if (this.$.input.value === undefined || this.$.input.value === "") return !this.invalid;
 		}
 
 		if (this.pattern) {
 			let re = new RegExp(this.pattern);
 			this.invalid = !re.test(this.$.input.value);
 		} else if (this.required) {
-			this.invalid = !(this.$.input.value.length > 0 && this.$.input.value.length >= this.min);
+			this.invalid = !(this.$.input.value.length > 0 && this.$.input.value.length >= (this.min || 0));
 		}
 
 		if (!this.invalid) {
 			// remover error
-			this.$.container.classList.remove('error');
-			this.set('_placeholder', this.placeholder);
+			this.$.container.classList.remove("error");
+			this.set("_placeholder", this.placeholder);
 		} else {
-			this.$.container.classList.add('error');
+			this.$.container.classList.add("error");
 			// agregar error
-			this.set('_placeholder', this.errorMessage ? this.errorMessage : this.placeholder);
+			this.set("_placeholder", this.errorMessage ? this.errorMessage : this.placeholder);
 		}
 		return !this.invalid;
 	}
@@ -517,12 +518,12 @@ export class CtTextarea extends CtLit {
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.$.container.classList.remove('error');
-			this.set('_placeholder', this.placeholder);
+			this.$.container.classList.remove("error");
+			this.set("_placeholder", this.placeholder);
 		} else {
-			this.$.container.classList.add('error');
+			this.$.container.classList.add("error");
 			// agregar error
-			this.set('_placeholder', this.errorMessage ? this.errorMessage : this.placeholder);
+			this.set("_placeholder", this.errorMessage ? this.errorMessage : this.placeholder);
 		}
 	}
 
@@ -532,12 +533,12 @@ export class CtTextarea extends CtLit {
 
 	_onInput() {
 		this._value = this.$.input.value;
-		this.fire('value', this.value);
+		this.fire("value", this.value);
 		if (this.placeholder) {
-			var isEmpty = this.value == '' || this.value == void 0;
-			this.$.container.classList.toggle('has-value', !isEmpty);
-			this.$.input.classList.toggle('has-value', !isEmpty);
+			var isEmpty = this.value == "" || this.value == void 0;
+			this.$.container.classList.toggle("has-value", !isEmpty);
+			this.$.input.classList.toggle("has-value", !isEmpty);
 		}
-		this.countChar = this.value.length;
+		this.countChar = this.value!.length;
 	}
 }

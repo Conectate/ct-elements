@@ -38,7 +38,7 @@ export class CtMain extends LitElement {
 
 ```
 ### DEMO
-<img src="https://github.com/Conectate/ct-elements/raw/master/images/images/packages/ct-spinner.png"/>
+<img src="https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/ct-spinner.png"/>
 
 ## Properties
 

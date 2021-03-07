@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-date",
-	"version": "1.4.2",
+	"version": "1.4.3",
 	"description": "HTML input date type made with Web Components",
 	"main": "ct-date.js",
 	"typings": "ct-date.d.ts",
@@ -14,10 +14,10 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0",
-		"@conectate/ct-input": "^1.4.3",
-		"@conectate/lit-if": "^1.4.0",
-		"tslib": "^2.1.0"
+		"lit-element": "^2.x.x",
+		"@conectate/ct-input": "^1.x.x",
+		"@conectate/lit-if": "^1.x.x",
+		"tslib": "^2.x.x"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

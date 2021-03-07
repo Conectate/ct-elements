@@ -9,7 +9,8 @@
 	found at https://wc.conectate.app/PATENTS.txt
 */
 import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
-import { CSSResult } from "lit-element";
+import {ifDefined} from 'lit-html/directives/if-defined';
+import { CSSResult, internalProperty } from "lit-element";
 
 /**
  * ## `ct-input`
@@ -278,73 +279,12 @@ export class CtInput extends CtLit {
 		`
 	];
 
-	render() {
-		return html`
-			<div class="inbody">
-				${this.label
-					? html` <label for="input" class="label">${this.label}</label> `
-					: html``}
-				<div id="container">
-					<div class="row">
-						<slot name="prefix"></slot>
-						<div class="row">
-							${this.errorMessage &&
-							html`
-								<label
-									class="float-label error"
-									for="input"
-									aria-live="assertive"
-									>${this.errorMessage}</label
-								>
-							`}
-							${this.placeholder &&
-							html`
-								<label class="float-label" for="input" aria-live="assertive"
-									>${this.placeholder}</label
-								>
-							`}
-							<input
-								id="input"
-								@focus="${this._onFocus}"
-								@blur="${this._onBlur}"
-								.value="${this._value}"
-								@input="${this._onInput}"
-								.type="${this.type}"
-								autocomplete="${this.autocomplete}"
-								.autofocus="${this.autofocus}"
-								.inputMode="${this.inputmode}"
-								.minlength="${this.minlength}"
-								maxlength="${this.maxlength}"
-								.min="${this.min}"
-								.max="${this.max}"
-								.step="${this.step}"
-								name="${this.name}"
-								.placeholder="${this.placeholder || this.rawPlaceholder}"
-								.readonly="${this.readonly}"
-								.size="${this.size}"
-								.autocapitalize="${this.autocapitalize}"
-								.accept="${this.accept}"
-								.multiple="${this.multiple}"
-							/>
-						</div>
-						<slot name="suffix"></slot>
-						${this.charCounter
-							? html`
-									<div class="charCount">
-										${this.countChar}/${this.maxlength > 1_000_000
-											? "1000+"
-											: this.maxlength}
-									</div>
-							  `
-							: ``}
-					</div>
-					<div class="underline"></div>
-				</div>
-			</div>
-		`;
+
+	$!:{
+		input: HTMLInputElement
+		container: HTMLElement
 	}
-	@property({ type: String }) inputmode:
-		| ""
+	@property({ type: String }) inputmode!:
 		| "verbatim"
 		| "latin"
 		| "latin-name"
@@ -356,12 +296,13 @@ export class CtInput extends CtLit {
 		| "numeric"
 		| "tel"
 		| "email"
-		| "url" = "";
+		| "url";
 	@property({ type: Number }) minlength = 0;
-	@property({ type: String }) min = "";
-	@property({ type: String }) max = "";
-	@property({ type: String }) step = "";
-	@property({ type: String }) autocomplete:
+	@property({ type: Number }) min?: number;
+	@property({ type: Number }) max?: number;
+	@property({ type: Number }) step?: number;
+	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
+	@property({ type: String }) autocomplete?:
 		| "on"
 		| "off"
 		| "additional-name"
@@ -422,12 +363,10 @@ export class CtInput extends CtLit {
 		| "transaction-amount"
 		| "transaction-currency"
 		| "url"
-		| "username"
-		| "work" = "off";
-	@property({ type: String }) name = "";
-	@property({ type: String }) accept = "";
+		| "username";
+	@property({ type: String }) name?: string;
+	@property({ type: String }) accept?: string;
 	@property({ type: Number }) size = 24;
-	@property({ type: Boolean }) autofocus = false;
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) multiple = false;
 	__isFirstValueUpdate = true;
@@ -440,9 +379,8 @@ export class CtInput extends CtLit {
 	}
 
 	set value(val) {
-		if (val == undefined) val = ``;
-		val = `${val}`;
-		if (this._value != val && val?.length - 1 < this.maxlength) {
+		val ||= "";
+		if (this._value != val && val.length - 1 < this.maxlength) {
 			this._value = val;
 			if (this.$.input) this.$.input.value = val;
 			this.updateComplete.then(() => {
@@ -453,6 +391,12 @@ export class CtInput extends CtLit {
 
 	get value() {
 		return this._value;
+	}
+	get valueAsnumber() {
+		return this.$.input.valueAsNumber;
+	}
+	get valueAsDate() {
+		return this.$.input.valueAsDate;
 	}
 
 	/**
@@ -467,7 +411,7 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@property({ type: String }) _value = "";
+	@internalProperty() _value?: string = "";
 
 	/**
 	 * Input type
@@ -525,6 +469,74 @@ export class CtInput extends CtLit {
 	 */
 	@property({ type: Boolean }) raiseForced = false;
 
+
+
+	render() {
+		return html`
+			<div class="inbody">
+				${this.label
+					? html` <label for="input" class="label">${this.label}</label> `
+					: html``}
+				<div id="container">
+					<div class="row">
+						<slot name="prefix"></slot>
+						<div class="row">
+							${this.errorMessage &&
+							html`
+								<label
+									class="float-label error"
+									for="input"
+									aria-live="assertive"
+									>${this.errorMessage}</label
+								>
+							`}
+							${this.placeholder &&
+							html`
+								<label class="float-label" for="input" aria-live="assertive"
+									>${this.placeholder}</label
+								>
+							`}
+							<input
+								id="input"
+								@focus="${this._onFocus}"
+								@blur="${this._onBlur}"
+								@input="${this._onInput}"
+								.value="${this.value!}"
+								.type="${this.type}"
+								.placeholder="${this.placeholder || this.rawPlaceholder}"
+								.size="${this.size}"
+								?autofocus="${this.autofocus}"
+								?readonly="${this.readonly}"
+								?multiple="${this.multiple}"
+								autocomplete="${ifDefined(this.autocomplete)}"
+								inputMode="${ifDefined(this.inputmode)}"
+								minlength="${ifDefined(this.minlength)}"
+								maxlength="${ifDefined(this.maxlength)}"
+								min="${ifDefined(this.min)}"
+								max="${ifDefined(this.max)}"
+								step="${ifDefined(this.step)}"
+								name="${ifDefined(this.name)}"
+								autocapitalize="${ifDefined(this.autocapitalize)}"
+								accept="${ifDefined(this.accept)}"
+							/>
+						</div>
+						<slot name="suffix"></slot>
+						${this.charCounter
+							? html`
+									<div class="charCount">
+										${this.countChar}/${this.maxlength > 1_000_000
+											? "1000+"
+											: this.maxlength}
+									</div>
+							  `
+							: ``}
+					</div>
+					<div class="underline"></div>
+				</div>
+			</div>
+		`;
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		this.placeholder = this.placeholder;
@@ -572,7 +584,7 @@ export class CtInput extends CtLit {
 			this.invalid = !this.$.input?.value.match(re);
 		} else if (this.required) {
 			this.invalid = !(
-				this.$.input?.value.length > 0 && this.$.input?.value.length >= this.min
+				this.$.input?.value.length > 0 && this.$.input?.value.length >= (this.min || 0)
 			);
 		}
 
@@ -615,6 +627,6 @@ export class CtInput extends CtLit {
 			this.$.container?.classList.toggle("has-value", !isEmpty);
 			this.$.input?.classList.toggle("has-value", !isEmpty);
 		}
-		this.countChar = this.value.length;
+		this.countChar = this.value!.length;
 	}
 }

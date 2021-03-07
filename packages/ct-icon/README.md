@@ -1,265 +1,95 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-icon)
-[![Published on webcomponents.org](https://badge.fury.io/js/%40conectate%2Fct-icon.svg)](https://badge.fury.io/js/%40conectate%2Fct-icon.svg)
-[![GitHub version](https://badge.fury.io/gh/conectate%2Fct-icon.svg)](https://badge.fury.io/gh/conectate%2Fct-icon)
-# ct-icon
+<h1 align="center">@conectate/ct-icon</h1>
 
-....
+<p align="center">
+	<a href="https://npmcharts.com/compare/@conectate/ct-icon?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/ct-icon.svg" height="20"/></a>
+	<a href="https://www.npmjs.com/package/@conectate/ct-icon"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/ct-icon.svg" height="20"/></a>
+	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
+</p>
+
+This is an implementation to be able to use the Material Icons with web components
+
+> See: https://fonts.google.com/icons
 
 ## Installation
 
-To include this, type:
-
+To include this, type in terminal:
 
 ```sh
-$ yarn add @conectate/ct-icon
+yarn add @conectate/ct-icon
+# or
+npm i @conectate/ct-icon
 ```
-or
-```sh
-$ npm i @conectate/ct-icon
-```
-### TLDR;
-#### Bind properties to templated elements in LitElement
-You can insert JavaScript expressions as placeholders for HTML text content, attributes, Boolean attributes, properties, and event handlers.
 
-- Text content: `<p>${...}</p>`
-- Attribute: `<p id="${...}"></p>`
-- Boolean attribute: `?disabled="${...}"`
-- Property: `.value="${...}"`
-- Event handler: `@event="${...}"`
-
-## Usage
-
-### Step 1
-Add to your html\`\` (Litelement Template) like this:
+## Example
 
 ```html
-<ct-router id="ctrouter" 
-  ?auth=${this.isLogged} 
-  @login-needed=${this.loginNeeded} 
-  @loading=${this.isLoading} 
-  @location-changed=${this.pathChanged}>
-</ct-router>
+<ct-icon icon="settings"></ct-icon>
 ```
-### Step 2
-### Full LitElement example in Typescript
-```typescript
-import {CtLit, html, property, customElement } from '@conectate/ct-lit'; /* or 'lit-element' */
-import '@conectate/ct-router/ct-router';
-import { href } from '@conectate/ct-router/ct-router';
 
-@customElement('my-router')
-class MyRouter extends CtLit{
-  @property({type : Boolean}) isLogged = false;
+### ES Modules
+If you will use lit-element, react, vue, etc. need to import the web component.
 
-  /*
-  You can use lit-html @event bindings in your template inside the render function to add event listeners to your component.
-  You can use lit-html '?' bindings in your template inside the render function to add boolean property.
-  */
-  render(){
-    return html`
-    <ct-router id="ctrouter"
-      loginFallback="/404"
-      ?auth=${this.isLogged} 
-      @login-needed=${this.loginNeeded} 
-      @loading=${this.isLoading} 
-      @location-changed=${this.pathChanged}>
-    </ct-router>`
+#### `LitElement example (Typescript)`
+
+```ts
+// my-element.ts
+import { LitElement, html, customElement} from 'lit-element';
+import '@conectate/ct-icon';
+
+@customElement('my-element')
+class MyElement extends LitElement {
+    render() {
+        return html`<ct-icon icon="print"></ct-icon>`;
+    }
+}
+```
+
+#### `Change font style`
+
+```ts
+// my-element.ts
+import { LitElement, html, customElement} from 'lit-element';
+import { CtIcon } from '@conectate/ct-icon';
+import '@conectate/ct-icon';
+
+@customElement('my-element')
+class MyElement extends LitElement {
+  constructor(){
+    // Select type
+    CtIcon.FontStyle = "Sharp";
   }
 
-  firstUpdated(_changedProperties: Map<string, any>) {
-    this.mapIDs(); // map all ID's in this.$ , only in @conectate/ct-lit
-    
-    // set if user is not isAnonymous
-    this.isLogged = true; // !firebase.auth().currentUser.isAnonymous
-    
-    this.$.ctrouter.pages = [
-      {
-        path: "/page1",
-        element: html`<page-number1></page-number1>`, // you cand use html``
-        from: () => import("./src/page-number1"),
-        auth: false,
-        title: () => `Page 1 • Example.com`
-      },
-      {
-        path: "/profile",
-        element: "<my-profile></my-profile>", // or you cand use a simple string
-        from: () => import("./src/my-profile"),
-        auth: true,
-        title: () => `Profile • Example.com`
-      },
-      {
-        path: "/404",
-        element: html`<page-404></page-404>`,
-        from: () => import("./src/page-404"),
-        auth: false,
-        title: () => null
+  render() {
+    return html`<style>
+      /* Specify new font family */
+      ct-icon{
+        font-family: 'Material Icons Sharp';
       }
-    ];
-  }
+    </style>
 
-  /* =================== (optional) DEBUG ROUTER =================== */
-  /* You can view state of you web */
-  printCurrentState(){
-    // More details in interface LocationChanged 
-    console.log('Current patternMatched',this.$.ctroute.path);
-    console.log('Current pathname',this.$.ctroute.pathname);
-    console.log('Current queryParams',this.$.ctroute.queryParams);
-    console.log('Current params',this.$.ctroute.params);
-    console.log('is Logged?',this.$.ctroute.auth);
-  }
-
-  loginNeeded(e : CustomEvent< { path: string } >){
-    let path = e.detail.path;
-    alert(`loginNeeded on: ${path}`);
-  }
-
-  isLoading(e : CustomEvent< boolean >){
-    console.log('loading...', e.detail);
-  }
-
-  pathChanged(e : CustomEvent<LocationChanged>){
-    console.log('path changed',location.href);
-    console.log('patternMatched',this.$.ctroute.path,'==',e.detail.path);
-    console.log('pathname',this.$.ctroute.pathname,'==',e.detail.pathname,'==',location.pathname);
-    console.log(this.$.ctroute.queryParams,'==',e.detail.queryParams);
-    console.log(this.$.ctroute.params,'==',e.detail.params);
-  }
-}
-
-interface LocationChanged {
-  //patternMatched like a: /:profile/preferences
-  path: string,
-  // pathname like a: /herberthobregon/preferences
-  pathname: string, 
-  // if path is /home?hello=word then queryParams is { hello : "world" }
-  queryParams?: { [x:string] : string }, 
-  // if href is /herberth/preference and path is /:username/preference then params is { username : "herberth" }
-  params?: { [x:string] : string }
-}
-```
-
-### Example in React
-```tsx
-class MyComponent extends React.Component {   
-  constructor(props) {     
-    super(props);     
-    this.myRef = React.createRef();   
-  }   
-
-  render() {     
-    return <ct-router ref={this.myRef}></ct-router>;   
-  } 
-
-  componentDidMount() {
-    const ctrouter = this.myRef.current;
-    ctrouter.addEventListener('login-needed',this.loginNeeded);
-    ctrouter.addEventListener('loading',this.isLoading);
-    ctrouter.addEventListener('location-changed',this.pathChanged);
-    ctroute.pages = [
-      {
-        path: "/page1",
-        element: html`<page-number1></page-number1>`, // you cand use html``
-        from: () => import("./src/page-number1"),
-        auth: false,
-        title: () => `Page 1 • Example.com`
-      },
-      {
-        path: "/profile",
-        element: "<my-profile></my-profile>", // or you cand use a simple string
-        from: () => import("./src/my-profile"),
-        auth: true,
-        title: () => `Profile • Example.com`
-      },
-      {
-        path: "/404",
-        element: html`<page-404></page-404>`,
-        from: () => import("./src/page-404"),
-        auth: false,
-        title: () => null
-      }
-    ];
-    this.printCurrentState();
-
-    setTimeout(()=>{
-      href('/404');
-      this.printCurrentState();
-    },1500);
-  }
-
-  loginNeeded(e : CustomEvent< { path: string } >){
-    let path = e.detail.path;
-    alert(`loginNeeded on: ${path}`);
-  }
-
-  isLoading(e : CustomEvent< boolean >){
-    console.log('loading...', e.detail);
-  }
-
-  pathChanged(_e : CustomEvent<LocationChanged>){
-    console.log('path changed',location.href);
-    console.log('patternMatched',this.$.ctroute.path,'==',e.detail.path);
-    console.log('pathname',this.$.ctroute.pathname,'==',e.detail.pathname,'==',location.pathname);
-    console.log(this.$.ctroute.queryParams,'==',e.detail.queryParams);
-    console.log(this.$.ctroute.params,'==',e.detail.params);
+    <ct-icon icon="print"></ct-icon>`;
   }
 }
 ```
 
+## VS Code `intellisense` support
 
-If you plan to manage the dynamic imports, skip `from` attr
-```js
-this.$.ctroute.pages = [
-  {
-    path: "/page1",
-    element: html`<page-number1></page-number1>`,
-    from: () => null,
-    auth: false,
-    title: () => `Page 1 • Example.com`
-  }
-]
-```
+The component has support to autocomplete the more than 1000 existing icons by Google Fonts
+![Visual Sttudio Code intellisense support](https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/vscode-intellisense.png)
 
+## Properties
 
-### Dinamic Routing
-You can use `:id` to varible path and `*` for any path or your own `regexp`
-
-```js
-{
-  path: "/page/:id",
-  element: html`<page-number1></page-number1>`,
-  from: () => null,
-  auth: false,
-  title: () => `Page 1 • Example.com`
-}
-```
-or
-```js
-{
-  path: "/register/:page?",
-  // in this regexp use /(group 1)/(group 2)
-  regex : /^\/(register|registro)\/([^\/]+)(?:\/)?$/i,
-  groups : ['_group1','page'],
-  element: html`<login-register></login-register>`,
-  from: () => import("./src/login-register"),
-  auth: null,
-  title: () => `${window.register} • Example.com`
-}
-```
-
-### Auth
-There are pages that only a user with session started can see.
-for this it passes a Boolean parameter to auth of `ct-router`
-
-```html
-?auth=${this.isLogged}
-```
+| Property    | Attribute     | Type                                               | Default   | Description                                                                                               |
+| ----------- | ------------- | -------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| `FontStyle` | `static type` | `"Outlined"\|"Fill"\|"Sharp"\|"Two Tone"\|"Round"` | `"Round"` | Select Font Style with static propety - `CtIcon.FontStyle = "Round"`                                     |
+| `icon`      | `icon`        | `icon`                                             |           | Icon name described in Google Fonts                                                                       |
+| `svg`       | `svg`         | `string`                                           | ""        | If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string` |
 
 ## Follow me
+
 [![Herberth_thumb](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
 
 [https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
-
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
 
 ## Contributing
 
