@@ -1,12 +1,12 @@
 {
 	"name": "@conectate/ct-icon",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Icons",
 	"main": "ct-icon.js",
 	"typings": "ct-icon.d.ts",
 	"module": "ct-icon.js",
 	"dependencies": {
-		"lit-element": "^2.4.0"
+		"lit-element": "^2.x.x"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

@@ -75,7 +75,7 @@ class MyElement extends LitElement {
 ## VS Code `intellisense` support
 
 The component has support to autocomplete the more than 1000 existing icons by Google Fonts
-![Visual Sttudio Code intellisense support](https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/vscode-intellisense.png)
+![Visual Sttudio Code intellisense support](https://raw.githubusercontent.com/Conectate/ct-elements/master/images/vscode-intellisense.png)
 
 ## Properties
 
