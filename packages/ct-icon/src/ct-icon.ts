@@ -24,6 +24,7 @@ export class CtIcon extends LitElement {
 	static styles = [
 		css`
 			:host {
+				display: inline-flex;
 				font-family: "Material Icons Round";
 				font-weight: normal;
 				font-style: normal;
@@ -31,7 +32,6 @@ export class CtIcon extends LitElement {
 				line-height: 1;
 				letter-spacing: normal;
 				text-transform: none;
-				display: inline-block;
 				white-space: nowrap;
 				word-wrap: normal;
 				direction: ltr;
@@ -58,8 +58,6 @@ export class CtIcon extends LitElement {
 		if (this.svg)
 			return html`<style>
 					:host {
-						display: inline-flex;
-						vertical-align: middle;
 						width: 24px;
 						height: 24px;
 					}

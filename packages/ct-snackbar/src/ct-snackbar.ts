@@ -1,11 +1,9 @@
-import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
 import { sleep } from "@conectate/ct-helpers";
+import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
 
 export function showSnackBar(msg: string) {
 	// @ts-ignore
-	let _networkSnackbar: CtSnackbar | undefined = document.querySelector(
-		"ct-snackbar"
-	) as CtSnackbar;
+	let _networkSnackbar: CtSnackbar | undefined = document.querySelector("ct-snackbar") as CtSnackbar;
 	if (!_networkSnackbar) {
 		_networkSnackbar = new CtSnackbar();
 		// @ts-ignore
@@ -18,7 +16,7 @@ export function showSnackBar(msg: string) {
 // @ts-ignore
 window.showSnackBar = showSnackBar;
 
-@customElement('ct-snackbar')
+@customElement("ct-snackbar")
 export class CtSnackbar extends CtLit {
 	static styles = [
 		css`
@@ -64,13 +62,16 @@ export class CtSnackbar extends CtLit {
 					transform: translate3d(0, -40px, 0);
 				}
 			}
+			@media print {
+				:host {
+					display: none;
+				}
+			}
 		`
 	];
 	[x: string]: any;
 	render() {
-		return html`
-			<span id="msg" @click="${this.closePersist}">${this.msg}</span>
-		`;
+		return html` <span id="msg" @click="${this.closePersist}">${this.msg}</span> `;
 	}
 
 	arr: string[] = [];

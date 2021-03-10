@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"lit-element": "^2.4.0",
-		"@conectate/ct-helpers": "^0.1.0"
+		"@conectate/ct-helpers": "^0.x.x"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
