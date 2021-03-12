@@ -1,7 +1,10 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-router)
-[![Published on webcomponents.org](https://badge.fury.io/js/%40conectate%2Fct-router.svg)](https://badge.fury.io/js/%40conectate%2Fct-router.svg)
-[![GitHub version](https://badge.fury.io/gh/conectate%2Fct-router.svg)](https://badge.fury.io/gh/conectate%2Fct-router)
-[![Known Vulnerabilities](https://snyk.io/test/github/conectate/ct-router/badge.svg?targetFile=package.json)](https://snyk.io/test/github/conectate/ct-router?targetFile=package.json)
+<h1 align="center">@conectate/ct-router</h1>
+
+<p align="center">
+	<a href="https://npmcharts.com/compare/@conectate/ct-router?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/ct-router.svg" height="20"/></a>
+	<a href="https://www.npmjs.com/package/@conectate/ct-router"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/ct-router.svg" height="20"/></a>
+	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
+</p>
 # ct-router
 
 It's a simple routing system that changes the viewport depending on the route given
