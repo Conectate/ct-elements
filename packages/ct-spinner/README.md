@@ -11,6 +11,13 @@
 ## `ct-spinner`
 Spinner web component
 
+## Install
+```bash
+yarn add @conectate/ct-spinner
+#or
+npm i @conectate/ct-spinner
+```
+
 ## Usage
 On HTML
 ```html
@@ -41,6 +48,7 @@ export class CtMain extends LitElement {
 ```
 ### DEMO
 <img src="https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/ct-spinner.png"/>
+
 <!--
 ```
 <custom-element-demo>
@@ -53,6 +61,7 @@ export class CtMain extends LitElement {
 </custom-element-demo>
 ```
 -->
+
 ```html
 <ct-spinner></ct-spinner>
 ```
