@@ -26,6 +26,7 @@ export class CtIcon extends LitElement {
 			:host {
 				display: inline-flex;
 				font-family: "Material Icons Round";
+				user-select: none;
 				font-weight: normal;
 				font-style: normal;
 				font-size: 24px;
@@ -35,7 +36,6 @@ export class CtIcon extends LitElement {
 				white-space: nowrap;
 				word-wrap: normal;
 				direction: ltr;
-				-webkit-font-feature-settings: "liga";
 				-webkit-font-smoothing: antialiased;
 			}
 		`

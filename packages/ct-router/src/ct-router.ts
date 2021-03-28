@@ -1,4 +1,4 @@
-import { LitElement, customElement, html, TemplateResult } from "lit-element";
+import { LitElement, TemplateResult, css, customElement, html, internalProperty, property } from "lit-element";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { installRouter } from "pwa-helpers/router";
 
@@ -45,10 +45,11 @@ declare global {
 		"ct-router": CtRouter;
 	}
 }
+type CtRouterListeners = "beforeunload";
 /**
  * ## `ct-router`
  * It's a simple routing system that changes the viewport depending on the route given
- * 
+ *
  * @element ct-router
  * @event login-needed It triggers when a page requires authentication but the user is not yet logged in
  * @event loading It fires when a page is imported diamicamente and it is fired again when it finishes loading the page
@@ -56,59 +57,97 @@ declare global {
  */
 @customElement("ct-router")
 export class CtRouter extends LitElement {
-	$: { [x: string]: HTMLElement | any } = {};
-	_routes: { [x: string]: Routes } = {};
-	_currentView: any = "";
-	pages: Page[] = [];
-	patternMatched: string = "";
-	pathname: string = "/";
-	queryParams: { [x: string]: string } = {};
-	params: { [x: string]: string } = {};
-	auth: boolean = false;
-	loginFallback = "/login";
+	$: { content?: HTMLDivElement; drawerSlot?: HTMLSlotElement } = {};
+	/**
+	 * This is a dictionary of routes linked to its corresponding elements.
+	 */
+	@internalProperty() private _routes: { [x: string]: Routes } = {};
+	/**
+	 * This holds the next route to be viewed after the url has been changed.
+	 */
+	@internalProperty() private patternMatched: string = "";
+	/**
+	 * This holds the current route that is being viewed
+	 */
+	@internalProperty() private _currentView: any = "";
+	/**
+	 * Current Path
+	 */
+	@internalProperty() private pathname: string = "/";
+	/**
+	 * Login needed fallback path
+	 */
+	@property({ type: String }) loginFallback = "/login";
+	/**
+	 * Array de elementos {path,element(HTML),from,auth,title}
+	 */
+	@property({ type: Array }) pages: Page[] = [];
+	/**
+	 * This is an object that holds the values of the query parameters in the url
+	 */
+	@property({ type: Object }) queryParams: { [x: string]: string } = {};
+	/**
+	 * This is an object that holds the values of the parameters in the route
+	 * pattern set in the current page element being viewed.
+	 */
+	@property({ type: Object }) params: { [x: string]: string } = {};
+	/**
+	 * Parametro para verificar el auto
+	 */
+	@property({ type: Boolean }) auth: boolean = false;
+
+	private listeners: { name: CtRouterListeners; callback: () => Promise<boolean>; id: number }[] = [];
+	private listenerID = 0;
+	static styles = [
+		css`
+			:host {
+				display: block;
+			}
+			@keyframes fadeEffect {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			#content {
+				height: 100%;
+				min-height: 100%;
+			}
+			#content > * {
+				animation: fadeEffect 0.5s;
+				min-height: 100%;
+			}
+		`
+	];
 
 	render() {
-		return html`<style>
-				:host {
-					display: block;
-				}
-				@keyframes fadeEffect {
-					from {
-						opacity: 0;
-					}
-					to {
-						opacity: 1;
-					}
-				}
-				#content {
-					height: 100%;
-					min-height: 100%;
-				}
-				#content > * {
-					animation: fadeEffect 0.5s;
-					min-height: 100%;
-				}
-			</style>
+		return html`
 			<slot id="drawerSlot" name="banner"></slot>
-
-			<div id="content">
-				${typeof this._currentView == "string"
-					? unsafeHTML(this._currentView)
-					: this._currentView}
-			</div> `;
+			<div id="content">${typeof this._currentView == "string" ? unsafeHTML(this._currentView) : this._currentView}</div>
+		`;
 	}
 
 	constructor() {
 		super();
 		window.ctrouter = this;
 		installRouter((l) => this.handleRoutes(l));
-		window.addEventListener("location-changed", () =>
-			this.handleRoutes(window.location)
-		);
+		window.addEventListener("location-changed", () => this.handleRoutes(window.location));
 	}
 	firstUpdated() {
 		this._contentAdded(this.pages);
 	}
+	on(listener: CtRouterListeners, func: () => Promise<boolean>) {
+		// onbeforeunload
+		let id = this.listenerID++;
+		this.listeners.push({ name: listener, callback: func, id });
+		return id;
+	}
+	deleteListener(id: number) {
+		this.listeners = this.listeners.filter((l) => l.id != id);
+	}
+
 	updated(m: Map<string, any>) {
 		if (m.has("pages")) {
 			this._contentAdded(this.pages || []);
@@ -120,81 +159,28 @@ export class CtRouter extends LitElement {
 		this._setPath(url);
 	}
 
-	handleRoutes(location: Location) {
+	async handleRoutes(location: Location) {
 		/*
         Esto es por si hago un push state y luego hago un back entonces no cambie la URL
         ej: /herberth -> /herberth#showDialog -> /herberth
         */
 		if (location.pathname != this.pathname) {
-			this._setPath(location.pathname);
-			this._setQueryParams(getQueryParams());
-			this._pathChanged(this.pathname);
+			let has = this.listeners.find((l) => l.name == "beforeunload");
+			if (has) {
+				let cont = await has.callback();
+				if (cont) {
+					this._setPath(location.pathname);
+					this._setQueryParams(getQueryParams());
+					this._pathChanged(this.pathname);
+				} else {
+					window.history?.replaceState(null, document.title, this.pathname);
+				}
+			} else {
+				this._setPath(location.pathname);
+				this._setQueryParams(getQueryParams());
+				this._pathChanged(this.pathname);
+			}
 		}
-	}
-
-	static get properties() {
-		return {
-			/**
-			 * Array de elementos {path,element(HTML),from,auth,title}
-			 */
-			pages: { type: Array },
-			/**
-			 * Parametro para verificar el auto
-			 */
-			auth: { type: Boolean },
-			/**
-			 * Comes from app-location. The current most important parts here
-			 * are `path` and `__queryParams` which sets the `path` and `queryParams`
-			 * of this element respectively.
-			 */
-			_route: { type: Object },
-
-			/**
-			 * The current path of the app. Changes depending on the URL put at the top
-			 * or pushed in the state of the browser
-			 */
-			path: { type: String },
-
-			/**
-			 * This is an object that holds the values of the parameters in the route
-			 * pattern set in the current page element being viewed.
-			 */
-			params: { type: Object },
-
-			/**
-			 * This is an object that holds the values of the query parameters in the url
-			 */
-			queryParams: { type: Object },
-
-			/**
-			 * This is required. This is the tag-name of the element that holds
-			 * the list of page elements that will need to be lazy-loaded.
-			 */
-			parentTagName: { type: String },
-			/**
-			 * This is for iron-selected navigation lists
-			 */
-			currentRoute: { type: String },
-			/**
-			 * This holds the current route that is being viewed
-			 */
-			_currentView: { type: Object },
-
-			/**
-			 * This holds the next route to be viewed after the url has been changed.
-			 */
-			patternMatched: { type: String },
-			/**
-			 * This will be the registered element that holds all the source files of the
-			 * elements that needed to be lazy-loaded.
-			 */
-			_fromElement: { type: Object },
-
-			/**
-			 * This is a dictionary of routes linked to its corresponding elements.
-			 */
-			_routes: { type: Object }
-		};
 	}
 
 	/**
@@ -240,7 +226,7 @@ export class CtRouter extends LitElement {
 						auth: el.auth,
 						title: el.title
 					};
-				}else{
+				} else {
 					console.warn(new Error(`The Path: '${el.path}' already use`));
 				}
 			}
@@ -255,7 +241,6 @@ export class CtRouter extends LitElement {
 	 */
 	_pathChanged(path: string) {
 		let routes = this._routes;
-		let patternMatched: string | undefined = undefined;
 		this.params = {};
 		let routePaths = this.pages;
 		if (routePaths.length == 0) {
@@ -269,19 +254,19 @@ export class CtRouter extends LitElement {
 			if (c2 != null) {
 				// Set params like a  {username : "herberthbregon", "jid" : 1234}
 				this.params = c2;
-				patternMatched = routePaths[i].path;
+			this.	patternMatched = routePaths[i].path;
 				break;
 			}
 		}
 
 		// if pattern matched is created, change the view, if exausted all
 		// route patterns, make view a not-found
-		//console.log(patternMatched);
-		if (patternMatched) {
+		//console.log(this.patternMatched);
+		if (this.patternMatched) {
 			// Si la vista es protegida y no esta logeado entonces lo mando a /login y no esta autenticado
-			if (routes[patternMatched].auth && !this.auth) {
+			if (routes[this.patternMatched].auth && !this.auth) {
 				console.warn("You need to log in to perform this action");
-				this.patternMatched = patternMatched = this.loginFallback;
+				this.patternMatched = this.patternMatched = this.loginFallback;
 				let ce = new CustomEvent("login-needed", {
 					detail: { path: window.location.pathname }
 				});
@@ -289,11 +274,11 @@ export class CtRouter extends LitElement {
 				window.dispatchEvent(ce);
 				this._currentView = this._routes[this.loginFallback].element;
 			} else {
-				this.patternMatched = patternMatched;
-				this._currentView = this._routes[patternMatched].element;
+				this.patternMatched = this.patternMatched;
+				this._currentView = this._routes[this.patternMatched].element;
 			}
 		} else {
-			this.patternMatched = patternMatched = "/404";
+			this.patternMatched = this.patternMatched = "/404";
 			console.log("/404");
 			this._currentView = this._routes["/404"].element;
 		}
@@ -301,28 +286,21 @@ export class CtRouter extends LitElement {
 		this.dispatchEvent(
 			new CustomEvent("location-changed", {
 				detail: {
-					path: patternMatched,
+					path: this.patternMatched,
 					pathname: this.pathname,
 					queryParams: this.queryParams,
 					params: this.params
 				}
 			})
 		);
-		if (patternMatched && routes[patternMatched]) {
-			let fromImport = routes[patternMatched].from;
+		if (this.patternMatched && routes[this.patternMatched]) {
+			let fromImport = routes[this.patternMatched].from;
 			if (fromImport) {
 				this.dispatchEvent(new CustomEvent("loading", { detail: true }));
 				fromImport()
 					.then(() => {
-						if (patternMatched)
-							this.dispatchEvent(new CustomEvent(patternMatched));
-						setTimeout(
-							() =>
-								this.dispatchEvent(
-									new CustomEvent("loading", { detail: false })
-								),
-							500
-						);
+						if (this.patternMatched) this.dispatchEvent(new CustomEvent(this.patternMatched));
+						setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 500);
 					})
 					.catch((e: any) => {
 						console.error(e);
@@ -332,16 +310,17 @@ export class CtRouter extends LitElement {
 						console.error("Can't lazy-import - " + fromImport);
 					});
 			} else {
-				setTimeout(
-					() =>
-						this.dispatchEvent(new CustomEvent("loading", { detail: false })),
-					800
-				);
+				setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 800);
 			}
-			if (routes[patternMatched].title()) {
-				document.title = routes[patternMatched].title() as string;
+			if (routes[this.patternMatched].title()) {
+				document.title = routes[this.patternMatched].title() as string;
 			}
 		}
+	}
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		// clear listeners
+		this.listeners.length = 0;
 	}
 }
 

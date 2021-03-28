@@ -8,9 +8,9 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, html, property, css, customElement } from "@conectate/ct-lit";
-import {ifDefined} from 'lit-html/directives/if-defined';
+import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
 import { CSSResult, internalProperty } from "lit-element";
+import { ifDefined } from "lit-html/directives/if-defined";
 
 /**
  * ## `ct-input`
@@ -61,10 +61,8 @@ export class CtInput extends CtLit {
 			}
 
 			#container.active > .underlinee {
-				-webkit-animation: quantumWizPaperInputAddUnderline 0.3s
-					cubic-bezier(0.4, 0, 0.2, 1);
-				animation: quantumWizPaperInputAddUnderline 0.3s
-					cubic-bezier(0.4, 0, 0.2, 1);
+				-webkit-animation: quantumWizPaperInputAddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				animation: quantumWizPaperInputAddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 				-webkit-transform: scaleX(1);
 				transform: scaleX(1);
 			}
@@ -279,11 +277,10 @@ export class CtInput extends CtLit {
 		`
 	];
 
-
-	$!:{
-		input: HTMLInputElement
-		container: HTMLElement
-	}
+	$!: {
+		input: HTMLInputElement;
+		container: HTMLElement;
+	};
 	@property({ type: String }) inputmode!:
 		| "verbatim"
 		| "latin"
@@ -390,7 +387,7 @@ export class CtInput extends CtLit {
 	}
 
 	get value() {
-		return this._value;
+		return this._value || "";
 	}
 	get valueAsnumber() {
 		return this.$.input.valueAsNumber;
@@ -469,33 +466,16 @@ export class CtInput extends CtLit {
 	 */
 	@property({ type: Boolean }) raiseForced = false;
 
-
-
 	render() {
 		return html`
 			<div class="inbody">
-				${this.label
-					? html` <label for="input" class="label">${this.label}</label> `
-					: html``}
+				${this.label ? html` <label for="input" class="label">${this.label}</label> ` : html``}
 				<div id="container">
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
-							${this.errorMessage &&
-							html`
-								<label
-									class="float-label error"
-									for="input"
-									aria-live="assertive"
-									>${this.errorMessage}</label
-								>
-							`}
-							${this.placeholder &&
-							html`
-								<label class="float-label" for="input" aria-live="assertive"
-									>${this.placeholder}</label
-								>
-							`}
+							${this.errorMessage && html` <label class="float-label error" for="input" aria-live="assertive">${this.errorMessage}</label> `}
+							${this.placeholder && html` <label class="float-label" for="input" aria-live="assertive">${this.placeholder}</label> `}
 							<input
 								id="input"
 								@focus="${this._onFocus}"
@@ -509,7 +489,7 @@ export class CtInput extends CtLit {
 								?readonly="${this.readonly}"
 								?multiple="${this.multiple}"
 								autocomplete="${ifDefined(this.autocomplete)}"
-								inputMode="${ifDefined(this.inputmode)}"
+								inputmode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"
 								min="${ifDefined(this.min)}"
@@ -521,15 +501,7 @@ export class CtInput extends CtLit {
 							/>
 						</div>
 						<slot name="suffix"></slot>
-						${this.charCounter
-							? html`
-									<div class="charCount">
-										${this.countChar}/${this.maxlength > 1_000_000
-											? "1000+"
-											: this.maxlength}
-									</div>
-							  `
-							: ``}
+						${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? "1000+" : this.maxlength}</div> ` : ``}
 					</div>
 					<div class="underline"></div>
 				</div>
@@ -572,20 +544,14 @@ export class CtInput extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$.input?.value === undefined || this.$.input?.value === "")
-				return !this.invalid;
+			if (this.$.input?.value === undefined || this.$.input?.value === "") return !this.invalid;
 		}
 
 		if (this.pattern) {
-			let re =
-				this.pattern instanceof RegExp
-					? this.pattern
-					: new RegExp(this.pattern);
+			let re = this.pattern instanceof RegExp ? this.pattern : new RegExp(this.pattern);
 			this.invalid = !this.$.input?.value.match(re);
 		} else if (this.required) {
-			this.invalid = !(
-				this.$.input?.value.length > 0 && this.$.input?.value.length >= (this.min || 0)
-			);
+			this.invalid = !(this.$.input?.value.length > 0 && this.$.input?.value.length >= (this.min || 0));
 		}
 
 		if (!this.invalid) {

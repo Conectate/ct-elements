@@ -13,41 +13,44 @@ It's a simple routing system that changes the viewport depending on the route gi
 
 To include this, type:
 
-
 ```sh
 $ yarn add @conectate/ct-router
 ```
+
 or
+
 ```sh
 $ npm i @conectate/ct-router
 ```
+
 ### TLDR;
+
 #### Bind properties to templated elements in LitElement
+
 You can insert JavaScript expressions as placeholders for HTML text content, attributes, Boolean attributes, properties, and event handlers.
 
-- Text content: `<p>${...}</p>`
-- Attribute: `<p id="${...}"></p>`
-- Boolean attribute: `?disabled="${...}"`
-- Property: `.value="${...}"`
-- Event handler: `@event="${...}"`
+-   Text content: `<p>${...}</p>`
+-   Attribute: `<p id="${...}"></p>`
+-   Boolean attribute: `?disabled="${...}"`
+-   Property: `.value="${...}"`
+-   Event handler: `@event="${...}"`
 
 ## Usage
 
 ### Step 1
+
 Add to your html\`\` (Litelement Template) like this:
 
 ```html
-<ct-router id="ctrouter" 
-  ?auth=${this.isLogged} 
-  @login-needed=${this.loginNeeded} 
-  @loading=${this.isLoading} 
-  @location-changed=${this.pathChanged}>
-</ct-router>
+<ct-router id="ctrouter" ?auth="${this.isLogged}" @login-needed="${this.loginNeeded}" @loading="${this.isLoading}" @location-changed="${this.pathChanged}"> </ct-router>
 ```
+
 ### Step 2
+
 ### Full LitElement example in Typescript
+
 ```typescript
-import {CtLit, html, property, customElement } from '@conectate/ct-lit'; /* or 'lit-element' */
+import {CtLit, html, property, customElement, internalProperty } from '@conectate/ct-lit'; /* or 'lit-element' */
 import '@conectate/ct-router/ct-router';
 import { href } from '@conectate/ct-router/ct-router';
 
@@ -59,52 +62,51 @@ class MyRouter extends CtLit{
   You can use lit-html @event bindings in your template inside the render function to add event listeners to your component.
   You can use lit-html '?' bindings in your template inside the render function to add boolean property.
   */
+  @internalProperty() private pages = [
+    {
+      path: "/page1",
+      element: html`<page-number1></page-number1>`, // you cand use html``
+      from: () => import("./src/page-number1"),
+      auth: false,
+      title: () => `Page 1 • Example.com`
+    },
+    {
+      path: "/profile",
+      element: "<my-profile></my-profile>", // or you cand use a simple string
+      from: () => import("./src/my-profile"),
+      auth: true,
+      title: () => `Profile • Example.com`
+    },
+    {
+      path: "/404",
+      element: html`<page-404></page-404>`,
+      from: () => import("./src/page-404"),
+      auth: false,
+      title: () => null
+    }
+  ];
+
   render(){
     return html`
     <ct-router id="ctrouter"
       loginFallback="/404"
-      ?auth=${this.isLogged} 
-      @login-needed=${this.loginNeeded} 
-      @loading=${this.isLoading} 
+      .pages=${this.pages}
+      ?auth=${this.isLogged}
+      @login-needed=${this.loginNeeded}
+      @loading=${this.isLoading}
       @location-changed=${this.pathChanged}>
     </ct-router>`
   }
 
   firstUpdated(_changedProperties: Map<string, any>) {
-    this.mapIDs(); // map all ID's in this.$ , only in @conectate/ct-lit
-    
     // set if user is not isAnonymous
     this.isLogged = true; // !firebase.auth().currentUser.isAnonymous
-    
-    this.$.ctrouter.pages = [
-      {
-        path: "/page1",
-        element: html`<page-number1></page-number1>`, // you cand use html``
-        from: () => import("./src/page-number1"),
-        auth: false,
-        title: () => `Page 1 • Example.com`
-      },
-      {
-        path: "/profile",
-        element: "<my-profile></my-profile>", // or you cand use a simple string
-        from: () => import("./src/my-profile"),
-        auth: true,
-        title: () => `Profile • Example.com`
-      },
-      {
-        path: "/404",
-        element: html`<page-404></page-404>`,
-        from: () => import("./src/page-404"),
-        auth: false,
-        title: () => null
-      }
-    ];
   }
 
   /* =================== (optional) DEBUG ROUTER =================== */
   /* You can view state of you web */
   printCurrentState(){
-    // More details in interface LocationChanged 
+    // More details in interface LocationChanged
     console.log('Current patternMatched',this.$.ctroute.path);
     console.log('Current pathname',this.$.ctroute.pathname);
     console.log('Current queryParams',this.$.ctroute.queryParams);
@@ -134,25 +136,26 @@ interface LocationChanged {
   //patternMatched like a: /:profile/preferences
   path: string,
   // pathname like a: /herberthobregon/preferences
-  pathname: string, 
+  pathname: string,
   // if path is /home?hello=word then queryParams is { hello : "world" }
-  queryParams?: { [x:string] : string }, 
+  queryParams?: { [x:string] : string },
   // if href is /herberth/preference and path is /:username/preference then params is { username : "herberth" }
   params?: { [x:string] : string }
 }
 ```
 
 ### Example in React
-```tsx
-class MyComponent extends React.Component {   
-  constructor(props) {     
-    super(props);     
-    this.myRef = React.createRef();   
-  }   
 
-  render() {     
-    return <ct-router ref={this.myRef}></ct-router>;   
-  } 
+```tsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
+  render() {
+    return <ct-router ref={this.myRef}></ct-router>;
+  }
 
   componentDidMount() {
     const ctrouter = this.myRef.current;
@@ -209,8 +212,8 @@ class MyComponent extends React.Component {
 }
 ```
 
-
 If you plan to manage the dynamic imports, skip `from` attr
+
 ```js
 this.$.ctroute.pages = [
   {
@@ -223,8 +226,8 @@ this.$.ctroute.pages = [
 ]
 ```
 
-
 ### Dinamic Routing
+
 You can use `:id` to varible path and `*` for any path or your own `regexp`
 
 ```js
@@ -236,7 +239,9 @@ You can use `:id` to varible path and `*` for any path or your own `regexp`
   title: () => `Page 1 • Example.com`
 }
 ```
+
 or
+
 ```js
 {
   path: "/register/:page?",
@@ -251,6 +256,7 @@ or
 ```
 
 ### Auth
+
 There are pages that only a user with session started can see.
 for this it passes a Boolean parameter to auth of `ct-router`
 
@@ -258,7 +264,43 @@ for this it passes a Boolean parameter to auth of `ct-router`
 ?auth=${this.isLogged}
 ```
 
+# Add `beforeunload` listener example
+
+The beforeunload event is fired when the `location` has changed, The document and its resources are about to be unloaded. The document is still visible and the event is still cancelable at this point.
+
+⚠️⚠️⚠️ This listener mimics the behavior of `window.onbeforeunload` but is not the same. If you need to know if it reloads the page or if you are exiting your web page, use the `window.onbeforeunload` method.
+
+```typescript
+import {CtLit, html, property, customElement, internalProperty } from 'lit-element'; /* or 'lit-element' */
+import { showCtConfirm } from '@conectate/ct-dialog/ct-confirm';
+import '@conectate/ct-router/ct-router';
+
+@customElement('my-router')
+class MyRouter extends LitElement{
+  listenerID = 0;
+
+  render(){
+    return html`...`
+  }
+  firstUpdated(_changedProperties: Map<string, any>) {
+    // get data from server
+    // ...
+
+    this.listenerID = window.ctrouter?.on('beforeunload', async () => {
+      let rsp:boolean = await showCtConfirm('Reload site?', 'Changes you made may not be saved.', "Reload" , "Stay", undefined, { history: false });
+      if (rsp) window.ctrouter.deleteListener(this.listenerID);
+      return rsp;
+		});
+  }
+
+  saveData(){
+    window.ctrouter.deleteListener(this.listenerID);
+    // To-Do Save info
+  }
+```
+
 ## Follow me
+
 [![Herberth_thumb](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
 
 [https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)

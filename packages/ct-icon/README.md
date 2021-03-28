@@ -23,6 +23,7 @@ npm i @conectate/ct-icon
 ## Example
 
 ```html
+<!-- See: https://fonts.google.com/icons for more icons -->
 <ct-icon icon="settings"></ct-icon>
 ```
 

@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-icon",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"description": "Icons",
 	"main": "ct-icon.js",
 	"typings": "ct-icon.d.ts",

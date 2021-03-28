@@ -1,10 +1,80 @@
-import { LitElement } from 'lit-element';
+import { LitElement } from "lit-element";
 
 export type PropertyValues = Map<PropertyKey, any>;
-export { unsafeHTML } from 'lit-html/directives/unsafe-html';
-export { until } from 'lit-html/directives/until';
-export { html, svg, css, customElement, property,internalProperty, query, queryAll, queryAssignedNodes, queryAsync } from 'lit-element';
+export { unsafeHTML } from "lit-html/directives/unsafe-html";
+export { until } from "lit-html/directives/until";
+export { html, svg, css, property, internalProperty, query, queryAll, queryAssignedNodes, queryAsync } from "lit-element";
 
+// From the TC39 Decorators proposal
+interface ClassDescriptor {
+	kind: "class";
+	elements: ClassElement[];
+	finisher?: <T>(clazz: Constructor<T>) => undefined | Constructor<T>;
+}
+
+// From the TC39 Decorators proposal
+interface ClassElement {
+	kind: "field" | "method";
+	key: PropertyKey;
+	placement: "static" | "prototype" | "own";
+	initializer?: Function;
+	extras?: ClassElement[];
+	finisher?: <T>(clazz: Constructor<T>) => undefined | Constructor<T>;
+	descriptor?: PropertyDescriptor;
+}
+
+export type Constructor<T> = {
+	// tslint:disable-next-line:no-any
+	new (...args: any[]): T;
+};
+
+/**
+ * Class decorator factory that defines the decorated class as a custom element.
+ *
+ * ```
+ * @customElement('my-element')
+ * class MyElement {
+ *   render() {
+ *     return html``;
+ *   }
+ * }
+ * ```
+ * @category Decorator
+ * @param tagName The name of the custom element to define.
+ */
+export const customElement = (tagName: string) => (classOrDescriptor: Constructor<HTMLElement> | ClassDescriptor) =>
+	typeof classOrDescriptor === "function" ? legacyCustomElement(tagName, classOrDescriptor) : standardCustomElement(tagName, classOrDescriptor);
+
+const legacyCustomElement = (tagName: string, clazz: Constructor<HTMLElement>) => {
+	if (!window.customElements.get(tagName)) {
+		window.customElements.define(tagName, clazz);
+	} else {
+		console.warn(tagName, "already defined");
+	}
+	// Cast as any because TS doesn't recognize the return type as being a
+	// subtype of the decorated class when clazz is typed as
+	// `Constructor<HTMLElement>` for some reason.
+	// `Constructor<HTMLElement>` is helpful to make sure the decorator is
+	// applied to elements however.
+	// tslint:disable-next-line:no-any
+	return clazz as any;
+};
+
+const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => {
+	const { kind, elements } = descriptor;
+	return {
+		kind,
+		elements,
+		// This callback is called once the class is otherwise fully defined
+		finisher(clazz: Constructor<HTMLElement>) {
+			if (!window.customElements.get(tagName)) {
+				window.customElements.define(tagName, clazz);
+			} else {
+				console.warn(tagName, "already defined");
+			}
+		}
+	};
+};
 /**
  * It's a simple wrapper for LitElement
  */
@@ -41,7 +111,7 @@ export class CtLit extends LitElement {
 	 * You should add in the first line of `firstUpdated()`
 	 */
 	mapIDs() {
-		let nodeList = this.renderRoot.querySelectorAll('[id]');
+		let nodeList = this.renderRoot.querySelectorAll("[id]");
 		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
 			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
 		}
@@ -143,7 +213,12 @@ export class CtLit extends LitElement {
      * @param easing 
      * @param target scrollTarget Element
      */
-	scrollToY(scrollTargetY: number = 0, time: number = 600, easing: 'easeInOutSine' | 'easeOutSine' | 'easeInOutQuint' | 'easeInOutCubic' = 'easeInOutCubic', target: Element = (window as any).scrollTarget) {
+	scrollToY(
+		scrollTargetY: number = 0,
+		time: number = 600,
+		easing: "easeInOutSine" | "easeOutSine" | "easeInOutQuint" | "easeInOutCubic" = "easeInOutCubic",
+		target: Element = (window as any).scrollTarget
+	) {
 		let currentTime = 0;
 		const animationTime = time / 1000;
 
@@ -188,5 +263,5 @@ export class CtLit extends LitElement {
  * @param template StringTemplate
  */
 export function If(condition: boolean, template: any) {
-	return condition ? template : '';
+	return condition ? template : "";
 }
