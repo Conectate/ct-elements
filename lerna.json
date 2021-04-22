@@ -6,5 +6,5 @@
 			"npmClientArgs": ["--no-package-lock"]
 		}
 	},
-	"version": "0.20.0"
+	"version": "3.0.0"
 }
