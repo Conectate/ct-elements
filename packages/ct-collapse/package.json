@@ -14,8 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.0.0",
-		"@conectate/ct-helpers": "^3.0.0"
+		"@conectate/ct-helpers": "^3.0.0",
+		"@conectate/ct-lit": "^3.0.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

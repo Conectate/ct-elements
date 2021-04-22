@@ -1,29 +1,29 @@
 {
-  "name": "@conectate/ct-qr-tools",
-  "version": "1.4.0",
-  "description": "Ct Elements",
-	"main": "ct-qr-tools.js",
-	"typings": "ct-qr-tools.d.ts",
-	"module": "ct-qr-tools.js",
-  "license": "BSD-3-Clause",
-  "author": "Herberth Obregón <herberthobregon@gmail.com>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/conectate/ct-elements"
-	},
-	"bugs": {
-		"url": "https://github.com/conectate/ct-elements/issues"
-	},
-	"homepage": "https://github.com/conectate/ct-elements",
-  "scripts": {
-		"prepare": "rm -rf *.map *.js *.ts;tsc"
-  },
-  "keywords": [
-    "ct-elements"
-  ],
-  "dependencies": {
-    "jsqr-es6": "^1.3.1-1",
-    "qrcode": "^1.4.4",
-    "@types/qrcode": "^1.3.5"
-  }
+ "name": "@conectate/ct-qr-tools",
+ "version": "3.0.0",
+ "description": "Ct Elements",
+ "main": "ct-qr-tools.js",
+ "typings": "ct-qr-tools.d.ts",
+ "module": "ct-qr-tools.js",
+ "license": "BSD-3-Clause",
+ "author": "Herberth Obregón <herberthobregon@gmail.com>",
+ "repository": {
+  "type": "git",
+  "url": "https://github.com/conectate/ct-elements"
+ },
+ "bugs": {
+  "url": "https://github.com/conectate/ct-elements/issues"
+ },
+ "homepage": "https://github.com/conectate/ct-elements",
+ "scripts": {
+  "prepare": "rm -rf *.map *.js *.ts;tsc"
+ },
+ "keywords": [
+  "ct-elements"
+ ],
+ "dependencies": {
+  "@types/qrcode": "^1.3.5",
+  "jsqr-es6": "^1.3.1-1",
+  "qrcode": "^1.4.4"
+ }
 }

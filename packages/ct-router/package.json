@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "3.0.0",
+		"@conectate/ct-lit": "^3.0.0",
 		"pwa-helpers": "^0.9.1",
 		"tslib": "^2.2.0"
 	},

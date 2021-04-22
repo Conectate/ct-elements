@@ -16,8 +16,8 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
 	"dependencies": {
-		"@conectate/ct-lit": "3.0.0",
-		"@conectate/ct-input": "3.0.0",
+		"@conectate/ct-input": "^3.0.0",
+		"@conectate/ct-lit": "^3.0.0",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {

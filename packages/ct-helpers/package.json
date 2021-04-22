@@ -12,7 +12,6 @@
 		"Geolocation",
 		"Generate ID"
 	],
-	"dependencies": {},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
