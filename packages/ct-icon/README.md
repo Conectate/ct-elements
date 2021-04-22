@@ -28,13 +28,13 @@ npm i @conectate/ct-icon
 ```
 
 ### ES Modules
-If you will use lit-element, react, vue, etc. need to import the web component.
+If you will use lit, react, vue, etc. need to import the web component.
 
 #### `LitElement example (Typescript)`
 
 ```ts
 // my-element.ts
-import { LitElement, html, customElement} from 'lit-element';
+import { LitElement, html, customElement} from 'lit';
 import '@conectate/ct-icon';
 
 @customElement('my-element')
@@ -49,7 +49,7 @@ class MyElement extends LitElement {
 
 ```ts
 // my-element.ts
-import { LitElement, html, customElement} from 'lit-element';
+import { LitElement, html, customElement} from 'lit';
 import { CtIcon } from '@conectate/ct-icon';
 import '@conectate/ct-icon';
 

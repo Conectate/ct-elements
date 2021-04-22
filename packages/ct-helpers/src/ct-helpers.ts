@@ -127,7 +127,7 @@ export function browserCapabilities(userAgent: string) {
 		if (!version) {
 			return [];
 		}
-		return new String(version).split('.').map(part => {
+		return new String(version).split('.').map((part) => {
 			const i = parseInt(part, 10);
 			return isNaN(i) ? -1 : i;
 		});
@@ -255,7 +255,7 @@ export function getGeoLocation(): Promise<{ lat: number; lon: number }> {
 	return new Promise((solve, err) => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
-				p => {
+				(p) => {
 					solve({
 						lat: p.coords.latitude,
 						lon: p.coords.longitude
@@ -273,7 +273,7 @@ export function getGeoLocation(): Promise<{ lat: number; lon: number }> {
 /**
  * Sleep Promise
  */
-export let sleep = (time: number) => new Promise(resolve => setTimeout(() => resolve(0), time));
+export let sleep = (time: number) => new Promise((resolve) => setTimeout(() => resolve(0), time));
 
 /**
  * Generate Random ID

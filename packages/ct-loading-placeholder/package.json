@@ -1,12 +1,12 @@
 {
-  "name": "@conectate/ct-loading-placeholder",
-  "version": "1.4.0",
-  "description": "Is a simple element to use skeleton loading such as Facebook.",
-	"main": "ct-collapse.js",
-	"typings": "ct-collapse.d.ts",
-	"module": "ct-collapse.js",
-  "license": "BSD-3-Clause",
-  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"name": "@conectate/ct-loading-placeholder",
+	"version": "3.0.0",
+	"description": "Is a simple element to use skeleton loading such as Facebook.",
+	"main": "ct-loading-placeholder.js",
+	"typings": "ct-loading-placeholder.d.ts",
+	"module": "ct-loading-placeholder.js",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/conectate/ct-elements"
@@ -15,23 +15,24 @@
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
-  "scripts": {
+	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
-  },
-  "keywords": [
-    "LitElement",
-    "React",
-    "Vue",
-    "Angular",
-    "Web Components",
-    "Polymer",
-    "loading",
-    "placeholder"
-  ],
-  "dependencies": {
-    "lit-element": "^2.4.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	},
+	"keywords": [
+		"LitElement",
+		"React",
+		"Vue",
+		"Angular",
+		"Web Components",
+		"Polymer",
+		"loading",
+		"placeholder"
+	],
+	"dependencies": {
+		"@conectate/ct-lit": "3.0.0",
+		"tslib": "^2.2.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

@@ -8,7 +8,8 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { html, CtLit, css, customElement } from '@conectate/ct-lit';
+
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 /**
  * `ct-input-container`

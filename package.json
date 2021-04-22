@@ -1,22 +1,32 @@
 {
 	"name": "conectate-elements",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"type": "module",
 	"license": "BSD-3-Clause",
 	"dependencies": {
-		"@conectate/ct-elements": "file:./packages/ct-elements",
-		"lit-element": "^2.4.0",
-		"tslib": "^2.1.0",
-		"typescript": "4.2.3"
+		"@material/mwc-checkbox": "^0.20.0",
+		"@material/mwc-radio": "^0.20.0",
+		"lit": "^2.0.0-rc.1",
+		"lit-virtualizer": "^0.4.2"
 	},
 	"devDependencies": {
 		"@types/chart.js": "^2.9.27",
+		"@web/dev-server": "^0.1.14",
 		"import-sort-style-module": "^6.0.0",
+		"lerna": "^4.0.0",
 		"prettier": "^2.2.1",
-		"prettier-plugin-import-sort": "^0.0.6"
+		"prettier-plugin-import-sort": "^0.0.6",
+		"tslib": "^2.2.0",
+		"typescript": "4.2.3"
 	},
 	"scripts": {
-		"build": "sh build.sh"
+		"xbuild": "sh build.sh",
+		"starts": "web-dev-server --node-resolve --app-index src/index.html --open",
+		"bootstrap": "lerna bootstrap",
+		"new-ver": "lerna version --conventional-commits --yes",
+		"clean": "lerna clean -y; find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; find . -name 'yarn.lock' -type f -prune -exec rm -rf '{}' +; find . -name 'package-lock.json' -type f -prune -exec rm -rf '{}' +",
+		"start": "lerna run start",
+		"build": "lerna run prepare"
 	},
 	"private": true,
 	"importSort": {

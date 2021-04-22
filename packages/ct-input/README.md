@@ -26,7 +26,7 @@ On HTML
 ```
 On `LitElement` with typescript
 ```typescript
-import { LitElement, html, property, customElement, css } from "lit-element";
+import { LitElement, html, property, customElement, css } from "lit";
 
 @customElement("ct-main")
 export class CtMain extends LitElement {

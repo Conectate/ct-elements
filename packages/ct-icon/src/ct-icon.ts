@@ -1,13 +1,14 @@
-import { LitElement, css, customElement, html, property } from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators';
+import { unsafeHTML } from 'lit/directives/unsafe-html';
 
-import { icon } from "./icon-list";
+import { icon } from './icon-list';
 
 function addFont(family: string) {
-	const link = document.createElement("link");
+	const link = document.createElement('link');
 	link.id = `ctIcon${family}`;
-	link.rel = "stylesheet";
-	link.type = "text/css";
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
 	link.href = `https://fonts.googleapis.com/css?family=${family}&display=swap`;
 	document.head.appendChild(link);
 }
@@ -15,17 +16,17 @@ function addFont(family: string) {
 /**
  * @element ct-icon
  */
-@customElement("ct-icon")
+@customElement('ct-icon')
 export class CtIcon extends LitElement {
 	/** Select Font Style */
-	static FontStyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" = "Round";
+	static FontStyle: 'Outlined' | 'Fill' | 'Sharp' | 'Two Tone' | 'Round' = 'Round';
 
 	static FontLoaded: string[] = [];
 	static styles = [
 		css`
 			:host {
 				display: inline-flex;
-				font-family: "Material Icons Round";
+				font-family: 'Material Icons Round';
 				user-select: none;
 				font-weight: normal;
 				font-style: normal;
@@ -42,14 +43,14 @@ export class CtIcon extends LitElement {
 	];
 	constructor() {
 		super();
-		let style = CtIcon.FontStyle.replace(/\s/, "+");
+		let style = CtIcon.FontStyle.replace(/\s/, '+');
 		if (!CtIcon.FontLoaded.includes(`ctIcon${style}`)) {
 			CtIcon.FontLoaded.push(`ctIcon${style}`);
 			addFont(`Material+Icons+${style}`);
 		}
 	}
 	/** If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string` */
-	@property({ type: String }) svg = "";
+	@property({ type: String }) svg = '';
 	/** Icon name described in Google Fonts
 	 * @see https://fonts.google.com/icons
 	 */
@@ -76,6 +77,6 @@ export class CtIcon extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		"ct-icon": CtIcon;
+		'ct-icon': CtIcon;
 	}
 }

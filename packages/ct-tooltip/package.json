@@ -1,7 +1,7 @@
 {
 	"name": "@conectate/ct-tooltip",
-	"version": "1.4.0",
-	"description": "Tooltip styles for lit-element",
+	"version": "3.0.0",
+	"description": "Tooltip styles for lit",
 	"main": "ct-tooltip.js",
 	"typings": "ct-tooltip.d.ts",
 	"module": "ct-tooltip.js",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0"
+		"lit": "^2.0.0-rc.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

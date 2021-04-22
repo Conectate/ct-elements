@@ -8,7 +8,8 @@
     part of the Conectate Open Source Project is also subject to an additional IP rights grant
     found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, html, property, css } from "@conectate/ct-lit";
+
+import { CtLit, css, html, property,customElement  } from '@conectate/ct-lit';
 /**
  * ## `ct-img`
  * Normal and lazy images loader element
@@ -16,16 +17,17 @@ import { CtLit, html, property, css } from "@conectate/ct-lit";
  * @attr {Boolean} contain - For contain background size
  * @attr {'left'|'right'} background-position - Position of Backgroud
  */
+@customElement('ct-img')
 export class CtImg extends CtLit {
 	@property({ type: String }) srcset?: string;
-	@property({ type: String }) alt: string = "";
-	@property({ type: String }) src: string = "";
+	@property({ type: String }) alt: string = '';
+	@property({ type: String }) src: string = '';
 	@property({ type: Boolean }) lazy = false;
 	@property({ type: Boolean }) round: boolean = false;
 	@property({ type: Object }) viewport: HTMLElement = document.body;
-	@property({ type: String }) placeholderImg: string = "";
+	@property({ type: String }) placeholderImg: string = '';
 	@property({ type: String }) onErrorSrc =
-		"data:image/svg+xml," +
+		'data:image/svg+xml,' +
 		encodeURIComponent(
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>'
 		);
@@ -58,10 +60,10 @@ export class CtImg extends CtLit {
 			:host([contain]) #divimg {
 				background-size: contain;
 			}
-			:host([background-position="left"]) #divimg {
+			:host([background-position='left']) #divimg {
 				background-position: left;
 			}
-			:host([background-position="right"]) #divimg {
+			:host([background-position='right']) #divimg {
 				background-position: right;
 			}
 
@@ -83,12 +85,7 @@ export class CtImg extends CtLit {
 	];
 	render() {
 		return html`
-			<img
-				id="img"
-				.alt="${this.alt}"
-				@load=${this._onImgLoad}
-				@error=${this._onImgError}
-			/>
+			<img id="img" .alt="${this.alt}" @load=${this._onImgLoad} @error=${this._onImgError} />
 			<div id="divimg"></div>
 			<slot></slot>
 		`;
@@ -121,11 +118,10 @@ export class CtImg extends CtLit {
 	}
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.updated(cp);
-		if (cp.has("srcset") || cp.has("lazy")) this._lazyChanged(this.lazy);
-		if (cp.has("src")) this._srcChanged(this.src);
-		if (cp.has("placeholderImg"))
-			this._placeholderImgChanged(this.placeholderImg);
-		if (cp.has("round")) this._roundChanged(this.round);
+		if (cp.has('srcset') || cp.has('lazy')) this._lazyChanged(this.lazy);
+		if (cp.has('src')) this._srcChanged(this.src);
+		if (cp.has('placeholderImg')) this._placeholderImgChanged(this.placeholderImg);
+		if (cp.has('round')) this._roundChanged(this.round);
 	}
 
 	_lazyChanged(lazy: boolean) {
@@ -148,18 +144,18 @@ export class CtImg extends CtLit {
 	 * @private
 	 */
 	_initLazyLoad(polyfilled: boolean = false) {
-        // Native Load
-        if(this.$.img.loading){
-            this.$.img.loading = 'lazy'
-            this.$.img.src = this.srcset || this.src;
-        }
+		// Native Load
+		if (this.$.img.loading) {
+			this.$.img.loading = 'lazy';
+			this.$.img.src = this.srcset || this.src;
+		}
 		// @ts-ignore
 		else if (window.IntersectionObserver) {
 			// @ts-ignore
 			if (!window.CtImgIntersectionObserver) {
 				var options = {
 					root: this.viewport,
-					rootMargin: "0px"
+					rootMargin: '0px'
 				};
 
 				// @ts-ignore
@@ -190,13 +186,11 @@ export class CtImg extends CtLit {
 			// @ts-ignore
 			window.CtImgIntersectionObserver.counter++;
 		} else {
-			let polyfillScript = document.getElementById(
-				"polyfill-IntersectionObserver"
-			);
+			let polyfillScript = document.getElementById('polyfill-IntersectionObserver');
 			if (!polyfillScript) {
 				// load the intersection-observer polyfill script
-				polyfillScript = document.createElement("script");
-				polyfillScript.id = "polyfill-IntersectionObserver";
+				polyfillScript = document.createElement('script');
+				polyfillScript.id = 'polyfill-IntersectionObserver';
 				// The current version, 0.3.0, supports Safari which now has
 				// native shadow DOM.  The version currently served by polyfill.io
 				// does not support native shadow dom.
@@ -205,31 +199,30 @@ export class CtImg extends CtLit {
 				// we will use version 0.3.0 and include it with the element.
 				//
 				// @ts-ignore
-				polyfillScript.src =
-					"https://unpkg.com/intersection-observer@0.5.1/intersection-observer";
+				polyfillScript.src = 'https://unpkg.com/intersection-observer@0.5.1/intersection-observer';
 				// @ts-ignore
 				polyfillScript.async = true;
 				document.head.appendChild(polyfillScript);
 			}
 			// listen for the polyfill to finish loading
 			// then retry the initLazyLoad process
-			polyfillScript.addEventListener("load", (_) => this._initLazyLoad(true));
+			polyfillScript.addEventListener('load', (_) => this._initLazyLoad(true));
 		}
 	}
 
 	_roundChanged(round: boolean) {
 		if (round) {
-			this.$.divimg.classList.add("r");
+			this.$.divimg.classList.add('r');
 		} else {
-			this.$.divimg.classList.remove("r");
+			this.$.divimg.classList.remove('r');
 		}
 	}
 
 	_srcChanged(src: string) {
-		this.$.img.removeAttribute("src");
-		this.$.img.style.transition = "";
+		this.$.img.removeAttribute('src');
+		this.$.img.style.transition = '';
 		this.$.img.style.opacity = 0;
-		this.$.divimg.style.transition = "";
+		this.$.divimg.style.transition = '';
 		this.$.divimg.style.opacity = 0;
 		if (src) {
 			this.$.img.src = src;
@@ -237,18 +230,15 @@ export class CtImg extends CtLit {
 	}
 
 	_onImgLoad() {
-		this.$.img.style.transition = "0.5s opacity";
-		this.$.divimg.style.transition = "0.5s opacity";
+		this.$.img.style.transition = '0.5s opacity';
+		this.$.divimg.style.transition = '0.5s opacity';
 		this.$.divimg.style.opacity = 1;
-		this.$.divimg.style.backgroundImage = `url('${this.src.replace(
-			/\\/g,
-			"%5C"
-		)}')`;
-		this.fire("loaded-changed", { value: this.src, img: this.$.img });
+		this.$.divimg.style.backgroundImage = `url('${this.src.replace(/\\/g, '%5C')}')`;
+		this.fire('loaded-changed', { value: this.src, img: this.$.img });
 	}
 
 	_onImgError() {
-		this.$.divimg.style.transition = "0.5s opacity";
+		this.$.divimg.style.transition = '0.5s opacity';
 		this.$.divimg.style.opacity = 1;
 		if (!this.placeholderImg) {
 			this.$.divimg.style.backgroundImage = `url(${this.onErrorSrc})`;
@@ -261,10 +251,8 @@ export class CtImg extends CtLit {
 	}
 }
 
-customElements.define("ct-img", CtImg);
-
 declare global {
 	interface HTMLElementTagNameMap {
-		"ct-img": CtImg;
+		'ct-img': CtImg;
 	}
 }

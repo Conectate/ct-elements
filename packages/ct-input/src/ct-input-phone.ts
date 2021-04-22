@@ -1,11 +1,11 @@
-import "./ct-input-container";
+import './ct-input-container';
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 /**
  * @element ct-input-phone
  */
-@customElement("ct-input-phone")
+@customElement('ct-input-phone')
 export class CtInputPhone extends CtLit {
 	code?: number = 502;
 	phone?: string = '';

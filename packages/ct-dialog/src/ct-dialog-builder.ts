@@ -1,90 +1,61 @@
+import { TemplateResult } from 'lit';
+
 import { CtDialog } from './ct-dialog';
-import { TemplateResult } from 'lit-html';
 
 export default class CtDialogBuilder {
-    dialog: CtDialog;
-    cnx!: HTMLElement;
-    dialogType!: HTMLElement;
-    cornerRadiusValue = 16;
+	dialog: CtDialog;
+	cnx!: HTMLElement;
+	dialogType!: HTMLElement;
+	cornerRadiusValue = 16;
 
-    constructor(cnx: HTMLElement = document.body, dialog = new CtDialog()) {
-        this.cnx = cnx;
-        this.dialog = dialog;
-    }
+	constructor(cnx: HTMLElement = document.body, dialog = new CtDialog()) {
+		this.cnx = cnx;
+		this.dialog = dialog;
+	}
 
-    // ================================== Header ==================================
-    icon(svg: string) {
+	// ================================== Header ==================================
+	icon(svg: string) {}
 
-    }
+	title(title: string) {}
 
-    title(title: string) {
+	// ================================== Button ==================================
 
-    }
+	positiveButton(positiveButton: string) {}
 
+	negativeButton(negativeButton: string) {}
 
-    // ================================== Button ==================================
+	neutralButton(negativeButton: string) {}
 
-    positiveButton(positiveButton: string) {
+	// ================================== BODY ==================================
 
-    }
+	content(content: string) {}
+	// ================= LISTAS =================
+	listItems(items: string[]) {}
 
-    negativeButton(negativeButton: string) {
+	listItemsSingleChoice(items: string[]) {}
 
-    }
+	listItemsMultiChoice(items: string[]) {}
 
-    neutralButton(negativeButton: string) {
+	customListAdapter<T = any>(items: T[], renderItem: (item: T, index: number) => TemplateResult) {}
 
-    }
+	// ================= View =================
+	show() {
+		this.cnx.appendChild(this.dialogType);
+	}
 
-    // ================================== BODY ==================================
+	dismiss() {}
 
-    content(content: string) {
+	// ================= EVENTS =================
+	onPreShow() {}
 
-    }
-    // ================= LISTAS =================
-    listItems(items: string[]) {
+	onPostShow() {}
 
-    }
+	onDismiss() {}
 
-    listItemsSingleChoice(items: string[]) {
-
-    }
-
-    listItemsMultiChoice(items: string[]) {
-
-    }
-
-    customListAdapter<T = any>(items: T[], renderItem: (item: T, index: number) => TemplateResult) {
-
-    }
-
-    // ================= View =================
-    show() {
-        this.cnx.appendChild(this.dialogType);
-    }
-
-    dismiss() {
-
-    }
-
-    // ================= EVENTS =================
-    onPreShow() {
-
-    }
-
-    onPostShow() {
-
-    }
-
-    onDismiss() {
-
-    }
-
-    // =============== CUSTOM ==========
-    cornerRadius(radius: number) {
-        this.cornerRadiusValue = radius;
-    }
-
+	// =============== CUSTOM ==========
+	cornerRadius(radius: number) {
+		this.cornerRadiusValue = radius;
+	}
 }
 // @ts-ignore
-window.CtDialogBuilder = CtDialogBuilder
+window.CtDialogBuilder = CtDialogBuilder;

@@ -8,11 +8,14 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, html } from '@conectate/ct-lit';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-card/ct-card';
-import { showCtDialog, CtDialog } from './ct-dialog';
+
+import { CtLit, html } from '@conectate/ct-lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html';
+
+import { CtDialog, showCtDialog } from './ct-dialog';
 
 export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
 	let ctConfirm = new CTConfirmCupertino();
@@ -110,9 +113,7 @@ export class CTConfirm extends CtLit {
 				}
 			</style>
 			<ct-card shadow border>
-				<div class="title">
-					${this.ttl}
-				</div>
+				<div class="title">${this.ttl}</div>
 				<div class="body" id="confirmBody"></div>
 				<div id="buttons" class="buttons">
 					<ct-button id="neutral" @click="${this.neutralbtn}">${this.neutral}</ct-button>
@@ -282,25 +283,19 @@ export class CTConfirmCupertino extends CtLit {
 				.buttons_vert .cancel {
 					margin-top: 8px;
 				}
-				[tabindex]{
-					outline:none;
+				[tabindex] {
+					outline: none;
 				}
 			</style>
 			<div role="dialog" aria-labelledby="title" tabindex="-1">
 				<div class="container">
-					<h2 id="title">
-						${this.ttl}
-					</h2>
+					<h2 id="title">${this.ttl}</h2>
 					<div class="body" id="confirmBody">${unsafeHTML(this.body)}</div>
 				</div>
 				<div id="buttons" class="buttons">
-					<div class="btn" role="button" tabindex="0" id="neutral" @click="${this.neutralbtn}" aria-disabled="${!!this.neutral}">
-						${this.neutral}
-					</div>
+					<div class="btn" role="button" tabindex="0" id="neutral" @click="${this.neutralbtn}" aria-disabled="${!!this.neutral}">${this.neutral}</div>
 					<div class="btn" role="button" tabindex="0" id="ok" @click="${this.okbtn}">${this.ok}</div>
-					<div class="btn" role="button" tabindex="0" id="cancel" @click="${this.cancelbtn}">
-						${this.cancel}
-					</div>
+					<div class="btn" role="button" tabindex="0" id="cancel" @click="${this.cancelbtn}">${this.cancel}</div>
 				</div>
 			</div>
 		`;

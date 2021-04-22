@@ -1,7 +1,7 @@
 {
 	"name": "@conectate/ct-menu",
-	"version": "1.4.1",
-	"description": "Menu web component for lit-element",
+	"version": "3.0.0",
+	"description": "Menu web component for lit",
 	"main": "ct-menu.js",
 	"typings": "ct-menu.d.ts",
 	"module": "ct-menu.js",
@@ -14,7 +14,8 @@
 		"Menu"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0"
+		"@conectate/ct-lit": "3.0.0",
+		"tslib": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

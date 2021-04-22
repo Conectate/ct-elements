@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/lit-if",
-	"version": "1.4.0",
+	"version": "3.0.0",
 	"description": "HTML if DOM style with Web Components",
 	"main": "lit-if.js",
 	"typings": "lit-if.d.ts",
@@ -14,8 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0",
-		"tslib": "^2.1.0"
+		"lit": "^2.0.0-rc.1",
+		"tslib": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

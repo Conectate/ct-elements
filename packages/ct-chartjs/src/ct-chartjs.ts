@@ -1,16 +1,16 @@
-import { Chart } from "chart.js";
-import { html, CtLit, property, customElement } from "@conectate/ct-lit";
-import { sleep } from "@conectate/ct-helpers";
+import { sleep } from '@conectate/ct-helpers';
+import { CtLit, customElement, html, property } from '@conectate/ct-lit';
+import { Chart } from 'chart.js';
 
 declare global {
 	interface HTMLElementTagNameMap {
-		"ct-chartjs": CtChartJS;
+		'ct-chartjs': CtChartJS;
 	}
 }
 /**
  * @element ct-chartjs
  */
-@customElement("ct-chartjs")
+@customElement('ct-chartjs')
 export class CtChartJS extends CtLit {
 	@property({ type: Object }) chart!: Chart.ChartConfiguration & Chart;
 	@property({ type: String }) type!: Chart.ChartType;
@@ -93,16 +93,14 @@ export class CtChartJS extends CtLit {
 			data: data,
 			options: { ...options, responsive: true, maintainAspectRatio: false }
 		});
-		window.addEventListener("resize", this.resize);
+		window.addEventListener('resize', this.resize);
 	}
 
 	paint() {
 		let data: Chart.ChartData = this.data || {};
 		let options: Chart.ChartOptions = this.options || {};
 		if (!this.chart) {
-			let ctx: CanvasRenderingContext2D = this.shadowRoot!.querySelector(
-				"canvas"
-			)!.getContext("2d")!;
+			let ctx: CanvasRenderingContext2D = this.shadowRoot!.querySelector('canvas')!.getContext('2d')!;
 			this.chart = new Chart(ctx, {
 				type: this.type,
 				data: data,
@@ -120,19 +118,17 @@ export class CtChartJS extends CtLit {
 			this.chart.data[prop] = this.observe(this.chart.data[prop]);
 		}
 		// @ts-ignore
-		this.chart.data.datasets = this.chart.data.datasets.map(
-			(dataset: Chart.ChartDataSets) => {
-				// @ts-ignore
-				dataset.data = this.observe(dataset.data);
-				return this.observe(dataset);
-			}
-		);
-		window.addEventListener("resize", this.resize);
+		this.chart.data.datasets = this.chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
+			// @ts-ignore
+			dataset.data = this.observe(dataset.data);
+			return this.observe(dataset);
+		});
+		window.addEventListener('resize', this.resize);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		window.removeEventListener("resize", this.resize);
+		window.removeEventListener('resize', this.resize);
 	}
 
 	/**

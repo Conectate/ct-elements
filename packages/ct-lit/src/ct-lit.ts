@@ -1,22 +1,22 @@
-import { LitElement } from "lit-element";
-
+import { LitElement } from 'lit';
 export type PropertyValues = Map<PropertyKey, any>;
-export { unsafeHTML } from "lit-html/directives/unsafe-html";
-export { until } from "lit-html/directives/until";
-export { html, svg, css, property, internalProperty, query, queryAll, queryAssignedNodes, queryAsync } from "lit-element";
+export { unsafeHTML } from 'lit/directives/unsafe-html';
+export { until } from 'lit/directives/until';
+export { html, svg, css } from 'lit';
+export { property, query, queryAll, queryAssignedNodes, queryAsync, state, state as internalProperty } from 'lit/decorators';
 
 // From the TC39 Decorators proposal
 interface ClassDescriptor {
-	kind: "class";
+	kind: 'class';
 	elements: ClassElement[];
 	finisher?: <T>(clazz: Constructor<T>) => undefined | Constructor<T>;
 }
 
 // From the TC39 Decorators proposal
 interface ClassElement {
-	kind: "field" | "method";
+	kind: 'field' | 'method';
 	key: PropertyKey;
-	placement: "static" | "prototype" | "own";
+	placement: 'static' | 'prototype' | 'own';
 	initializer?: Function;
 	extras?: ClassElement[];
 	finisher?: <T>(clazz: Constructor<T>) => undefined | Constructor<T>;
@@ -43,13 +43,13 @@ export type Constructor<T> = {
  * @param tagName The name of the custom element to define.
  */
 export const customElement = (tagName: string) => (classOrDescriptor: Constructor<HTMLElement> | ClassDescriptor) =>
-	typeof classOrDescriptor === "function" ? legacyCustomElement(tagName, classOrDescriptor) : standardCustomElement(tagName, classOrDescriptor);
+	typeof classOrDescriptor === 'function' ? legacyCustomElement(tagName, classOrDescriptor) : standardCustomElement(tagName, classOrDescriptor);
 
 const legacyCustomElement = (tagName: string, clazz: Constructor<HTMLElement>) => {
 	if (!window.customElements.get(tagName)) {
 		window.customElements.define(tagName, clazz);
 	} else {
-		console.warn(tagName, "already defined");
+		console.warn(tagName, 'already defined');
 	}
 	// Cast as any because TS doesn't recognize the return type as being a
 	// subtype of the decorated class when clazz is typed as
@@ -70,7 +70,7 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
 			if (!window.customElements.get(tagName)) {
 				window.customElements.define(tagName, clazz);
 			} else {
-				console.warn(tagName, "already defined");
+				console.warn(tagName, 'already defined');
 			}
 		}
 	};
@@ -79,7 +79,7 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
  * It's a simple wrapper for LitElement
  */
 export class CtLit extends LitElement {
-	private $: { [x: string]: HTMLElement | any } = {};
+	$: { [x: string]: HTMLElement | any } = {};
 
 	/**
 	 * Returns the first element within node's descendants whose ID is elementId.
@@ -111,7 +111,7 @@ export class CtLit extends LitElement {
 	 * You should add in the first line of `firstUpdated()`
 	 */
 	mapIDs() {
-		let nodeList = this.renderRoot.querySelectorAll("[id]");
+		let nodeList = this.renderRoot.querySelectorAll('[id]');
 		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
 			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
 		}
@@ -216,7 +216,7 @@ export class CtLit extends LitElement {
 	scrollToY(
 		scrollTargetY: number = 0,
 		time: number = 600,
-		easing: "easeInOutSine" | "easeOutSine" | "easeInOutQuint" | "easeInOutCubic" = "easeInOutCubic",
+		easing: 'easeInOutSine' | 'easeOutSine' | 'easeInOutQuint' | 'easeInOutCubic' = 'easeInOutCubic',
 		target: Element = (window as any).scrollTarget
 	) {
 		let currentTime = 0;
@@ -263,5 +263,5 @@ export class CtLit extends LitElement {
  * @param template StringTemplate
  */
 export function If(condition: boolean, template: any) {
-	return condition ? template : "";
+	return condition ? template : '';
 }

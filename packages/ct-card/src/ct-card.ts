@@ -8,19 +8,7 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import {
-	LitElement,
-	html,
-	property,
-	customElement,
-	css
-} from "lit-element";
-
-declare global {
-	interface HTMLElementTagNameMap {
-		'ct-card': CtCard;
-	}
-}
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 
 /**
  *
@@ -33,8 +21,8 @@ declare global {
  * @attr decorator - Add box-shadow to element
  * @attr padding - Add box-shadow to element
  */
-@customElement("ct-card")
-export class CtCard extends LitElement {
+@customElement('ct-card')
+export class CtCard extends CtLit {
 	/**
 	 * Add border-top to card with --color-app  CSS var
 	 */
@@ -53,15 +41,14 @@ export class CtCard extends LitElement {
 			background-color: var(--color-surface, #fff);
 		}
 		:host([shadow]) {
-			box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02),
-				0 8px 40px 0 rgba(10, 14, 29, 0.06);
+			box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02), 0 8px 40px 0 rgba(10, 14, 29, 0.06);
 			/* box-shadow: 0 4px 28px 4px rgba(0, 0, 0, 0.1); */
 			border: none;
 		}
 		:host([decorator]) {
 			overflow: hidden;
 		}
-		:host([padding]){
+		:host([padding]) {
 			color: var(--color-on-surface, #535353);
 			padding: 16px;
 		}
@@ -78,10 +65,7 @@ export class CtCard extends LitElement {
 		.dec {
 			height: 6px;
 			min-height: 6px;
-			background: var(
-				--color-app,
-				linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%)
-			);
+			background: var(--color-app, linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%));
 			border-radius: 8px 8px 0 0;
 		}
 	`;

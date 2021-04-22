@@ -8,9 +8,8 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
-import { CSSResult, internalProperty } from "lit-element";
-import { ifDefined } from "lit-html/directives/if-defined";
+import { CtLit, css, customElement, html, internalProperty, property } from '@conectate/ct-lit';
+import { ifDefined } from 'lit/directives/if-defined';
 
 /**
  * ## `ct-input`
@@ -22,9 +21,9 @@ import { ifDefined } from "lit-html/directives/if-defined";
  * @slot prefix - Content placed start the main content
  * @slot suffix - Content placed end the main content
  */
-@customElement("ct-input")
+@customElement('ct-input')
 export class CtInput extends CtLit {
-	static styles: CSSResult[] = [
+	static styles = [
 		css`
 			:host {
 				display: inline-block;
@@ -109,7 +108,7 @@ export class CtInput extends CtLit {
 			}
 
 			:host([required]) .label:after {
-				content: var(--ct-indicator, "*");
+				content: var(--ct-indicator, '*');
 				color: #ed4f32;
 				width: 1.5em;
 				margin-left: 4px;
@@ -160,13 +159,13 @@ export class CtInput extends CtLit {
 			#container.has-value > div > .charCount {
 				transition: all 0.2s;
 			}
-			::slotted([slot="suffix"]),
-			[name="suffix"] {
+			::slotted([slot='suffix']),
+			[name='suffix'] {
 				display: inline-block;
 			}
 
-			::slotted([slot="prefix"]),
-			[name="prefix"] {
+			::slotted([slot='prefix']),
+			[name='prefix'] {
 				display: inline-block;
 				margin-right: 0.5em;
 			}
@@ -176,20 +175,20 @@ export class CtInput extends CtLit {
 			}
 
 			input:not([type]),
-			input[type="color"],
-			input[type="date"],
-			input[type="datetime-local"],
-			input[type="datetime"],
-			input[type="email"],
-			input[type="month"],
-			input[type="number"],
-			input[type="password"],
-			input[type="search"],
-			input[type="tel"],
-			input[type="text"],
-			input[type="time"],
-			input[type="url"],
-			input[type="week"],
+			input[type='color'],
+			input[type='date'],
+			input[type='datetime-local'],
+			input[type='datetime'],
+			input[type='email'],
+			input[type='month'],
+			input[type='number'],
+			input[type='password'],
+			input[type='search'],
+			input[type='tel'],
+			input[type='text'],
+			input[type='time'],
+			input[type='url'],
+			input[type='week'],
 			select,
 			textarea {
 				height: 3.3em;
@@ -282,85 +281,85 @@ export class CtInput extends CtLit {
 		container: HTMLElement;
 	};
 	@property({ type: String }) inputmode!:
-		| "verbatim"
-		| "latin"
-		| "latin-name"
-		| "latin-prose"
-		| "full-width-latin"
-		| "kana"
-		| "kana-name"
-		| "katakana"
-		| "numeric"
-		| "tel"
-		| "email"
-		| "url";
+		| 'verbatim'
+		| 'latin'
+		| 'latin-name'
+		| 'latin-prose'
+		| 'full-width-latin'
+		| 'kana'
+		| 'kana-name'
+		| 'katakana'
+		| 'numeric'
+		| 'tel'
+		| 'email'
+		| 'url';
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) min?: number;
 	@property({ type: Number }) max?: number;
 	@property({ type: Number }) step?: number;
-	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
+	@property({ type: String }) autocapitalize!: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
 	@property({ type: String }) autocomplete?:
-		| "on"
-		| "off"
-		| "additional-name"
-		| "address-level1"
-		| "address-level2"
-		| "address-level3"
-		| "address-level4"
-		| "address-line1"
-		| "address-line2"
-		| "address-line3"
-		| "bday"
-		| "bday-year"
-		| "bday-day"
-		| "bday-month"
-		| "billing"
-		| "cc-additional-name"
-		| "cc-csc"
-		| "cc-exp"
-		| "cc-exp-month"
-		| "cc-exp-year"
-		| "cc-family-name"
-		| "cc-given-name"
-		| "cc-name"
-		| "cc-number"
-		| "cc-type"
-		| "country"
-		| "country-name"
-		| "current-password"
-		| "email"
-		| "family-name"
-		| "fax"
-		| "given-name"
-		| "home"
-		| "honorific-prefix"
-		| "honorific-suffix"
-		| "impp"
-		| "language"
-		| "mobile"
-		| "name"
-		| "new-password"
-		| "nickname"
-		| "organization"
-		| "organization-title"
-		| "pager"
-		| "photo"
-		| "postal-code"
-		| "sex"
-		| "shipping"
-		| "street-address"
-		| "tel-area-code"
-		| "tel"
-		| "tel-country-code"
-		| "tel-extension"
-		| "tel-local"
-		| "tel-local-prefix"
-		| "tel-local-suffix"
-		| "tel-national"
-		| "transaction-amount"
-		| "transaction-currency"
-		| "url"
-		| "username";
+		| 'on'
+		| 'off'
+		| 'additional-name'
+		| 'address-level1'
+		| 'address-level2'
+		| 'address-level3'
+		| 'address-level4'
+		| 'address-line1'
+		| 'address-line2'
+		| 'address-line3'
+		| 'bday'
+		| 'bday-year'
+		| 'bday-day'
+		| 'bday-month'
+		| 'billing'
+		| 'cc-additional-name'
+		| 'cc-csc'
+		| 'cc-exp'
+		| 'cc-exp-month'
+		| 'cc-exp-year'
+		| 'cc-family-name'
+		| 'cc-given-name'
+		| 'cc-name'
+		| 'cc-number'
+		| 'cc-type'
+		| 'country'
+		| 'country-name'
+		| 'current-password'
+		| 'email'
+		| 'family-name'
+		| 'fax'
+		| 'given-name'
+		| 'home'
+		| 'honorific-prefix'
+		| 'honorific-suffix'
+		| 'impp'
+		| 'language'
+		| 'mobile'
+		| 'name'
+		| 'new-password'
+		| 'nickname'
+		| 'organization'
+		| 'organization-title'
+		| 'pager'
+		| 'photo'
+		| 'postal-code'
+		| 'sex'
+		| 'shipping'
+		| 'street-address'
+		| 'tel-area-code'
+		| 'tel'
+		| 'tel-country-code'
+		| 'tel-extension'
+		| 'tel-local'
+		| 'tel-local-prefix'
+		| 'tel-local-suffix'
+		| 'tel-national'
+		| 'transaction-amount'
+		| 'transaction-currency'
+		| 'url'
+		| 'username';
 	@property({ type: String }) name?: string;
 	@property({ type: String }) accept?: string;
 	@property({ type: Number }) size = 24;
@@ -376,7 +375,7 @@ export class CtInput extends CtLit {
 	}
 
 	set value(val) {
-		val ||= "";
+		val ||= '';
 		if (this._value != val && val.length - 1 < this.maxlength) {
 			this._value = val;
 			if (this.$.input) this.$.input.value = val;
@@ -387,7 +386,7 @@ export class CtInput extends CtLit {
 	}
 
 	get value() {
-		return this._value || "";
+		return this._value || '';
 	}
 	get valueAsnumber() {
 		return this.$.input.valueAsNumber;
@@ -408,28 +407,28 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@internalProperty() _value?: string = "";
+	@internalProperty() _value?: string = '';
 
 	/**
 	 * Input type
 	 */
-	@property({ type: String }) type = "text";
+	@property({ type: String }) type = 'text';
 	/**
 	 * Placeholder text when searchbox is empty
 	 */
-	@property({ type: String }) rawPlaceholder = "";
+	@property({ type: String }) rawPlaceholder = '';
 	/**
 	 * Placeholder text when searchbox is empty
 	 */
-	@property({ type: String }) placeholder = "";
+	@property({ type: String }) placeholder = '';
 	/**
 	 * Mensaje de error al no complir con el pattern
 	 */
-	@property({ type: String }) errorMessage = "";
+	@property({ type: String }) errorMessage = '';
 	/**
 	 * regexp
 	 */
-	@property({ type: String }) pattern: string | RegExp = "";
+	@property({ type: String }) pattern: string | RegExp = '';
 
 	/**
 	 * Do not show any effects when hovering the searchbox
@@ -438,7 +437,7 @@ export class CtInput extends CtLit {
 	/**
 	 * Change default icon to whatever you like
 	 */
-	@property({ type: String }) label = "";
+	@property({ type: String }) label = '';
 	/**
 	 * Max length on input
 	 */
@@ -501,7 +500,7 @@ export class CtInput extends CtLit {
 							/>
 						</div>
 						<slot name="suffix"></slot>
-						${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? "1000+" : this.maxlength}</div> ` : ``}
+						${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? '1000+' : this.maxlength}</div> ` : ``}
 					</div>
 					<div class="underline"></div>
 				</div>
@@ -523,10 +522,10 @@ export class CtInput extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.$.container?.classList.add("active");
-		this.$.container?.classList.remove("error");
-		this.$.input?.classList.remove("error");
-		this.set("focused", true);
+		this.$.container?.classList.add('active');
+		this.$.container?.classList.remove('error');
+		this.$.input?.classList.remove('error');
+		this.set('focused', true);
 		this.placeholder = this.placeholder;
 	}
 
@@ -535,8 +534,8 @@ export class CtInput extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.$.container?.classList.remove("active");
-		this.set("focused", false);
+		this.$.container?.classList.remove('active');
+		this.set('focused', false);
 		this.validate();
 	}
 
@@ -544,7 +543,7 @@ export class CtInput extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$.input?.value === undefined || this.$.input?.value === "") return !this.invalid;
+			if (this.$.input?.value === undefined || this.$.input?.value === '') return !this.invalid;
 		}
 
 		if (this.pattern) {
@@ -556,12 +555,12 @@ export class CtInput extends CtLit {
 
 		if (!this.invalid) {
 			// remover error
-			this.$.container?.classList.remove("error");
-			this.$.input?.classList.remove("error");
+			this.$.container?.classList.remove('error');
+			this.$.input?.classList.remove('error');
 		} else {
-			this.$.container?.classList.add("error");
+			this.$.container?.classList.add('error');
 			if (this.errorMessage) {
-				this.$.input?.classList.add("error");
+				this.$.input?.classList.add('error');
 			}
 		}
 		return !this.invalid;
@@ -571,12 +570,12 @@ export class CtInput extends CtLit {
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.$.container?.classList.remove("error");
-			this.$.input?.classList.remove("error");
+			this.$.container?.classList.remove('error');
+			this.$.input?.classList.remove('error');
 		} else {
-			this.$.container?.classList.add("error");
+			this.$.container?.classList.add('error');
 			if (this.errorMessage) {
-				this.$.input?.classList.add("error");
+				this.$.input?.classList.add('error');
 			}
 		}
 	}
@@ -587,11 +586,11 @@ export class CtInput extends CtLit {
 
 	_onInput() {
 		this._value = this.$.input?.value;
-		this.fire("value", this.value);
+		this.fire('value', this.value);
 		if (this.placeholder) {
-			var isEmpty = this.value == "" || this.value == void 0;
-			this.$.container?.classList.toggle("has-value", !isEmpty);
-			this.$.input?.classList.toggle("has-value", !isEmpty);
+			var isEmpty = this.value == '' || this.value == void 0;
+			this.$.container?.classList.toggle('has-value', !isEmpty);
+			this.$.input?.classList.toggle('has-value', !isEmpty);
 		}
 		this.countChar = this.value!.length;
 	}

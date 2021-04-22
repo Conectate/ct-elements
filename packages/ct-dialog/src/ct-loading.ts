@@ -1,11 +1,13 @@
-import { CtLit, html } from "@conectate/ct-lit";
-import "@conectate/lit-if";
-import "@conectate/ct-card";
-import "@conectate/ct-spinner";
-import { showCtDialog, CtDialog } from "./ct-dialog";
+import '@conectate/lit-if';
+import '@conectate/ct-card';
+import '@conectate/ct-spinner';
+
+import { CtLit, html } from '@conectate/ct-lit';
+
+import { CtDialog, showCtDialog } from './ct-dialog';
 
 export class CtLoading extends CtLit {
-	ttl: string = "Loading";
+	ttl: string = 'Loading';
 	dialog!: CtDialog;
 
 	render() {
@@ -39,7 +41,7 @@ export class CtLoading extends CtLit {
 	}
 }
 
-window.customElements.define("ct-loading", CtLoading);
+window.customElements.define('ct-loading', CtLoading);
 
 /**
  * This shows a dialogue box with a spinner and the text "loading"
@@ -47,7 +49,7 @@ window.customElements.define("ct-loading", CtLoading);
  * @param {string} [str] - String to show in loading
  */
 export function showCtLoading(id?: string, str?: string): CtDialog {
-	let ctConfirm = document.createElement("ct-loading") as CtLoading;
+	let ctConfirm = document.createElement('ct-loading') as CtLoading;
 	if (str) ctConfirm.ttl = str;
 	ctConfirm.dialog = showCtDialog(ctConfirm, id);
 	return ctConfirm.dialog;

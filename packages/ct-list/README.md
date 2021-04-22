@@ -1,5 +1,6 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-router)
 [![LitElement Version](https://img.shields.io/badge/LitElement-v2.2.0-blue.svg)](https://www.polymer-project.org)
+
 # ct-lit
 
 It's a simple wrapper for LitElement
@@ -11,7 +12,9 @@ To include this, type:
 ```sh
 $ yarn add @conectate/ct-lit
 ```
+
 or
+
 ```sh
 $ npm i @conectate/ct-lit
 ```
@@ -19,11 +22,12 @@ $ npm i @conectate/ct-lit
 ## Usage
 
 ### Step 1️⃣
-Class 
+
+Class
 
 ```typescript
-import { LitElement, html, svg, css, customElement, property } from 'lit-element/lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { LitElement, html, svg, css, customElement, property } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html';
 
 type PropertyValues = Map<PropertyKey, unknown>;
 
@@ -33,7 +37,7 @@ class CtLit extends LitElement {
 
     /**
      * Returns the first element within node's descendants whose ID is elementId.
-     * @param name 
+     * @param name
      */
     _(name: string): HTMLElement | null {
         return this.shadowRoot && this.shadowRoot.getElementById(name);
@@ -41,7 +45,7 @@ class CtLit extends LitElement {
 
     /**
      * Returns the first element that is a descendant of node that matches selectors.
-     * @param name 
+     * @param name
      */
     $$(name: string): HTMLElement | null {
         return this.shadowRoot && this.shadowRoot.querySelector(name);
@@ -49,7 +53,7 @@ class CtLit extends LitElement {
 
     /**
      * Returns all element descendants of node that match selectors.
-     * @param name 
+     * @param name
      */
     $$$(name: string) {
         return this.shadowRoot && this.shadowRoot.querySelectorAll(name);
@@ -66,8 +70,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     set(name: string, value: any) {
         (this as any)[name] = value;
@@ -76,8 +80,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     push(name: string, value: any) {
         (this as any)[name].push(value);
@@ -86,8 +90,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     splice(name: string, index: number, pos: number, value: any) {
         (this as any)[name].splice(index, pos, value);
@@ -96,8 +100,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     unshift(name: string, value: any) {
         (this as any)[name].unshift(value);
@@ -106,8 +110,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     shift(name: string, value: any) {
         (this as any)[name].shift(value);
@@ -116,8 +120,8 @@ class CtLit extends LitElement {
 
     /**
      * Set Value and fire event with the same name
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     move(name: string, old_index: number, new_index: number) {
         if (new_index >= (this as any)[name].length) {
@@ -143,22 +147,22 @@ class CtLit extends LitElement {
         this.splice(listTarget, index, 1, el);
     }
 
-    
+
     /**
      * Fire a event with name and value
-     * @param name 
-     * @param value 
+     * @param name
+     * @param value
      */
     fire(name: string, value: any) {
         this.dispatchEvent(new CustomEvent(name, { detail: value }));
     }
 
     /**
-     * 
-     * @param scrollTargetY pixels to scroll. Ej: 
+     *
+     * @param scrollTargetY pixels to scroll. Ej:
         const ticketsBlockPositionY = this.$.contact.getBoundingClientRect().top + window.scrollTarget.scrollTop;
      * @param time Time to scroll
-     * @param easing 
+     * @param easing
      * @param target scrollTarget Element
      */
     scrollToY(scrollTargetY: number = 0, time: number = 600, easing: 'easeOutSine' | 'easeOutSine' | 'easeInOutQuint' = 'easeOutSine', target: Element = (window as any).scrollTarget) {
@@ -201,6 +205,7 @@ export { CtLit };
 ```
 
 ## Follow me
+
 [![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
 
 [https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
@@ -216,10 +221,11 @@ export { CtLit };
 5. Submit a pull request :D
 
 ## History
-- v0.2.1 CHANGE keys to gruops in custom regex
-- v0.2.0 ADD href method
-- v0.1.8 You can use a html`` or string to define template
-- v0.1.0 Initial Release
+
+-   v0.2.1 CHANGE keys to gruops in custom regex
+-   v0.2.0 ADD href method
+-   v0.1.8 You can use a html`` or string to define template
+-   v0.1.0 Initial Release
 
 ## License
 

@@ -1,10 +1,10 @@
 {
 	"name": "@conectate/ct-loading-bar",
-	"version": "1.4.0",
-	"description": "HTML indeterminate progress bar for lit-element",
-	"main": "ct-loading.js",
-	"typings": "ct-loading.d.ts",
-	"module": "ct-loading.js",
+	"version": "3.0.0",
+	"description": "HTML indeterminate progress bar for lit",
+	"main": "ct-loading-bar.js",
+	"typings": "ct-loading-bar.d.ts",
+	"module": "ct-loading-bar.js",
 	"keywords": [
 		"LitElement",
 		"React",
@@ -14,7 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0"
+		"@conectate/ct-lit": "3.0.0",
+		"tslib": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

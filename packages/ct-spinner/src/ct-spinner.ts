@@ -1,4 +1,4 @@
-import { LitElement, html, property, customElement, css } from "lit-element";
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 
 /**
  * ## `ct-spinner`
@@ -9,8 +9,8 @@ import { LitElement, html, property, customElement, css } from "lit-element";
  * @cssProp --ct-spinner-1 - Spinner Color 1
  * @cssProp --ct-spinner-2 - Spinner Color 2
  */
-@customElement("ct-spinner")
-export class CtSpinner extends LitElement {
+@customElement('ct-spinner')
+export class CtSpinner extends CtLit {
 	@property({ type: Boolean, reflect: true }) active: boolean = true;
 	static styles = css`
 		:host([active]) {

@@ -10,13 +10,11 @@
 		"inlineSources": true,
 		"strict": true,
 		"noUnusedLocals": true,
-		"outDir": "./",
+		"outDir": "./dist",
 		// Only necessary because @types/uglify-js can't find types for source-map
 		"skipLibCheck": true,
 		"experimentalDecorators": true,
 		"importHelpers": true
 	},
-	"include": [
-	],
 	"exclude": []
 }

@@ -1,12 +1,12 @@
 {
 	"name": "@conectate/ct-input",
-	"version": "1.5.1",
+	"version": "3.0.0",
 	"description": "HTML input made with Web Components",
 	"main": "ct-input.js",
 	"typings": "ct-input.d.ts",
 	"module": "ct-input.js",
 	"keywords": [
-		"LitElement",
+		"Lit",
 		"React",
 		"Vue",
 		"Angular",
@@ -14,8 +14,9 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0",
-		"tslib": "^2.1.0"
+		"@conectate/ct-lit": "3.0.0",
+		"@conectate/ct-helpers": "3.0.0",
+		"tslib": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

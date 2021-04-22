@@ -1,4 +1,5 @@
-import { LitElement, html, customElement } from 'lit-element';
+import { LitElement, html } from 'lit';
+import { customElement } from 'lit/decorators';
 /**
 
 The progress bars are for situations where the percentage completed can be
@@ -22,72 +23,71 @@ Custom property | Description | Default
  */
 @customElement('ct-loading-bar')
 export class CtLoadingBar extends LitElement {
+	render() {
+		return html`
+			<style>
+				:host {
+					display: block;
+				}
+				@keyframes sidebar-loading {
+					from {
+						left: 50%;
+						width: 0;
+						z-index: 100;
+					}
 
-    render() {
-        return html`
-<style>
-:host {
-    display: block;
-}
-@keyframes sidebar-loading {
-    from {
-        left: 50%;
-        width: 0;
-        z-index: 100;
-    }
+					33.3333% {
+						left: 0;
+						width: 100%;
+						z-index: 10;
+					}
 
-    33.3333% {
-        left: 0;
-        width: 100%;
-        z-index: 10;
-    }
+					to {
+						left: 0;
+						width: 100%;
+					}
+				}
+				.horizontal-loader {
+					position: relative;
+					width: 100%;
+					height: 4px;
+					background-color: #fff;
+				}
+				.horizontal-loader-bar {
+					height: 100%;
+					content: '';
+					display: inline-block;
+					position: absolute;
+					left: 50%;
+					text-align: center;
+				}
 
-    to {
-        left: 0;
-        width: 100%;
-    }
-}
-.horizontal-loader {
-    position: relative;
-    width: 100%;
-    height: 4px;
-    background-color: #fff;
-}
-.horizontal-loader-bar {
-    height: 100%;
-    content: "";
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    text-align: center;
-}
+				.horizontal-loader-bar:nth-child(1) {
+					-webkit-animation: sidebar-loading 3s linear infinite;
+					animation: sidebar-loading 3s linear infinite;
+					background: var(--ct-loading-bar-c1, #4998ff);
+					border-radius: 8px;
+				}
 
-.horizontal-loader-bar:nth-child(1) {
-    -webkit-animation: sidebar-loading 3s linear infinite;
-    animation: sidebar-loading 3s linear infinite;
-    background: var(--ct-loading-bar-c1,#4998ff);
-    border-radius: 8px;
-}
+				.horizontal-loader-bar:nth-child(2) {
+					background: var(--ct-loading-bar-c2, #fff);
+					-webkit-animation: sidebar-loading 3s linear 1s infinite;
+					animation: sidebar-loading 3s linear 1s infinite;
+					border-radius: 8px;
+				}
 
-.horizontal-loader-bar:nth-child(2) {
-    background: var(--ct-loading-bar-c2,#fff);
-    -webkit-animation: sidebar-loading 3s linear 1s infinite;
-    animation: sidebar-loading 3s linear 1s infinite;
-    border-radius: 8px;
-}
-
-.horizontal-loader-bar:nth-child(3) {
-    background: var(--ct-loading-bar-c3,#4998ff);
-    -webkit-animation: sidebar-loading 3s linear 2s infinite;
-    animation: sidebar-loading 3s linear 2s infinite;
-    border-radius: 8px;
-}
-</style>
-<div class="horizontal-loader">
-    <div class="horizontal-loader-bar"></div>
-    <div class="horizontal-loader-bar"></div>
-    <div class="horizontal-loader-bar"></div>
-</div>
-`;
-    }
+				.horizontal-loader-bar:nth-child(3) {
+					background: var(--ct-loading-bar-c3, #4998ff);
+					-webkit-animation: sidebar-loading 3s linear 2s infinite;
+					animation: sidebar-loading 3s linear 2s infinite;
+					border-radius: 8px;
+				}
+			</style>
+			<div class="horizontal-loader">
+				<div class="horizontal-loader-bar"></div>
+				<div class="horizontal-loader-bar"></div>
+				<div class="horizontal-loader-bar"></div>
+			</div>
+		`;
+	}
 }

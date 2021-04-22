@@ -1,5 +1,6 @@
-import { CtLit, html, property, customElement } from "@conectate/ct-lit";
-import "@conectate/ct-card/ct-card";
+import '@conectate/ct-card/ct-card';
+
+import { CtLit, customElement, html, property } from '@conectate/ct-lit';
 
 /* var DIRECTION = {
     UP: 'up',
@@ -20,7 +21,7 @@ var KEY_CODES = {
  * @group ct-elements
  * @element ct-autocomplete-suggestions
  */
-@customElement("ct-autocomplete-suggestions")
+@customElement('ct-autocomplete-suggestions')
 export class CtAutocompleteSuggestions extends CtLit {
 	render() {
 		return html`<style>
@@ -71,21 +72,15 @@ export class CtAutocompleteSuggestions extends CtLit {
 				<!-- unselectable is needed to fix an issue related to the focus being taken away when clicking in the
     results scrollbar -->
 				<ct-card shadow class="wrapper" id="suggestionsWrapper">
-					${this.queryFn(this.source, this.text).map(
-						(item, index) =>
-							html`<div @click=${this.onClickTemplate}>
-								${this.renderItem(item, index)}
-							</div>`
-					)}
+					${this.queryFn(this.source, this.text).map((item, index) => html`<div @click=${this.onClickTemplate}>${this.renderItem(item, index)}</div>`)}
 				</ct-card>
 			</div> `;
 	}
 
-	@property({ type: Object }) renderItem = (item: any, index: number) =>
-		html`<button>item ${index}</button>`;
+	@property({ type: Object }) renderItem = (item: any, index: number) => html`<button>item ${index}</button>`;
 	@property({ type: Array }) source: any[] = [];
 	@property({ type: Array }) queryResult: any[] = [];
-	@property({ type: String }) text = "";
+	@property({ type: String }) text = '';
 	@property({ type: Boolean }) remote = false;
 	@property({ type: Object }) klasses = {
 		wrapper: true,
@@ -121,7 +116,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 		}
 		datasource.forEach((item: { text: string; value: any }) => {
 			var objText, objValue;
-			if (typeof item == "object") {
+			if (typeof item == 'object') {
 				objText = item.text;
 				objValue = item.value;
 			} else {
@@ -138,7 +133,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 				});
 			}
 		});
-		console.log("filtro");
+		console.log('filtro');
 		return this.queryResult;
 	}
 
@@ -149,9 +144,9 @@ export class CtAutocompleteSuggestions extends CtLit {
 	 */
 	removeAcento(input: string): string {
 		// Cadena de caracteres original a sustituir.
-		let original = "áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
+		let original = 'áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ';
 		// Cadena de caracteres ASCII que reemplazarán los originales.
-		let ascii = "aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+		let ascii = 'aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC';
 		let output = input;
 		for (let i = 0; i < original.length; i++) {
 			// Reemplazamos los caracteres especiales.

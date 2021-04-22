@@ -8,8 +8,9 @@
     part of the Conectate Open Source Project is also subject to an additional IP rights grant
     found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, html, property, css } from "@conectate/ct-lit";
-import { sleep, PushID, getClient } from "@conectate/ct-helpers";
+
+import { PushID, getClient, sleep } from '@conectate/ct-helpers';
+import { CtLit, css, html, property } from '@conectate/ct-lit';
 
 let ctDialogs: string[] = [];
 // @ts-ignore
@@ -18,11 +19,7 @@ window.ctDialogs != null || (window.ctDialogs = []);
 ctDialogs = window.ctDialogs;
 let pushID = new PushID();
 
-export function showCtDialog(
-	el: HTMLElement,
-	id?: string,
-	history?: ConectateHistory
-): CtDialog {
+export function showCtDialog(el: HTMLElement, id?: string, history?: ConectateHistory): CtDialog {
 	let ctDialog: CtDialog;
 	let dialogID = id ? id : pushID.next(10);
 	// Inserto el ID del dialogo que voy a mostrar
@@ -38,7 +35,7 @@ export function showCtDialog(
 
 export function closeCtDialog(id?: string) {
 	return new Promise(async (resolve) => {
-		let m = document.querySelectorAll("ct-dialog") as NodeListOf<CtDialog>;
+		let m = document.querySelectorAll('ct-dialog') as NodeListOf<CtDialog>;
 		for (let mod = 0; mod < m.length; mod++) {
 			let modal = m[mod];
 			if (modal == null) return;
@@ -55,12 +52,7 @@ window.showCtDialog = showCtDialog;
 // @ts-ignore
 window.closeCtDialog = closeCtDialog;
 
-type animationSupported =
-	| "normal"
-	| "cupertino"
-	| "slide-right"
-	| "slide-left"
-	| "bottom-sheet";
+type animationSupported = 'normal' | 'cupertino' | 'slide-right' | 'slide-left' | 'bottom-sheet';
 export enum DialogSizePreferences {
 	/** Para pantalla completa */
 	fullsreen = 0,
@@ -68,20 +60,20 @@ export enum DialogSizePreferences {
 	fullsize = 1
 }
 export class CtDialog extends CtLit {
-	@property({ type: String, reflect: true }) role: string = "alert";
-	@property({ type: String, reflect: true, attribute: "aria-modal" })
-	ariaModal: string = "true";
+	@property({ type: String, reflect: true }) role: string = 'alert';
+	@property({ type: String, reflect: true, attribute: 'aria-modal' })
+	ariaModal: string = 'true';
 
 	// Vars
 	disableHistoryAPI: boolean = false;
-	dialogID = new Date().getTime() + "";
+	dialogID = new Date().getTime() + '';
 	_closeDialog: any;
 	_clseDialogESC: any;
 	mappingContainer?: Promise<any>;
 	history!: ConectateHistory;
 	// @property({ type: Object }) element?: HTMLElement | TemplateResult;
 	@property({ type: Object }) _element?: HTMLElement;
-	@property({ type: String }) animation: animationSupported = "normal";
+	@property({ type: String }) animation: animationSupported = 'normal';
 	@property({ type: Array }) preferences: any[] = [];
 
 	resolveMapping!: (value?: {} | PromiseLike<{}>) => void;
@@ -95,7 +87,7 @@ export class CtDialog extends CtLit {
 	set element(val) {
 		let old = this._element;
 		this._element = val;
-		this.requestUpdate("element", old);
+		this.requestUpdate('element', old);
 		/**
 		 * [FIX]
 		 * [Windows Vista] Chrome v75 height 0px;
@@ -106,21 +98,19 @@ export class CtDialog extends CtLit {
 			let bodyY = document.body.getBoundingClientRect().height;
 			let elementY = this._element!.offsetHeight;
 			if ((elementY / bodyY) * 100 < 5) {
-				console.warn("El elemento no es visible");
-				if (this._element)
-					this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+				console.warn('El elemento no es visible');
+				if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
 			} else if ((elementY / bodyY) * 100 >= 78) {
 				// console.warn("El elemento esta desbordado");
 				if (this.preferences.indexOf(DialogSizePreferences.fullsreen) == -1) {
-					if (this._element)
-						this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+					if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
 				}
 			}
 		});
 
-		if (getClient().os == "ios") {
+		if (getClient().os == 'ios') {
 			this.updateComplete.then(async () => {
-				if (this._element) this._element.style.borderRadius = "0px";
+				if (this._element) this._element.style.borderRadius = '0px';
 			});
 		}
 	}
@@ -202,7 +192,7 @@ export class CtDialog extends CtLit {
 			align-items: center;
 			-webkit-justify-content: center;
 			justify-content: center;
-			font-family: "Roboto", sans-serif !important;
+			font-family: 'Roboto', sans-serif !important;
 			-webkit-box-align: center;
 			box-align: center;
 			-webkit-box-orient: vertical;
@@ -266,7 +256,7 @@ export class CtDialog extends CtLit {
 			<div
 				class="overlay"
 				@click="${(e: MouseEvent) => {
-					this.closeDialog(e, "click");
+					this.closeDialog(e, 'click');
 					e.stopPropagation();
 				}}"
 			></div>
@@ -307,22 +297,22 @@ export class CtDialog extends CtLit {
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		window.removeEventListener("popstate", this._closeDialog, false);
-		document.removeEventListener("keyup", this._clseDialogESC, false);
+		window.removeEventListener('popstate', this._closeDialog, false);
+		document.removeEventListener('keyup', this._clseDialogESC, false);
 	}
 
 	computeAnimation(anim: animationSupported) {
 		switch (anim) {
-			case "normal":
-				return "anim-normal";
-			case "cupertino":
-				return "anim-cupertino";
-			case "slide-left":
-				return "anim-slide-left";
-			case "slide-right":
-				return "anim-slide-right";
-			case "bottom-sheet":
-				return "anim-bottom-sheet";
+			case 'normal':
+				return 'anim-normal';
+			case 'cupertino':
+				return 'anim-cupertino';
+			case 'slide-left':
+				return 'anim-slide-left';
+			case 'slide-right':
+				return 'anim-slide-right';
+			case 'bottom-sheet':
+				return 'anim-bottom-sheet';
 		}
 	}
 
@@ -332,10 +322,9 @@ export class CtDialog extends CtLit {
 	}
 	async init() {
 		this._closeDialog = async (e: CustomEvent) => {
-			let lastID =
-				ctDialogs.length > 0 ? ctDialogs[ctDialogs.length - 1] : undefined;
+			let lastID = ctDialogs.length > 0 ? ctDialogs[ctDialogs.length - 1] : undefined;
 			if (lastID == this.dialogID) {
-				this.closeDialog(e, "popstate");
+				this.closeDialog(e, 'popstate');
 			} else if (lastID == undefined) {
 				// [REF.1]
 				// @ts-ignore Elimino el null de control de la Lista
@@ -345,10 +334,10 @@ export class CtDialog extends CtLit {
 		};
 
 		this._clseDialogESC = (e: KeyboardEvent) => {
-			if (e.keyCode === 27) this.closeDialog(e, "keyup"); // esc
+			if (e.keyCode === 27) this.closeDialog(e, 'keyup'); // esc
 		};
-		window.addEventListener("popstate", this._closeDialog, false);
-		document.addEventListener("keyup", this._clseDialogESC, false);
+		window.addEventListener('popstate', this._closeDialog, false);
+		document.addEventListener('keyup', this._clseDialogESC, false);
 
 		this.mappingContainer = new Promise((resolve) => {
 			this.resolveMapping = resolve;
@@ -377,21 +366,14 @@ export class CtDialog extends CtLit {
 	firstUpdated() {
 		this.mapIDs();
 		// Checkeo que no sea Chrome de iOS porque esa mierda no sirve aquí 😡
-		if (navigator.userAgent.match(/CriOS\/([0-9\.]+)/))
-			this.disableHistoryAPI = true;
+		if (navigator.userAgent.match(/CriOS\/([0-9\.]+)/)) this.disableHistoryAPI = true;
 
-		if (this.history == null)
-			this.history = { title: document.title, href: window.location.href };
+		if (this.history == null) this.history = { title: document.title, href: window.location.href };
 		// Crea una entrada en el History API identica que solo va a servir para usar 'Atras' en Moviles y cerrar el dialogo
-		if (!this.disableHistoryAPI)
-			window.history.pushState(
-				{ dialogID: this.dialogID },
-				this.history.title,
-				this.history.href
-			);
+		if (!this.disableHistoryAPI) window.history.pushState({ dialogID: this.dialogID }, this.history.title, this.history.href);
 		this.resolveMapping();
 		if (this.element!?.classList) {
-			this.element!.classList.add("c");
+			this.element!.classList.add('c');
 			this.element!.classList.add(this.computeAnimation(this.animation));
 		}
 	}
@@ -401,17 +383,14 @@ export class CtDialog extends CtLit {
 		return new Promise(async (resolve) => {
 			let finish = async () => {
 				if (!document.body.contains(this)) {
-					console.warn(
-						`dialogID ya no se encuentra en el DOM ${this.dialogID}`,
-						this
-					);
+					console.warn(`dialogID ya no se encuentra en el DOM ${this.dialogID}`, this);
 					return;
 				}
 				document.body.removeChild(this);
 				ctDialogs.splice(ctDialogs.indexOf(this.dialogID), 1);
 				// Si lo mande a llamar manualmente y hay mas dialogos abiertos
 				// entonces que inserte un null para que no cierre los demas dialogos en el popstate. [REF.1]
-				if ((type == null || type == "click") && ctDialogs.length > 0) {
+				if ((type == null || type == 'click') && ctDialogs.length > 0) {
 					// Se inserta la candidad de dialogos que hay ahorita ya que cada uno tiene un listener en el popstate
 					if (ctDialogs.length > 1000) {
 						while (ctDialogs.length > 0) {
@@ -421,14 +400,12 @@ export class CtDialog extends CtLit {
 					ctDialogs.push(...Array(ctDialogs.length));
 				}
 				// Deshabilitado en Chrome iOS
-				if (type != "popstate" && !this.disableHistoryAPI) {
+				if (type != 'popstate' && !this.disableHistoryAPI) {
 					window.history.back();
 				}
 				await sleep(70);
 				resolve(e as Event);
-				this.dispatchEvent(
-					new CustomEvent("on-close", { detail: { event: e } })
-				);
+				this.dispatchEvent(new CustomEvent('on-close', { detail: { event: e } }));
 			};
 			// espero que haga el mapping en el container
 			await this.mappingContainer;
@@ -438,16 +415,16 @@ export class CtDialog extends CtLit {
 			}
 			let anim = this.animate([{ opacity: 1 }, { opacity: 0 }], {
 				duration: 250,
-				fill: "both"
+				fill: 'both'
 			});
 			this.element!?.animate(
 				[
-					{ transform: "scale(1)", opacity: 1 },
-					{ transform: "scale(1.2)", opacity: 0 }
+					{ transform: 'scale(1)', opacity: 1 },
+					{ transform: 'scale(1.2)', opacity: 0 }
 				],
 				{
 					duration: 270,
-					fill: "both"
+					fill: 'both'
 				}
 			);
 			anim.onfinish = finish;
@@ -472,7 +449,7 @@ export class CtDialog extends CtLit {
 	}
 }
 
-window.customElements.define("ct-dialog", CtDialog);
+window.customElements.define('ct-dialog', CtDialog);
 
 // TS
 

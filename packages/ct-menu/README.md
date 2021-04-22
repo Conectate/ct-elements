@@ -1,7 +1,7 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-elements)
 # ct-menu
 
-Menu web component for `lit-element`
+Menu web component for `lit`
 
 ## Properties
 

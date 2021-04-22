@@ -50,7 +50,7 @@ Add to your html\`\` (Litelement Template) like this:
 ### Full LitElement example in Typescript
 
 ```typescript
-import {CtLit, html, property, customElement, internalProperty } from '@conectate/ct-lit'; /* or 'lit-element' */
+import {CtLit, html, property, customElement, internalProperty } from '@conectate/ct-lit'; /* or 'lit' */
 import '@conectate/ct-router/ct-router';
 import { href } from '@conectate/ct-router/ct-router';
 
@@ -271,7 +271,7 @@ The beforeunload event is fired when the `location` has changed, The document an
 ⚠️⚠️⚠️ This listener mimics the behavior of `window.onbeforeunload` but is not the same. If you need to know if it reloads the page or if you are exiting your web page, use the `window.onbeforeunload` method.
 
 ```typescript
-import {CtLit, html, property, customElement, internalProperty } from 'lit-element'; /* or 'lit-element' */
+import {CtLit, html, property, customElement, internalProperty } from 'lit'; /* or 'lit' */
 import { showCtConfirm } from '@conectate/ct-dialog/ct-confirm';
 import '@conectate/ct-router/ct-router';
 

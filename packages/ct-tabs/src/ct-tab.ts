@@ -1,8 +1,8 @@
-import { CtLit, html, property,customElement } from '@conectate/ct-lit';
+import { CtLit, customElement, html, property } from '@conectate/ct-lit';
 
 /**
  * # `ct-tab`
- * 
+ *
  * @element ct-tab
  */
 @customElement('ct-tab')

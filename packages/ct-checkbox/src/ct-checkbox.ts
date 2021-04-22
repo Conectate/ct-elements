@@ -1,10 +1,11 @@
-import { css, CtLit, customElement, html, property } from '@conectate/ct-lit';
 import '@material/mwc-checkbox';
+
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 import { Checkbox } from '@material/mwc-checkbox';
 // @ts-ignore HACK: temporary patch to fix a safari issue
 Checkbox.prototype.createRenderRoot = function (): ShadowRoot {
-    // tslint:disable-next-line:no-invalid-this
-    return this.attachShadow({ mode: 'open', delegatesFocus: false });
+	// tslint:disable-next-line:no-invalid-this
+	return this.attachShadow({ mode: 'open', delegatesFocus: false });
 };
 
 /**
@@ -20,20 +21,22 @@ export class CtCheckbox extends CtLit {
 	@property({ type: Boolean }) indeterminate = false;
 	@property({ type: Boolean }) disabled = false;
 	@property({ type: Object }) value: any;
-	static styles = [css`
-		:host {
-			display: inline-block;
-		}
-		.c {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		input{
-			zoom: 1.5;
-			margin-right: 8px;
-		}
-	`];
+	static styles = [
+		css`
+			:host {
+				display: inline-block;
+			}
+			.c {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+			input {
+				zoom: 1.5;
+				margin-right: 8px;
+			}
+		`
+	];
 
 	render() {
 		return html`
@@ -46,7 +49,7 @@ export class CtCheckbox extends CtLit {
 					?disabled=${this.disabled}
 					@checked=${(e: Event) => e.stopPropagation()}
 				></mwc-checkbox>
-				
+
 				<span><slot></slot></span>
 			</div>
 		`;

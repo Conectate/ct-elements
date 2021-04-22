@@ -1,10 +1,10 @@
 {
-  "name": "@conectate/ct-list",
-  "version": "1.0.0",
-  "description": "Wrapper from LitElement",
-  "main": "ct-list.js",
-  "license": "BSD-3-Clause",
-  "author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"name": "@conectate/ct-list",
+	"version": "3.0.0",
+	"description": "Wrapper from LitElement",
+	"main": "ct-list.js",
+	"license": "BSD-3-Clause",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/conectate/ct-elements"
@@ -13,19 +13,19 @@
 		"url": "https://github.com/conectate/ct-elements/issues"
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
-  "scripts": {
-    "prepare": "rm *.js && tsc"
-  },
-  
-  "keywords": [
-    "litElement","wrapper","Web Components"
-  ],
- 
-  "dependencies": {
-    "lit-element": "^2.4.0",
-    "@conectate/ct-icon": "file:../ct-icon"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
+	},
+	"keywords": [
+		"litElement",
+		"wrapper",
+		"Web Components"
+	],
+	"dependencies": {
+		"@conectate/ct-lit": "^3.0.0",
+		"@conectate/ct-icon": "^3.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

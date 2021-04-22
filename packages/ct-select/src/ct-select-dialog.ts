@@ -1,10 +1,12 @@
-import { CtLit, html, unsafeHTML, css } from '@conectate/ct-lit';
 import '@conectate/ct-card/ct-card';
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-input/ct-input';
 import '@conectate/ct-dialog/ct-dialog';
-import { showCtDialog, CtDialog } from '@conectate/ct-dialog/ct-dialog';
-import { CSSResult, property } from 'lit-element';
+import 'lit-virtualizer/lib/lit-virtualizer';
+
+import { CtDialog, showCtDialog } from '@conectate/ct-dialog/ct-dialog';
+import { CtLit, css, html, internalProperty, property, unsafeHTML } from '@conectate/ct-lit';
+import { TemplateResult } from 'lit';
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.
@@ -35,9 +37,11 @@ export interface OptionsCtSelect {
 	searchPlaceholder: string;
 	textProperty: string;
 	valueProperty: string;
+	use_virtual_scroll: boolean;
 }
 export function showCtSelect(title: string, items: any[] = [], value: any[] = [], ok: string = 'Ok', cancel: string = 'Cancel', options: OptionsCtSelect) {
 	let selectDialog = document.createElement('ct-select-dialog') as CtSelectDialog;
+	selectDialog.use_virtual_scroll = options.use_virtual_scroll;
 	selectDialog.ttl = title;
 	selectDialog.items = items;
 	selectDialog.ok = ok ? ok : 'OK';
@@ -67,6 +71,9 @@ export class CtSelectDialog extends CtLit {
 	@property({ type: Boolean }) searchable = false;
 	@property({ type: String }) searchPlaceholder: string = 'Search...';
 	@property({ type: Array }) items: any[] = [];
+	@internalProperty() private itemsFiltered: any[] = [];
+	@internalProperty() private searchBoxText = '';
+	@property({ type: Boolean }) use_virtual_scroll = false;
 	@property({ type: String }) valueProperty!: string;
 	@property({ type: String }) textProperty!: string;
 	@property({ type: String }) ok!: string;
@@ -76,7 +83,7 @@ export class CtSelectDialog extends CtLit {
 	 * Arrar of selected items
 	 */
 	@property({ type: String }) value!: string | string[];
-
+	@internalProperty() private scrollTarget: any;
 	/**
 	 * If true, multiple options can be selected.
 	 */
@@ -84,12 +91,20 @@ export class CtSelectDialog extends CtLit {
 	@property({ type: String }) selectedPlaceholder = 'items selected';
 	@property({ type: Array }) multiValue: any[] = [];
 	@property({ type: Object }) dialog!: CtDialog;
-	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) => html` <button class="${this.addSelectedClass(item[this.valueProperty])}">${unsafeHTML(item[this.textProperty])}</button> `;
-	static styles: CSSResult[] = [
+	renderItem2?: (item: any, index: number, array: any[]) => TemplateResult;
+	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) => html` <button>${unsafeHTML(item[this.textProperty])}</button> `;
+
+	static styles = [
 		css`
 			:host {
 				display: block;
 				/* height: 100%; */
+			}
+			.item {
+				width: 100%;
+			}
+			lit-virtualizer {
+				height: 50vh;
 			}
 
 			.title {
@@ -208,14 +223,31 @@ export class CtSelectDialog extends CtLit {
 	];
 
 	render() {
+		let items = [...this.itemsFiltered];
+		if (items.length == 0 && this.searchBoxText.length == 0) items = this.items;
 		return html`
-			<ct-card shadow border>
+			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
 				${this.searchable ? html` <ct-input @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> ` : html``}
 				<div class="body" id="confirmBody">
-					${this.items.map((i, index, arr) => {
-						return html` <div @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">${this.renderItem(i, index, arr)}</div> `;
-					})}
+					${this.use_virtual_scroll
+						? html` <lit-virtualizer
+								.scrollTarget=${this.scrollTarget}
+								.items=${items}
+								.renderItem=${((i: any, index: number, arr: any[]) => html`
+									<div class="item ${this.addSelectedClass(i[this.valueProperty])}" @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">
+										${this.renderItem(i, index, arr)}
+									</div>
+								`) as any}
+						  >
+						  </lit-virtualizer>`
+						: items.map(
+								(i: any, index: number, arr: any[]) => html`
+									<div class="item ${this.addSelectedClass(i[this.valueProperty])}" @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">
+										${this.renderItem(i, index, arr)}
+									</div>
+								`
+						  )}
 				</div>
 				<div id="buttons" class="buttons">
 					<div class="flex"></div>
@@ -226,9 +258,11 @@ export class CtSelectDialog extends CtLit {
 		`;
 	}
 
-	firstUpdated(_e: Map<PropertyKey, unknown>) {
+	firstUpdated() {
 		this.mapIDs();
+		this.scrollTarget = this.$.confirmBody;
 		this.computeBtns(this.ok, this.neutral, this.cancel);
+		this.itemsFiltered = [...this.items];
 	}
 
 	/**
@@ -238,17 +272,16 @@ export class CtSelectDialog extends CtLit {
 	 * @private
 	 */
 	_filter(searchText: string) {
-		const items = this.$$$('button')! as NodeListOf<HTMLElement>;
+		const items = this.items;
+		let auxArray = [];
+		this.searchBoxText = searchText;
 		for (let index = 0; index < items.length; index++) {
-			let display;
 			if (this.items[index][this.textProperty] == null) continue;
 			let text = removeAcento(this.items[index][this.textProperty].toLowerCase());
 			let texts = removeAcento(searchText.toLowerCase());
-			if (text.indexOf(texts) > -1) display = 'block';
-			else display = 'none';
-
-			items[index].style.display = display;
+			if (text.indexOf(texts) > -1) auxArray.push(this.items[index]);
 		}
+		this.itemsFiltered = [...auxArray];
 	}
 
 	typeOf(obj: any) {

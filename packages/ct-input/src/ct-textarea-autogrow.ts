@@ -1,5 +1,4 @@
-import { CtLit, html, customElement, property, unsafeHTML, css } from '@conectate/ct-lit';
-import { CSSResult } from 'lit-element';
+import { CtLit, css, customElement, html, property, unsafeHTML } from '@conectate/ct-lit';
 
 /**
  * # `ct-textarea-autogrow`
@@ -9,7 +8,7 @@ import { CSSResult } from 'lit-element';
  */
 @customElement('ct-textarea-autogrow')
 export class CtTextareaAutogrow extends CtLit {
-	static styles: CSSResult[] = [
+	static styles = [
 		css`
 			:host {
 				display: inline-block;

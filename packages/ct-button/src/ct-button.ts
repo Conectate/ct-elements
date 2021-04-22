@@ -8,8 +8,11 @@ found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth 
 part of the Conectate Open Source Project is also subject to an additional IP rights grant
 found at https://wc.conectate.app/PATENTS.txt
  */
-import { LitElement, html, property, customElement } from 'lit-element';
+
 import '@material/mwc-ripple';
+
+import { LitElement, html } from 'lit';
+import { customElement, property } from 'lit/decorators';
 
 /**
 ## Example usage

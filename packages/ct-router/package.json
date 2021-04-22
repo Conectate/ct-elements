@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-router",
-	"version": "2.4.1",
+	"version": "3.0.0",
 	"description": "It's a simple routing system that changes the viewport depending on the route given",
 	"main": "ct-router.js",
 	"typings": "ct-router.d.ts",
@@ -14,9 +14,9 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit-element": "^2.4.0",
+		"@conectate/ct-lit": "3.0.0",
 		"pwa-helpers": "^0.9.1",
-		"tslib": "^2.1.0"
+		"tslib": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts; tsc"

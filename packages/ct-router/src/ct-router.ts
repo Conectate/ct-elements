@@ -1,8 +1,9 @@
-import { LitElement, TemplateResult, css, customElement, html, internalProperty, property } from "lit-element";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { installRouter } from "pwa-helpers/router";
+import { CtLit, css, customElement, html, internalProperty, property } from '@conectate/ct-lit';
+import { TemplateResult } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html';
+import { installRouter } from 'pwa-helpers/router';
 
-import { C2Regexp, C2RegexpType, EvaluateParams } from "./path_to_regexp";
+import { C2Regexp, C2RegexpType, EvaluateParams } from './path_to_regexp';
 
 export interface Page {
 	path: string;
@@ -42,10 +43,10 @@ declare global {
 		href(path: string, name?: string): void;
 	}
 	interface HTMLElementTagNameMap {
-		"ct-router": CtRouter;
+		'ct-router': CtRouter;
 	}
 }
-type CtRouterListeners = "beforeunload";
+type CtRouterListeners = 'beforeunload';
 /**
  * ## `ct-router`
  * It's a simple routing system that changes the viewport depending on the route given
@@ -55,8 +56,8 @@ type CtRouterListeners = "beforeunload";
  * @event loading It fires when a page is imported diamicamente and it is fired again when it finishes loading the page
  * @event location-changed it shoots when the route changes
  */
-@customElement("ct-router")
-export class CtRouter extends LitElement {
+@customElement('ct-router')
+export class CtRouter extends CtLit {
 	$: { content?: HTMLDivElement; drawerSlot?: HTMLSlotElement } = {};
 	/**
 	 * This is a dictionary of routes linked to its corresponding elements.
@@ -65,19 +66,19 @@ export class CtRouter extends LitElement {
 	/**
 	 * This holds the next route to be viewed after the url has been changed.
 	 */
-	@internalProperty() private patternMatched: string = "";
+	@internalProperty() private patternMatched: string = '';
 	/**
 	 * This holds the current route that is being viewed
 	 */
-	@internalProperty() private _currentView: any = "";
+	@internalProperty() private _currentView: any = '';
 	/**
 	 * Current Path
 	 */
-	@internalProperty() private pathname: string = "/";
+	@internalProperty() private pathname: string = '/';
 	/**
 	 * Login needed fallback path
 	 */
-	@property({ type: String }) loginFallback = "/login";
+	@property({ type: String }) loginFallback = '/login';
 	/**
 	 * Array de elementos {path,element(HTML),from,auth,title}
 	 */
@@ -125,7 +126,7 @@ export class CtRouter extends LitElement {
 	render() {
 		return html`
 			<slot id="drawerSlot" name="banner"></slot>
-			<div id="content">${typeof this._currentView == "string" ? unsafeHTML(this._currentView) : this._currentView}</div>
+			<div id="content">${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}</div>
 		`;
 	}
 
@@ -133,7 +134,7 @@ export class CtRouter extends LitElement {
 		super();
 		window.ctrouter = this;
 		installRouter((l) => this.handleRoutes(l));
-		window.addEventListener("location-changed", () => this.handleRoutes(window.location));
+		window.addEventListener('location-changed', () => this.handleRoutes(window.location));
 	}
 	firstUpdated() {
 		this._contentAdded(this.pages);
@@ -149,7 +150,7 @@ export class CtRouter extends LitElement {
 	}
 
 	updated(m: Map<string, any>) {
-		if (m.has("pages")) {
+		if (m.has('pages')) {
 			this._contentAdded(this.pages || []);
 		}
 	}
@@ -165,7 +166,7 @@ export class CtRouter extends LitElement {
         ej: /herberth -> /herberth#showDialog -> /herberth
         */
 		if (location.pathname != this.pathname) {
-			let has = this.listeners.find((l) => l.name == "beforeunload");
+			let has = this.listeners.find((l) => l.name == 'beforeunload');
 			if (has) {
 				let cont = await has.callback();
 				if (cont) {
@@ -187,7 +188,7 @@ export class CtRouter extends LitElement {
 	 * Sets the path property
 	 */
 	_setPath(path: string) {
-		this.pathname = path || "/";
+		this.pathname = path || '/';
 	}
 
 	/**
@@ -211,7 +212,7 @@ export class CtRouter extends LitElement {
 				if (el.regex != null && el.groups != null) {
 					// regex : expresion regular
 					// keys : Array(0)
-					let regex = new RegExp(el.regex, "i");
+					let regex = new RegExp(el.regex, 'i');
 					c2regexp = { regexp: regex, groups: el.groups };
 				} else {
 					c2regexp = C2Regexp(el.path);
@@ -254,7 +255,7 @@ export class CtRouter extends LitElement {
 			if (c2 != null) {
 				// Set params like a  {username : "herberthbregon", "jid" : 1234}
 				this.params = c2;
-			this.	patternMatched = routePaths[i].path;
+				this.patternMatched = routePaths[i].path;
 				break;
 			}
 		}
@@ -265,9 +266,9 @@ export class CtRouter extends LitElement {
 		if (this.patternMatched) {
 			// Si la vista es protegida y no esta logeado entonces lo mando a /login y no esta autenticado
 			if (routes[this.patternMatched].auth && !this.auth) {
-				console.warn("You need to log in to perform this action");
+				console.warn('You need to log in to perform this action');
 				this.patternMatched = this.patternMatched = this.loginFallback;
-				let ce = new CustomEvent("login-needed", {
+				let ce = new CustomEvent('login-needed', {
 					detail: { path: window.location.pathname }
 				});
 				this.dispatchEvent(ce);
@@ -278,13 +279,13 @@ export class CtRouter extends LitElement {
 				this._currentView = this._routes[this.patternMatched].element;
 			}
 		} else {
-			this.patternMatched = this.patternMatched = "/404";
-			console.log("/404");
-			this._currentView = this._routes["/404"].element;
+			this.patternMatched = this.patternMatched = '/404';
+			console.log('/404');
+			this._currentView = this._routes['/404'].element;
 		}
 
 		this.dispatchEvent(
-			new CustomEvent("location-changed", {
+			new CustomEvent('location-changed', {
 				detail: {
 					path: this.patternMatched,
 					pathname: this.pathname,
@@ -296,21 +297,21 @@ export class CtRouter extends LitElement {
 		if (this.patternMatched && routes[this.patternMatched]) {
 			let fromImport = routes[this.patternMatched].from;
 			if (fromImport) {
-				this.dispatchEvent(new CustomEvent("loading", { detail: true }));
+				this.dispatchEvent(new CustomEvent('loading', { detail: true }));
 				fromImport()
 					.then(() => {
 						if (this.patternMatched) this.dispatchEvent(new CustomEvent(this.patternMatched));
-						setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 500);
+						setTimeout(() => this.dispatchEvent(new CustomEvent('loading', { detail: false })), 500);
 					})
 					.catch((e: any) => {
 						console.error(e);
-						if (`${e}`.includes("ChunkLoadError")) {
+						if (`${e}`.includes('ChunkLoadError')) {
 							setTimeout(() => location.reload(), 10000);
 						}
 						console.error("Can't lazy-import - " + fromImport);
 					});
 			} else {
-				setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 800);
+				setTimeout(() => this.dispatchEvent(new CustomEvent('loading', { detail: false })), 800);
 			}
 			if (routes[this.patternMatched].title()) {
 				document.title = routes[this.patternMatched].title() as string;
@@ -326,7 +327,7 @@ export class CtRouter extends LitElement {
 
 export function href(path: string, name: string = document.title) {
 	window.history.pushState({}, name, path);
-	window.dispatchEvent(new CustomEvent("location-changed"));
+	window.dispatchEvent(new CustomEvent('location-changed'));
 }
 
 window.href = href;
@@ -342,15 +343,15 @@ export function getQuery(): URLSearchParams {
 
 /** @deprecated */
 export function getQueryParams() {
-	let pairs = window.location.search.substring(1).split("&"),
+	let pairs = window.location.search.substring(1).split('&'),
 		obj: { [x: string]: any } = {},
 		pair,
 		i;
 
 	for (i in pairs) {
-		if (pairs[i] === "") continue;
+		if (pairs[i] === '') continue;
 
-		pair = pairs[i].split("=");
+		pair = pairs[i].split('=');
 		obj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 	}
 	return obj || {};

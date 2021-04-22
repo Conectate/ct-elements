@@ -3,9 +3,9 @@
 ## Basic Example
 
 ```typescript
-// import { ... } from 'lit-element';
+// import { ... } from 'lit';
 
-// @conectate/ct-lit is a base class wrapper of lit-element
+// @conectate/ct-lit is a base class wrapper of lit
 import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 
 @customElement('my-select')
