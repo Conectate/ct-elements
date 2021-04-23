@@ -39,6 +39,10 @@ export class CtIcon extends LitElement {
 				direction: ltr;
 				-webkit-font-smoothing: antialiased;
 			}
+
+			span::before {
+				content: attr(data-icon);
+			}
 		`
 	];
 	constructor() {
@@ -70,7 +74,7 @@ export class CtIcon extends LitElement {
 				</style>
 				${unsafeHTML(this.svg)}`;
 		else if (this.icon) {
-			return html`${this.icon}`;
+			return html`<span data-icon=${this.icon}></span>`;
 		}
 	}
 }
