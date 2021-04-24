@@ -54,7 +54,7 @@ export class CtIcon extends LitElement {
 		}
 	}
 	/** If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string` */
-	@property({ type: String }) svg = '';
+	@property({ type: String }) svg?: string;
 	/** Icon name described in Google Fonts
 	 * @see https://fonts.google.com/icons
 	 */

@@ -25,9 +25,12 @@ npm i @conectate/ct-icon
 ```html
 <!-- See: https://fonts.google.com/icons for more icons -->
 <ct-icon icon="settings"></ct-icon>
+<!-- Or -->
+<ct-icon-button icon="headphones"></ct-icon-button>
 ```
 
 ### ES Modules
+
 If you will use lit, react, vue, etc. need to import the web component.
 
 #### `LitElement example (Typescript)`
@@ -36,11 +39,15 @@ If you will use lit, react, vue, etc. need to import the web component.
 // my-element.ts
 import { LitElement, html, customElement} from 'lit';
 import '@conectate/ct-icon';
+import '@conectate/ct-icon-button';
 
 @customElement('my-element')
 class MyElement extends LitElement {
     render() {
-        return html`<ct-icon icon="print"></ct-icon>`;
+        return html`
+          <ct-icon icon="print"></ct-icon>
+          <ct-icon-button icon="headphones"></ct-icon-button>
+        `;
     }
 }
 ```
@@ -82,7 +89,7 @@ The component has support to autocomplete the more than 1000 existing icons by G
 
 | Property    | Attribute     | Type                                               | Default   | Description                                                                                               |
 | ----------- | ------------- | -------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------- |
-| `FontStyle` | `static type` | `"Outlined"\|"Fill"\|"Sharp"\|"Two Tone"\|"Round"` | `"Round"` | Select Font Style with static propety - `CtIcon.FontStyle = "Round"`                                     |
+| `FontStyle` | `static type` | `"Outlined"\|"Fill"\|"Sharp"\|"Two Tone"\|"Round"` | `"Round"` | Select Font Style with static propety - `CtIcon.FontStyle = "Round"`                                      |
 | `icon`      | `icon`        | `icon`                                             |           | Icon name described in Google Fonts                                                                       |
 | `svg`       | `svg`         | `string`                                           | ""        | If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string` |
 

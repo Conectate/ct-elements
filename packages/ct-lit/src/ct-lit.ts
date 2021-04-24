@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 export type PropertyValues = Map<PropertyKey, any>;
+export { LitElement };
 export { unsafeHTML } from 'lit/directives/unsafe-html';
 export { until } from 'lit/directives/until';
 export { html, svg, css } from 'lit';
@@ -82,14 +83,6 @@ export class CtLit extends LitElement {
 	$: { [x: string]: HTMLElement | any } = {};
 
 	/**
-	 * Returns the first element within node's descendants whose ID is elementId.
-	 * @param name
-	 */
-	_(name: string): HTMLElement | undefined | null {
-		return (this.renderRoot as DocumentFragment).getElementById?.(name);
-	}
-
-	/**
 	 * Returns the first element that is a descendant of node that matches selectors.
 	 * @param name
 	 * @returns {HTMLElement | Element | undefined | null}
@@ -119,81 +112,11 @@ export class CtLit extends LitElement {
 	}
 
 	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	set(name: string, value: any) {
-		(this as any)[name] = value;
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	push(name: string, value: any) {
-		(this as any)[name].push(value);
-		this.requestUpdate();
-	}
-	/**
-	 * Delete item in list
-	 * @param listTarget List Target
-	 * @param index Index
-	 */
-	deleteAt(listTarget: string, index: number) {
-		(this as any)[listTarget].splice(index, 1);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Insert Object in list at index
-	 * @param listTarget List Target
-	 * @param index Index
-	 * @param el Object
-	 */
-	insertAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 0, el);
-	}
-
-	setAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 1, el);
-	}
-
-	/**
 	 * Clone all `native` types of object in a new object reference
 	 * @param ob Original Object
 	 */
 	deepClone(ob: object) {
 		return JSON.parse(JSON.stringify(ob));
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	splice(name: string, index: number, pos: number, value: any) {
-		(this as any)[name].splice(index, pos, value);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Move item in array
-	 * @param array Array object
-	 * @param old_index Old Index
-	 * @param new_index New Index
-	 */
-	move(array: any[], old_index: number, new_index: number) {
-		if (new_index >= array.length) {
-			let k = new_index - array.length;
-			while (k-- + 1) {
-				array.push(undefined);
-			}
-		}
-		// @ts-ignore
-		array.splice(new_index, 0, this.splice(name, old_index, 1)[0]);
 	}
 
 	/**
