@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-icon",
-	"version": "3.0.1",
+	"version": "3.1.0",
 	"description": "HTML Material Design icon made with Web Components and Lit",
 	"main": "ct-icon.js",
 	"typings": "ct-icon.d.ts",
@@ -9,8 +9,8 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"lit": "^2.0.0-rc.1",
 		"@material/mwc-ripple": "^0.20.0",
+		"lit": "^2.0.0-rc.1",
 		"tslib": "^2.2.0"
 	},
 	"type": "module",
@@ -26,5 +26,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

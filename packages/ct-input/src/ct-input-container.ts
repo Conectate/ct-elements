@@ -9,7 +9,7 @@
  found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
 
 /**
  * `ct-input-container`
@@ -24,9 +24,6 @@ import { CtLit, css, customElement, html } from '@conectate/ct-lit';
  */
 @customElement('ct-input-container')
 export class CtInputContainer extends CtLit {
-	_placeholder: string = '';
-	_invalid = false;
-	errorMessage = '';
 	static styles = [
 		css`
 			:host {
@@ -191,6 +188,7 @@ export class CtInputContainer extends CtLit {
 			}
 		`
 	];
+
 	render() {
 		return html`
 			${this.label ? html` <h4 for="input" class="label">${this.label}</h4> ` : html``}
@@ -213,147 +211,51 @@ export class CtInputContainer extends CtLit {
 		}
 		return ``;
 	}
+	@query('#container') container!: HTMLElement;
+	@state() private__isFirstValueUpdate = true;
+	@property({ type: Boolean }) focused = false;
 
-	__isFirstValueUpdate = true;
-	value = '';
-	placeholder = '';
-	type = 'text';
-	label = '';
-	countChar = 0;
-	noHover = false;
-	size = 30;
-	autocorrect = 'off';
-	minlength = 0;
-	maxlength = 5000;
-	autocapitalize = 'none';
-	min = this.minlength;
-	max = this.maxlength;
-	charCounter = false;
+	/**
+	 * The value of the searchbox
+	 */
+	@property({ type: String }) value = '';
 
-	firstUpdated() {
-		this.$.container = this._('container');
-	}
+	/**
+	 * Placeholder text when searchbox is empty
+	 */
+	@property({ type: String }) placeholder = '';
 
-	static get properties() {
-		return {
-			required: {
-				type: Boolean
-			},
-			disabled: {
-				type: Boolean
-			},
-			/**
-			 * The value of the searchbox
-			 */
-			value: {
-				type: String
-			},
+	/**
+	 * Input type
+	 */
+	@property({ type: String }) type = 'text';
 
-			/**
-			 * Input type
-			 */
-			type: {
-				type: String
-			},
-			/**
-			 * Placeholder text when searchbox is empty
-			 */
-			placeholder: {
-				type: String
-			},
+	@state() private _invalid = false;
 
-			_placeholder: {
-				type: String
-			},
-			/**
-			 * Mensaje de error al no complir con el pattern
-			 */
-			errorMessage: {
-				type: String
-			},
-
-			/**
-			 * regexp
-			 */
-			pattern: {
-				type: String
-			},
-
-			/**
-			 * Raise searchbox is it's focused
-			 */
-			raiseOnActive: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Raise searchbox if it has value
-			 */
-			raiseOnValue: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Always raise the searchbox whether it is active or not, or whether is has value or not
-			 */
-			raiseForced: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Do not show any effects when hovering the searchbox
-			 */
-			noHover: {
-				type: Boolean
-			},
-			/**
-			 * Change default icon to whatever you like
-			 */
-			label: {
-				type: String
-			},
-			/**
-			 * Max length on input
-			 */
-			maxlength: {
-				type: Number
-			},
-			/**
-			 * Total chars on input
-			 */
-			countChar: {
-				type: Number
-			},
-			charCounter: {
-				type: Boolean
-			},
-			binding: {
-				type: Array
-			},
-			invalid: {
-				type: Boolean,
-				reflect: true
-			},
-			_invalid: {
-				type: Boolean
-			}
-		};
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-		this._placeholder = this.placeholder;
-	}
+	/**
+	 * Mensaje de error al no complir con el pattern
+	 */
+	@property({ type: String }) errorMessage = '';
+	@property({ type: String }) label = '';
+	@property({ type: String }) autocorrect = 'off';
+	@property({ type: String }) autocapitalize = 'none';
+	@property({ type: Boolean }) noHover = false;
+	@property({ type: Boolean }) charCounter = false;
+	@property({ type: Number }) countChar = 0;
+	@property({ type: Number }) size = 30;
+	@property({ type: Number }) minlength = 0;
+	@property({ type: Number }) maxlength = 5000;
+	@property({ type: Number }) min = this.minlength;
+	@property({ type: Number }) max = this.maxlength;
 
 	/**
 	 * Cuando Hago focus en el input
 	 * @private
 	 */
 	_onFocus() {
-		this.$.container.classList.add('active');
-		this.$.container.classList.remove('error');
-		this.set('focused', true);
-		this.set('_placeholder', this.placeholder);
+		this.container.classList.add('active');
+		this.container.classList.remove('error');
+		this.focused = true;
 	}
 
 	/**
@@ -361,23 +263,20 @@ export class CtInputContainer extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.$.container.classList.remove('active');
-		this.set('focused', false);
+		this.container.classList.remove('active');
+		this.focused = false;
 	}
 
 	set invalid(val) {
-		if (Object.keys(this.$).length == 0) {
+		if (this.container == null) {
 			return;
 		}
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.$.container.classList.remove('error');
-			this.set('_placeholder', this.placeholder);
+			this.container.classList.remove('error');
 		} else {
-			this.$.container.classList.add('error');
-			// agregar error
-			this.set('_placeholder', this.errorMessage ? this.errorMessage : this.placeholder);
+			this.container.classList.add('error');
 		}
 	}
 

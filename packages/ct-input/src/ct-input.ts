@@ -525,7 +525,6 @@ export class CtInput extends CtLit {
 		this.$.container?.classList.add('active');
 		this.$.container?.classList.remove('error');
 		this.$.input?.classList.remove('error');
-		this.set('focused', true);
 		this.placeholder = this.placeholder;
 	}
 
@@ -535,7 +534,6 @@ export class CtInput extends CtLit {
 	 */
 	_onBlur() {
 		this.$.container?.classList.remove('active');
-		this.set('focused', false);
 		this.validate();
 	}
 

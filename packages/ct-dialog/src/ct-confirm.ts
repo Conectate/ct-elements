@@ -12,7 +12,7 @@
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-card/ct-card';
 
-import { CtLit, html } from '@conectate/ct-lit';
+import { CtLit, html, query } from '@conectate/ct-lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
@@ -135,12 +135,12 @@ export class CTConfirm extends CtLit {
 		};
 	}
 
-	firstUpdated() {
-		this.$.cancel = this._('cancel');
-		this.$.neutral = this._('neutral');
-		this.$.confirmBody = this._('confirmBody');
-		this.$.buttons = this._('buttons');
+	@query('#cancel') $cancel!: HTMLElement;
+	@query('#neutral') $neutral!: HTMLElement;
+	@query('#confirmBody') confirmBody!: HTMLElement;
+	@query('#buttons') buttons!: HTMLElement;
 
+	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 		this.computeBody(this.body);
 	}
@@ -150,18 +150,18 @@ export class CTConfirm extends CtLit {
 			auxcancel = cancel || '',
 			auxneutral = neutral || '';
 		if (neutral == null) {
-			this.$.neutral.style.display = 'none';
+			this.$neutral.style.display = 'none';
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.$.buttons.classList.add('buttons_vert');
+			this.buttons.classList.add('buttons_vert');
 		}
 		if (cancel == null) {
-			this.$.cancel.style.display = 'none';
+			this.$cancel.style.display = 'none';
 		}
 	}
 
 	computeBody(body: string) {
-		this.$.confirmBody.innerHTML = body;
+		this.confirmBody.innerHTML = body;
 		return body;
 	}
 
@@ -198,6 +198,11 @@ export class CTConfirmCupertino extends CtLit {
 	reject!: (reason?: any) => void;
 	solve!: (param: boolean | null | undefined) => void;
 	dialog!: CtDialog;
+
+	@query('#cancel') $cancel!: HTMLElement;
+	@query('#neutral') $neutral!: HTMLElement;
+	@query('#confirmBody') confirmBody!: HTMLElement;
+	@query('#buttons') buttons!: HTMLElement;
 
 	render() {
 		return html`
@@ -311,11 +316,8 @@ export class CTConfirmCupertino extends CtLit {
 		};
 	}
 	firstUpdated() {
-		this.mapIDs();
-		this.$.buttons.focus();
-
+		this.buttons.focus();
 		this.computeBtns(this.ok, this.neutral, this.cancel);
-		//this.computeBody(this.body);
 	}
 
 	computeBtns(ok: string, neutral: string, cancel: string) {
@@ -323,18 +325,18 @@ export class CTConfirmCupertino extends CtLit {
 			auxcancel = cancel || '',
 			auxneutral = neutral || '';
 		if (neutral == null) {
-			this.$.neutral.style.display = 'none';
+			this.$neutral.style.display = 'none';
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.$.buttons.classList.add('buttons_vert');
+			this.buttons.classList.add('buttons_vert');
 		}
 		if (cancel == null) {
-			this.$.cancel.style.display = 'none';
+			this.$cancel.style.display = 'none';
 		}
 	}
 
 	computeBody(body: string) {
-		this.$.confirmBody.innerHTML = body;
+		this.confirmBody.innerHTML = body;
 		return body;
 	}
 

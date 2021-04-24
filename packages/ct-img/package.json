@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-img",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Lazy load images in web with Web Components and lit",
 	"module": "ct-img.js",
 	"main": "ct-img.js",
@@ -14,7 +14,7 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"@conectate/ct-lit": "^3.0.0",
+		"@conectate/ct-lit": "^3.1.0",
 		"tslib": "^2.2.0"
 	},
 	"type": "module",
@@ -30,5 +30,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

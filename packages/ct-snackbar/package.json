@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-snackbar",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Super class for snackbar-element",
 	"main": "ct-snackbar.js",
 	"typings": "ct-snackbar.d.ts",
@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"@conectate/ct-helpers": "^3.0.0",
-		"@conectate/ct-lit": "^3.0.0",
+		"@conectate/ct-lit": "^3.1.0",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {
@@ -34,5 +34,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

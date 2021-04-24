@@ -131,7 +131,8 @@ class CtPhoneInput extends CtLit {
 
 	_computeValue(code: string, phone: string) {
 		if (code.trim().length > 0 && phone.trim().length > 0) {
-			this.set('value', code.trim().replace(/,/g, '') + ',' + phone.trim().replace(/,/g, ''));
+			this.value = code.trim().replace(/,/g, '') + ',' + phone.trim().replace(/,/g, '');
+			this.dispatchEvent(new CustomEvent('value', { detail: { value: this.value } }));
 		}
 	}
 

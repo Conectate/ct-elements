@@ -10,7 +10,7 @@ import './ct-textarea-autogrow';
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, css, customElement, html, internalProperty, property } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, internalProperty, property, query } from '@conectate/ct-lit';
 import { ifDefined } from 'lit/directives/if-defined';
 
 /**
@@ -333,14 +333,14 @@ export class CtTextarea extends CtLit {
 	@property({ type: Number }) maxlength = 5000;
 	@property({ type: Number }) rows = 1;
 
+	@query('#container') container!: HTMLElement;
+	@query('#input') input!: HTMLInputElement;
 	constructor() {
 		super();
 		this.value = '';
 	}
 
 	firstUpdated() {
-		this.$.container = this._('container');
-		this.$.input = this._('input');
 		this.validate();
 		this._onInput();
 	}
@@ -461,7 +461,7 @@ export class CtTextarea extends CtLit {
 	}
 
 	focus() {
-		this.$.input.focus();
+		this.input.focus();
 	}
 
 	/**
@@ -469,9 +469,8 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.$.container.classList.add('active');
-		this.$.container.classList.remove('error');
-		this.set('focused', true);
+		this.container.classList.add('active');
+		this.container.classList.remove('error');
 		this._placeholder = this.placeholder;
 	}
 
@@ -480,8 +479,7 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.$.container.classList.remove('active');
-		this.set('focused', false);
+		this.container.classList.remove('active');
 		this.validate();
 	}
 
@@ -489,24 +487,24 @@ export class CtTextarea extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$.input.value === undefined || this.$.input.value === '') return !this.invalid;
+			if (this.input.value === undefined || this.input.value === '') return !this.invalid;
 		}
 
 		if (this.pattern) {
 			let re = new RegExp(this.pattern);
-			this.invalid = !re.test(this.$.input.value);
+			this.invalid = !re.test(this.input.value);
 		} else if (this.required) {
-			this.invalid = !(this.$.input.value.length > 0 && this.$.input.value.length >= (this.min || 0));
+			this.invalid = !(this.input.value.length > 0 && this.input.value.length >= (this.min || 0));
 		}
 
 		if (!this.invalid) {
 			// remover error
-			this.$.container.classList.remove('error');
-			this.set('_placeholder', this.placeholder);
+			this.container.classList.remove('error');
+			this._placeholder = this.placeholder;
 		} else {
-			this.$.container.classList.add('error');
+			this.container.classList.add('error');
 			// agregar error
-			this.set('_placeholder', this.errorMessage ? this.errorMessage : this.placeholder);
+			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
 		}
 		return !this.invalid;
 	}
@@ -518,12 +516,12 @@ export class CtTextarea extends CtLit {
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.$.container.classList.remove('error');
-			this.set('_placeholder', this.placeholder);
+			this.container.classList.remove('error');
+			this._placeholder = this.placeholder;
 		} else {
-			this.$.container.classList.add('error');
+			this.container.classList.add('error');
 			// agregar error
-			this.set('_placeholder', this.errorMessage ? this.errorMessage : this.placeholder);
+			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
 		}
 	}
 
@@ -532,12 +530,12 @@ export class CtTextarea extends CtLit {
 	}
 
 	_onInput() {
-		this._value = this.$.input.value;
+		this._value = this.input.value;
 		this.fire('value', this.value);
 		if (this.placeholder) {
 			var isEmpty = this.value == '' || this.value == void 0;
-			this.$.container.classList.toggle('has-value', !isEmpty);
-			this.$.input.classList.toggle('has-value', !isEmpty);
+			this.container.classList.toggle('has-value', !isEmpty);
+			this.input.classList.toggle('has-value', !isEmpty);
 		}
 		this.countChar = this.value!.length;
 	}

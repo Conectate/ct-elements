@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-list",
-	"version": "3.0.1",
+	"version": "3.1.0",
 	"description": "Wrapper from LitElement",
 	"main": "ct-list.js",
 	"license": "BSD-3-Clause",
@@ -22,10 +22,11 @@
 		"Web Components"
 	],
 	"dependencies": {
-		"@conectate/ct-icon": "^3.0.1",
-		"@conectate/ct-lit": "^3.0.0"
+		"@conectate/ct-icon": "^3.1.0",
+		"@conectate/ct-lit": "^3.1.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

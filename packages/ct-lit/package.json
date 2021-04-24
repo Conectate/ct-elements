@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-lit",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Super class wrapper for lit",
 	"main": "ct-lit.js",
 	"typings": "ct-lit.d.ts",
@@ -33,5 +33,6 @@
 	},
 	"publishConfig": {
 		"access": "public"
-	}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }
