@@ -10,6 +10,17 @@ import { ifDefined } from 'lit/directives/if-defined';
 
 import { icon } from './icon-list';
 
+/**
+## `ct-icon-button`
+
+## Example
+
+```html
+<ct-icon-button icon="headphones"></ct-icon-button>
+```
+
+ *  @element ct-icon-button
+ */
 @customElement('ct-icon-button')
 export class CtIconButton extends LitElement {
 	static styles = css`
