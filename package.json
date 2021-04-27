@@ -1,7 +1,6 @@
 {
 	"name": "conectate-elements",
 	"version": "3.0.0",
-	"type": "module",
 	"license": "BSD-3-Clause",
 	"dependencies": {
 		"@material/mwc-checkbox": "^0.20.0",
@@ -10,22 +9,24 @@
 		"lit-virtualizer": "^0.4.2"
 	},
 	"devDependencies": {
+		"@snowpack/plugin-typescript": "^1.2.1",
 		"@types/chart.js": "^2.9.27",
 		"@web/dev-server": "^0.1.14",
 		"import-sort-style-module": "^6.0.0",
 		"lerna": "^4.0.0",
 		"prettier": "^2.2.1",
 		"prettier-plugin-import-sort": "^0.0.6",
+		"snowpack": "^3.3.5",
 		"tslib": "^2.2.0",
-		"typescript": "4.2.3"
+		"typescript": "^4.2.4"
 	},
 	"scripts": {
 		"xbuild": "sh build.sh",
-		"starts": "web-dev-server --node-resolve --app-index src/index.html --open",
+		"dev": "web-dev-server --node-resolve --preserve-symlink --app-index src/index.html --open",
+		"devs": "snowpack dev",
 		"bootstrap": "lerna bootstrap",
 		"new-ver": "lerna version --conventional-commits --yes",
 		"clean": "lerna clean -y; find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; find . -name 'yarn.lock' -type f -prune -exec rm -rf '{}' +; find . -name 'package-lock.json' -type f -prune -exec rm -rf '{}' +",
-		"start": "lerna run start",
 		"build": "lerna run prepare"
 	},
 	"private": true,

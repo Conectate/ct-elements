@@ -8,9 +8,8 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-
-import '@conectate/ct-button/ct-button';
-import '@conectate/ct-card/ct-card';
+import '@conectate/ct-button';
+import '@conectate/ct-card';
 
 import { CtLit, html, query } from '@conectate/ct-lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html';

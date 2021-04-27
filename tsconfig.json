@@ -10,11 +10,43 @@
 		"inlineSources": true,
 		"strict": true,
 		"noUnusedLocals": true,
-		"outDir": "./dist",
+		// "outDir": "./dist",
+		"outDir": "./",
+		"baseUrl": "./packages",
 		// Only necessary because @types/uglify-js can't find types for source-map
 		"skipLibCheck": true,
 		"experimentalDecorators": true,
 		"importHelpers": true
 	},
-	"exclude": []
+	"paths": {
+		"@material/mwc-*": ["./*"]
+	},
+	"exclude": [],
+	"references": [
+		{ "path": "packages/ct-button" },
+		{ "path": "packages/ct-collapse" },
+		{ "path": "packages/ct-icon" },
+		{ "path": "packages/ct-lit" },
+		{ "path": "packages/ct-phone-input" },
+		{ "path": "packages/ct-select" },
+		{ "path": "packages/ct-tooltip" },
+		{ "path": "packages/ct-card" },
+		{ "path": "packages/ct-date" },
+		{ "path": "packages/ct-img" },
+		{ "path": "packages/ct-loading-bar" },
+		{ "path": "packages/ct-qr-tools" },
+		{ "path": "packages/ct-snackbar" },
+		{ "path": "packages/ct-chartjs" },
+		{ "path": "packages/ct-dialog" },
+		{ "path": "packages/ct-input" },
+		{ "path": "packages/ct-loading-placeholder" },
+		{ "path": "packages/ct-radio" },
+		{ "path": "packages/ct-spinner" },
+		{ "path": "packages/ct-checkbox" },
+		{ "path": "packages/ct-helpers" },
+		{ "path": "packages/ct-list" },
+		{ "path": "packages/ct-menu" },
+		{ "path": "packages/ct-router" },
+		{ "path": "packages/ct-tab" }
+	]
 }

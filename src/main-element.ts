@@ -1,6 +1,6 @@
 import '../packages/ct-select/src/ct-select';
 
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property } from '../packages/ct-lit/src/ct-lit';
 
 @customElement('main-element')
 export class MainElement extends CtLit {
