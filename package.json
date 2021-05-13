@@ -21,7 +21,7 @@
 		"typescript": "^4.2.4"
 	},
 	"scripts": {
-		"xbuild": "sh build.sh",
+		"xlink": "yarn link packages/ct-lit",
 		"dev": "web-dev-server --node-resolve --preserve-symlink --app-index src/index.html --open",
 		"devs": "snowpack dev",
 		"bootstrap": "lerna bootstrap",

@@ -248,6 +248,7 @@ export class CtRouter extends CtLit {
 			return;
 		}
 
+		this.patternMatched = '';
 		for (let i = 0; i < routePaths.length; i++) {
 			let element = routes[routePaths[i].path]; // element,c2regexp,from,auth
 			// console.log(routePaths[i].path,element.c2regexp.regexp);
