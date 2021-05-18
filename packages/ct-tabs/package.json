@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-tabs",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"description": "Tabs HTMLElement",
 	"main": "ct-tabs.js",
 	"typings": "ct-tabs.d.ts",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.1.0",
+		"@conectate/ct-lit": "^3.2.0",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {

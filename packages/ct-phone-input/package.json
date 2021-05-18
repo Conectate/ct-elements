@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-phone-input",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"description": "HTML Web component phone input",
 	"main": "ct-phone-input.js",
 	"typings": "ct-phone-input.d.ts",
@@ -16,8 +16,8 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
 	"dependencies": {
-		"@conectate/ct-input": "^3.1.0",
-		"@conectate/ct-lit": "^3.1.0",
+		"@conectate/ct-input": "^3.2.0",
+		"@conectate/ct-lit": "^3.2.0",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {
