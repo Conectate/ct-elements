@@ -4,8 +4,8 @@ import './ct-icon';
 
 import { Ripple } from '@material/mwc-ripple';
 import { LitElement, css, html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators';
-import { eventOptions } from 'lit/decorators';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { eventOptions } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined';
 
 import { icon } from './icon-list';

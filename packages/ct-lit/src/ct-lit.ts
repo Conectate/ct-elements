@@ -4,7 +4,7 @@ export { LitElement };
 export { unsafeHTML } from 'lit/directives/unsafe-html';
 export { until } from 'lit/directives/until';
 export { html, svg, css } from 'lit';
-export { property, query, queryAll, queryAssignedNodes, queryAsync, state, state as internalProperty } from 'lit/decorators';
+export { property, query, queryAll, queryAssignedNodes, queryAsync, state, state as internalProperty } from 'lit/decorators.js';
 
 // From the TC39 Decorators proposal
 interface ClassDescriptor {

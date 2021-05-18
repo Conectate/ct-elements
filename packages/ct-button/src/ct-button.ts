@@ -12,7 +12,7 @@ found at https://wc.conectate.app/PATENTS.txt
 import '@material/mwc-ripple';
 
 import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators';
+import { customElement, property } from 'lit/decorators.js';
 
 /**
 ## Example usage
