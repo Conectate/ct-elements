@@ -14,7 +14,7 @@
 		"tslib": "^2.2.0"
 	},
 	"peerDependencies": {
-		"@material/mwc-checkbox": "^0.20.0"
+		"@material/mwc-checkbox": "^0.21.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

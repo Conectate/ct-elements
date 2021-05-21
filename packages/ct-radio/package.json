@@ -28,7 +28,7 @@
 		"tslib": "^2.2.0"
 	},
 	"peerDependencies": {
-		"@material/mwc-radio": "^0.20.0"
+		"@material/mwc-radio": "^0.21.0"
 	},
 	"publishConfig": {
 		"access": "public"

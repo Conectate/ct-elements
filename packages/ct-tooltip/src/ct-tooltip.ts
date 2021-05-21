@@ -19,6 +19,7 @@ export let tooltipStyles = css`
 
 	/* Position tooltip above the element */
 	[data-tooltip]:before {
+		font-family: 'Google Sans', Ubuntu, Roboto, arial, sans-serif;
 		position: absolute;
 		bottom: 150%;
 		left: 50%;

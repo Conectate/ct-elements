@@ -26,6 +26,8 @@ export class CtIconButton extends LitElement {
 	static styles = css`
 		:host {
 			display: inline-block;
+			font-size: 24px;
+			border-radius: 50%;
 			outline: none;
 			--mdc-ripple-color: currentcolor;
 			-webkit-tap-highlight-color: transparent;
@@ -34,8 +36,15 @@ export class CtIconButton extends LitElement {
 		:host([disabled]) {
 			pointer-events: none;
 		}
+		ct-icon {
+			font-size: inherit;
+			height: var(--ct-icon-size, 24px);
+			width: var(--ct-icon-size, 24px);
+		}
 
 		button {
+			font-size: inherit;
+			line-height: 0px;
 			vertical-align: top;
 			display: inline-block;
 			position: relative;
@@ -45,13 +54,9 @@ export class CtIconButton extends LitElement {
 			background-color: transparent;
 			fill: currentcolor;
 			color: inherit;
-			font-size: 24px;
 			text-decoration: none;
 			cursor: pointer;
 			user-select: none;
-			width: 48px;
-			height: 48px;
-			padding: 12px;
 			padding: calc((var(--ct-icon-button-size, 48px) - var(--ct-icon-size, 24px)) / 2);
 		}
 	`;

@@ -3,9 +3,9 @@
 	"version": "3.0.0",
 	"license": "BSD-3-Clause",
 	"dependencies": {
-		"@material/mwc-checkbox": "^0.20.0",
-		"@material/mwc-radio": "^0.20.0",
-		"lit": "^2.0.0-rc.1",
+		"@material/mwc-checkbox": "^0.21.0",
+		"@material/mwc-radio": "^0.21.0",
+		"lit": "^2.0.0-rc.2",
 		"lit-virtualizer": "^0.4.2"
 	},
 	"devDependencies": {
