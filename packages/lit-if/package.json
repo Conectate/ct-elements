@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/lit-if",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"description": "HTML if DOM style with Web Components",
 	"main": "lit-if.js",
 	"typings": "lit-if.d.ts",

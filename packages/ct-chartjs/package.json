@@ -1,13 +1,13 @@
 {
 	"name": "@conectate/ct-chartjs",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"description": "HTML5 Chartjs made with Web Components and Lit",
 	"main": "ct-chartjs.js",
 	"typings": "ct-chartjs.d.ts",
 	"module": "ct-chartjs.js",
 	"dependencies": {
 		"@conectate/ct-helpers": "^3.2.0",
-		"@conectate/ct-lit": "^3.2.0",
+		"@conectate/ct-lit": "^3.2.1",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {
