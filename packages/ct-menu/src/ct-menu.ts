@@ -74,6 +74,8 @@ export class CtMenu extends CtLit {
 			transition: all 0.25s ease;
 			transform: translateY(-30%);
 			cursor: pointer;
+			display: flex;
+			align-items: center;
 		}
 
 		.dd-menu ::slotted(span:empty),
