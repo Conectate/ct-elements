@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-select",
-	"version": "3.2.1",
+	"version": "3.3.0",
 	"description": "Ct Elements",
 	"main": "ct-select.js",
 	"typings": "ct-select.d.ts",
@@ -9,9 +9,9 @@
 		"ct-elements"
 	],
 	"dependencies": {
-		"@conectate/ct-button": "^3.2.1",
+		"@conectate/ct-button": "^3.3.0",
 		"@conectate/ct-card": "^3.2.1",
-		"@conectate/ct-dialog": "^3.2.1",
+		"@conectate/ct-dialog": "^3.3.0",
 		"@conectate/ct-helpers": "^3.2.0",
 		"@conectate/ct-lit": "^3.2.1",
 		"lit-virtualizer": "^0.4.2"
