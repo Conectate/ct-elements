@@ -14,7 +14,7 @@
 		"@conectate/ct-dialog": "^3.2.1",
 		"@conectate/ct-helpers": "^3.2.0",
 		"@conectate/ct-lit": "^3.2.1",
-		"lit-virtualizer": "^0.x.x"
+		"lit-virtualizer": "^0.4.2"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

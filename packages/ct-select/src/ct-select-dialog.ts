@@ -2,7 +2,7 @@ import '@conectate/ct-card/ct-card';
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-input/ct-input';
 import '@conectate/ct-dialog/ct-dialog';
-import 'lit-virtualizer/lib/lit-virtualizer';
+import 'lit-virtualizer';
 
 import { CtDialog, showCtDialog } from '@conectate/ct-dialog/ct-dialog';
 import { CtLit, css, html, internalProperty, property, unsafeHTML } from '@conectate/ct-lit';

@@ -2,6 +2,8 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 /**
 
+## ct-loading-bar
+
 The progress bars are for situations where the percentage completed can be
 determined. They give users a quick sense of how much longer an operation
 will take.
@@ -19,7 +21,7 @@ Custom property | Description | Default
 `--ct-loading-bar-c1` | Color of the container | `#4998ff`
 `--ct-loading-bar-c2` | Color of the container | `#fff`
 `--ct-loading-bar-c3` | Color of the container | `#4998ff`
-
+	@element ct-loading-bar
  */
 @customElement('ct-loading-bar')
 export class CtLoadingBar extends LitElement {

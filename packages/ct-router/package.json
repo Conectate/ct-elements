@@ -16,10 +16,16 @@
 	"dependencies": {
 		"@conectate/ct-lit": "^3.2.1",
 		"pwa-helpers": "^0.9.1",
-		"tslib": "^2.2.0"
+		"tslib": "^2.3.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts; tsc"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-router.ts",
+			"default": "./ct-router.js"
+		}
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",

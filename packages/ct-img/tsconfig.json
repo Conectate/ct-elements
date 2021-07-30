@@ -1,9 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "es2017",
-		"module": "es2015",
+		"target": "es2020",
+		"module": "es2020",
 		"moduleResolution": "node",
-		"lib": ["esnext.array", "esnext", "es2017", "dom"],
+		"lib": [
+			"esnext.array",
+			"esnext",
+			"es2020",
+			"dom"
+		],
 		"declaration": true,
 		"declarationMap": true,
 		"sourceMap": true,
@@ -16,6 +21,9 @@
 		"experimentalDecorators": true,
 		"importHelpers": true
 	},
-	"include": ["custom_typings/**/*.ts", "src/**/*.ts"],
+	"include": [
+		"custom_typings/**/*.ts",
+		"src/**/*.ts"
+	],
 	"exclude": []
 }

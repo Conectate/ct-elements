@@ -15,6 +15,7 @@
 	],
 	"dependencies": {
 		"lit": "^2.0.0-rc.2",
+		"@material/mwc-ripple": "*",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {

@@ -9,7 +9,7 @@
     found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { CtLit, css, html, property,customElement  } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 /**
  * ## `ct-img`
  * Normal and lazy images loader element
@@ -118,8 +118,8 @@ export class CtImg extends CtLit {
 	}
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.updated(cp);
-		if (cp.has('srcset') || cp.has('lazy')) this._lazyChanged(this.lazy);
 		if (cp.has('src')) this._srcChanged(this.src);
+		if (cp.has('srcset') || cp.has('lazy')) this._lazyChanged(this.lazy);
 		if (cp.has('placeholderImg')) this._placeholderImgChanged(this.placeholderImg);
 		if (cp.has('round')) this._roundChanged(this.round);
 	}
@@ -233,8 +233,9 @@ export class CtImg extends CtLit {
 		this.$.img.style.transition = '0.5s opacity';
 		this.$.divimg.style.transition = '0.5s opacity';
 		this.$.divimg.style.opacity = 1;
-		this.$.divimg.style.backgroundImage = `url('${this.src.replace(/\\/g, '%5C')}')`;
-		this.fire('loaded-changed', { value: this.src, img: this.$.img });
+		let src = this.src || this.srcset!;
+		this.$.divimg.style.backgroundImage = `url('${src.replace(/\\/g, '%5C')}')`;
+		this.fire('loaded-changed', { value: src, img: this.$.img });
 	}
 
 	_onImgError() {
