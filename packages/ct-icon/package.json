@@ -9,7 +9,7 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"@material/mwc-ripple": "^0.21.0",
+		"@material/mwc-ripple": "*",
 		"lit": "^2.0.0-rc.2",
 		"tslib": "^2.2.0"
 	},
