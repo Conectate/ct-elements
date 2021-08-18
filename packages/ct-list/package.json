@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-list",
-	"version": "3.2.1",
+	"version": "3.3.1",
 	"description": "Wrapper from LitElement",
 	"main": "ct-list.js",
 	"license": "BSD-3-Clause",
@@ -22,7 +22,7 @@
 		"Web Components"
 	],
 	"dependencies": {
-		"@conectate/ct-icon": "^3.2.1",
+		"@conectate/ct-icon": "^3.3.1",
 		"@conectate/ct-lit": "^3.2.1"
 	},
 	"publishConfig": {
