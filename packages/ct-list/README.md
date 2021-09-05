@@ -27,7 +27,7 @@ Class
 
 ```typescript
 import { LitElement, html, svg, css, customElement, property } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 type PropertyValues = Map<PropertyKey, unknown>;
 

@@ -11,11 +11,10 @@
 	],
 	"dependencies": {
 		"@conectate/ct-lit": "^3.2.1",
+		"@conectate/ct-icon": "^3.2.1",
 		"tslib": "^2.2.0"
 	},
-	"peerDependencies": {
-		"@material/mwc-checkbox": "*"
-	},
+	"peerDependencies": {},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
@@ -32,6 +31,12 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-checkbox.ts",
+			"default": "./ct-checkbox.js"
+		}
 	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

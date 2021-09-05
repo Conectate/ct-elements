@@ -1,8 +1,8 @@
 import { LitElement } from 'lit';
 export type PropertyValues = Map<PropertyKey, any>;
 export { LitElement };
-export { unsafeHTML } from 'lit/directives/unsafe-html';
-export { until } from 'lit/directives/until';
+export { unsafeHTML } from 'lit/directives/unsafe-html.js';
+export { until } from 'lit/directives/until.js';
 export { html, svg, css } from 'lit';
 export { property, query, queryAll, queryAssignedNodes, queryAsync, state, state as internalProperty } from 'lit/decorators.js';
 

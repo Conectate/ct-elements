@@ -1,0 +1,40 @@
+{
+	"name": "@conectate/ct-bottom-sheet",
+	"version": "3.3.0",
+	"description": "Bottom sheets slide up from the bottom of the screen to reveal more content. Made with Lit 🔥",
+	"main": "ct-bottom-sheet.js",
+	"typings": "ct-bottom-sheet.d.ts",
+	"module": "ct-bottom-sheet.js",
+	"keywords": [
+		"ct-elements"
+	],
+	"dependencies": {
+		"@advanced-rest-client/arc-overlay-mixin": "^1.2.0",
+		"lit": "^2.0.0-rc.4"
+	},
+	"scripts": {
+		"prepare": "rm -rf *.map *.js *.ts;tsc",
+		"gen:wc": "wca analyze \"*.js\" --outFile custom-elements.json"
+	},
+	"type": "module",
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/conectate/ct-elements",
+	"author": "Herberth Obregón <herberthobregon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/conectate/ct-elements"
+	},
+	"bugs": {
+		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-bottom-sheet.ts",
+			"default": "./ct-bottom-sheet.js"
+		}
+	},
+	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
+}

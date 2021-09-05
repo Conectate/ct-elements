@@ -12,7 +12,7 @@ import '@conectate/ct-button';
 import '@conectate/ct-card';
 
 import { CtLit, html, query } from '@conectate/ct-lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
 

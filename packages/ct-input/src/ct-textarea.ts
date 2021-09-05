@@ -10,8 +10,8 @@ import './ct-textarea-autogrow';
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, css, customElement, html, internalProperty, property, query } from '@conectate/ct-lit';
-import { ifDefined } from 'lit/directives/if-defined';
+import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
 	`ct-textarea`
@@ -307,10 +307,15 @@ export class CtTextarea extends CtLit {
 		`;
 	}
 
-	@internalProperty() __isFirstValueUpdate = true;
-	@internalProperty() _value?: string = '';
-	@internalProperty() _placeholder = '';
-	@internalProperty() _invalid = false;
+	@state() private __isFirstValueUpdate = true;
+	@state() private _value?: string = '';
+	@state() private _placeholder = '';
+	@state() private _invalid = false;
+
+	/**
+	 * -
+	 */
+	@property({ type: Boolean }) autofocus = false;
 	@property({ type: String }) name?: string;
 	@property({ type: Number }) min?: number;
 	@property({ type: Number }) max?: number;

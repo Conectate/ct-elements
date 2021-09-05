@@ -11,8 +11,10 @@
 	"dependencies": {
 		"@conectate/ct-button": "^3.3.0",
 		"@conectate/ct-card": "^3.2.1",
+		"@conectate/ct-icon": "^3.3.1",
 		"@conectate/ct-dialog": "^3.3.0",
 		"@conectate/ct-helpers": "^3.2.0",
+		"@conectate/ct-input": "^3.2.1",
 		"@conectate/ct-lit": "^3.2.1",
 		"lit-virtualizer": "^0.4.2"
 	},
@@ -32,6 +34,20 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-select.ts",
+			"default": "./ct-select.js"
+		},
+		"./ct-select-dialog": {
+			"development": "./src/ct-select-dialog.ts",
+			"default": "./ct-select-dialog.js"
+		},
+		"./ct-select-item": {
+			"development": "./src/ct-select-item.ts",
+			"default": "./ct-select-item.js"
+		}
 	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

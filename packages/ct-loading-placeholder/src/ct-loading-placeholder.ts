@@ -1,3 +1,5 @@
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+
 /**
 `loading-placeholder` is a simple element to use skeleton loading such as Facebook.
 
@@ -13,11 +15,10 @@ Custom property | Description | Default
 `--loading-placeholder-color-1` | Primary color for animation | `#E0E0E0`
 `--loading-placeholder-color-2` | Secondary color for animation | `#C0C0C0`
 
-@demo demo/index.html
+ * @element ct-loading-placeholder
  */
-import { CtLit, html, css } from "@conectate/ct-lit";
-
-class LoadingPlaceholder extends CtLit {
+@customElement('ct-loading-placeholder')
+export class LoadingPlaceholder extends CtLit {
 	static styles = css`
 		:host {
 			display: flex;
@@ -51,5 +52,3 @@ class LoadingPlaceholder extends CtLit {
 		return html``;
 	}
 }
-
-window.customElements.define("ct-loading-placeholder", LoadingPlaceholder);

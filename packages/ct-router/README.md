@@ -5,6 +5,7 @@
 	<a href="https://www.npmjs.com/package/@conectate/ct-router"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/ct-router.svg" height="20"/></a>
 	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
 </p>
+
 # ct-router
 
 It's a simple routing system that changes the viewport depending on the route given
@@ -15,11 +16,7 @@ To include this, type:
 
 ```sh
 $ yarn add @conectate/ct-router
-```
-
 or
-
-```sh
 $ npm i @conectate/ct-router
 ```
 
@@ -50,9 +47,9 @@ Add to your html\`\` (Litelement Template) like this:
 ### Full LitElement example in Typescript
 
 ```typescript
-import {CtLit, html, property, customElement, internalProperty } from '@conectate/ct-lit'; /* or 'lit' */
-import '@conectate/ct-router/ct-router';
-import { href } from '@conectate/ct-router/ct-router';
+import {CtLit, html, property, customElement, state } from '@conectate/ct-lit'; /* or 'lit' */
+import '@conectate/ct-router';
+import { href } from '@conectate/ct-router';
 
 @customElement('my-router')
 class MyRouter extends CtLit{
@@ -62,7 +59,7 @@ class MyRouter extends CtLit{
   You can use lit-html @event bindings in your template inside the render function to add event listeners to your component.
   You can use lit-html '?' bindings in your template inside the render function to add boolean property.
   */
-  @internalProperty() private pages = [
+  @state() private pages = [
     {
       path: "/page1",
       element: html`<page-number1></page-number1>`, // you cand use html``
@@ -146,70 +143,46 @@ interface LocationChanged {
 
 ### Example in React
 
+> Important! Disable HMR in your Dev server. I recommend use `vitejs` for best performance.
+
 ```tsx
-class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.myRef = React.createRef();
-  }
-
-  render() {
-    return <ct-router ref={this.myRef}></ct-router>;
-  }
-
-  componentDidMount() {
-    const ctrouter = this.myRef.current;
-    ctrouter.addEventListener('login-needed',this.loginNeeded);
-    ctrouter.addEventListener('loading',this.isLoading);
-    ctrouter.addEventListener('location-changed',this.pathChanged);
-    ctroute.pages = [
-      {
-        path: "/page1",
-        element: html`<page-number1></page-number1>`, // you cand use html``
-        from: () => import("./src/page-number1"),
-        auth: false,
-        title: () => `Page 1 • Example.com`
-      },
-      {
-        path: "/profile",
-        element: "<my-profile></my-profile>", // or you cand use a simple string
-        from: () => import("./src/my-profile"),
-        auth: true,
-        title: () => `Profile • Example.com`
-      },
-      {
-        path: "/404",
-        element: html`<page-404></page-404>`,
-        from: () => import("./src/page-404"),
-        auth: false,
-        title: () => null
-      }
-    ];
-    this.printCurrentState();
-
-    setTimeout(()=>{
-      href('/404');
-      this.printCurrentState();
-    },1500);
-  }
-
-  loginNeeded(e : CustomEvent< { path: string } >){
-    let path = e.detail.path;
-    alert(`loginNeeded on: ${path}`);
-  }
-
-  isLoading(e : CustomEvent< boolean >){
-    console.log('loading...', e.detail);
-  }
-
-  pathChanged(_e : CustomEvent<LocationChanged>){
-    console.log('path changed',location.href);
-    console.log('patternMatched',this.$.ctroute.path,'==',e.detail.path);
-    console.log('pathname',this.$.ctroute.pathname,'==',e.detail.pathname,'==',location.pathname);
-    console.log(this.$.ctroute.queryParams,'==',e.detail.queryParams);
-    console.log(this.$.ctroute.params,'==',e.detail.params);
-  }
+function App() {
+	let pages: Page[] = [
+		{
+			path: "/",
+			renderRoot: (root) => ReactDOM.render(<MainApp />, root!),
+			auth: false,
+			title: () => `Page 1 • Example.com`
+		},
+		{
+			path: "/page2",
+			renderRoot: (root) => ReactDOM.render(<Page2 />, root!),
+			auth: false,
+			title: () => `Page 2 • Example.com`
+		},
+		{
+			path: "/404",
+			renderRoot: (root) => ReactDOM.render(<Page404 />, root!),
+			auth: false,
+			title: () => `404 Not Found • Example.com`
+		}
+	];
+  const router = useRef<HTMLElement>(null);
+  useEffect(()=>{
+    const ctrouter = router.current;
+    // ctrouter.addEventListener('login-needed',this.loginNeeded);
+    // ctrouter.addEventListener('loading',this.isLoading);
+    // ctrouter.addEventListener('location-changed',this.pathChanged);
+  })
+	return (
+		<div>
+			<header>My App</header>
+			<CtRouter ref={router} pages={pages} unmountComponentAtNode={(root) => ReactDOM.unmountComponentAtNode(root)}></CtRouter>
+		</div>
+	);
 }
+
+export default App;
 ```
 
 If you plan to manage the dynamic imports, skip `from` attr
@@ -273,7 +246,7 @@ The beforeunload event is fired when the `location` has changed, The document an
 ```typescript
 import {CtLit, html, property, customElement, internalProperty } from 'lit'; /* or 'lit' */
 import { showCtConfirm } from '@conectate/ct-dialog/ct-confirm';
-import '@conectate/ct-router/ct-router';
+import '@conectate/ct-router';
 
 @customElement('my-router')
 class MyRouter extends LitElement{

@@ -10,7 +10,7 @@
  */
 
 import { PushID, getClient, sleep } from '@conectate/ct-helpers';
-import { CtLit, css, html, property } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property, state } from '@conectate/ct-lit';
 
 let ctDialogs: string[] = [];
 // @ts-ignore
@@ -59,6 +59,13 @@ export enum DialogSizePreferences {
 	/** Para que se muestre al 80% de la ventada y 21cm de ancho */
 	fullsize = 1
 }
+
+export interface ConectateHistory {
+	title: string;
+	href: string;
+}
+
+@customElement('ct-dialog')
 export class CtDialog extends CtLit {
 	@property({ type: String, reflect: true }) role: string = 'alert';
 	@property({ type: String, reflect: true, attribute: 'aria-modal' })
@@ -72,14 +79,13 @@ export class CtDialog extends CtLit {
 	mappingContainer?: Promise<any>;
 	history!: ConectateHistory;
 	// @property({ type: Object }) element?: HTMLElement | TemplateResult;
-	@property({ type: Object }) _element?: HTMLElement;
+	@state() _element?: HTMLElement;
 	@property({ type: String }) animation: animationSupported = 'normal';
 	@property({ type: Array }) preferences: any[] = [];
 
 	resolveMapping!: (value?: {} | PromiseLike<{}>) => void;
 	finish!: () => void;
 
-	@property({ type: Object })
 	get element() {
 		return this._element;
 	}
@@ -97,13 +103,16 @@ export class CtDialog extends CtLit {
 			await sleep(300);
 			let bodyY = document.body.getBoundingClientRect().height;
 			let elementY = this._element!.offsetHeight;
-			if ((elementY / bodyY) * 100 < 5) {
-				console.warn('El elemento no es visible');
-				if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
-			} else if ((elementY / bodyY) * 100 >= 78) {
-				// console.warn("El elemento esta desbordado");
-				if (this.preferences.indexOf(DialogSizePreferences.fullsreen) == -1) {
+			console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
+			if (bodyY > elementY) {
+				if ((elementY / bodyY) * 100 < 5) {
+					console.warn('El elemento no es visible');
 					if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+				} else if ((elementY / bodyY) * 100 >= 78) {
+					// console.warn("El elemento esta desbordado");
+					if (!this.preferences.includes(DialogSizePreferences.fullsreen)) {
+						if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+					}
 				}
 			}
 		});
@@ -447,13 +456,4 @@ export class CtDialog extends CtLit {
 			free: { type: Object }
 		};
 	}
-}
-
-window.customElements.define('ct-dialog', CtDialog);
-
-// TS
-
-export interface ConectateHistory {
-	title: string;
-	href: string;
 }

@@ -1,14 +1,17 @@
-import { CtLit, css, customElement, html, internalProperty, property } from '@conectate/ct-lit';
+import { throws } from 'assert';
+
+import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
 import { TemplateResult } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { installRouter } from 'pwa-helpers/router';
 
 import { C2Regexp, C2RegexpType, EvaluateParams } from './path_to_regexp';
 
 export interface Page {
 	path: string;
-	element: string | TemplateResult | Element | HTMLElement;
-	from: () => any;
+	element?: string | TemplateResult | Element | HTMLElement;
+	renderRoot?: (root: any) => any;
+	from?: () => Promise<any>;
 	auth: boolean | null;
 	title: (() => string) | (() => null);
 	regex?: RegExp;
@@ -30,9 +33,10 @@ export interface LocationChanged {
 
 interface Routes {
 	path: string;
-	element: string | TemplateResult | Element | HTMLElement;
+	element?: string | TemplateResult | Element | HTMLElement;
+	renderRoot?: (root: any) => any;
 	c2regexp: C2RegexpType;
-	from: () => any;
+	from?: () => Promise<any>;
 	auth: boolean | null;
 	title: (() => string) | (() => null);
 }
@@ -62,19 +66,22 @@ export class CtRouter extends CtLit {
 	/**
 	 * This is a dictionary of routes linked to its corresponding elements.
 	 */
-	@internalProperty() private _routes: { [x: string]: Routes } = {};
+	@state() private _routes: { [x: string]: Routes } = {};
 	/**
 	 * This holds the next route to be viewed after the url has been changed.
 	 */
-	@internalProperty() private patternMatched: string = '';
+	@state() private patternMatched: string = '';
 	/**
 	 * This holds the current route that is being viewed
 	 */
-	@internalProperty() private _currentView: any = '';
+	@state() private _currentView: any = '';
 	/**
 	 * Current Path
 	 */
-	@internalProperty() private pathname: string = '/';
+	@state() private pathname: string = '/';
+
+	@query('#root') root!: HTMLElement;
+	unmountComponentAtNode?: (root: any) => any;
 	/**
 	 * Login needed fallback path
 	 */
@@ -127,6 +134,7 @@ export class CtRouter extends CtLit {
 		return html`
 			<slot id="drawerSlot" name="banner"></slot>
 			<div id="content">${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}</div>
+			<div id="root"></div>
 		`;
 	}
 
@@ -224,6 +232,7 @@ export class CtRouter extends CtLit {
 						element: el.element,
 						c2regexp: c2regexp,
 						from: el.from,
+						renderRoot: el.renderRoot,
 						auth: el.auth,
 						title: el.title
 					};
@@ -274,15 +283,23 @@ export class CtRouter extends CtLit {
 				});
 				this.dispatchEvent(ce);
 				window.dispatchEvent(ce);
-				this._currentView = this._routes[this.loginFallback].element;
+				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
 			} else {
 				this.patternMatched = this.patternMatched;
-				this._currentView = this._routes[this.patternMatched].element;
+				this._currentView = this._routes[this.patternMatched].element || '';
+				if (this._routes[this.patternMatched].renderRoot) {
+					this.unmountComponentAtNode?.(this.root);
+					this._routes[this.patternMatched].renderRoot!(this.root);
+				}
 			}
 		} else {
 			this.patternMatched = this.patternMatched = '/404';
 			console.log('/404');
-			this._currentView = this._routes['/404'].element;
+			this._currentView = this._routes['/404']?.element || html`<h1>404 - Not Found</h1>`;
+			if (this._routes[this.patternMatched].renderRoot) {
+				this.unmountComponentAtNode?.(this.root);
+				this._routes[this.patternMatched].renderRoot!(this.root);
+			}
 		}
 
 		this.dispatchEvent(
@@ -300,7 +317,7 @@ export class CtRouter extends CtLit {
 			if (fromImport) {
 				this.dispatchEvent(new CustomEvent('loading', { detail: true }));
 				fromImport()
-					.then(() => {
+					?.then(() => {
 						if (this.patternMatched) this.dispatchEvent(new CustomEvent(this.patternMatched));
 						setTimeout(() => this.dispatchEvent(new CustomEvent('loading', { detail: false })), 500);
 					})

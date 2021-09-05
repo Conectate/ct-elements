@@ -6,7 +6,7 @@
 		"lib": [
 			"esnext.array",
 			"esnext",
-			"es2020",
+			"es2017",
 			"dom"
 		],
 		"declaration": true,
@@ -15,13 +15,14 @@
 		"inlineSources": true,
 		"strict": true,
 		"noUnusedLocals": true,
-		// "outDir": "./dist",
 		"outDir": "./",
-		"baseUrl": "./packages",
 		// Only necessary because @types/uglify-js can't find types for source-map
 		"skipLibCheck": true,
-		"experimentalDecorators": true,
-		"importHelpers": true
+		"experimentalDecorators": true
 	},
+	"include": [
+		"custom_typings/**/*.ts",
+		"src/**/*.ts"
+	],
 	"exclude": []
 }

@@ -174,6 +174,11 @@ export class CtButton extends LitElement {
 }
 
 declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			'ct-button': CtButton;
+		}
+	}
 	interface HTMLElementTagNameMap {
 		'ct-button': CtButton;
 	}

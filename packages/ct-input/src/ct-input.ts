@@ -8,8 +8,8 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, css, customElement, html, internalProperty, property } from '@conectate/ct-lit';
-import { ifDefined } from 'lit/directives/if-defined';
+import { CtLit, css, customElement, html, property, state } from '@conectate/ct-lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  * ## `ct-input`
@@ -301,6 +301,7 @@ export class CtInput extends CtLit {
 	@property({ type: String }) autocomplete?:
 		| 'on'
 		| 'off'
+		| 'one-time-code'
 		| 'additional-name'
 		| 'address-level1'
 		| 'address-level2'
@@ -398,6 +399,11 @@ export class CtInput extends CtLit {
 	/**
 	 * -
 	 */
+	@property({ type: Boolean }) autofocus = false;
+
+	/**
+	 * -
+	 */
 	@property({ type: Boolean }) required = false;
 
 	/**
@@ -407,7 +413,7 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@internalProperty() _value?: string = '';
+	@state() _value?: string = '';
 
 	/**
 	 * Input type
@@ -487,7 +493,7 @@ export class CtInput extends CtLit {
 								?autofocus="${this.autofocus}"
 								?readonly="${this.readonly}"
 								?multiple="${this.multiple}"
-								autocomplete="${ifDefined(this.autocomplete)}"
+								autocomplete="${ifDefined(this.autocomplete) as any}"
 								inputmode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"

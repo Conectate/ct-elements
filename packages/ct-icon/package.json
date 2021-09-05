@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"@material/mwc-ripple": "*",
-		"lit": "^2.0.0-rc.2",
+		"lit": "^2.0.0-rc.4",
 		"tslib": "^2.2.0"
 	},
 	"type": "module",

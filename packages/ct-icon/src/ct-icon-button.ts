@@ -6,7 +6,7 @@ import { Ripple } from '@material/mwc-ripple';
 import { LitElement, css, html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { eventOptions } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { icon } from './icon-list';
 
@@ -66,7 +66,7 @@ export class CtIconButton extends LitElement {
 	@property({ type: String }) svg?: string;
 
 	@property({ type: String, attribute: 'aria-label' })
-	ariaLabel?: string;
+	ariaLabel: string = '';
 
 	@query('mwc-ripple') ripple!: Ripple;
 	@state() protected shouldRenderRipple = false;

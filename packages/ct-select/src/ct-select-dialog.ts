@@ -1,12 +1,12 @@
-import '@conectate/ct-card/ct-card';
-import '@conectate/ct-button/ct-button';
-import '@conectate/ct-input/ct-input';
-import '@conectate/ct-dialog/ct-dialog';
-import 'lit-virtualizer';
+import '@conectate/ct-card';
+import '@conectate/ct-button';
+import '@conectate/ct-input';
+import '@conectate/ct-dialog';
 
-import { CtDialog, showCtDialog } from '@conectate/ct-dialog/ct-dialog';
-import { CtLit, css, html, internalProperty, property, unsafeHTML } from '@conectate/ct-lit';
-import { TemplateResult } from 'lit';
+import './ct-select-item';
+
+import { CtDialog, showCtDialog } from '@conectate/ct-dialog';
+import { CtLit, css, html, property, state, unsafeHTML } from '@conectate/ct-lit';
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.
@@ -19,6 +19,11 @@ function removeAcento(input: string) {
 		output = output.replace(original.charAt(i), ascii.charAt(i));
 	}
 	return output;
+}
+interface KeyValueCtSelect {
+	text?: string;
+	value?: any;
+	[x: string]: any;
 }
 
 /**
@@ -37,11 +42,16 @@ export interface OptionsCtSelect {
 	searchPlaceholder: string;
 	textProperty: string;
 	valueProperty: string;
-	use_virtual_scroll: boolean;
 }
-export function showCtSelect(title: string, items: any[] = [], value: any[] = [], ok: string = 'Ok', cancel: string = 'Cancel', options: OptionsCtSelect) {
-	let selectDialog = document.createElement('ct-select-dialog') as CtSelectDialog;
-	selectDialog.use_virtual_scroll = options.use_virtual_scroll;
+export function showCtSelect(
+	title: string,
+	items: any[] = [],
+	value: number | string | object | object[] | undefined,
+	ok: string = 'OK',
+	cancel: string = 'Cancel',
+	options: OptionsCtSelect
+) {
+	let selectDialog = new CtSelectDialog();
 	selectDialog.ttl = title;
 	selectDialog.items = items;
 	selectDialog.ok = ok ? ok : 'OK';
@@ -52,7 +62,7 @@ export function showCtSelect(title: string, items: any[] = [], value: any[] = []
 	selectDialog.cancel = cancel ? cancel : 'Cancel';
 	if (options.multi) {
 		selectDialog.multi = options.multi;
-		selectDialog.multiValue = value ? [...value] : [];
+		selectDialog.multiValue = value ? [...(value as object[])] : [];
 	}
 	selectDialog.dialog = showCtDialog(selectDialog);
 	// selectDialog.dialog.addEventListener("on-close", () => {
@@ -64,16 +74,87 @@ export function showCtSelect(title: string, items: any[] = [], value: any[] = []
 // @ts-ignore
 window.showCtSelect = showCtSelect;
 
+class CtSelectBuilder {
+	#title: string = '';
+	#value: number | string | object | object[] | undefined;
+	#positiveButton: string = 'OK';
+	#negativeButton: string = 'Cancel';
+	#items: KeyValueCtSelect[] = [];
+	#searchable = false;
+	#multi = false;
+	#valueProperty = 'value';
+	#textProperty = 'text';
+	#searchPlaceholder = '';
+
+	title(title: string) {
+		this.#title = title;
+		return this;
+	}
+
+	value(value: number | string | object | object[] | undefined) {
+		this.#value = value;
+		return this;
+	}
+
+	positiveButton(text: string) {
+		this.#positiveButton = text;
+		return this;
+	}
+
+	negativeButton(text: string) {
+		this.#negativeButton = text;
+		return this;
+	}
+
+	items(items: any[], textProperty: string = 'text', valueProperty: string = 'value') {
+		this.#items = items;
+		this.#textProperty = textProperty;
+		this.#valueProperty = valueProperty;
+		return this;
+	}
+
+	searchable(value = true, placeholder: string = 'Search') {
+		this.#searchable = value;
+		this.#searchPlaceholder = placeholder;
+		return this;
+	}
+	multi(multi = true) {
+		this.#multi = multi;
+		return this;
+	}
+
+	show() {
+		let selectDialog = new CtSelectDialog();
+		selectDialog.ttl = this.#title;
+		selectDialog.items = this.#items;
+		selectDialog.textProperty = this.#textProperty;
+		selectDialog.valueProperty = this.#valueProperty;
+		selectDialog.ok = this.#positiveButton || 'OK';
+		selectDialog.searchable = this.#searchable;
+		selectDialog.searchPlaceholder = this.#searchPlaceholder;
+		selectDialog.cancel = this.#negativeButton || 'Cancel';
+		if (this.#multi) {
+			selectDialog.multi = this.#multi;
+			selectDialog.multiValue = this.#value ? [...(this.#value as object[])] : [];
+		}
+
+		selectDialog.dialog = showCtDialog(selectDialog);
+		return { dialog: selectDialog, result: selectDialog.onResult() };
+	}
+}
+// CtSelectDialog.Builder().title('').value([]).positiveButton('OK').negativeButton('Cancel').items([]).multi().searchable().show();
 export class CtSelectDialog extends CtLit {
+	static Builder() {
+		return new CtSelectBuilder();
+	}
 	solve!: (value?: any) => void;
 	reject!: (value?: any) => void;
 	@property({ type: String }) ttl!: string;
 	@property({ type: Boolean }) searchable = false;
 	@property({ type: String }) searchPlaceholder: string = 'Search...';
 	@property({ type: Array }) items: any[] = [];
-	@internalProperty() private itemsFiltered: any[] = [];
-	@internalProperty() private searchBoxText = '';
-	@property({ type: Boolean }) use_virtual_scroll = false;
+	@state() private itemsFiltered: any[] = [];
+	@state() private searchBoxText = '';
 	@property({ type: String }) valueProperty!: string;
 	@property({ type: String }) textProperty!: string;
 	@property({ type: String }) ok!: string;
@@ -82,17 +163,20 @@ export class CtSelectDialog extends CtLit {
 	/**
 	 * Arrar of selected items
 	 */
-	@property({ type: String }) value!: string | string[];
-	@internalProperty() private scrollTarget: any;
+	// @property({ type: String }) value!: number | string | object | object[];
 	/**
 	 * If true, multiple options can be selected.
 	 */
 	@property({ type: Boolean, reflect: true }) multi = false;
 	@property({ type: String }) selectedPlaceholder = 'items selected';
-	@property({ type: Array }) multiValue: any[] = [];
+	@property({ type: Array }) multiValue: object[] = [];
 	@property({ type: Object }) dialog!: CtDialog;
-	renderItem2?: (item: any, index: number, array: any[]) => TemplateResult;
-	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) => html` <button>${unsafeHTML(item[this.textProperty])}</button> `;
+	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) =>
+		html`
+			<ct-select-item ?multi=${this.multi} ?selected="${this.multi && ((this.multiValue as object[]) ||= []).includes(item[this.valueProperty])}">
+				${unsafeHTML(item[this.textProperty])}
+			</ct-select-item>
+		`;
 
 	static styles = [
 		css`
@@ -102,9 +186,6 @@ export class CtSelectDialog extends CtLit {
 			}
 			.item {
 				width: 100%;
-			}
-			lit-virtualizer {
-				height: 50vh;
 			}
 
 			.title {
@@ -130,7 +211,7 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			.body::-webkit-scrollbar-thumb {
-				background-color: var(--color-primary);
+				background-color: var(--color-primary, #2cb5e8);
 				outline: 1px solid slategrey;
 				border-radius: 8px;
 			}
@@ -140,21 +221,13 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			.buttons {
-				color: var(--color-primary);
+				color: var(--color-primary, #2cb5e8);
 				display: block;
 				flex-direction: row;
+				justify-items: flex-end;
 				text-align: right;
 				font-weight: bold;
 				padding: 16px;
-			}
-
-			paper-button {
-				display: block;
-				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-				padding: 0.45em 1.7em;
-				font-size: 0.95em;
-				border-radius: 8px;
-				text-transform: none;
 			}
 
 			#ok {
@@ -164,40 +237,6 @@ export class CtSelectDialog extends CtLit {
 			a {
 				text-decoration: none;
 				color: var(--color-primary);
-			}
-
-			button {
-				min-width: 170px;
-				color: var(--color-on-surface, #535353);
-				margin: 0;
-				padding: 6px 16px;
-				height: 38px;
-				width: 100%;
-				background: none;
-				outline: none;
-				border: none;
-				text-align: left;
-				border-bottom: 1px solid var(--color-on-surface-dividers, #e8e8e8);
-				cursor: pointer;
-				transition: all 0.15s ease;
-			}
-
-			button:hover {
-				background: var(--color-primary-light);
-				color: var(--color-primary);
-				border-radius: 8px;
-			}
-
-			:host([multi]) button {
-				background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDV2MTRINVY1aDE0bTAtMkg1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVjMC0xLjEtLjktMi0yLTJ6Jy8+PC9zdmc+')
-					no-repeat 7px 6px;
-				padding-left: 40px;
-			}
-
-			:host([multi]) button.selected {
-				background: #def7ffee
-					url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHBhdGggZD0nTTE5IDNINWMtMS4xMSAwLTIgLjktMiAydjE0YzAgMS4xLjg5IDIgMiAyaDE0YzEuMTEgMCAyLS45IDItMlY1YzAtMS4xLS44OS0yLTItMnptLTkgMTRsLTUtNSAxLjQxLTEuNDFMMTAgMTQuMTdsNy41OS03LjU5TDE5IDhsLTkgOXonLz48L3N2Zz4=')
-					no-repeat 7px 6px;
 			}
 
 			ct-input {
@@ -228,31 +267,17 @@ export class CtSelectDialog extends CtLit {
 		return html`
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
-				${this.searchable ? html` <ct-input @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> ` : html``}
+				${this.searchable ? html` <ct-input @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> ` : ``}
 				<div class="body" id="confirmBody">
-					${this.use_virtual_scroll
-						? html` <lit-virtualizer
-								.scrollTarget=${this.scrollTarget}
-								.items=${items}
-								.renderItem=${((i: any, index: number, arr: any[]) => html`
-									<div class="item ${this.addSelectedClass(i[this.valueProperty])}" @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">
-										${this.renderItem(i, index, arr)}
-									</div>
-								`) as any}
-						  >
-						  </lit-virtualizer>`
-						: items.map(
-								(i: any, index: number, arr: any[]) => html`
-									<div class="item ${this.addSelectedClass(i[this.valueProperty])}" @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">
-										${this.renderItem(i, index, arr)}
-									</div>
-								`
-						  )}
+					${items.map(
+						(i: any, index: number, arr: any[]) => html`
+							<div class="item " @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">${this.renderItem(i, index, arr)}</div>
+						`
+					)}
 				</div>
 				<div id="buttons" class="buttons">
-					<div class="flex"></div>
 					<ct-button id="cancel" @click="${this.cancelbtn}" shadow>${this.cancel}</ct-button>
-					${this.multi ? html` <ct-button raised id="ok" @click="${this.okbtn}">${this.ok}</ct-button> ` : html``}
+					${this.multi ? html` <ct-button raised id="ok" @click="${this.okbtn}">${this.ok}</ct-button> ` : ``}
 				</div>
 			</ct-card>
 		`;
@@ -260,7 +285,6 @@ export class CtSelectDialog extends CtLit {
 
 	firstUpdated() {
 		this.mapIDs();
-		this.scrollTarget = this.$.confirmBody;
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 		this.itemsFiltered = [...this.items];
 	}
@@ -288,13 +312,6 @@ export class CtSelectDialog extends CtLit {
 		return {}.toString.call(obj).split(' ')[1].slice(0, -1).toLowerCase();
 	}
 
-	addSelectedClass(value: any) {
-		if (this.typeOf(value) == 'object') {
-			return this.multiValue.find((item) => JSON.stringify(item) == JSON.stringify(value)) ? 'selected' : '';
-		}
-		return this.multiValue.indexOf(value) > -1 ? 'selected' : '';
-	}
-
 	computeBtns(ok: string, neutral: string, cancel: string) {
 		let auxok = ok || '',
 			auxcancel = cancel || '';
@@ -311,12 +328,16 @@ export class CtSelectDialog extends CtLit {
 			this.solve(value);
 			await this.dialog.closeDialog();
 		} else {
-			let selected = e.target.classList.contains('selected');
-			e.target.classList.toggle('selected', !selected);
+			let selected = Boolean(e.target.selected); //e.target.classList.contains('selected');
+			// e.target.classList.toggle('selected', !selected);
+			e.target.selected = !selected;
 			if (selected) {
+				console.log('removed');
 				this.multiValue.splice(this.multiValue.indexOf(value), 1);
 			} else if (value != null) {
+				console.log('added');
 				this.multiValue.push(value);
+				this.multiValue = Array.from(new Set(this.multiValue));
 			}
 		}
 	}

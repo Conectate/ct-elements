@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit": "^2.0.0-rc.2",
+		"lit": "^2.0.0-rc.4",
 		"tslib": "^2.2.0"
 	},
 	"scripts": {
@@ -33,6 +33,12 @@
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-lit.ts",
+			"default": "./ct-lit.js"
+		}
 	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }
