@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-bottom-sheet",
-	"version": "3.3.0",
+	"version": "3.4.0",
 	"description": "Bottom sheets slide up from the bottom of the screen to reveal more content. Made with Lit 🔥",
 	"main": "ct-bottom-sheet.js",
 	"typings": "ct-bottom-sheet.d.ts",
