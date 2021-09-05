@@ -15,6 +15,7 @@ import { CtLit, css, customElement, html, property, query } from '@conectate/ct-
  * @group ct-elements
  * @element ct-checkbox
  * @attr {boolean} checked
+ * @attr {boolean} margin
  */
 @customElement('ct-checkbox')
 export class CtCheckbox extends CtLit {
@@ -59,7 +60,7 @@ export class CtCheckbox extends CtLit {
 				cursor: pointer;
 			}
 
-			#label {
+			:host([margin]) #label {
 				margin-left: 16px;
 			}
 		`,
@@ -141,7 +142,7 @@ export class CtCheckbox extends CtLit {
 	render() {
 		return html`
 			<div class="c">
-				<input id="input" type="checkbox" @change=${this.change} ?checked=${this.checked} />
+				<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} />
 				<span id="box">
 					<ct-icon
 						id="checkmark"
