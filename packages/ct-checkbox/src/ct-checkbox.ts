@@ -60,7 +60,8 @@ export class CtCheckbox extends CtLit {
 				cursor: pointer;
 			}
 
-			:host([margin]) #label {
+			:host([margin]) #label,
+			::slotted(*) {
 				margin-left: 16px;
 			}
 		`,
