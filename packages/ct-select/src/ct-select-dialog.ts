@@ -43,14 +43,7 @@ export interface OptionsCtSelect {
 	textProperty: string;
 	valueProperty: string;
 }
-export function showCtSelect(
-	title: string,
-	items: any[] = [],
-	value: number | string | object | object[] | undefined,
-	ok: string = 'OK',
-	cancel: string = 'Cancel',
-	options: OptionsCtSelect
-) {
+export function showCtSelect<V = any>(title: string, items: any[] = [], value: V | undefined, ok: string = 'OK', cancel: string = 'Cancel', options: OptionsCtSelect) {
 	let selectDialog = new CtSelectDialog();
 	selectDialog.ttl = title;
 	selectDialog.items = items;
@@ -62,7 +55,7 @@ export function showCtSelect(
 	selectDialog.cancel = cancel ? cancel : 'Cancel';
 	if (options.multi) {
 		selectDialog.multi = options.multi;
-		selectDialog.multiValue = value ? [...(value as object[])] : [];
+		selectDialog.multiValue = value && Array.isArray(value) ? [...value] : [];
 	}
 	selectDialog.dialog = showCtDialog(selectDialog);
 	// selectDialog.dialog.addEventListener("on-close", () => {

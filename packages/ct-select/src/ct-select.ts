@@ -6,9 +6,9 @@ import { TemplateResult, css } from 'lit';
 
 import { showCtSelect } from './ct-select-dialog';
 
-export interface KeyValueCtSelect {
+export interface KeyValueCtSelect<V = any> {
 	text?: string;
-	value?: any;
+	value?: V;
 	[x: string]: any;
 }
 /**
@@ -25,7 +25,7 @@ export interface KeyValueCtSelect {
  * @fires items - Cuando se setean nuevos items al element
  */
 @customElement('ct-select')
-export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
+export class CtSelect<V = any, T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -258,7 +258,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	textProperty = 'text';
 	valueProperty = 'value';
 	multi = false;
-	_value?: number | string | object | object[];
+	_value?: V;
 	_text: any;
 	_items: T[] = [];
 	ttl: string = '';
@@ -297,7 +297,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			this.searchIn = '';
 		}, 1000);
 
+		// Only for single select
 		this.addEventListener('input', (e: any) => {
+			if (this.multi) return;
 			this.searchIn += e.data || '';
 			clearTimeout(this.timeout);
 			let items = this.items.filter((item) => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
@@ -309,11 +311,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
-					// setear nuevo valor;
-					if (!this.multi) this.value = items[0][this.valueProperty];
-					else {
-						this.value = [items[0][this.valueProperty]];
-					}
+					this.value = items[0][this.valueProperty];
 				}
 				this.searchIn = '';
 			}, 1000);
@@ -456,7 +454,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			/**
 			 * Array de items selected
 			 */
-			value: { type: Array },
+			value: { type: Object },
 			placeholder: { type: String },
 			valuePlaceholder: { type: String },
 			/**
@@ -509,7 +507,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	 */
 	async showDialog(): Promise<void> {
 		this.invalid = false;
-		let ctSelect = showCtSelect(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
+		let ctSelect = showCtSelect<V>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
 			multi: this.multi,
 			searchable: this.searchable,
 			searchPlaceholder: this.searchPlaceholder,
