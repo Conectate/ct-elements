@@ -1,5 +1,3 @@
-import { throws } from 'assert';
-
 import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
 import { TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
