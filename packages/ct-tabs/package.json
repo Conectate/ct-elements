@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-tabs",
-	"version": "3.4.0",
+	"version": "3.4.4",
 	"description": "Tabs HTMLElement",
 	"main": "ct-tabs.js",
 	"typings": "ct-tabs.d.ts",
