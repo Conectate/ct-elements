@@ -12,11 +12,6 @@ export class CtTab extends CtLit {
 	render() {
 		return html`
 			<style>
-				* {
-					padding: 0;
-					margin: 0;
-					box-sizing: border-box;
-				}
 				:host {
 					display: flex;
 					position: relative;

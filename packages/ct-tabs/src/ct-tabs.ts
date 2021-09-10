@@ -1,6 +1,7 @@
 import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 import { CtTab } from './ct-tab';
+
 /**
  *
  * @element ct-tabs
@@ -12,11 +13,6 @@ import { CtTab } from './ct-tab';
 export class CtTabs extends CtLit {
 	static get styles() {
 		return css`
-			* {
-				padding: 0;
-				margin: 0;
-				box-sizing: border-box;
-			}
 			:host {
 				display: block;
 				z-index: 10;

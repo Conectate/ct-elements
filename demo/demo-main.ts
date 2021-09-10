@@ -1,6 +1,7 @@
 import '../packages/ct-bottom-sheet';
 import './demo-ct-select';
 import './demo-ct-checkbox';
+import './demo-ct-radio';
 import './demo-ct-bottom-sheet';
 
 import { CtLit, css, customElement, html, query } from '../packages/ct-lit';
@@ -33,6 +34,7 @@ export class DemoMain extends CtLit {
 	render() {
 		return html`<demo-ct-select></demo-ct-select>
 			<demo-ct-bottom-sheet></demo-ct-bottom-sheet>
-			<demo-ct-checkbox></demo-ct-checkbox> `;
+			<demo-ct-checkbox></demo-ct-checkbox>
+			<demo-ct-radio></demo-ct-radio> `;
 	}
 }

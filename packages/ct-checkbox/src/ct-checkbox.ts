@@ -2,12 +2,6 @@ import '@conectate/ct-icon';
 
 import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
 
-// // @ts-ignore HACK: temporary patch to fix a safari issue
-// Checkbox.prototype.createRenderRoot = function (): ShadowRoot {
-// 	// tslint:disable-next-line:no-invalid-this
-// 	return this.attachShadow({ mode: 'open', delegatesFocus: false });
-// };
-
 /**
  * ## `ct-checkbox`
  * Checkbox element
@@ -28,7 +22,6 @@ export class CtCheckbox extends CtLit {
 			:host {
 				display: inline-flex;
 				position: relative;
-				margin: 8px;
 				--ct-checkbox-box-size: 24px;
 				--ct-checkbox-box-border-radius: 8px;
 				--ct-checkbox-height: var(--ct-checkbox-box-size);
@@ -58,11 +51,6 @@ export class CtCheckbox extends CtLit {
 				opacity: 0.0001;
 				z-index: 1;
 				cursor: pointer;
-			}
-
-			:host([margin]) #label,
-			::slotted(*) {
-				margin-left: 16px;
 			}
 		`,
 		// Checkmark
@@ -111,6 +99,7 @@ export class CtCheckbox extends CtLit {
 				flex-grow: 0;
 				color: var(--color-on-primary, #fff);
 				flex-shrink: 0;
+				margin: 8px;
 			}
 			#box::before {
 				display: block;

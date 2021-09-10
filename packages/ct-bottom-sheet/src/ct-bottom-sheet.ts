@@ -65,6 +65,18 @@ let currentSheet: CtBottomSheet | null = null;
  * `--bottom-sheet-max-height` | Max height of the element | ``
  * `--bottom-sheet-label-color` | Color of the label | `rgba(0, 0, 0, 0.54)`
  * `--bottom-sheet-box-shadow` | Box shadow property of the element | `0 2px 5px 0 rgba(0, 0, 0, 0.26)`
+ * @attr {boolean} fit-bottom - If true the bottom sheet will be positioned at the bottom of the app and with full width
+ * @attr {boolean} center-bottom - If true the bottom sheet will be positioned at the bottom centered on a page
+ * @attr {boolean} fixed-height - If true the bottom sheet will have a fixed height
+ * @attr {boolean} fixed-width - If true the bottom sheet will have a fixed width
+ * @attr {boolean} full-width - If true the bottom sheet will have full width
+ * @attr {boolean} full-height - If true the bottom sheet will have full height
+ * @attr {boolean} no-padding - If true the bottom sheet will have no padding
+ * @attr {boolean} nopadding - If true the bottom sheet will have no padding
+ * @attr {boolean} no-margin - If true the bottom sheet will have no margin
+ * @attr {boolean} no-label - If true the bottom sheet will have no label
+ * @attr {boolean} no-header - If true the bottom sheet will have no header
+ * @attr {boolean} withbackdrop - If true the bottom sheet will have a backdrop
  *  @element ct-bottom-sheet
  */
 @customElement('ct-bottom-sheet')
