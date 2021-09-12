@@ -27,8 +27,13 @@ export class CtCheckbox extends CtLit {
 				--ct-checkbox-height: var(--ct-checkbox-box-size);
 				--ct-checkbox-box-border-size: 3px;
 			}
+			#input:focus-visible + .c {
+				border-radius: 8px;
+				box-shadow: 0 0 0 1px var(--color-primary);
+			}
 
-			:host([disabled]) {
+			:host([disabled]),
+			:host([disabled]) #input:focus-visible {
 				pointer-events: none;
 				opacity: 0.33;
 			}
@@ -61,7 +66,7 @@ export class CtCheckbox extends CtLit {
 				transition: opacity 0.13s ease-in-out, transform 0.13s ease-in-out;
 			}
 			:host([indeterminate]) #box #checkmark,
-			#input:checked + #box #checkmark {
+			#input:checked + .c > #box #checkmark {
 				transform: scale(1);
 				opacity: 1;
 			}
@@ -117,10 +122,10 @@ export class CtCheckbox extends CtLit {
 				transition: border 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
 			}
 			:host([indeterminate]) #box::before,
-			#input:checked + #box::before {
+			#input:checked + .c > #box::before {
 				border-width: calc(var(--ct-checkbox-box-size) / 2);
 			}
-			#input:checked + #box::before,
+			#input:checked + .c > #box::before,
 			:host([indeterminate]) #box::before {
 				border-color: var(--color-primary, #2cb5e8);
 				color: var(--color-on-primary, #fff);
@@ -131,8 +136,8 @@ export class CtCheckbox extends CtLit {
 	@query('#input') $input!: HTMLInputElement;
 	render() {
 		return html`
+			<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} .disabled=${this.disabled} />
 			<div class="c">
-				<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} />
 				<span id="box">
 					<ct-icon
 						id="checkmark"

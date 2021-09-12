@@ -26,6 +26,10 @@ export class CtRadio extends CtLit {
 				--ct-checkbox-box-border-size: 3px;
 			}
 
+			#input:focus-visible + .c {
+				box-shadow: 0 0 0 1px var(--color-primary);
+				border-radius: 8px;
+			}
 			:host([disabled]) {
 				pointer-events: none;
 				opacity: 0.33;
@@ -64,7 +68,7 @@ export class CtRadio extends CtLit {
 				border-radius: 50%;
 			}
 
-			#input:checked + #box #checkmark {
+			#input:checked + .c > #box #checkmark {
 				transform: scale(1);
 				opacity: 1;
 			}
@@ -112,10 +116,11 @@ export class CtRadio extends CtLit {
 				border-color: var(--color-on-background, #535353);
 				transition: border 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
 			}
-			#input:checked + #box::before {
+			#input:checked + .c > #box::before {
 				/* border-width: calc(var(--ct-checkbox-box-size) / 2); */
 			}
-			#input:checked + #box::before {
+
+			#input:checked + .c > #box::before {
 				border-color: var(--color-primary, #2cb5e8);
 				color: var(--color-on-primary, #fff);
 			}
@@ -125,8 +130,8 @@ export class CtRadio extends CtLit {
 	@query('#input') $input!: HTMLInputElement;
 	render() {
 		return html`
+			<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} .disabled=${this.disabled} />
 			<div class="c">
-				<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} />
 				<span id="box">
 					<div id="checkmark" dir="ltr"></div>
 				</span>

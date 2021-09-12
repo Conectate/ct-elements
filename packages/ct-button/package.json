@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@material/mwc-ripple": "*",
+		"@conectate/ct-icon": "^3.4.0",
 		"lit": "^2.0.0-rc.4",
 		"tslib": "^2.2.0"
 	},
@@ -31,6 +31,20 @@
 	},
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"exports": {
+		".": {
+			"development": "./src/ct-button.ts",
+			"default": "./ct-button.js"
+		},
+		"./ct-button": {
+			"development": "./src/ct-button.ts",
+			"default": "./ct-button.js"
+		},
+		"./ct-button-spit": {
+			"development": "./src/ct-button.ts",
+			"default": "./ct-button.js"
+		}
 	},
 	"publishConfig": {
 		"access": "public"

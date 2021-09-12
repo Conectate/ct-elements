@@ -218,7 +218,7 @@ export class CtSelectDialog extends CtLit {
 				display: block;
 				flex-direction: row;
 				justify-items: flex-end;
-				text-align: right;
+				text-align: initial;
 				font-weight: bold;
 				padding: 16px;
 			}

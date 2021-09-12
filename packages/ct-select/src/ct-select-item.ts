@@ -24,7 +24,7 @@ export class CtSelectItem extends CtLit {
 				background: none;
 				outline: none;
 				border: none;
-				text-align: left;
+				text-align: initial;
 				cursor: pointer;
 				transition: all 0.15s ease;
 			}
