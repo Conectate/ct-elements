@@ -21,6 +21,7 @@ Custom property | Description | Default
 `--ct-loading-bar-c1` | Color of the container | `#4998ff`
 `--ct-loading-bar-c2` | Color of the container | `#fff`
 `--ct-loading-bar-c3` | Color of the container | `#4998ff`
+
 	@element ct-loading-bar
  */
 @customElement('ct-loading-bar')
@@ -91,5 +92,11 @@ export class CtLoadingBar extends LitElement {
 				<div class="horizontal-loader-bar"></div>
 			</div>
 		`;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-loading-bar': CtLoadingBar;
 	}
 }

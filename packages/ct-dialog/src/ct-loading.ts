@@ -2,10 +2,11 @@ import '@conectate/lit-if';
 import '@conectate/ct-card';
 import '@conectate/ct-spinner';
 
-import { CtLit, html } from '@conectate/ct-lit';
+import { CtLit, customElement, html } from '@conectate/ct-lit';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
 
+@customElement('ct-loading')
 export class CtLoading extends CtLit {
 	ttl: string = 'Loading';
 	dialog!: CtDialog;
@@ -40,8 +41,11 @@ export class CtLoading extends CtLit {
 		};
 	}
 }
-
-window.customElements.define('ct-loading', CtLoading);
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-loading': CtLoading;
+	}
+}
 
 /**
  * This shows a dialogue box with a spinner and the text "loading"

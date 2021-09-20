@@ -11,7 +11,7 @@
 import '@conectate/ct-button';
 import '@conectate/ct-card';
 
-import { CtLit, html, query } from '@conectate/ct-lit';
+import { CtLit, customElement, html, query } from '@conectate/ct-lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
@@ -37,7 +37,7 @@ export function showCtConfirmCupertino(title: string, body: string, ok?: string,
 	ctConfirm.dialog = showCtDialog(ctConfirm);
 	return ctConfirm.onResult();
 }
-
+@customElement('ct-confirm')
 export class CTConfirm extends CtLit {
 	body: string = '';
 	ttl: string = 'Title';
@@ -188,6 +188,7 @@ export class CTConfirm extends CtLit {
 	}
 }
 
+@customElement('ct-confirm-cupertino')
 export class CTConfirmCupertino extends CtLit {
 	body: string = '';
 	ttl: string = 'Title';
@@ -363,8 +364,12 @@ export class CTConfirmCupertino extends CtLit {
 	}
 }
 
-window.customElements.define('ct-confirm', CTConfirm);
-window.customElements.define('ct-confirm-cupertino', CTConfirmCupertino);
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-confirm-cupertino': CTConfirmCupertino;
+		'ct-confirm': CTConfirm;
+	}
+}
 
 // @ts-ignore
 window.showCtConfirm = showCtConfirm;

@@ -1,4 +1,5 @@
 import '../packages/ct-select';
+import '../packages/ct-card';
 
 import { CtLit, css, customElement, html, property, query } from '../packages/ct-lit';
 import { CtSelect } from '../packages/ct-select';
@@ -44,33 +45,46 @@ export class DemoCtSelect extends CtLit {
 		css`
 			:host {
 				display: block;
+				max-width: 800px;
+				margin: 0 auto;
+			}
+			header > h1 {
+				margin-bottom: 0;
+			}
+			ct-card {
+				margin: 16px 24px;
 			}
 		`
 	];
 
-	@query('#ct-select') ctSelect!: CtSelect;
 	render() {
-		return html`<header>
-				<h1>Demo ct-select</h1>
-			</header>
-			<main>
-				<ct-select
-					id="ct-select"
-					.items=${this.getItems()}
-					label="Multi Select with Custom View"
-					multi
-					.renderItem=${(item: any, i: number) =>
-						html`<render-item
-							.text=${item.text}
-							?selected=${(this.ctSelect.value as any[])?.includes(item.value)}
-							.subtext=${`Sub ${item.text}`}
-							.value=${item.value}
-						></render-item>`}
-				></ct-select>
+		return html`
+			<ct-card shadow>
+				<header class="card-content">
+					<h1>ct-select</h1>
+				</header>
+				<main class="card-content">${this.example()}</main>
+			</ct-card>
+		`;
+	}
 
-				<ct-select .items=${this.getItems()} label="Select"></ct-select>
-				<ct-select .items=${this.getItems()} label="Select Multi" multi></ct-select>
-			</main> `;
+	@query('#ct-select') ctSelect!: CtSelect;
+	example() {
+		return html`<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
+			<ct-select .items=${this.getItems()} label="Multi Select" multi></ct-select>
+			<ct-select
+				id="ct-select"
+				.items=${this.getItems()}
+				label="Multi Select with Custom View"
+				multi
+				.renderItem=${(item: any, i: number) =>
+					html`<render-item
+						.text=${item.text}
+						?selected=${(this.ctSelect.value as any[])?.includes(item.value)}
+						.subtext=${`Sub ${item.text}`}
+						.value=${item.value}
+					></render-item>`}
+			></ct-select>`;
 	}
 
 	getItems() {

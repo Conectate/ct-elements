@@ -64,6 +64,7 @@ let currentSheet: CtBottomSheet | null = null;
  * `--bottom-sheet-max-width` | Max width of the element | ``
  * `--bottom-sheet-max-height` | Max height of the element | ``
  * `--bottom-sheet-label-color` | Color of the label | `rgba(0, 0, 0, 0.54)`
+ *
  * `--bottom-sheet-box-shadow` | Box shadow property of the element | `0 2px 5px 0 rgba(0, 0, 0, 0.26)`
  * @attr {boolean} fit-bottom - If true the bottom sheet will be positioned at the bottom of the app and with full width
  * @attr {boolean} center-bottom - If true the bottom sheet will be positioned at the bottom centered on a page
@@ -205,5 +206,11 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 				this._finishRenderClosed();
 			}
 		}
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-bottom-sheet': CtBottomSheet;
 	}
 }

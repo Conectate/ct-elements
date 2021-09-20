@@ -297,3 +297,9 @@ export class CtDate extends CtLit {
 		return `${n}`;
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-date': CtDate;
+	}
+}

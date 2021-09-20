@@ -1,6 +1,6 @@
 import '@conectate/ct-card/ct-card';
 
-import { CtLit, html } from '@conectate/ct-lit';
+import { CtLit, customElement, html } from '@conectate/ct-lit';
 
 import { ConectateHistory, CtDialog, showCtDialog } from './ct-dialog';
 
@@ -13,6 +13,7 @@ export function showCtCardDialog(el: HTMLElement, id?: string, history?: Conecta
 // @ts-ignore
 window.showCtCardDialog = showCtCardDialog;
 
+@customElement('ct-card-dialog')
 export class CtCardDialog extends CtLit {
 	el!: any;
 	dialog!: CtDialog;
@@ -59,5 +60,8 @@ export class CtCardDialog extends CtLit {
 		this.mapIDs();
 	}
 }
-
-window.customElements.define('ct-card-dialog', CtCardDialog);
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-card-dialog': CtCardDialog;
+	}
+}

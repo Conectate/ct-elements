@@ -545,3 +545,9 @@ export class CtTextarea extends CtLit {
 		this.countChar = this.value!.length;
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-textarea': CtTextarea;
+	}
+}

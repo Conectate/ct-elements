@@ -16,6 +16,9 @@ export function showSnackBar(msg: string) {
 // @ts-ignore
 window.showSnackBar = showSnackBar;
 
+/**
+ * @element ct-snackbar
+ */
 @customElement('ct-snackbar')
 export class CtSnackbar extends CtLit {
 	static styles = [
@@ -115,5 +118,11 @@ export class CtSnackbar extends CtLit {
 	closePersist() {
 		this.alwaysVisible = false;
 		this.close();
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-snackbar': CtSnackbar;
 	}
 }

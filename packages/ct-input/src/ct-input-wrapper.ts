@@ -78,3 +78,8 @@ export class CtInputWrapper extends CtLit {
 		this.$.inputElement.value = '';
 	}
 }
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-input-wrapper': CtInputWrapper;
+	}
+}

@@ -6,11 +6,16 @@
 		"@advanced-rest-client/bottom-sheet": "^3.2.3",
 		"@material/mwc-checkbox": "*",
 		"@material/mwc-radio": "*",
+		"common-tags": "^1.8.0",
 		"lit": "^2.0.0-rc.4",
-		"lit-virtualizer": "^0.4.2"
+		"lit-virtualizer": "^0.4.2",
+		"prismjs": "^1.25.0"
 	},
 	"devDependencies": {
 		"@types/chart.js": "^2.9.34",
+		"@types/common-tags": "^1.8.1",
+		"@types/node": "^16.9.2",
+		"@types/prismjs": "^1.16.6",
 		"import-sort-style-module": "^6.0.0",
 		"lerna": "^4.0.0",
 		"prettier": "^2.3.2",

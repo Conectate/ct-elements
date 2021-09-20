@@ -199,7 +199,7 @@ export class CtImg extends CtLit {
 				// we will use version 0.3.0 and include it with the element.
 				//
 				// @ts-ignore
-				polyfillScript.src = 'https://unpkg.com/intersection-observer@0.5.1/intersection-observer';
+				polyfillScript.src = 'https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js';
 				// @ts-ignore
 				polyfillScript.async = true;
 				document.head.appendChild(polyfillScript);

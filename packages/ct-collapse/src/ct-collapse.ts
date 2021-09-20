@@ -59,3 +59,9 @@ export class CtCollapse extends CtLit {
 		}
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-collapse': CtCollapse;
+	}
+}

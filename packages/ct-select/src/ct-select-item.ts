@@ -73,3 +73,9 @@ export class CtSelectItem extends CtLit {
 			</button> `;
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-select-item': CtSelectItem;
+	}
+}

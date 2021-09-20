@@ -5,7 +5,7 @@ import './demo-ct-radio';
 import './demo-ct-buttom';
 import './demo-ct-bottom-sheet';
 
-import { CtLit, css, customElement, html, query } from '../packages/ct-lit';
+import { CtLit, css, customElement, html, property, query } from '../packages/ct-lit';
 import { applyTheme } from './styles/shared-styles';
 
 @customElement('demo-main')
@@ -29,6 +29,7 @@ export class DemoMain extends CtLit {
 			<demo-ct-bottom-sheet></demo-ct-bottom-sheet>
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-radio></demo-ct-radio>
-			<demo-ct-buttom></demo-ct-buttom> `;
+			<demo-ct-buttom></demo-ct-buttom> 
+			`;
 	}
 }

@@ -3,7 +3,6 @@ import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
 /**
  * ## `ct-spinner`
  * Spinner web Component
- *
  * @group ct-elements
  * @element ct-spinner
  * @cssProp --ct-spinner-1 - Spinner Color 1
@@ -40,5 +39,11 @@ export class CtSpinner extends CtLit {
 
 	render() {
 		return html``;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-spinner': CtSpinner;
 	}
 }

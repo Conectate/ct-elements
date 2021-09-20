@@ -164,3 +164,9 @@ export class CtRadio extends CtLit {
 		this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.$input.checked } }));
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-radio': CtRadio;
+	}
+}

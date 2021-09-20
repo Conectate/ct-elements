@@ -18,7 +18,7 @@ Custom property | Description | Default
  * @element ct-loading-placeholder
  */
 @customElement('ct-loading-placeholder')
-export class LoadingPlaceholder extends CtLit {
+export class CtLoadingPlaceholder extends CtLit {
 	static styles = css`
 		:host {
 			display: flex;
@@ -50,5 +50,11 @@ export class LoadingPlaceholder extends CtLit {
 	`;
 	render() {
 		return html``;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-loading-placeholder': CtLoadingPlaceholder;
 	}
 }

@@ -13,7 +13,7 @@ import '@conectate/ct-card/ct-card';
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-input/ct-input';
 
-import { CtLit, html, unsafeHTML } from '@conectate/ct-lit';
+import { CtLit, customElement, html, unsafeHTML } from '@conectate/ct-lit';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
 
@@ -28,6 +28,7 @@ export function showCtPrompt(title: string, body: string, ok?: string, cancel?: 
 	return ctPromp.onResult();
 }
 
+@customElement('ct-promp')
 export class CTPromp extends CtLit {
 	body: string = '';
 	ttl: string = 'Title';
@@ -177,8 +178,11 @@ export class CTPromp extends CtLit {
 		});
 	}
 }
-
-window.customElements.define('ct-promp', CTPromp);
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-promp': CTPromp;
+	}
+}
 
 // @ts-ignore
 window.showCtPrompt = showCtPrompt;

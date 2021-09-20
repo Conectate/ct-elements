@@ -11,6 +11,7 @@ export interface KeyValueCtSelect<V = any> {
 	value?: V;
 	[x: string]: any;
 }
+export type anyValue = string | number | boolean | Date | null | any;
 /**
  *
  *
@@ -25,7 +26,7 @@ export interface KeyValueCtSelect<V = any> {
  * @fires items - Cuando se setean nuevos items al element
  */
 @customElement('ct-select')
-export class CtSelect<V = any, T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
+export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -360,12 +361,16 @@ export class CtSelect<V = any, T extends KeyValueCtSelect = KeyValueCtSelect> ex
 		}
 	}
 
-	set value(val) {
-		if (this._value !== val) this.setValue(val);
+	set value(val: V) {
+		if (this._value !== val) {
+			this._value = val;
+			this.setValue(val);
+		}
 	}
-
-	async setValue(val: any) {
-		this._value = val;
+	get value() {
+		return this._value!;
+	}
+	async setValue(val?: V) {
 		await this.updateComplete;
 		this.dispatchEvent(new CustomEvent('value', { detail: { value: val } }));
 		this.computeValues();
@@ -375,10 +380,6 @@ export class CtSelect<V = any, T extends KeyValueCtSelect = KeyValueCtSelect> ex
 			this.$.container.classList.toggle('has-value', !isEmpty);
 			this.$.input.classList.toggle('has-value', !isEmpty);
 		}
-	}
-
-	get value() {
-		return this._value;
 	}
 
 	get text() {
@@ -537,5 +538,11 @@ export class CtSelect<V = any, T extends KeyValueCtSelect = KeyValueCtSelect> ex
 		this.$.c.classList.add('bounce');
 		await sleep(1000);
 		this.$.c.classList.remove('bounce');
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-select': CtSelect;
 	}
 }

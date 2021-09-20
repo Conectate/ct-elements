@@ -245,3 +245,9 @@ export class CtTextareaAutogrow extends CtLit {
 		return this._constrain(this.tokens);
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-textarea-autogrow': CtTextareaAutogrow;
+	}
+}

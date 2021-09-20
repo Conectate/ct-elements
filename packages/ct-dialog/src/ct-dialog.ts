@@ -457,3 +457,8 @@ export class CtDialog extends CtLit {
 		};
 	}
 }
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-dialog': CtDialog;
+	}
+}

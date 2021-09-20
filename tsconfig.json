@@ -16,12 +16,16 @@
 		"strict": true,
 		"noUnusedLocals": true,
 		// "outDir": "./dist",
-		"outDir": "./",
+		"outDir": "./ds",
 		"baseUrl": "./packages",
 		// Only necessary because @types/uglify-js can't find types for source-map
 		"skipLibCheck": true,
 		"experimentalDecorators": true,
-		"importHelpers": true
+		"importHelpers": true,
+		"typeRoots": [
+			"./demo/src/xconfig/typings"
+		],
+		"allowSyntheticDefaultImports": true
 	},
 	"exclude": []
 }

@@ -16,7 +16,16 @@ import { rovingIndex } from './ct-button-helpers';
 | `--color-surface`   | Box-Shadow for hover | `0 2px 16px 4px rgba(99, 188, 240, 0.45)` |
 | `--color-on-surface` | -                    | `#535353`                 |
 
- * @attr split - If true, the button will be split
+ * @group ct-elements
+ * @element ct-button-split
+ * @homepage wc.conectate.app
+ * @slot - Default content placed in the middle
+ * @attr {Boolean} disabled - Disable clicks
+ * @attr {Boolean} raised - Raised Style (primary color)
+ * @attr {Boolean} shadow - Shown with opaque black background.
+ * @attr {Boolean} flat - Shown with a primary color border
+ * @attr {Boolean} light - Shown with a primary color border
+ * @attr {Boolean} split - If true, the button will be split
  */
 @customElement('ct-button-split')
 export class CtButtonSplit extends LitElement {
@@ -40,18 +49,45 @@ export class CtButtonSplit extends LitElement {
 				--menu-radius: 16px;
 				--in-speed: 250ms;
 				--out-speed: 250ms;
-				background: var(--color-primary);
-				color: var(--color-on-primary);
-				fill: var(--color-on-primary);
+
+				background: #00aeff00;
+				color: var(--color-on-primary, #fff);
+				outline-color: var(--color-primary, #19ace1);
+				border: 1px solid rgba(128, 128, 128, 0.31);
 				border-radius: var(--radius);
 				touch-action: manipulation;
 				user-select: none;
 				-webkit-tap-highlight-color: #0000;
+				transition: all 0.2s ease-in-out;
 			}
 
-			/* [hidden] {
-                display: none!important;
-            } */
+			:host([flat]) {
+				color: inherit;
+				border: none;
+				--color-primary-hover: rgba(173, 195, 222, 0.1);
+				--color-primary-active: rgba(173, 195, 222, 0.2);
+			}
+
+			:host([raised]) {
+				background: var(--color-primary, #00aeff);
+				color: #fff;
+				border: none;
+			}
+
+			:host([shadow]) {
+				background: var(--ct-button-shadow-color, rgba(173, 195, 222, 0.2));
+				border: none;
+			}
+
+			:host([light]) {
+				background: transparent;
+				border: 1px solid var(--color-primary, #00aeff);
+			}
+
+			:host([hidden]) {
+				display: none !important;
+			}
+
 			:host button {
 				cursor: pointer;
 				-webkit-appearance: none;
@@ -66,14 +102,15 @@ export class CtButtonSplit extends LitElement {
 				font-family: inherit;
 				font-size: inherit;
 				font-weight: 500;
-				padding-block: 1.25ch;
-				padding-inline: 2.5ch;
+				padding: 6px 16px;
+				line-height: 1.75;
 				color: var(--color-on-primary);
 				outline-color: var(--color-primary);
 				outline-offset: -5px;
+				transition: all 0.2s ease-in-out;
 			}
 
-			:host button:is(:hover, :focus-visible) {
+			:host(:is(:hover, :focus-visible)) {
 				background: var(--color-primary-hover);
 				color: var(--color-on-primary);
 			}
@@ -183,10 +220,6 @@ export class CtButtonSplit extends LitElement {
 				color: var(--color-on-surface, #535353);
 				width: 100%;
 			}
-			* {
-				box-sizing: border-box;
-				margin: 0;
-			}
 		`
 	];
 
@@ -251,5 +284,16 @@ export class CtButtonSplit extends LitElement {
 		this.ariaExplanded = value;
 		// console.log(e.target, value);
 		// e.target?.setAttribute("aria-expanded", value);
+	}
+}
+
+declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			'ct-button-split': CtButtonSplit;
+		}
+	}
+	interface HTMLElementTagNameMap {
+		'ct-button-split': CtButtonSplit;
 	}
 }

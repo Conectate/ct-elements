@@ -221,3 +221,9 @@ export class CtMenu extends CtLit {
 		e.stopPropagation();
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-menu': CtMenu;
+	}
+}
