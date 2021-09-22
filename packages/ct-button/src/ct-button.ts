@@ -148,6 +148,17 @@ export class CtButton extends LitElement {
 				display: none !important;
 			}
 
+			:host([disabled]) {
+				background: none;
+				color: #a8a8a8;
+				cursor: not-allowed;
+				pointer-events: none;
+			}
+
+			:host([gap]) button {
+				gap: 1ch;
+			}
+
 			:host button {
 				cursor: pointer;
 				-webkit-appearance: none;
@@ -157,7 +168,6 @@ export class CtButton extends LitElement {
 				border: none;
 				display: inline-flex;
 				align-items: center;
-				gap: 1ch;
 				white-space: nowrap;
 				font-family: inherit;
 				font-size: inherit;
@@ -175,7 +185,7 @@ export class CtButton extends LitElement {
 				background: var(--color-primary-hover);
 				color: var(--color-on-primary);
 			}
-			:host button:active {
+			:host(:active) {
 				background: var(--color-primary-active);
 			}
 
@@ -186,6 +196,7 @@ export class CtButton extends LitElement {
 	];
 	@property({ type: String, reflect: true }) role = 'button';
 	@property({ type: Boolean, reflect: true }) disabled = false;
+	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
 		return html` <slot name="prefix"></slot>
 			<button><slot></slot></button>
