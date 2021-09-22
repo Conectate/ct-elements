@@ -39,6 +39,35 @@ export class CodeExample extends CtLit {
 		`, */
 		unsafeCSS(Dark),
 		css`
+			.token.attr-name {
+				color: #a6e22e;
+			}
+			.token.selector,
+			.token.string,
+			.token.attr-value,
+			.token.char,
+			.token.builtin,
+			.token.inserted {
+				color: #e6db74;
+			}
+			.token.atrule,
+			.token.function,
+			.token.class-name {
+				color: #a6e22e;
+			}
+			.token.keyword {
+				color: #f92672;
+			}
+			.token.operator,
+			.token.entity,
+			.token.url,
+			.language-css .token.string,
+			.style .token.string,
+			.token.variable {
+				color: #f92672;
+			}
+		`,
+		css`
 			:host {
 				display: flex;
 				margin: 1rem 0 2rem 0;

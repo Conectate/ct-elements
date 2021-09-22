@@ -103,7 +103,7 @@ export class CtDialog extends CtLit {
 			await sleep(300);
 			let bodyY = document.body.getBoundingClientRect().height;
 			let elementY = this._element!.offsetHeight;
-			console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
+			// console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
 			if (bodyY > elementY) {
 				if ((elementY / bodyY) * 100 < 5) {
 					console.warn('El elemento no es visible');

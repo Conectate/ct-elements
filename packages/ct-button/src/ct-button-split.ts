@@ -51,7 +51,7 @@ export class CtButtonSplit extends LitElement {
 				--out-speed: 250ms;
 
 				background: #00aeff00;
-				color: var(--color-on-primary, #fff);
+				color: var(--color-primary, #00aeff);
 				outline-color: var(--color-primary, #19ace1);
 				border: 1px solid rgba(128, 128, 128, 0.31);
 				border-radius: var(--radius);
@@ -104,10 +104,10 @@ export class CtButtonSplit extends LitElement {
 				font-weight: 500;
 				padding: 6px 16px;
 				line-height: 1.75;
-				color: var(--color-on-primary);
+				color: inherit;
 				outline-color: var(--color-primary);
 				outline-offset: -5px;
-				transition: all 0.2s ease-in-out;
+				transition: background 0.2s ease-in-out;
 			}
 
 			:host(:is(:hover, :focus-visible)) {
@@ -143,6 +143,7 @@ export class CtButtonSplit extends LitElement {
 
 			.popup-btn:is(:hover, :focus-within) {
 				background: var(--color-primary-hover);
+				color: var(--color-on-primary);
 			}
 
 			.popup-btn:focus {

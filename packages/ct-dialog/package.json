@@ -19,7 +19,7 @@
 		"@conectate/ct-helpers": "^3.2.0",
 		"@conectate/ct-lit": "^3.4.0",
 		"@conectate/ct-spinner": "^3.4.0",
-		"lit": "^2.0.0-rc.4"
+		"lit": "^2.0.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

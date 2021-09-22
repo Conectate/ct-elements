@@ -11,7 +11,7 @@ found at https://wc.conectate.app/PATENTS.txt
 
 import '@material/mwc-ripple';
 
-import { LitElement, html } from 'lit';
+import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -86,90 +86,110 @@ _None_
  */
 @customElement('ct-button')
 export class CtButton extends LitElement {
+	static styles = [
+		css`
+			:host {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+				position: relative;
+				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+				/* --color-primary: #2060df;
+				--color-primary-hover: #19ace1;
+				--color-primary-active: #169aca; */
+				/* --color-primary-border: #b1c2ccb7; */
+				/* --color-on-primary: #f5f8fe; */
+
+				/* --color-surface: var(--color-surface, #fff); */
+				/* --color-on-surface: #001c55; */
+
+				--border: 1px solid currentColor;
+				--radius: 26px;
+				--menu-radius: 16px;
+				--in-speed: 250ms;
+				--out-speed: 250ms;
+
+				background: #00aeff00;
+				color: var(--color-primary, #00aeff);
+				outline-color: var(--color-primary, #19ace1);
+				border: 1px solid rgba(128, 128, 128, 0.31);
+				border-radius: var(--radius);
+				touch-action: manipulation;
+				user-select: none;
+				-webkit-tap-highlight-color: #0000;
+				transition: all 0.2s ease-in-out;
+			}
+
+			:host([flat]) {
+				color: inherit;
+				border: none;
+				--color-primary-hover: rgba(173, 195, 222, 0.1);
+				--color-primary-active: rgba(173, 195, 222, 0.2);
+			}
+
+			:host([raised]) {
+				background: var(--color-primary, #00aeff);
+				color: #fff;
+				border: none;
+			}
+
+			:host([shadow]) {
+				background: var(--ct-button-shadow-color, rgba(173, 195, 222, 0.2));
+				border: none;
+			}
+
+			:host([light]) {
+				background: transparent;
+				border: 1px solid var(--color-primary, #00aeff);
+			}
+
+			:host([hidden]) {
+				display: none !important;
+			}
+
+			:host button {
+				cursor: pointer;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				background: none;
+				border: none;
+				display: inline-flex;
+				align-items: center;
+				gap: 1ch;
+				white-space: nowrap;
+				font-family: inherit;
+				font-size: inherit;
+				font-weight: 500;
+				padding: 6px 16px;
+				line-height: 1.75;
+				color: inherit;
+				outline-color: var(--color-primary);
+				outline-offset: -5px;
+				border-radius: var(--radius);
+				transition: background 0.2s ease-in-out;
+			}
+
+			:host(:is(:hover, :focus-visible)) {
+				background: var(--color-primary-hover);
+				color: var(--color-on-primary);
+			}
+			:host button:active {
+				background: var(--color-primary-active);
+			}
+
+			:host([raised]:hover) {
+				box-shadow: var(--ct-button-box-shadow, 0 2px 16px 4px rgba(99, 188, 240, 0.45));
+			}
+		`
+	];
 	@property({ type: String, reflect: true }) role = 'button';
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	render() {
-		return html`<style>
-				:host {
-					display: inline-flex;
-					overflow: hidden;
-					position: relative;
-					font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-					padding: 0.6em 1.7em;
-					border-radius: 26px;
-					font-size: 1em;
-					color: var(--color-primary, #00aeff);
-					text-transform: none;
-					transition: background-color 200ms, box-shadow 350ms;
-					border: 1px solid rgba(128, 128, 128, 0.31);
-					background-color: transparent;
-					cursor: pointer;
-					outline: none;
-					font-weight: bold;
-					box-sizing: border-box;
-					min-width: 5.14em;
-					min-height: 2em;
-					margin: 0 0.29em;
-					flex-direction: row;
-					align-items: center; /* vertical */
-					justify-content: center; /*horizonal*/
-					text-align: center;
-				}
-
-				:host([flat]) {
-					color: inherit;
-					border: none;
-				}
-
-				:host([raised]) {
-					background: var(--color-primary, #00aeff);
-					color: #fff;
-					border: none;
-				}
-
-				:host([shadow]) {
-					background: var(--ct-button-shadow-color, rgba(173, 195, 222, 0.2));
-					border: none;
-				}
-
-				:host([light]) {
-					background: transparent;
-					border: 1px solid var(--color-primary, #00aeff);
-				}
-
-				:host([hidden]) {
-					display: none !important;
-				}
-
-				:host([disabled]) {
-					background: none;
-					color: #a8a8a8;
-					cursor: not-allowed;
-					pointer-events: none;
-				}
-
-				:host([raised]:hover) {
-					box-shadow: var(--ct-button-box-shadow, 0 2px 16px 4px rgba(99, 188, 240, 0.45));
-				}
-				.ripple {
-					position: absolute;
-					top: 0px;
-					left: 0px;
-					width: 100%;
-					height: 100%;
-					pointer-events: none;
-					visibility: 0;
-				}
-			</style>
-			<slot name="prefix"></slot>
-			<slot></slot>
-			<slot name="suffix"></slot>
-			<div style="position:absolute;top: 0;bottom: 0;left: 0;right: 0; opacity:0;">
-				<div style="height:100%">
-					<mwc-ripple primary></mwc-ripple>
-					<slot></slot>
-				</div>
-			</div>`;
+		return html` <slot name="prefix"></slot>
+			<button><slot></slot></button>
+			<slot name="suffix"></slot>`;
 	}
 }
 
@@ -180,6 +200,6 @@ declare global {
 		}
 	}
 	interface HTMLElementTagNameMap {
-		'ct-button': CtButton;
+		'ct-button': any;
 	}
 }

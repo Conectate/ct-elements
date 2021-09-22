@@ -1,5 +1,8 @@
+import './code-example/code-example';
 import '../packages/ct-select';
 import '../packages/ct-card';
+
+import { html as stripIndent } from 'common-tags';
 
 import { CtLit, css, customElement, html, property, query } from '../packages/ct-lit';
 import { CtSelect } from '../packages/ct-select';
@@ -50,41 +53,61 @@ export class DemoCtSelect extends CtLit {
 			}
 			header > h1 {
 				margin-bottom: 0;
-			}
-			ct-card {
-				margin: 16px 24px;
+				font-family: monospace;
 			}
 		`
 	];
-
+	name = 'ct-select';
 	render() {
 		return html`
-			<ct-card shadow>
-				<header class="card-content">
-					<h1>ct-select</h1>
-				</header>
-				<main class="card-content">${this.example()}</main>
-			</ct-card>
+			<header class="card-content">
+				<h1>&lt;/${this.name}&gt;</h1>
+			</header>
+			<main class="card-content">${this.example()}</main>
 		`;
 	}
 
 	@query('#ct-select') ctSelect!: CtSelect;
 	example() {
-		return html`<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
-			<ct-select .items=${this.getItems()} label="Multi Select" multi></ct-select>
-			<ct-select
-				id="ct-select"
-				.items=${this.getItems()}
-				label="Multi Select with Custom View"
-				multi
-				.renderItem=${(item: any, i: number) =>
-					html`<render-item
-						.text=${item.text}
-						?selected=${(this.ctSelect.value as any[])?.includes(item.value)}
-						.subtext=${`Sub ${item.text}`}
-						.value=${item.value}
-					></render-item>`}
-			></ct-select>`;
+		let code = stripIndent`
+		<!-- getItems(): {text: string;value: number;}[] -->
+
+		<ct-select label="Normal"  .items=\${this.getItems()} .value=\${1}></ct-select>
+		<ct-select label="Multi Select" .items=\${this.getItems()} multi></ct-select>
+		<ct-select id="ct-select"
+			.items=\${this.getItems()}
+			label="Multi Select with Custom View"
+			multi
+			.renderItem=\${(item: any, i: number) =>
+				html\`<render-item
+					.text="\${item.text}"
+					?selected=\${(this.ctSelect.value as any[])?.includes(item.value)}
+					.subtext=\${\`Sub \${item.text}\`}
+					.value=\${item.value}
+				></render-item>\`}
+		></ct-select>`.replaceAll('\t', '    ');
+
+		return html`
+			<code-example class="language-html" .code=${code}>
+				<div slot="demo">
+					<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
+					<ct-select .items=${this.getItems()} label="Multi Select" multi></ct-select>
+					<ct-select
+						id="ct-select"
+						.items=${this.getItems()}
+						label="Multi Select with Custom View"
+						multi
+						.renderItem=${(item: any, i: number) =>
+							html`<render-item
+								.text=${item.text}
+								?selected=${(this.ctSelect.value as any[])?.includes(item.value)}
+								.subtext=${`Sub ${item.text}`}
+								.value=${item.value}
+							></render-item>`}
+					></ct-select>
+				</div>
+			</code-example>
+		`;
 	}
 
 	getItems() {

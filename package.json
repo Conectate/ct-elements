@@ -7,7 +7,7 @@
 		"@material/mwc-checkbox": "*",
 		"@material/mwc-radio": "*",
 		"common-tags": "^1.8.0",
-		"lit": "^2.0.0-rc.4",
+		"lit": "^2.0.0",
 		"lit-virtualizer": "^0.4.2",
 		"prismjs": "^1.25.0"
 	},
