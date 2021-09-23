@@ -46,7 +46,7 @@ export class DemoCtButtom extends CtLit {
 			<ct-button-split raised><ct-icon icon="account_circle"></ct-icon> Raised with ct-icon</ct-button-split>`;
 	}
 	firstUpdated() {
-		this.shadowRoot?.querySelectorAll('ct-button-split').forEach((el) => {
+		this.shadowRoot?.querySelectorAll('ct-button').forEach((el) => {
 			el.addEventListener('click', () => {
 				console.log(el.innerHTML);
 			});

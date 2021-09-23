@@ -89,27 +89,14 @@ export class CtButton extends LitElement {
 	static styles = [
 		css`
 			:host {
+				--radius: 26px;
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
 				overflow: hidden;
 				position: relative;
 				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-				/* --color-primary: #2060df;
-				--color-primary-hover: #19ace1;
-				--color-primary-active: #169aca; */
-				/* --color-primary-border: #b1c2ccb7; */
-				/* --color-on-primary: #f5f8fe; */
-
-				/* --color-surface: var(--color-surface, #fff); */
-				/* --color-on-surface: #001c55; */
-
-				--border: 1px solid currentColor;
-				--radius: 26px;
-				--menu-radius: 16px;
-				--in-speed: 250ms;
-				--out-speed: 250ms;
-
+				padding: 6px 16px;
 				background: #00aeff00;
 				color: var(--color-primary, #00aeff);
 				outline-color: var(--color-primary, #19ace1);
@@ -126,6 +113,7 @@ export class CtButton extends LitElement {
 				border: none;
 				--color-primary-hover: rgba(173, 195, 222, 0.1);
 				--color-primary-active: rgba(173, 195, 222, 0.2);
+				--color-on-primary: var(--color-on-background, #535353);
 			}
 
 			:host([raised]) {
@@ -150,7 +138,7 @@ export class CtButton extends LitElement {
 
 			:host([disabled]) {
 				background: none;
-				color: #a8a8a8;
+				color: var(--color-disable, #a8a8a8);
 				cursor: not-allowed;
 				pointer-events: none;
 			}
@@ -160,32 +148,43 @@ export class CtButton extends LitElement {
 			}
 
 			:host button {
-				cursor: pointer;
-				-webkit-appearance: none;
-				-moz-appearance: none;
-				appearance: none;
-				background: none;
-				border: none;
 				display: inline-flex;
+				justify-content: center;
 				align-items: center;
+				text-align: center;
+				padding: 0;
+				width: 100%;
+				cursor: pointer;
+				border: none;
 				white-space: nowrap;
 				font-family: inherit;
 				font-size: inherit;
 				font-weight: 500;
-				padding: 6px 16px;
 				line-height: 1.75;
 				color: inherit;
-				outline-color: var(--color-primary);
+				outline-color: var(--color-primary, #00aeff);
 				outline-offset: -5px;
 				border-radius: var(--radius);
-				transition: background 0.2s ease-in-out;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				background: none;
+				/* transition: background 0.2s ease-in-out; */
+				outline-offset: 3px;
 			}
 
-			:host(:is(:hover, :focus-visible)) {
-				background: var(--color-primary-hover);
-				color: var(--color-on-primary);
+			:host(:is([raised]:hover, :focus-visible)) {
+				background: var(--color-primary-hover, #12b4ff);
+				color: var(--color-on-primary, #fff);
+			}
+			:host(:hover) {
+				background: #6b6b6b1a;
 			}
 			:host(:active) {
+				background: #6b6b6b6c;
+			}
+
+			:host([raised]:active) {
 				background: var(--color-primary-active);
 			}
 
@@ -207,10 +206,10 @@ export class CtButton extends LitElement {
 declare global {
 	namespace JSX {
 		interface IntrinsicElements {
-			'ct-button': CtButton;
+			'ct-button': any;
 		}
 	}
 	interface HTMLElementTagNameMap {
-		'ct-button': any;
+		'ct-button': CtButton;
 	}
 }

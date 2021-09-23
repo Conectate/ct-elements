@@ -54,7 +54,7 @@ importers:
   packages/ct-chartjs:
     specifiers:
       '@conectate/ct-helpers': ^3.2.0
-      '@conectate/ct-lit': ^3.4.0
+      '@conectate/ct-lit': ^3.5.0
       tslib: ^2.2.0
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers

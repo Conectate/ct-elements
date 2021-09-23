@@ -1,6 +1,7 @@
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
 import { Chart } from 'chart.js';
+import { LitElement, PropertyValues, html } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 
 declare global {
 	interface HTMLElementTagNameMap {
@@ -11,7 +12,7 @@ declare global {
  * @element ct-chartjs
  */
 @customElement('ct-chartjs')
-export class CtChartJS extends CtLit {
+export class CtChartJS extends LitElement {
 	@property({ type: Object }) chart!: Chart.ChartConfiguration & Chart;
 	@property({ type: String }) type!: Chart.ChartType;
 	@property({ type: Object }) data!: Chart.ChartData;
@@ -33,6 +34,7 @@ export class CtChartJS extends CtLit {
 				}
 			</style>
 		`;
+	@query('#canvas') $canvas!: HTMLCanvasElement;
 	ctx!: CanvasRenderingContext2D;
 	resize!: any;
 
@@ -65,7 +67,6 @@ export class CtChartJS extends CtLit {
 	}
 
 	async firstUpdated(_props: Map<PropertyKey, unknown>) {
-		this.mapIDs();
 		await sleep(200);
 		if (this.autopaint) {
 			this.init();
@@ -88,7 +89,7 @@ export class CtChartJS extends CtLit {
 		}
 		this.offsetWidth == 0 && (await sleep(100));
 
-		this.chart = new Chart(this.$.canvas, {
+		this.chart = new Chart(this.$canvas, {
 			type: this.type,
 			data: data,
 			options: { ...options, responsive: true, maintainAspectRatio: false }
@@ -97,6 +98,8 @@ export class CtChartJS extends CtLit {
 	}
 
 	paint() {
+		console.log('Se inicio paint');
+
 		let data: Chart.ChartData = this.data || {};
 		let options: Chart.ChartOptions = this.options || {};
 		if (!this.chart) {
@@ -112,18 +115,24 @@ export class CtChartJS extends CtLit {
 			this.chart.options = options;
 			this.chart.update();
 		}
-		this.chart.data = this.observe(this.chart.data);
-		for (let prop of Object.keys(this.chart.data)) {
-			// @ts-ignore
-			this.chart.data[prop] = this.observe(this.chart.data[prop]);
-		}
-		// @ts-ignore
-		this.chart.data.datasets = this.chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
-			// @ts-ignore
-			dataset.data = this.observe(dataset.data);
-			return this.observe(dataset);
-		});
+		// this.chart.data = this.observe(this.chart.data);
+		// for (let prop of Object.keys(this.chart.data)) {
+		// 	// @ts-ignore
+		// 	this.chart.data[prop] = this.observe(this.chart.data[prop]);
+		// }
+		// // @ts-ignore
+		// this.chart.data.datasets = this.chart.data.datasets.map((dataset: Chart.ChartDataSets) => {
+		// 	// @ts-ignore
+		// 	dataset.data = this.observe(dataset.data);
+		// 	return this.observe(dataset);
+		// });
 		window.addEventListener('resize', this.resize);
+	}
+
+	updated(_changedProperties: PropertyValues<this>) {
+		if (_changedProperties.has('data') || _changedProperties.has('options') || _changedProperties.has('type')) {
+			this.paint();
+		}
 	}
 
 	disconnectedCallback() {
@@ -150,6 +159,8 @@ export class CtChartJS extends CtLit {
 	 */
 	public updateChart = (): void => {
 		if (this.chart) {
+			console.log('update');
+
 			this.chart.update();
 		}
 	};

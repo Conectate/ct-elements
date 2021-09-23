@@ -73,18 +73,18 @@ export class DemoCtSelect extends CtLit {
 		<!-- getItems(): {text: string;value: number;}[] -->
 
 		<ct-select label="Normal"  .items=\${this.getItems()} .value=\${1}></ct-select>
-		<ct-select label="Multi Select" .items=\${this.getItems()} multi></ct-select>
+		<ct-select label="Multi Select" multi .items=\${this.getItems()}></ct-select>
 		<ct-select id="ct-select"
-			.items=\${this.getItems()}
 			label="Multi Select with Custom View"
 			multi
-			.renderItem=\${(item: any, i: number) =>
+			.items=\${this.getItems()}
+			.renderItem="\${(item: any, i: number) =>
 				html\`<render-item
 					.text="\${item.text}"
 					?selected=\${(this.ctSelect.value as any[])?.includes(item.value)}
 					.subtext=\${\`Sub \${item.text}\`}
 					.value=\${item.value}
-				></render-item>\`}
+				></render-item>\`}"
 		></ct-select>`.replaceAll('\t', '    ');
 
 		return html`
