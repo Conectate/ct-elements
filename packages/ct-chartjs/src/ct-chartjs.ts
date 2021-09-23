@@ -1,8 +1,8 @@
-import { sleep } from '@conectate/ct-helpers';
 import { Chart } from 'chart.js';
 import { LitElement, PropertyValues, html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 
+let sleep = (time: number) => new Promise((resolve) => setTimeout(() => resolve(0), time));
 declare global {
 	interface HTMLElementTagNameMap {
 		'ct-chartjs': CtChartJS;

@@ -6,8 +6,6 @@
 	"typings": "ct-chartjs.d.ts",
 	"module": "ct-chartjs.js",
 	"dependencies": {
-		"@conectate/ct-helpers": "^3.2.0",
-		"@conectate/ct-lit": "^3.5.0",
 		"lit": "^2.0.0",
 		"tslib": "^2.2.0"
 	},
