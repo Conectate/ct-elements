@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-router",
-	"version": "3.5.5",
+	"version": "3.5.6",
 	"description": "It's a simple routing system that changes the viewport depending on the route given",
 	"main": "ct-router.js",
 	"typings": "ct-router.d.ts",
