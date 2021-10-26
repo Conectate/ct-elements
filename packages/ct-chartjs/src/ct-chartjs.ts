@@ -27,9 +27,9 @@ export class CtChartJS extends LitElement {
 			<style>
 				canvas,
 				.chart-size {
-					height: ${y}px !important;
+					height: ${y + `px!important`};
 					width: 100% !important;
-					max-width: ${x}px !important;
+					max-width: ${x + `px!important`};
 					min-width: 100px;
 				}
 			</style>
