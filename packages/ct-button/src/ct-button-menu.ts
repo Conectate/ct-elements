@@ -11,6 +11,10 @@ import { rovingIndex } from './ct-button-helpers';
 type leftRight = 'left' | 'right';
 type topBottom = 'top' | 'bottom';
 
+/**
+ * @group ct-elements
+ * @element ct-button-menu
+ */
 @customElement('ct-button-menu')
 export class CtButtonMenu extends LitElement {
 	static styles = [
@@ -241,5 +245,11 @@ export class CtButtonMenu extends LitElement {
 					targets: btns
 				});
 		}, 2000);
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-button-menu': CtButtonMenu;
 	}
 }
