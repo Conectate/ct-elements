@@ -4,7 +4,7 @@ import '../../ct-list/src/ct-list-item';
 
 import { icon } from '@conectate/ct-icon/icon-list';
 import { LitElement, TemplateResult, css, html } from 'lit';
-import { customElement, property, query, queryAll } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 
 import { rovingIndex } from './ct-button-helpers';
 
