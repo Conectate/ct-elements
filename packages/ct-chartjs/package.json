@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-chartjs",
-	"version": "3.5.4",
+	"version": "3.5.9",
 	"description": "HTML5 Chartjs made with Web Components and Lit",
 	"main": "ct-chartjs.js",
 	"typings": "ct-chartjs.d.ts",
