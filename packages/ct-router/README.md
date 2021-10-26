@@ -54,7 +54,7 @@ import { href } from '@conectate/ct-router';
 @customElement('my-router')
 class MyRouter extends CtLit{
   @property({type : Boolean}) isLogged = false;
-
+  @query('#ctrouter') $ctrouter!: HTMLElementTagNameMap['ct-router'];
   /*
   You can use lit-html @event bindings in your template inside the render function to add event listeners to your component.
   You can use lit-html '?' bindings in your template inside the render function to add boolean property.
@@ -104,11 +104,11 @@ class MyRouter extends CtLit{
   /* You can view state of you web */
   printCurrentState(){
     // More details in interface LocationChanged
-    console.log('Current patternMatched',this.$.ctroute.path);
-    console.log('Current pathname',this.$.ctroute.pathname);
-    console.log('Current queryParams',this.$.ctroute.queryParams);
-    console.log('Current params',this.$.ctroute.params);
-    console.log('is Logged?',this.$.ctroute.auth);
+    console.log('Current patternMatched',this.$ctrouter.path);
+    console.log('Current pathname',this.$ctrouter.pathname);
+    console.log('Current queryParams',this.$ctrouter.queryParams);
+    console.log('Current params',this.$ctrouter.params);
+    console.log('is Logged?',this.$ctrouter.auth);
   }
 
   loginNeeded(e : CustomEvent< { path: string } >){
@@ -122,10 +122,10 @@ class MyRouter extends CtLit{
 
   pathChanged(e : CustomEvent<LocationChanged>){
     console.log('path changed',location.href);
-    console.log('patternMatched',this.$.ctroute.path,'==',e.detail.path);
-    console.log('pathname',this.$.ctroute.pathname,'==',e.detail.pathname,'==',location.pathname);
-    console.log(this.$.ctroute.queryParams,'==',e.detail.queryParams);
-    console.log(this.$.ctroute.params,'==',e.detail.params);
+    console.log('patternMatched',this.$ctrouter.path,'==',e.detail.path);
+    console.log('pathname',this.$ctrouter.pathname,'==',e.detail.pathname,'==',location.pathname);
+    console.log(this.$ctrouter.queryParams,'==',e.detail.queryParams);
+    console.log(this.$ctrouter.params,'==',e.detail.params);
   }
 }
 
@@ -188,7 +188,7 @@ export default App;
 If you plan to manage the dynamic imports, skip `from` attr
 
 ```js
-this.$.ctroute.pages = [
+this.$ctrouter.pages = [
   {
     path: "/page1",
     element: html`<page-number1></page-number1>`,
