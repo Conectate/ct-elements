@@ -284,7 +284,7 @@ export class CtRouter extends CtLit {
 				window.dispatchEvent(ce);
 				this.patternMatched = '/login';
 				this.pathname = '/login';
-				window.history.replaceState(null, document.title, '/login');
+				// window.history.replaceState(null, document.title, '/login');
 				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
 			} else {
 				this.patternMatched = this.patternMatched;
@@ -298,7 +298,7 @@ export class CtRouter extends CtLit {
 			console.log('/404');
 			this.patternMatched = '/404';
 			this.pathname = '/404';
-			window.history.replaceState(null, document.title, '/404');
+			// window.history.replaceState(null, document.title, '/404');
 			this._currentView = this._routes['/404']?.element || html`<h1>404 - Not Found</h1>`;
 			if (this._routes[this.patternMatched].renderRoot) {
 				this.unmountComponentAtNode?.(this.root);
