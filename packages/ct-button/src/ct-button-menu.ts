@@ -1,7 +1,5 @@
 import '@conectate/ct-icon';
 
-import '../../ct-list/src/ct-list-item';
-
 import { icon } from '@conectate/ct-icon/icon-list';
 import { LitElement, TemplateResult, css, html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
@@ -237,7 +235,7 @@ export class CtButtonMenu extends LitElement {
 	extra() {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];
-			let menu_btns: NodeListOf<HTMLElementTagNameMap['ct-list-item']> = this.querySelectorAll('ct-list-item');
+			let menu_btns: NodeListOf<any> = this.querySelectorAll('ct-list-item');
 			menu_btns.forEach((btn) => btns.push(btn.button));
 			if (btns.length > 0)
 				rovingIndex({
