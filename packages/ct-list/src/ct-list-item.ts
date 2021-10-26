@@ -1,6 +1,8 @@
 import '@conectate/ct-icon/ct-icon';
 
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { icon } from '@conectate/ct-icon/icon-list';
+import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  * @element ct-list-item
@@ -10,14 +12,41 @@ export class CtListItem extends CtLit {
 	static styles = [
 		css`
 			:host {
-				border-radius: 8px;
 				display: block;
 				outline: none;
-				padding: 8px;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
 				cursor: pointer;
+			}
+
+			:host(:focus-visible) {
+				box-shadow: 0 0 0 1px var(--color-primary);
+			}
+			button {
+				cursor: pointer;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				background: none;
+				border: none;
+				display: inline-flex;
+				align-items: center;
+				white-space: nowrap;
+				font-family: inherit;
+				font-size: inherit;
+				font-weight: 500;
+				text-align: start;
+				padding: 8px 16px;
+				width: 100%;
+				line-height: 1.75;
+				color: inherit;
+				outline-color: var(--color-primary);
+				outline-offset: -5px;
+				transition: background 0.2s ease-in-out;
+			}
+			:host(:hover) {
+				background: #7c7c7c36;
 			}
 			:host(:hover) {
 				background: #7c7c7c36;
@@ -36,13 +65,17 @@ export class CtListItem extends CtLit {
 		`
 	];
 
-	@property({ type: String }) icon = '';
+	@query('button') button!: HTMLButtonElement;
+	@property({ type: String }) svg = '';
+	@property({ type: String }) icon?: icon;
 	@property({ type: String }) link = '';
 	@property({ type: String }) name = '';
 
 	render() {
-		return html` <ct-icon .svg="${this.icon}"></ct-icon>
-			<div class="name">${this.name}</div>`;
+		return html`<button>
+			${this.icon || this.svg ? html`<ct-icon .svg="${this.svg}" icon="${ifDefined(this.icon)}"></ct-icon>` : ''}
+			<div class="name">${this.name}</div>
+		</button>`;
 	}
 }
 

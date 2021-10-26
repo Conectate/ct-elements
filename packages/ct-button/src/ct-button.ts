@@ -93,7 +93,7 @@ export class CtButton extends LitElement {
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				overflow: hidden;
+				/* overflow: hidden; */
 				position: relative;
 				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
 				padding: 6px 16px;
@@ -136,7 +136,8 @@ export class CtButton extends LitElement {
 				display: none !important;
 			}
 
-			:host([disabled]) {
+			:host([disabled]),
+			:host([disabled]) button {
 				background: none;
 				color: var(--color-disable, #a8a8a8);
 				cursor: not-allowed;
@@ -174,7 +175,7 @@ export class CtButton extends LitElement {
 			}
 
 			:host(:is([raised]:hover, :focus-visible)) {
-				background: var(--color-primary-hover, #12b4ff);
+				background: var(--color-primary-hover, var(--color-primary, #00aeff));
 				color: var(--color-on-primary, #fff);
 			}
 			:host(:hover) {
@@ -185,7 +186,7 @@ export class CtButton extends LitElement {
 			}
 
 			:host([raised]:active) {
-				background: var(--color-primary-active);
+				background: var(--color-primary-active, var(--color-primary-hover, var(--color-primary, #00aeff)));
 			}
 
 			:host([raised]:hover) {
@@ -198,7 +199,7 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
 		return html` <slot name="prefix"></slot>
-			<button><slot></slot></button>
+			<button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent('btnclick'))}><slot></slot></button>
 			<slot name="suffix"></slot>`;
 	}
 }

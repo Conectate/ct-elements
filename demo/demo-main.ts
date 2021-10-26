@@ -20,6 +20,7 @@ export class DemoMain extends CtLit {
 			:host {
 				display: block;
 				font-family: 'Roboto', 'Ubuntu', sans-serif;
+				padding-bottom: 128px;
 			}
 		`
 	];
@@ -29,7 +30,6 @@ export class DemoMain extends CtLit {
 			<demo-ct-bottom-sheet></demo-ct-bottom-sheet>
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-radio></demo-ct-radio>
-			<demo-ct-buttom></demo-ct-buttom> 
-			`;
+			<demo-ct-buttom></demo-ct-buttom> `;
 	}
 }

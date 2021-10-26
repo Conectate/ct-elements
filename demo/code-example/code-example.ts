@@ -223,7 +223,7 @@ export class CodeExample extends CtLit {
 	public connectedCallback(): void {
 		super.connectedCallback();
 		window.addEventListener('resize', this.shouldManageTabOrderForScrolling);
-		console.log(Dark);
+		// console.log(Dark);
 	}
 
 	public disconnectedCallback(): void {

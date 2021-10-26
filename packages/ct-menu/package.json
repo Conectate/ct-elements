@@ -34,5 +34,15 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"exports": {
+		".": {
+			"development": "./src/ct-menu.ts",
+			"default": "./ct-menu.js"
+		},
+		"./ct-menu": {
+			"development": "./src/ct-menu.ts",
+			"default": "./ct-menu.js"
+		}
+	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

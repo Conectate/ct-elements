@@ -28,5 +28,15 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"exports": {
+		".": {
+			"development": "./src/ct-list-item.ts",
+			"default": "./ct-list-item.js"
+		},
+		"./ct-list-item": {
+			"development": "./src/ct-list-item.ts",
+			"default": "./ct-list-item.js"
+		}
+	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }

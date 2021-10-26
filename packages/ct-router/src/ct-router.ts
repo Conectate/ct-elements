@@ -57,6 +57,7 @@ type CtRouterListeners = 'beforeunload';
  * @event login-needed It triggers when a page requires authentication but the user is not yet logged in
  * @event loading It fires when a page is imported diamicamente and it is fired again when it finishes loading the page
  * @event location-changed it shoots when the route changes
+ * @event error-import it fires when the page is not found
  */
 @customElement('ct-router')
 export class CtRouter extends CtLit {
@@ -172,9 +173,9 @@ export class CtRouter extends CtLit {
         ej: /herberth -> /herberth#showDialog -> /herberth
         */
 		if (location.pathname != this.pathname) {
-			let has = this.listeners.find((l) => l.name == 'beforeunload');
-			if (has) {
-				let cont = await has.callback();
+			let beforeunload = this.listeners.find((l) => l.name == 'beforeunload');
+			if (beforeunload) {
+				let cont = await beforeunload.callback();
 				if (cont) {
 					this._setPath(location.pathname);
 					this._setQueryParams(getQueryParams());
@@ -270,7 +271,7 @@ export class CtRouter extends CtLit {
 
 		// if pattern matched is created, change the view, if exausted all
 		// route patterns, make view a not-found
-		//console.log(this.patternMatched);
+		// console.log(this.patternMatched);
 		if (this.patternMatched) {
 			// Si la vista es protegida y no esta logeado entonces lo mando a /login y no esta autenticado
 			if (routes[this.patternMatched].auth && !this.auth) {
@@ -281,6 +282,9 @@ export class CtRouter extends CtLit {
 				});
 				this.dispatchEvent(ce);
 				window.dispatchEvent(ce);
+				this.patternMatched = '/login';
+				this.pathname = '/login';
+				window.history.replaceState(null, document.title, '/login');
 				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
 			} else {
 				this.patternMatched = this.patternMatched;
@@ -291,8 +295,10 @@ export class CtRouter extends CtLit {
 				}
 			}
 		} else {
-			this.patternMatched = this.patternMatched = '/404';
 			console.log('/404');
+			this.patternMatched = '/404';
+			this.pathname = '/404';
+			window.history.replaceState(null, document.title, '/404');
 			this._currentView = this._routes['/404']?.element || html`<h1>404 - Not Found</h1>`;
 			if (this._routes[this.patternMatched].renderRoot) {
 				this.unmountComponentAtNode?.(this.root);
@@ -321,9 +327,7 @@ export class CtRouter extends CtLit {
 					})
 					.catch((e: any) => {
 						console.error(e);
-						if (`${e}`.includes('ChunkLoadError')) {
-							setTimeout(() => location.reload(), 10000);
-						}
+						this.dispatchEvent(new CustomEvent('error-import', { detail: { error: e } }));
 						console.error("Can't lazy-import - " + fromImport);
 					});
 			} else {

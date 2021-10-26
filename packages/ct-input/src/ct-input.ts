@@ -375,8 +375,9 @@ export class CtInput extends CtLit {
 		this._onInput();
 	}
 
-	set value(val) {
+	set value(val: string | number | undefined | null) {
 		val ||= '';
+		val = val.toString();
 		if (this._value != val && val.length - 1 < this.maxlength) {
 			this._value = val;
 			if (this.$.input) this.$.input.value = val;
@@ -386,7 +387,7 @@ export class CtInput extends CtLit {
 		}
 	}
 
-	get value() {
+	get value(): string {
 		return this._value || '';
 	}
 	get valueAsnumber() {
