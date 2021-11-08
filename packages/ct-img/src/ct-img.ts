@@ -10,6 +10,7 @@
  */
 
 import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { classMap } from 'lit/directives/class-map.js';
 /**
  * ## `ct-img`
  * Normal and lazy images loader element
@@ -24,6 +25,8 @@ export class CtImg extends CtLit {
 	@property({ type: String }) src: string = '';
 	@property({ type: Boolean }) lazy = false;
 	@property({ type: Boolean }) round: boolean = false;
+	/** Force use IntersectionObserver instead `img.loading=lazy` */
+	@property({ type: Boolean }) intersectionobserver: boolean = false;
 	@property({ type: Object }) viewport: HTMLElement = document.body;
 	@property({ type: String }) placeholderImg: string = '';
 	@property({ type: String }) onErrorSrc =
@@ -84,9 +87,10 @@ export class CtImg extends CtLit {
 		`
 	];
 	render() {
+		let classes = { r: this.round };
 		return html`
 			<img id="img" .alt="${this.alt}" @load=${this._onImgLoad} @error=${this._onImgError} />
-			<div id="divimg"></div>
+			<div id="divimg" class=${classMap(classes)}></div>
 			<slot></slot>
 		`;
 	}
@@ -121,7 +125,6 @@ export class CtImg extends CtLit {
 		if (cp.has('src')) this._srcChanged(this.src);
 		if (cp.has('srcset') || cp.has('lazy')) this._lazyChanged(this.lazy);
 		if (cp.has('placeholderImg')) this._placeholderImgChanged(this.placeholderImg);
-		if (cp.has('round')) this._roundChanged(this.round);
 	}
 
 	_lazyChanged(lazy: boolean) {
@@ -145,12 +148,10 @@ export class CtImg extends CtLit {
 	 */
 	_initLazyLoad(polyfilled: boolean = false) {
 		// Native Load
-		if (this.$.img.loading) {
+		if (this.$.img.loading && !this.intersectionobserver) {
 			this.$.img.loading = 'lazy';
 			this.$.img.src = this.srcset || this.src;
-		}
-		// @ts-ignore
-		else if (window.IntersectionObserver) {
+		} else if (window.IntersectionObserver) {
 			// @ts-ignore
 			if (!window.CtImgIntersectionObserver) {
 				var options = {
@@ -207,14 +208,6 @@ export class CtImg extends CtLit {
 			// listen for the polyfill to finish loading
 			// then retry the initLazyLoad process
 			polyfillScript.addEventListener('load', (_) => this._initLazyLoad(true));
-		}
-	}
-
-	_roundChanged(round: boolean) {
-		if (round) {
-			this.$.divimg.classList.add('r');
-		} else {
-			this.$.divimg.classList.remove('r');
 		}
 	}
 
