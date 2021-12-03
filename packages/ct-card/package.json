@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-card",
-	"version": "3.5.0",
+	"version": "3.5.11",
 	"description": "HTML card made with Web Components and Lit",
 	"main": "ct-card.js",
 	"typings": "ct-card.d.ts",

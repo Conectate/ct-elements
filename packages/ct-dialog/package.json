@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-dialog",
-	"version": "3.5.8",
+	"version": "3.5.11",
 	"description": "HTML dialog made with Web Components",
 	"main": "ct-dialog.js",
 	"typings": "ct-dialog.d.ts",
@@ -14,9 +14,9 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-button": "^3.5.8",
-		"@conectate/ct-card": "^3.5.0",
-		"@conectate/ct-helpers": "^3.2.0",
+		"@conectate/ct-button": "^3.5.11",
+		"@conectate/ct-card": "^3.5.11",
+		"@conectate/ct-helpers": "^3.5.11",
 		"@conectate/ct-lit": "^3.5.0",
 		"@conectate/ct-spinner": "^3.5.0",
 		"lit": "^2.0.0"

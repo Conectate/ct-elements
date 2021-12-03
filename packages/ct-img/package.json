@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-img",
-	"version": "3.5.10",
+	"version": "3.5.11",
 	"description": "Lazy load images in web with Web Components and lit",
 	"module": "ct-img.js",
 	"main": "ct-img.js",
