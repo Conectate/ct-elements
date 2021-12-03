@@ -91,6 +91,7 @@ export class DemoCtSelect extends CtLit {
 			<code-example class="language-html" .code=${code}>
 				<div slot="demo">
 					<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
+					<ct-select .items=${this.getItems()} label="Normal searchable" .value=${1} searchable></ct-select>
 					<ct-select .items=${this.getItems()} label="Multi Select" multi></ct-select>
 					<ct-select
 						id="ct-select"

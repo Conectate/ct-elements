@@ -6,7 +6,7 @@ import '@conectate/ct-dialog';
 import './ct-select-item';
 
 import { CtDialog, showCtDialog } from '@conectate/ct-dialog';
-import { CtLit, css, html, property, state, unsafeHTML } from '@conectate/ct-lit';
+import { CtLit, css, html, property, query, state, unsafeHTML } from '@conectate/ct-lit';
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.
@@ -164,6 +164,7 @@ export class CtSelectDialog extends CtLit {
 	@property({ type: String }) selectedPlaceholder = 'items selected';
 	@property({ type: Array }) multiValue: object[] = [];
 	@property({ type: Object }) dialog!: CtDialog;
+	@query('#search') $search!: HTMLElementTagNameMap['ct-input'];
 	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) =>
 		html`
 			<ct-select-item ?multi=${this.multi} ?selected="${this.multi && ((this.multiValue as object[]) ||= []).includes(item[this.valueProperty])}">
@@ -260,7 +261,9 @@ export class CtSelectDialog extends CtLit {
 		return html`
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
-				${this.searchable ? html` <ct-input @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> ` : ``}
+				${this.searchable
+					? html` <ct-input id="search" @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> `
+					: ``}
 				<div class="body" id="confirmBody">
 					${items.map(
 						(i: any, index: number, arr: any[]) => html`
@@ -280,6 +283,9 @@ export class CtSelectDialog extends CtLit {
 		this.mapIDs();
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 		this.itemsFiltered = [...this.items];
+		setTimeout(() => {
+			this.$search.focus();
+		}, 500);
 	}
 
 	/**
