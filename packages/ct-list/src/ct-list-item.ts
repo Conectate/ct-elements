@@ -69,12 +69,12 @@ export class CtListItem extends CtLit {
 	@property({ type: String }) svg = '';
 	@property({ type: String }) icon?: icon;
 	@property({ type: String }) link = '';
-	@property({ type: String }) name = '';
+	@property({ type: String }) text = '';
 
 	render() {
 		return html`<button>
 			${this.icon || this.svg ? html`<ct-icon .svg="${this.svg}" icon="${ifDefined(this.icon)}"></ct-icon>` : ''}
-			<div class="name">${this.name}</div>
+			<div class="name">${this.text}</div>
 		</button>`;
 	}
 }

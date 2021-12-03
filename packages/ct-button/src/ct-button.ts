@@ -181,9 +181,6 @@ export class CtButton extends LitElement {
 			:host(:hover) {
 				background: #6b6b6b1a;
 			}
-			:host(:active) {
-				background: #6b6b6b6c;
-			}
 
 			:host([raised]:active) {
 				background: var(--color-primary-active, var(--color-primary-hover, var(--color-primary, #00aeff)));

@@ -1,4 +1,5 @@
-import '../packages/ct-button';
+import '../packages/ct-list/src/ct-list-item';
+import '../packages/ct-button/src/ct-button';
 import '../packages/ct-button/src/ct-button-menu';
 import '../packages/ct-menu/src/ct-menu';
 
@@ -49,7 +50,7 @@ export class DemoCtButtom extends CtLit {
 			</div>
 			<div>
 				${['top-right', 'top-left', 'bottom-right', 'bottom-left'].map(
-					(from) => html`<ct-button class="menu">
+					(from) => html`<ct-button class="menu" disabled>
 						From ${from}
 						<ct-button-menu slot="suffix" from=${from as any} icon="expand_more" rotate>
 							<ct-list-item .name=${`H@`} icon="car_rental"></ct-list-item>
@@ -66,16 +67,16 @@ export class DemoCtButtom extends CtLit {
 				)}
 				<ct-button class="menu" shadow>
 					Witn keep
-					<ct-button-menu slot="suffix" keep icon="expand_more">
-						<ct-list-item .name=${`H@`} icon="car_rental"></ct-list-item>
-						<ct-list-item .name=${`Her`} icon="car_rental"></ct-list-item>
-						<ct-list-item .name=${`Her`} icon="quickreply"></ct-list-item>
-						<ct-list-item name="Save" icon="save"></ct-list-item>
+					<ct-button-menu slot="suffix" keep rotate icon="expand_more">
+						<ct-list-item .text=${`H@`} icon="car_rental"></ct-list-item>
+						<ct-list-item .text=${`Her`} icon="car_rental"></ct-list-item>
+						<ct-list-item .text=${`Her`} icon="quickreply"></ct-list-item>
+						<ct-list-item text="Save" icon="save"></ct-list-item>
 						<hr />
-						<ct-list-item .name=${`Her`} icon="quickreply"></ct-list-item>
-						<ct-list-item name="Save" icon="save"></ct-list-item>
-						<ct-list-item .name=${`Her`} icon="quickreply"></ct-list-item>
-						<ct-list-item name="Save" icon="save"></ct-list-item>
+						<ct-list-item .text=${`Her`} icon="quickreply"></ct-list-item>
+						<ct-list-item text="Save" icon="save"></ct-list-item>
+						<ct-list-item .text=${`Her`} icon="quickreply"></ct-list-item>
+						<ct-list-item text="Save" icon="save"></ct-list-item>
 					</ct-button-menu>
 				</ct-button>
 			</div>`;

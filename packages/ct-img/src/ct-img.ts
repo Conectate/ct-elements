@@ -171,6 +171,8 @@ export class CtImg extends CtLit {
 								lazyImage.src = lazyImage.srcset as string;
 								// @ts-ignore
 								window.CtImgIntersectionObserver.observer.unobserve(lazyImage);
+								// @ts-ignore
+								window.CtImgIntersectionObserver.counter--;
 							}
 						});
 					}, options)

@@ -36,7 +36,7 @@ export class CtCard extends CtLit {
 				display: block;
 				position: relative;
 				margin: 16px auto;
-				border: 1px solid var(--color-on-surface-dividers, #dadce0);
+				border: 1px solid var(--color-borders, #8d8d8d38);
 				border-radius: 16px;
 				color: var(--color-on-surface);
 				background-color: var(--color-surface, #fff);

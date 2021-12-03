@@ -2,8 +2,9 @@ export interface UAClientDescription {
 	browser: 'firefox' | 'edge' | 'chrome' | 'facebook' | 'google_app' | 'ie' | 'safari' | 'safari_mobile' | 'other';
 	browserVersion: number;
 	isMobile: boolean;
-	os: 'ios' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'other';
+	os: 'ios' | 'ipados' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'chromeos' | 'other';
 	osVersion: number;
+	device?: string;
 }
 
 /**
@@ -12,7 +13,7 @@ export interface UAClientDescription {
 export function getClient(ua?: string) {
 	interface os {
 		regex: RegExp;
-		os: 'ios' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'other';
+		os: 'ios' | 'ipados' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'chromeos' | 'other';
 		apply: Function;
 	}
 	interface browser {
@@ -58,9 +59,9 @@ export function getClient(ua?: string) {
 			apply: (v: string) => v.replace(/_/g, '.')
 		},
 		{
-			os: 'ios',
-			regex: /CPU like Mac OS X/,
-			apply: () => '0'
+			os: 'ipados',
+			regex: /iPad.+ ([0-9_]+) like Mac OS X/,
+			apply: (v: string) => v.replace(/_/g, '.')
 		},
 		{
 			os: 'android',
@@ -69,8 +70,19 @@ export function getClient(ua?: string) {
 		},
 		{
 			os: 'linux',
-			regex: /Linux (x86_64|x86)/,
-			apply: (v: string) => (v == 'x86_64' ? '64' : '32')
+			regex: /Linux (x86_64|x86|armv7l|aarch64)/,
+			apply: (v: string) => {
+				switch (v) {
+					case 'x86_64':
+						return '64';
+					case 'x86':
+						return '32';
+					case 'armv7l':
+						return '32';
+					case 'aarch64':
+						return '64';
+				}
+			}
 		},
 		{
 			os: 'mac',
@@ -86,6 +98,22 @@ export function getClient(ua?: string) {
 			os: 'playstation',
 			regex: /PlayStation ([0-9\.]+)/,
 			apply: (v: string) => v.replace(/_/g, '.')
+		},
+		{
+			os: 'chromeos',
+			regex: /CrOS (x86_64|x86|armv7l|aarch64) ([0-9\.]+)/,
+			apply: (v: string) => {
+				switch (v) {
+					case 'x86_64':
+						return '64';
+					case 'x86':
+						return '32';
+					case 'armv7l':
+						return '32';
+					case 'aarch64':
+						return '64';
+				}
+			}
 		}
 	];
 	for (let i = 0; i < opSys.length; i++) {
@@ -93,6 +121,19 @@ export function getClient(ua?: string) {
 		if (reg) {
 			o.os = opSys[i].os;
 			o.osVersion = reg.length > 1 ? parseFloat(opSys[i].apply(reg[1])) : 0;
+			break;
+		}
+	}
+	let device = [
+		{
+			regex: /Android [0-9\.]+; ([\w\-\s]+)\)/,
+			apply: (v: string) => v
+		}
+	];
+	for (let i = 0; i < device.length; i++) {
+		let reg = ua.match(device[i].regex);
+		if (reg) {
+			o.device = reg.length > 1 ? device[i].apply(reg[1]) : undefined;
 			break;
 		}
 	}

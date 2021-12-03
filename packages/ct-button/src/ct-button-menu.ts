@@ -236,7 +236,7 @@ export class CtButtonMenu extends LitElement {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];
 			let menu_btns: NodeListOf<any> = this.querySelectorAll('ct-list-item');
-			menu_btns.forEach((btn) => btns.push(btn.button));
+			menu_btns.forEach((btn) => btns.push(btn.button || btn));
 			if (btns.length > 0)
 				rovingIndex({
 					element: this.menu,
