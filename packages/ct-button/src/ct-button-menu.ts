@@ -166,8 +166,9 @@ export class CtButtonMenu extends LitElement {
 		this.addEventListener('keyup', (e) => {
 			if (e.code === 'Escape') (e.target as this)?.blur();
 		});
-		this.addEventListener('click', (e) => {
-			e.stopPropagation();
+		this.addEventListener('click', (ev) => {
+			ev.stopPropagation();
+			ev.preventDefault();
 		});
 
 		if (!this.keep) {
