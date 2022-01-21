@@ -284,3 +284,9 @@ export class CtInputContainer extends CtLit {
 		return this._invalid;
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-input-container': CtInputContainer;
+	}
+}
