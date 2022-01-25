@@ -3,7 +3,6 @@
 	"version": "3.0.0",
 	"license": "BSD-3-Clause",
 	"dependencies": {
-		"@advanced-rest-client/bottom-sheet": "^3.2.3",
 		"@material/mwc-checkbox": "*",
 		"@material/mwc-radio": "*",
 		"common-tags": "^1.8.0",
