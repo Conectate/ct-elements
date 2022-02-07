@@ -277,15 +277,14 @@ export class CtRouter extends CtLit {
 			if (routes[this.patternMatched].auth && !this.auth) {
 				console.warn('You need to log in to perform this action');
 				this.patternMatched = this.patternMatched = this.loginFallback;
+				this.patternMatched = this.loginFallback;
+				this.pathname = this.loginFallback;
+				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
 				let ce = new CustomEvent('login-needed', {
 					detail: { path: window.location.pathname }
 				});
 				this.dispatchEvent(ce);
 				window.dispatchEvent(ce);
-				this.patternMatched = '/login';
-				this.pathname = '/login';
-				// window.history.replaceState(null, document.title, '/login');
-				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
 			} else {
 				this.patternMatched = this.patternMatched;
 				this._currentView = this._routes[this.patternMatched].element || '';
