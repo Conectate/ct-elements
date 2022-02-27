@@ -1,6 +1,6 @@
 import { sleep } from '@conectate/ct-helpers';
 import { css, LitElement, html } from 'lit';
-import { query, property, customElement } from 'lit/decorators';
+import { query, property, customElement } from 'lit/decorators.js';
 /**
  * @element ct-collapse
  */
