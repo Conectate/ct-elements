@@ -1,5 +1,5 @@
-import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
-
+import { CtLit, customElement, property, query } from '@conectate/ct-lit';
+import { html, css } from 'lit';
 /**
  * ## `ct-radio`
  * radio element

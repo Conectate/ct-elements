@@ -136,11 +136,11 @@ export class CodeExample extends CtLit {
 			}
 		`
 	];
-	public set code(code: string) {
+	public set rawcode(code: string) {
 		this._code = code;
 	}
 
-	public get code(): string {
+	public get rawcode(): string {
 		return stripIndent`${this._code || this.textContent}` || '';
 	}
 
@@ -156,33 +156,20 @@ export class CodeExample extends CtLit {
 	}
 
 	private get highlightedCode(): TemplateResult {
-		const highlightedHtml = Prism.highlight(this.code, Prism.languages[this.language], this.language);
+		const highlightedHtml = Prism.highlight(this.rawcode, Prism.languages[this.language], this.language);
 
 		const code = unsafeHTML(highlightedHtml);
 
 		return html` <pre><code>${code}</code></pre> `;
 	}
 
-	private get renderedCode() {
-		let code = this.code;
-		if (this.codestyle) code = `<style>${this.codestyle}</style>` + code;
-
-		if (this.classList.contains('language-html-live')) {
-			const demo = document.createElement('div');
-			demo.slot = 'demo';
-			demo.innerHTML = code;
-			this.append(demo);
-		}
-		return unsafeHTML(code);
-	}
-
 	protected render(): TemplateResult {
-		const { highlightedCode, renderedCode } = this;
+		const { highlightedCode } = this;
 		return html`
 			${this.showDemo
 				? html`
 						<div class="demo-example">
-							<slot name="demo">${renderedCode}</slot>
+							<slot name="demo"></slot>
 						</div>
 				  `
 				: undefined}

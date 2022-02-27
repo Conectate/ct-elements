@@ -9,7 +9,7 @@
 		"ct-elements"
 	],
 	"dependencies": {
-		"lit": "^2.0.0"
+		"lit": "^2.2.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

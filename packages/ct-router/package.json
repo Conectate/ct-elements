@@ -16,7 +16,7 @@
 	"dependencies": {
 		"@conectate/ct-lit": "^3.5.0",
 		"pwa-helpers": "^0.9.1",
-		"tslib": "^2.3.0"
+		"tslib": "^2.3.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts; tsc"

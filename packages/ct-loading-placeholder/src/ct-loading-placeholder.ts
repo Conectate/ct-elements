@@ -1,4 +1,5 @@
-import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+import { CtLit, css, customElement } from '@conectate/ct-lit';
+import { html } from 'lit';
 
 /**
 `loading-placeholder` is a simple element to use skeleton loading such as Facebook.

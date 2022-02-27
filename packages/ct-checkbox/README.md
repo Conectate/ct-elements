@@ -1,5 +1,6 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-card)
-# ct-card
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-checkbox)
+
+# ct-checkbox
 
 It's a simple wrapper for LitElement
 
@@ -8,22 +9,23 @@ It's a simple wrapper for LitElement
 To include this, type:
 
 ```sh
-$ yarn add @conectate/ct-card
-```
-or
-```sh
-$ npm i @conectate/ct-card
+$ yarn add @conectate/ct-checkbox
+$ pnpm i @conectate/ct-checkbox
+$ npm i @conectate/ct-checkbox
 ```
 
 ## Usage
 
 ### Step 1️⃣
-Class 
+
+Class
 
 ```typescript
+
 ```
 
 ## Follow me
+
 [![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
 
 [https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
@@ -39,7 +41,8 @@ Class
 5. Submit a pull request :D
 
 ## History
-- v1.0.1 Initial Release
+
+-   v1.0.1 Initial Release
 
 ## License
 

@@ -1,11 +1,11 @@
-import '../packages/ct-bottom-sheet';
+import '@conectate/ct-bottom-sheet';
 import './demo-ct-select';
 import './demo-ct-checkbox';
 import './demo-ct-radio';
 import './demo-ct-buttom';
 import './demo-ct-bottom-sheet';
 
-import { CtLit, css, customElement, html, property, query } from '../packages/ct-lit';
+import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
 import { applyTheme } from './styles/shared-styles';
 
 @customElement('demo-main')

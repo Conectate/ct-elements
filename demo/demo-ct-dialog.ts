@@ -1,4 +1,4 @@
-import { CtLit, css, customElement, html, query } from '../packages/ct-lit';
+import { CtLit, css, customElement, html, query } from '@conectate/ct-lit';
 
 @customElement('demo-ct-dialog')
 export class DemoCtDialog extends CtLit {

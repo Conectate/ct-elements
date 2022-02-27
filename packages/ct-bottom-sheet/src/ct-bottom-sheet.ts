@@ -12,7 +12,6 @@ License for the specific language governing permissions and limitations under
 the License.
 */
 
-import { ArcOverlayMixin } from '@advanced-rest-client/arc-overlay-mixin';
 import { LitElement, html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 
@@ -81,7 +80,7 @@ let currentSheet: CtBottomSheet | null = null;
  *  @element ct-bottom-sheet
  */
 @customElement('ct-bottom-sheet')
-export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
+export class CtBottomSheet extends LitElement {
 	static styles = [sheetStyles];
 
 	_fitInto!: HTMLElement;
@@ -104,6 +103,9 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 	 * Removes padding from the element styles
 	 */
 	@property({ type: Boolean, reflect: true }) noPadding = false;
+	opened: boolean;
+	sizingTarget!: HTMLElement;
+	positionTarget!: HTMLElement;
 
 	render() {
 		const { label } = this;
@@ -115,6 +117,7 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 			<button @click=${this.close}>${this.closelabel}</button>`;
 	}
 
+	open() {}
 	get fitInto() {
 		return this._fitInto;
 	}
@@ -134,6 +137,7 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 		this.fitInto = window.document.body;
 		this.opened = false;
 	}
+	close() {}
 
 	connectedCallback() {
 		super.connectedCallback();
@@ -167,7 +171,6 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 		} else if (currentSheet === this) {
 			currentSheet = null;
 		}
-		super._openedChanged(opened);
 	}
 
 	/**
@@ -203,9 +206,12 @@ export class CtBottomSheet extends ArcOverlayMixin(LitElement) {
 			if (this.opened) {
 				this._finishRenderOpened();
 			} else {
-				this._finishRenderClosed();
+				this._finishRenderOpened();
 			}
 		}
+	}
+	private _finishRenderOpened() {
+		throw new Error('Method not implemented.');
 	}
 }
 

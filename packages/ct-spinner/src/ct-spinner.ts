@@ -1,5 +1,5 @@
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
-
+import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 /**
  * ## `ct-spinner`
  * Spinner web Component

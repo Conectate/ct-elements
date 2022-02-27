@@ -1,5 +1,6 @@
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 
 export function showSnackBar(msg: string) {
 	// @ts-ignore

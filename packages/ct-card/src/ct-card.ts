@@ -8,7 +8,8 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 /**
  *
@@ -22,7 +23,7 @@ import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
  * @attr padding - Add box-shadow to element
  */
 @customElement('ct-card')
-export class CtCard extends CtLit {
+export class CtCard extends LitElement {
 	/**
 	 * Add border-top to card with --color-app  CSS var
 	 */

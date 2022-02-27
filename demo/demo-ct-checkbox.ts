@@ -1,6 +1,6 @@
-import '../packages/ct-checkbox';
+import '@conectate/ct-checkbox';
 
-import { CtLit, css, customElement, html } from '../packages/ct-lit';
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 @customElement('demo-ct-checkbox')
 export class DemoCtCheckbox extends CtLit {

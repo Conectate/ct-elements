@@ -1,5 +1,7 @@
-import { CtBottomSheet } from '../packages/ct-bottom-sheet';
-import { CtLit, css, customElement, html, query } from '../packages/ct-lit';
+import '@conectate/ct-button';
+import './render-item';
+import { CtBottomSheet } from '@conectate/ct-bottom-sheet';
+import { CtLit, css, customElement, html, query } from '@conectate/ct-lit';
 
 @customElement('demo-ct-bottom-sheet')
 export class DemoCtBottomSheet extends CtLit {

@@ -1,8 +1,8 @@
-import '../packages/ct-radio';
-import '../packages/ct-card';
+import '@conectate/ct-radio';
+import '@conectate/ct-card';
 import './code-example/code-example';
 
-import { CtLit, css, customElement, html } from '../packages/ct-lit';
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 @customElement('demo-ct-radio')
 export class DemoCtRadio extends CtLit {

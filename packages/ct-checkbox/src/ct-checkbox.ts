@@ -1,7 +1,7 @@
 import '@conectate/ct-icon';
 
 import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
-
+import { classMap } from 'lit/directives/class-map.js';
 /**
  * ## `ct-checkbox`
  * Checkbox element
@@ -17,6 +17,7 @@ export class CtCheckbox extends CtLit {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
 	@property({ type: Object }) value: any;
+	@query('#input') $input!: HTMLInputElement;
 	static styles = [
 		css`
 			:host {
@@ -133,7 +134,6 @@ export class CtCheckbox extends CtLit {
 		`
 	];
 
-	@query('#input') $input!: HTMLInputElement;
 	render() {
 		return html`
 			<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} .disabled=${this.disabled} />
@@ -141,7 +141,7 @@ export class CtCheckbox extends CtLit {
 				<span id="box">
 					<ct-icon
 						id="checkmark"
-						class="${this.indeterminate == false && this.checked ? 'rotate' : ''}"
+						class=${classMap({ rotate: this.indeterminate == false && this.checked })}
 						icon="${this.indeterminate ? 'horizontal_rule' : `check`}"
 						dir="ltr"
 					></ct-icon>

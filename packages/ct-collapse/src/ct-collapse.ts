@@ -1,34 +1,33 @@
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
+import { css, LitElement, html } from 'lit';
+import { query, property, customElement } from 'lit/decorators';
 /**
  * @element ct-collapse
  */
 @customElement('ct-collapse')
-export class CtCollapse extends CtLit {
+export class CtCollapse extends LitElement {
 	@property({ type: Boolean }) opened = false;
+	@query('#content') $content!: HTMLSlotElement;
 	content: any;
 	elems: any[] = [];
-	render() {
-		return html`
-			<style>
-				:host {
-					display: block;
-					transition: all 250ms;
-					overflow: hidden;
-				}
+	static styles = [
+		css`
+			:host {
+				display: block;
+				transition: all 250ms;
+				overflow: hidden;
+			}
 
-				:host(:not(.open)) {
-					max-height: 0 !important;
-				}
-			</style>
-			<div>
-				<slot id="content"></slot>
-			</div>
-		`;
+			:host(:not(.open)) {
+				max-height: 0 !important;
+			}
+		`
+	];
+	render() {
+		return html` <slot id="content"></slot> `;
 	}
 	firstUpdated() {
-		this.mapIDs();
-		let elems = (this.$.content.assignedNodes() as HTMLElement[]).filter((elem) => elem.nodeType == Node.ELEMENT_NODE);
+		let elems = (this.$content.assignedNodes() as HTMLElement[]).filter((elem) => elem.nodeType == Node.ELEMENT_NODE);
 		this.content = elems[0];
 		if (elems.length > 1) {
 			console.warn('`ct-collapse` can have a ONE child, you can wrap him in a <div>');

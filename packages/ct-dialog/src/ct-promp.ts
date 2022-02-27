@@ -9,9 +9,9 @@
  found at https://wc.conectate.app/PATENTS.txt
  */
 
-import '@conectate/ct-card/ct-card';
-import '@conectate/ct-button/ct-button';
-import '@conectate/ct-input/ct-input';
+import '@conectate/ct-card';
+import '@conectate/ct-button';
+import '@conectate/ct-input';
 
 import { CtLit, customElement, html, unsafeHTML } from '@conectate/ct-lit';
 

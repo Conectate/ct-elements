@@ -141,7 +141,7 @@ export class CtRouter extends CtLit {
 		super();
 		window.ctrouter = this;
 		installRouter((l) => this.handleRoutes(l));
-		window.addEventListener('location-changed', () => this.handleRoutes(window.location));
+		window.addEventListener('href-fire', () => this.handleRoutes(window.location));
 	}
 	firstUpdated() {
 		this._contentAdded(this.pages);
@@ -346,7 +346,7 @@ export class CtRouter extends CtLit {
 
 export function href(path: string, name: string = document.title) {
 	window.history.pushState({}, name, path);
-	window.dispatchEvent(new CustomEvent('location-changed'));
+	window.dispatchEvent(new CustomEvent('href-fire'));
 }
 
 window.href = href;

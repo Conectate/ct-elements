@@ -1,46 +1,11 @@
 import './code-example/code-example';
-import '../packages/ct-select';
-import '../packages/ct-card';
+import '@conectate/ct-select';
+import '@conectate/ct-card';
 
 import { html as stripIndent } from 'common-tags';
 
-import { CtLit, css, customElement, html, property, query } from '../packages/ct-lit';
-import { CtSelect } from '../packages/ct-select';
-
-@customElement('render-item')
-export class RenderItem extends CtLit {
-	static styles = [
-		css`
-			:host {
-				display: block;
-				cursor: pointer;
-				background-color: #fff;
-				transition: background-color 0.2s ease-in-out;
-			}
-			:host(:hover) {
-				background-color: #85858516;
-			}
-
-			:host([selected]) {
-				background-color: #80000021;
-			}
-			.b {
-				padding: 8px;
-			}
-		`
-	];
-	@property({ type: String }) text = '';
-	@property({ type: String }) subtext = '';
-	@property({ type: Number }) value = 0;
-	@property({ type: Boolean, reflect: true }) selected = false;
-
-	render() {
-		return html`<div class="b">
-			<div><b>${this.text}</b></div>
-			<i>${this.subtext}</i>
-		</div>`;
-	}
-}
+import { CtLit, css, customElement, html, query } from '@conectate/ct-lit';
+import { CtSelect } from '@conectate/ct-select';
 
 @customElement('demo-ct-select')
 export class DemoCtSelect extends CtLit {
@@ -88,7 +53,7 @@ export class DemoCtSelect extends CtLit {
 		></ct-select>`.replaceAll('\t', '    ');
 
 		return html`
-			<code-example class="language-html" .code=${code}>
+			<code-example class="language-html" .rawcode=${code}>
 				<div slot="demo">
 					<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
 					<ct-select .items=${this.getItems()} label="Normal searchable" .value=${1} searchable></ct-select>

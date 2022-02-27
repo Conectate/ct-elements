@@ -1,9 +1,9 @@
-import '../packages/ct-list/src/ct-list-item';
-import '../packages/ct-button/src/ct-button';
-import '../packages/ct-button/src/ct-button-menu';
-import '../packages/ct-menu/src/ct-menu';
+import '@conectate/ct-list/ct-list-item';
+import '@conectate/ct-button/ct-button';
+import '@conectate/ct-button/ct-button-menu';
+import '@conectate/ct-menu/ct-menu';
 
-import { CtLit, css, customElement, html } from '../packages/ct-lit';
+import { CtLit, css, customElement, html } from '@conectate/ct-lit';
 
 @customElement('demo-ct-buttom')
 export class DemoCtButtom extends CtLit {

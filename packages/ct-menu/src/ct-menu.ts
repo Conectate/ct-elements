@@ -1,4 +1,5 @@
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, css, customElement, property } from '@conectate/ct-lit';
+import { html } from 'lit';
 /**
  * # `ct-menu`
  * @element ct-menu

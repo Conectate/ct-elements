@@ -9,8 +9,6 @@ part of the Conectate Open Source Project is also subject to an additional IP ri
 found at https://wc.conectate.app/PATENTS.txt
  */
 
-import '@material/mwc-ripple';
-
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
