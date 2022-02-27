@@ -139,7 +139,6 @@ export class CtRouter extends CtLit {
 
 	constructor() {
 		super();
-		window.ctrouter = this;
 		installRouter((l) => this.handleRoutes(l));
 		window.addEventListener('href-fire', () => this.handleRoutes(window.location));
 	}
