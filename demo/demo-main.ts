@@ -1,9 +1,7 @@
-import '@conectate/ct-bottom-sheet';
 import './demo-ct-select';
 import './demo-ct-checkbox';
 import './demo-ct-radio';
-import './demo-ct-buttom';
-import './demo-ct-bottom-sheet';
+import './demo-ct-button';
 
 import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
 import { applyTheme } from './styles/shared-styles';
@@ -30,6 +28,6 @@ export class DemoMain extends CtLit {
 			<demo-ct-bottom-sheet></demo-ct-bottom-sheet>
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-radio></demo-ct-radio>
-			<demo-ct-buttom></demo-ct-buttom> `;
+			<demo-ct-button></demo-ct-button> `;
 	}
 }

@@ -11,18 +11,16 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 export class CtListItem extends CtLit {
 	static styles = [
 		css`
-			:host {
-				display: block;
-				outline: none;
+			:host,
+			a {
 				display: flex;
-				flex-direction: row;
-				align-items: center;
+				flex: 1;
+				outline: none;
 				cursor: pointer;
+				color: inherit;
+				text-decoration: none;
 			}
 
-			:host(:focus-visible) {
-				box-shadow: 0 0 0 1px var(--color-primary);
-			}
 			button {
 				cursor: pointer;
 				-webkit-appearance: none;
@@ -38,7 +36,7 @@ export class CtListItem extends CtLit {
 				font-weight: 500;
 				text-align: start;
 				padding: 8px 16px;
-				width: 100%;
+				flex: 1;
 				line-height: 1.75;
 				color: inherit;
 				outline-color: var(--color-primary);
@@ -48,34 +46,38 @@ export class CtListItem extends CtLit {
 			:host(:hover) {
 				background: #7c7c7c36;
 			}
-			:host(:hover) {
-				background: #7c7c7c36;
-			}
-			.name {
+
+			.text {
 				flex: 1;
-				white-space: pre-wrap;
-				word-wrap: break-word;
-			}
-			a {
-				color: inherit;
 			}
 			ct-icon {
-				margin-right: 8px;
+				margin-right: 16px;
+				width: 21px;
+				height: 21px;
+				min-width: 21px;
+				min-height: 21px;
 			}
 		`
 	];
-
-	@query('button') button!: HTMLButtonElement;
+	@query('button') public button!: HTMLButtonElement;
 	@property({ type: String }) svg = '';
 	@property({ type: String }) icon?: icon;
-	@property({ type: String }) link = '';
+	/** Inner Text */
 	@property({ type: String }) text = '';
+	/** Link */
+	@property({ type: String }) link?: string;
+	/** Link */
+	@property({ type: String }) target?: '_self' | '_top' | '_blank';
 
 	render() {
-		return html`<button>
-			${this.icon || this.svg ? html`<ct-icon .svg="${this.svg}" icon="${ifDefined(this.icon)}"></ct-icon>` : ''}
-			<div class="name">${this.text}</div>
-		</button>`;
+		return html`<a href="${ifDefined(this.link)}" target="${ifDefined(this.target)}">
+			<button>
+				<slot name="prefix"></slot>
+				${this.icon || this.svg ? html`<ct-icon .svg="${this.svg}" icon="${ifDefined(this.icon)}"></ct-icon>` : ''}
+				<div class="text">${this.text}<slot></slot></div>
+				<slot name="sufix"></slot>
+			</button>
+		</a>`;
 	}
 }
 
