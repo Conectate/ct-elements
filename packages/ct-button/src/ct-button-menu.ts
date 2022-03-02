@@ -150,8 +150,8 @@ export class CtButtonMenu extends LitElement {
 			title="Open for more actions"
 			tabindex="-1"
 			hidden
-			@focus=${(e: FocusEvent) => this.setAriaExpanded(e, true)}
-			@blur=${(e: FocusEvent) => this.setAriaExpanded(e, false)}
+			@focus=${this.setAriaExpanded(true)}
+			@blur=${this.setAriaExpanded(false)}
 		>
 			<span class="dropdown-trigger center"> ${this.dropDownTrigger ? this.dropDownTrigger : html`<ct-icon icon="${this.icon}"></ct-icon>`} </span>
 			<!-- <ct-icon icon="expand_more"></ct-icon> -->
@@ -225,9 +225,8 @@ export class CtButtonMenu extends LitElement {
 		this.blur();
 	}
 
-	setAriaExpanded(e: FocusEvent, value: boolean) {
-		// console.log(e.target, value);
-		(e.target as HTMLElement)?.setAttribute('aria-expanded', `${value}`);
+	setAriaExpanded(value: boolean) {
+		return (e: FocusEvent) => (e.target as HTMLElement)?.setAttribute('aria-expanded', `${value}`);
 	}
 
 	@query('.popup-btn') menu!: HTMLSpanElement;

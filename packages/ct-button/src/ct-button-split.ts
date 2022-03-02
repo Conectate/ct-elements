@@ -1,9 +1,23 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { CtButton } from './ct-button';
-
+/**
+ * @element ct-button-split
+ */
 @customElement('ct-button-split')
-export class CtButtonContainer extends LitElement {
+export class CtButtonSplit extends LitElement {
+	static CtButtonStyle = css`
+		ct-button-split ct-button {
+			border: none;
+			padding-right: 6px;
+			background: transparent;
+			border-radius: var(--radius) 0 0 var(--radius);
+			color: inherit;
+			--color-primary-hover: transparent;
+			--color-primary-active: transparent;
+			--color-on-primary: transparent;
+		}
+	`;
 	static styles = [
 		CtButton.styles,
 		css`
@@ -12,12 +26,6 @@ export class CtButtonContainer extends LitElement {
 				padding: 0;
 			}
 			::slotted(ct-button) {
-				border: none;
-				padding-right: 6px;
-				background: transparent;
-				border-radius: var(--radius) 0 0 var(--radius);
-			}
-			::slotted(ct-button:hover) {
 				border: none;
 				padding-right: 6px;
 				background: transparent;
@@ -40,5 +48,11 @@ export class CtButtonContainer extends LitElement {
 
 	render() {
 		return html`<slot></slot>`;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-button-split': CtButtonSplit;
 	}
 }

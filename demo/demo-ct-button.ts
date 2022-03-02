@@ -2,6 +2,7 @@ import '@conectate/ct-list/ct-list-item';
 import '@conectate/ct-button/ct-button';
 import '@conectate/ct-button/ct-button-menu';
 import '@conectate/ct-button/ct-button-split';
+import { CtButtonSplit } from '@conectate/ct-button/ct-button-split';
 import '@conectate/ct-menu/ct-menu';
 
 import { CtLit, css, customElement, html } from '@conectate/ct-lit';
@@ -21,7 +22,8 @@ export class DemoCtButtom extends CtLit {
 				display: flex;
 				flex-wrap: wrap;
 			}
-		`
+		`,
+		CtButtonSplit.CtButtonStyle
 	];
 
 	render() {
@@ -56,6 +58,19 @@ export class DemoCtButtom extends CtLit {
 				)}
 				<ct-button-split raised>
 					<ct-button raised>Keep</ct-button>
+					<ct-button-menu icon="expand_more" rotate keep>
+						<ct-list-item text="H" icon="car_rental"></ct-list-item>
+						<ct-list-item text="Her" icon="car_rental"></ct-list-item>
+						<ct-list-item text="Her" icon="quickreply"></ct-list-item>
+						<ct-list-item text="Save" icon="save"></ct-list-item>
+						<hr />
+						<ct-list-item text="Save" icon="save"></ct-list-item>
+						<ct-list-item text="Save" icon="save"></ct-list-item>
+					</ct-button-menu>
+				</ct-button-split>
+
+				<ct-button-split raised>
+					<a><ct-button>with A</ct-button></a>
 					<ct-button-menu icon="expand_more" rotate keep>
 						<ct-list-item text="H" icon="car_rental"></ct-list-item>
 						<ct-list-item text="Her" icon="car_rental"></ct-list-item>
