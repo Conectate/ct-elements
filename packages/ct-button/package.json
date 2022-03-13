@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-button",
-	"version": "3.6.3",
+	"version": "3.6.4",
 	"description": "HTML Button made with Web Components and Lit",
 	"main": "ct-button.js",
 	"typings": "ct-button.d.ts",
