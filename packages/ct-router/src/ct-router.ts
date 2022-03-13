@@ -304,16 +304,17 @@ export class CtRouter extends CtLit {
 			}
 		}
 
-		this.dispatchEvent(
-			new CustomEvent('location-changed', {
-				detail: {
-					path: this.patternMatched,
-					pathname: this.pathname,
-					queryParams: this.queryParams,
-					params: this.params
-				}
-			})
-		);
+		let ce = new CustomEvent('location-changed', {
+			detail: {
+				search: location.search,
+				path: this.patternMatched,
+				pathname: this.pathname,
+				queryParams: this.queryParams,
+				params: this.params
+			}
+		});
+		this.dispatchEvent(ce);
+		window.dispatchEvent(ce);
 		if (this.patternMatched && routes[this.patternMatched]) {
 			let fromImport = routes[this.patternMatched].from;
 			if (fromImport) {
