@@ -141,10 +141,9 @@ export class CtRouter extends CtLit {
 		super();
 		installRouter((l) => this.handleRoutes(l));
 		window.addEventListener('href-fire', () => this.handleRoutes(window.location));
-	}
-	firstUpdated() {
 		this._contentAdded(this.pages);
 	}
+
 	on(listener: CtRouterListeners, func: () => Promise<boolean>) {
 		// onbeforeunload
 		let id = this.listenerID++;

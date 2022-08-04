@@ -5,6 +5,8 @@ import './demo-ct-button';
 
 import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
 import { applyTheme } from './styles/shared-styles';
+import './demo-ct-bottom-sheet';
+import './demo-ct-input';
 
 @customElement('demo-main')
 export class DemoMain extends CtLit {
@@ -25,9 +27,10 @@ export class DemoMain extends CtLit {
 
 	render() {
 		return html`<demo-ct-select></demo-ct-select>
-			<demo-ct-bottom-sheet></demo-ct-bottom-sheet>
+			<!-- <demo-ct-bottom-sheet></demo-ct-bottom-sheet> -->
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-radio></demo-ct-radio>
-			<demo-ct-button></demo-ct-button> `;
+			<demo-ct-button></demo-ct-button>
+			<demo-ct-input></demo-ct-input> `;
 	}
 }

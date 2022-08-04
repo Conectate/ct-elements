@@ -66,6 +66,8 @@ _None_
 | `--dark-primary-color`     | Dark Primary color   | `#00aeff`                                 |
 | `--ct-button-box-shadow`   | Box-Shadow for hover | `0 2px 16px 4px rgba(99, 188, 240, 0.45)` |
 | `--ct-button-shadow-color` | -                    | `rgba(64, 117, 187, 0.1)`                 |
+| `--ct-button-radius` 		 | -                    | `26px` 					                |
+| `--ct-button-padding`		 | -                    | `0.4em 1em` 					                |
 
 
 
@@ -87,19 +89,18 @@ export class CtButton extends LitElement {
 	static styles = [
 		css`
 			:host {
-				--radius: 26px;
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
 				/* overflow: hidden; */
 				position: relative;
 				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-				padding: 6px 16px;
+				padding: 0;
 				background: #00aeff00;
 				color: var(--color-primary, #00aeff);
 				outline-color: var(--color-primary, #19ace1);
 				border: 1px solid rgba(128, 128, 128, 0.31);
-				border-radius: var(--radius);
+				border-radius: var(--ct-button-radius, 26px);
 				touch-action: manipulation;
 				user-select: none;
 				-webkit-tap-highlight-color: #0000;
@@ -151,7 +152,7 @@ export class CtButton extends LitElement {
 				justify-content: center;
 				align-items: center;
 				text-align: center;
-				padding: 0;
+				padding: var(--ct-button-padding, 0.4em 1em);
 				width: 100%;
 				cursor: pointer;
 				border: none;
@@ -162,8 +163,7 @@ export class CtButton extends LitElement {
 				line-height: 1.75;
 				color: inherit;
 				outline-color: var(--color-primary, #00aeff);
-				outline-offset: -5px;
-				border-radius: var(--radius);
+				border-radius: var(--ct-button-radius, 26px);
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
@@ -197,9 +197,11 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
-		return html` <slot name="prefix"></slot>
-			<button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent('btnclick'))}><slot></slot></button>
-			<slot name="suffix"></slot>`;
+		return html` <button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent('btnclick'))}>
+			<slot name="prefix"></slot>
+			<slot></slot>
+			<slot name="suffix"></slot>
+		</button>`;
 	}
 }
 

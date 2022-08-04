@@ -9,13 +9,13 @@ export class CtButtonSplit extends LitElement {
 	static CtButtonStyle = css`
 		ct-button-split ct-button {
 			border: none;
-			padding-right: 6px;
 			background: transparent;
-			border-radius: var(--radius) 0 0 var(--radius);
 			color: inherit;
 			--color-primary-hover: transparent;
 			--color-primary-active: transparent;
 			--color-on-primary: transparent;
+			--ct-button-padding: 0.4em 0.5em 0.4em 1em;
+			--ct-button-radius: 26px 4px 4px 26px;
 		}
 	`;
 	static styles = [

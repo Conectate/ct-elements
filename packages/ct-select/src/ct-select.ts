@@ -11,7 +11,6 @@ export interface KeyValueCtSelect<V = any> {
 	value?: V;
 	[x: string]: any;
 }
-export type anyValue = string | number | boolean | Date | null | any;
 /**
  *
  *
@@ -26,7 +25,7 @@ export type anyValue = string | number | boolean | Date | null | any;
  * @fires items - Cuando se setean nuevos items al element
  */
 @customElement('ct-select')
-export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
+export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -259,7 +258,7 @@ export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelec
 	textProperty = 'text';
 	valueProperty = 'value';
 	multi = false;
-	_value?: V;
+	_value?: T['value'];
 	_text: any;
 	_items: T[] = [];
 	ttl: string = '';
@@ -361,7 +360,7 @@ export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelec
 		}
 	}
 
-	set value(val: V) {
+	set value(val: T['value']) {
 		if (this._value !== val) {
 			this._value = val;
 			this.setValue(val);
@@ -370,12 +369,12 @@ export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelec
 	get value() {
 		return this._value!;
 	}
-	async setValue(val?: V) {
+	async setValue(val?: T['value']) {
 		await this.updateComplete;
 		this.dispatchEvent(new CustomEvent('value', { detail: { value: val } }));
 		this.computeValues();
 		if (this.placeholder) {
-			var isEmpty = !this.value;
+			var isEmpty = this.value == null;
 			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$.container);
 			this.$.container.classList.toggle('has-value', !isEmpty);
 			this.$.input.classList.toggle('has-value', !isEmpty);
@@ -508,7 +507,7 @@ export class CtSelect<V = anyValue, T extends KeyValueCtSelect = KeyValueCtSelec
 	 */
 	async showDialog(): Promise<void> {
 		this.invalid = false;
-		let ctSelect = showCtSelect<V>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
+		let ctSelect = showCtSelect<T['value']>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
 			multi: this.multi,
 			searchable: this.searchable,
 			searchPlaceholder: this.searchPlaceholder,

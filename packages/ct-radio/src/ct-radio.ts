@@ -136,7 +136,7 @@ export class CtRadio extends CtLit {
 					<div id="checkmark" dir="ltr"></div>
 				</span>
 
-				<span id="label"><slot></slot></span>
+				<label id="label" for="input"><slot></slot></label>
 			</div>
 		`;
 	}
@@ -148,10 +148,13 @@ export class CtRadio extends CtLit {
 	click() {
 		this.$.input.click();
 	}
+	isFn(obj: any) {
+		return !!(obj && obj.constructor && obj.call && obj.apply);
+	}
 
 	change() {
 		this.checked = this.$input.checked;
-		let parent = this.parent || this.parentElement || this.parentNode;
+		let parent = (this.isFn(this.parent) ? this.parent() : false) || this.parent || this.parentElement || this.parentNode;
 		if (this.name && parent?.querySelectorAll) {
 			// @ts-ignore
 			let radios: CtRadio[] = parent.querySelectorAll('ct-radio') || [];

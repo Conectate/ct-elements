@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import { icon } from './icon-list';
@@ -20,6 +20,7 @@ function addFont(family: string) {
 export class CtIcon extends LitElement {
 	/** Select Font Style */
 	static FontStyle: 'Outlined' | 'Fill' | 'Sharp' | 'Two Tone' | 'Round' = 'Round';
+	@property({ type: String, reflect: true }) font = 'Round';
 
 	static FontLoaded: string[] = [];
 	static styles = [
@@ -30,7 +31,7 @@ export class CtIcon extends LitElement {
 				user-select: none;
 				font-weight: normal;
 				font-style: normal;
-				font-size: 24px;
+				font-size: var(--ct-icon-size, 24px);
 				line-height: 1;
 				letter-spacing: normal;
 				text-transform: none;
@@ -39,7 +40,21 @@ export class CtIcon extends LitElement {
 				direction: ltr;
 				-webkit-font-smoothing: antialiased;
 			}
-
+			:host[font='Outlined'] {
+				font-family: 'Material Icons Outlined';
+			}
+			:host[font='Fill'] {
+				font-family: 'Material Icons Fill';
+			}
+			:host[font='Sharp'] {
+				font-family: 'Material Icons Sharp';
+			}
+			:host[font='Two Tone'] {
+				font-family: 'Material Icons Two Tone';
+			}
+			:host[font='Round'] {
+				font-family: 'Material Icons Round';
+			}
 			span::before {
 				content: attr(data-icon);
 			}
@@ -52,6 +67,7 @@ export class CtIcon extends LitElement {
 			CtIcon.FontLoaded.push(`ctIcon${style}`);
 			addFont(`Material+Icons+${style}`);
 		}
+		this.font = CtIcon.FontStyle;
 	}
 	/** If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string` */
 	@property({ type: String }) svg?: string;
@@ -63,8 +79,8 @@ export class CtIcon extends LitElement {
 		if (this.svg)
 			return html`<style>
 					:host {
-						width: 24px;
-						height: 24px;
+						width: var(--ct-icon-size, 24px);
+						height: var(--ct-icon-size, 24px);
 					}
 					svg {
 						width: 100%;

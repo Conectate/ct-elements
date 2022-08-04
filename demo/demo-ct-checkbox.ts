@@ -8,6 +8,7 @@ export class DemoCtCheckbox extends CtLit {
 		css`
 			:host {
 				display: block;
+				--ct-checkbox-box-size: 18px;
 			}
 		`
 	];

@@ -17,19 +17,21 @@ export class CtCheckbox extends CtLit {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
 	@property({ type: Object }) value: any;
+	@property({ type: String }) name: string = '';
+	@property({ type: String }) label: string = '';
 	@query('#input') $input!: HTMLInputElement;
 	static styles = [
 		css`
 			:host {
 				display: inline-flex;
 				position: relative;
-				--ct-checkbox-box-size: 24px;
+				/* --ct-checkbox-box-size: 24px;
 				--ct-checkbox-box-border-radius: 8px;
 				--ct-checkbox-height: var(--ct-checkbox-box-size);
-				--ct-checkbox-box-border-size: 3px;
+				--ct-checkbox-box-border-size: 3px; */
 			}
 			#input:focus-visible + .c {
-				border-radius: 8px;
+				border-radius: var(--ct-checkbox-box-border-radius, 8px);
 				box-shadow: 0 0 0 1px var(--color-primary);
 			}
 
@@ -73,9 +75,9 @@ export class CtCheckbox extends CtLit {
 			}
 
 			#checkmark {
-				font-size: 20px;
-				height: 20px;
-				width: 20px;
+				font-size: calc(var(--ct-checkbox-box-size, 24px) - 4px);
+				height: calc(var(--ct-checkbox-box-size, 24px) - 4px);
+				width: calc(var(--ct-checkbox-box-size, 24px) - 4px);
 				overflow: hidden;
 			}
 			@keyframes rotate {
@@ -99,9 +101,9 @@ export class CtCheckbox extends CtLit {
 				justify-content: center;
 				position: relative;
 				box-sizing: border-box;
-				width: var(--ct-checkbox-box-size);
-				height: var(--ct-checkbox-box-size);
-				margin: calc((var(--ct-checkbox-height) - var(--ct-checkbox-box-size)) / 2) 0;
+				width: var(--ct-checkbox-box-size, 24px);
+				height: var(--ct-checkbox-box-size, 24px);
+				margin: calc((var(--ct-checkbox-height, var(--ct-checkbox-box-size, 24px)) - var(--ct-checkbox-box-size, 24px)) / 2) 0;
 				flex-grow: 0;
 				color: var(--color-on-primary, #fff);
 				flex-shrink: 0;
@@ -114,17 +116,17 @@ export class CtCheckbox extends CtLit {
 				content: '';
 				box-sizing: border-box;
 				position: absolute;
-				width: var(--ct-checkbox-box-size);
-				height: var(--ct-checkbox-box-size);
-				border-radius: var(--ct-checkbox-box-border-radius);
-				border-width: var(--ct-checkbox-box-border-size);
+				width: var(--ct-checkbox-box-size, 24px);
+				height: var(--ct-checkbox-box-size, 24px);
+				border-radius: var(--ct-checkbox-box-border-radius, 8px);
+				border-width: var(--ct-checkbox-box-border-size, 3px);
 				border-style: solid;
 				border-color: var(--color-on-background, #535353);
 				transition: border 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
 			}
 			:host([indeterminate]) #box::before,
 			#input:checked + .c > #box::before {
-				border-width: calc(var(--ct-checkbox-box-size) / 2);
+				border-width: calc(var(--ct-checkbox-box-size, 24px) / 2);
 			}
 			#input:checked + .c > #box::before,
 			:host([indeterminate]) #box::before {
@@ -146,8 +148,7 @@ export class CtCheckbox extends CtLit {
 						dir="ltr"
 					></ct-icon>
 				</span>
-
-				<span id="label"><slot></slot></span>
+				<label id="label" for="input">${this.label}<slot></slot></label>
 			</div>
 		`;
 	}

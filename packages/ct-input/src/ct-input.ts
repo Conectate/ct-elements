@@ -10,7 +10,73 @@
 */
 import { CtLit, css, customElement, html, property, state } from '@conectate/ct-lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 
+export type CtInputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week' | 'color';
+export type CtInputAutoComplete =
+	| 'on'
+	| 'off'
+	| 'one-time-code'
+	| 'additional-name'
+	| 'address-level1'
+	| 'address-level2'
+	| 'address-level3'
+	| 'address-level4'
+	| 'address-line1'
+	| 'address-line2'
+	| 'address-line3'
+	| 'bday'
+	| 'bday-year'
+	| 'bday-day'
+	| 'bday-month'
+	| 'billing'
+	| 'cc-additional-name'
+	| 'cc-csc'
+	| 'cc-exp'
+	| 'cc-exp-month'
+	| 'cc-exp-year'
+	| 'cc-family-name'
+	| 'cc-given-name'
+	| 'cc-name'
+	| 'cc-number'
+	| 'cc-type'
+	| 'country'
+	| 'country-name'
+	| 'current-password'
+	| 'email'
+	| 'family-name'
+	| 'fax'
+	| 'given-name'
+	| 'home'
+	| 'honorific-prefix'
+	| 'honorific-suffix'
+	| 'impp'
+	| 'language'
+	| 'mobile'
+	| 'name'
+	| 'new-password'
+	| 'nickname'
+	| 'organization'
+	| 'organization-title'
+	| 'pager'
+	| 'photo'
+	| 'postal-code'
+	| 'sex'
+	| 'shipping'
+	| 'street-address'
+	| 'tel-area-code'
+	| 'tel'
+	| 'tel-country-code'
+	| 'tel-extension'
+	| 'tel-local'
+	| 'tel-local-prefix'
+	| 'tel-local-suffix'
+	| 'tel-national'
+	| 'transaction-amount'
+	| 'transaction-currency'
+	| 'url'
+	| 'username';
+export type CtInputMode = 'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' | 'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url';
 /**
  * ## `ct-input`
  * Input element
@@ -18,6 +84,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @group ct-elements
  * @element ct-input
  * @demo demo/index.html
+ * @attr value - The value of the input
  * @slot prefix - Content placed start the main content
  * @slot suffix - Content placed end the main content
  */
@@ -280,122 +347,19 @@ export class CtInput extends CtLit {
 		input: HTMLInputElement;
 		container: HTMLElement;
 	};
-	@property({ type: String }) inputmode!:
-		| 'verbatim'
-		| 'latin'
-		| 'latin-name'
-		| 'latin-prose'
-		| 'full-width-latin'
-		| 'kana'
-		| 'kana-name'
-		| 'katakana'
-		| 'numeric'
-		| 'tel'
-		| 'email'
-		| 'url';
+	@property({ type: String }) inputmode!: CtInputMode;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) min?: number;
 	@property({ type: Number }) max?: number;
 	@property({ type: Number }) step?: number;
 	@property({ type: String }) autocapitalize!: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
-	@property({ type: String }) autocomplete?:
-		| 'on'
-		| 'off'
-		| 'one-time-code'
-		| 'additional-name'
-		| 'address-level1'
-		| 'address-level2'
-		| 'address-level3'
-		| 'address-level4'
-		| 'address-line1'
-		| 'address-line2'
-		| 'address-line3'
-		| 'bday'
-		| 'bday-year'
-		| 'bday-day'
-		| 'bday-month'
-		| 'billing'
-		| 'cc-additional-name'
-		| 'cc-csc'
-		| 'cc-exp'
-		| 'cc-exp-month'
-		| 'cc-exp-year'
-		| 'cc-family-name'
-		| 'cc-given-name'
-		| 'cc-name'
-		| 'cc-number'
-		| 'cc-type'
-		| 'country'
-		| 'country-name'
-		| 'current-password'
-		| 'email'
-		| 'family-name'
-		| 'fax'
-		| 'given-name'
-		| 'home'
-		| 'honorific-prefix'
-		| 'honorific-suffix'
-		| 'impp'
-		| 'language'
-		| 'mobile'
-		| 'name'
-		| 'new-password'
-		| 'nickname'
-		| 'organization'
-		| 'organization-title'
-		| 'pager'
-		| 'photo'
-		| 'postal-code'
-		| 'sex'
-		| 'shipping'
-		| 'street-address'
-		| 'tel-area-code'
-		| 'tel'
-		| 'tel-country-code'
-		| 'tel-extension'
-		| 'tel-local'
-		| 'tel-local-prefix'
-		| 'tel-local-suffix'
-		| 'tel-national'
-		| 'transaction-amount'
-		| 'transaction-currency'
-		| 'url'
-		| 'username';
+	@property({ type: String }) autocomplete?: CtInputAutoComplete;
 	@property({ type: String }) name?: string;
 	@property({ type: String }) accept?: string;
 	@property({ type: Number }) size = 24;
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) multiple = false;
 	__isFirstValueUpdate = true;
-	_invalid = false;
-
-	firstUpdated() {
-		this.mapIDs();
-		this.validate();
-		this._onInput();
-	}
-
-	set value(val: string | number | undefined | null) {
-		val ||= '';
-		val = val.toString();
-		if (this._value != val && val.length - 1 < this.maxlength) {
-			this._value = val;
-			if (this.$.input) this.$.input.value = val;
-			this.updateComplete.then(() => {
-				this._onInput();
-			});
-		}
-	}
-
-	get value(): string {
-		return this._value || '';
-	}
-	get valueAsnumber() {
-		return this.$.input.valueAsNumber;
-	}
-	get valueAsDate() {
-		return this.$.input.valueAsDate;
-	}
 
 	/**
 	 * -
@@ -411,10 +375,6 @@ export class CtInput extends CtLit {
 	 * -
 	 */
 	@property({ type: Boolean, reflect: true }) disabled = false;
-	/**
-	 * The value of the searchbox
-	 */
-	@state() _value?: string = '';
 
 	/**
 	 * Input type
@@ -472,11 +432,24 @@ export class CtInput extends CtLit {
 	 */
 	@property({ type: Boolean }) raiseForced = false;
 
+	/** determinate if input es invalid */
+	@property({ type: Boolean }) invalid = false;
+
+	/** determinate if input es invalid */
+	@property({ type: Boolean }) active = false;
+
+	/** Check if input is empty */
+	@state() isEmpty = true;
+	/**
+	 * The value of the searchbox
+	 */
+	private initValue?: string = '';
+
 	render() {
 		return html`
 			<div class="inbody">
 				${this.label ? html` <label for="input" class="label">${this.label}</label> ` : html``}
-				<div id="container">
+				<div id="container" class=${classMap({ 'has-value': !this.isEmpty, error: this.invalid, active: this.active })}>
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
@@ -484,10 +457,10 @@ export class CtInput extends CtLit {
 							${this.placeholder && html` <label class="float-label" for="input" aria-live="assertive">${this.placeholder}</label> `}
 							<input
 								id="input"
+								class=${classMap({ 'has-value': !this.isEmpty, error: this.invalid && this.errorMessage })}
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
 								@input="${this._onInput}"
-								.value="${this.value!}"
 								.type="${this.type}"
 								.placeholder="${this.placeholder || this.rawPlaceholder}"
 								.size="${this.size}"
@@ -515,9 +488,43 @@ export class CtInput extends CtLit {
 		`;
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-		this.placeholder = this.placeholder;
+	firstUpdated() {
+		this.mapIDs();
+		if (this.$.input) {
+			this.$.input.value = this.initValue || this.getAttribute('value') || '';
+		}
+		this.validate();
+		this._onInput();
+	}
+
+	_onInput() {
+		this.fire('value', this.value);
+		if (this.placeholder) {
+			this.isEmpty = this.value == '' || this.value == null;
+		}
+		this.countChar = this.value!.length;
+	}
+
+	set value(val: string | number | undefined | null) {
+		val ||= '';
+		val = val.toString();
+		this.initValue = val;
+		if (this.$.input && this.$.input.value != val && val.length - 1 < this.maxlength) {
+			if (this.$.input) {
+				this.$.input.value = val;
+				this._onInput();
+			}
+		}
+	}
+
+	get value(): string {
+		return this.$.input?.value || '';
+	}
+	get valueAsnumber() {
+		return this.$.input?.valueAsNumber;
+	}
+	get valueAsDate() {
+		return this.$.input?.valueAsDate;
 	}
 
 	focus() {
@@ -529,9 +536,8 @@ export class CtInput extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.$.container?.classList.add('active');
-		this.$.container?.classList.remove('error');
-		this.$.input?.classList.remove('error');
+		this.active = true;
+		this.invalid = false;
 		this.placeholder = this.placeholder;
 	}
 
@@ -540,7 +546,7 @@ export class CtInput extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.$.container?.classList.remove('active');
+		this.active = false;
 		this.validate();
 	}
 
@@ -557,47 +563,7 @@ export class CtInput extends CtLit {
 		} else if (this.required) {
 			this.invalid = !(this.$.input?.value.length > 0 && this.$.input?.value.length >= (this.min || 0));
 		}
-
-		if (!this.invalid) {
-			// remover error
-			this.$.container?.classList.remove('error');
-			this.$.input?.classList.remove('error');
-		} else {
-			this.$.container?.classList.add('error');
-			if (this.errorMessage) {
-				this.$.input?.classList.add('error');
-			}
-		}
 		return !this.invalid;
-	}
-
-	set invalid(val) {
-		this._invalid = val;
-		if (!val) {
-			// remover error
-			this.$.container?.classList.remove('error');
-			this.$.input?.classList.remove('error');
-		} else {
-			this.$.container?.classList.add('error');
-			if (this.errorMessage) {
-				this.$.input?.classList.add('error');
-			}
-		}
-	}
-
-	get invalid() {
-		return this._invalid;
-	}
-
-	_onInput() {
-		this._value = this.$.input?.value;
-		this.fire('value', this.value);
-		if (this.placeholder) {
-			var isEmpty = this.value == '' || this.value == void 0;
-			this.$.container?.classList.toggle('has-value', !isEmpty);
-			this.$.input?.classList.toggle('has-value', !isEmpty);
-		}
-		this.countChar = this.value!.length;
 	}
 }
 

@@ -101,12 +101,13 @@ export class CtDialog extends CtLit {
 		 */
 		this.updateComplete.then(async () => {
 			await sleep(300);
-			let bodyY = document.body.getBoundingClientRect().height;
+			let bodyY = Math.min(document.body.getBoundingClientRect().height, window.innerHeight);
 			let elementY = this._element!.offsetHeight;
 			// console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
 			if (bodyY > elementY) {
+				// Reviso si es menor al 5% de la pantalla
 				if ((elementY / bodyY) * 100 < 5) {
-					console.warn('El elemento no es visible');
+					console.warn('[ct-dialog] El elemento no es visible');
 					if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
 				} else if ((elementY / bodyY) * 100 >= 78) {
 					// console.warn("El elemento esta desbordado");
@@ -182,10 +183,6 @@ export class CtDialog extends CtLit {
 		}
 
 		:host {
-			display: -webkit-box;
-			display: -moz-box;
-			display: -ms-flexbox;
-			display: -webkit-flex;
 			display: flex;
 			position: fixed;
 			z-index: 110;

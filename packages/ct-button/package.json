@@ -40,37 +40,9 @@
 			"development": "./src/ct-button.ts",
 			"default": "./ct-button.js"
 		},
-		"./ct-button": {
-			"development": "./src/ct-button.ts",
-			"default": "./ct-button.js"
-		},
-		"./ct-button.js": {
-			"development": "./src/ct-button.ts",
-			"default": "./ct-button.js"
-		},
-		"./ct-button-menu.js": {
-			"development": "./src/ct-button-menu.ts",
-			"default": "./ct-button-menu.js"
-		},
-		"./ct-button-menu": {
-			"development": "./src/ct-button-menu.ts",
-			"default": "./ct-button-menu.js"
-		},
-		"./ct-button-helpers.js": {
-			"development": "./src/ct-button-helpers.ts",
-			"default": "./ct-button-helpers.js"
-		},
-		"./ct-button-helpers": {
-			"development": "./src/ct-button-helpers.ts",
-			"default": "./ct-button-helpers.js"
-		},
-		"./ct-button-split.js": {
-			"development": "./src/ct-button-split.ts",
-			"default": "./ct-button-split.js"
-		},
-		"./ct-button-split": {
-			"development": "./src/ct-button-split.ts",
-			"default": "./ct-button-split.js"
+		"./*": {
+			"development": "./src/*",
+			"default": "./*"
 		}
 	}
 }

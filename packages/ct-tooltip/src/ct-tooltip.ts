@@ -37,7 +37,7 @@ export let tooltipStyles = css`
 	}
 
 	[data-toleft]:before {
-		margin-left: -160px;
+		margin-left: -140px;
 	}
 	[data-toright]:before {
 		margin-left: -24px;
@@ -56,6 +56,17 @@ export let tooltipStyles = css`
 		content: '';
 		font-size: 0;
 		line-height: 0;
+	}
+
+	[data-tobottom]:after {
+		bottom: -37%;
+		border-top: 0;
+		border-bottom: 5px solid rgba(0, 0, 0, 0.3);
+		border-right: 5px solid transparent;
+		border-left: 5px solid transparent;
+	}
+	[data-tobottom]:before {
+		bottom: -150%;
 	}
 
 	/* Show tooltip content on hover */

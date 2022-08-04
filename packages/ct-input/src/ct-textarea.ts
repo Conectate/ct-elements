@@ -10,8 +10,10 @@ import './ct-textarea-autogrow';
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
  */
+// https://stackoverflow.com/a/56751153/4168512
 import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 /**
 	`ct-textarea`
@@ -31,6 +33,7 @@ export class CtTextarea extends CtLit {
 				display: inline-block;
 				margin-bottom: 8px;
 				max-width: 100%;
+				min-width: 213px;
 			}
 			:host > div {
 				width: 100%;
@@ -268,24 +271,32 @@ export class CtTextarea extends CtLit {
 			}
 		`
 	];
+
+	/** Check if input is empty */
+	@state() isEmpty = true;
+
+	/**
+	 * The value of the searchbox
+	 */
+	private initValue?: string = '';
 	render() {
 		return html`
 			<div>
 				${this.label ? html`<h4 class="label">${this.label}</h4>` : html``}
 
-				<div id="container">
+				<div id="container" class=${classMap({ 'has-value': !this.isEmpty })}>
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
 							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this._placeholder}</label>`}
 							<ct-textarea-autogrow
 								id="input"
+								class=${classMap({ 'has-value': !this.isEmpty })}
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
 								@input="${this._onInput}"
-								.value="${this.value!}"
+								.rows="${this.rows}"
 								.placeholder="${this.placeholder || this.rawPlaceholder}"
-								.size="${this.size}"
 								?autofocus="${this.autofocus}"
 								?readonly="${this.readonly}"
 								inputMode="${ifDefined(this.inputmode)}"
@@ -308,13 +319,13 @@ export class CtTextarea extends CtLit {
 	}
 
 	@state() private __isFirstValueUpdate = true;
-	@state() private _value?: string = '';
 	@state() private _placeholder = '';
 	@state() private _invalid = false;
 
 	/**
 	 * -
 	 */
+	@property({ type: Boolean }) disabled = false;
 	@property({ type: Boolean }) autofocus = false;
 	@property({ type: String }) name?: string;
 	@property({ type: Number }) min?: number;
@@ -333,136 +344,48 @@ export class CtTextarea extends CtLit {
 	@property({ type: String }) autocapitalize!: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
 	@property({ type: String }) label = '';
 	@property({ type: Number }) countChar = 0;
-	@property({ type: Number }) size = 30;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) maxlength = 5000;
 	@property({ type: Number }) rows = 1;
 
 	@query('#container') container!: HTMLElement;
 	@query('#input') input!: HTMLInputElement;
-	constructor() {
-		super();
-		this.value = '';
-	}
-
-	firstUpdated() {
-		this.validate();
-		this._onInput();
-	}
-
-	set value(val) {
-		this._value = val ||= '';
-		this.updateComplete.then((resp) => {
-			this._onInput();
-		});
-	}
-
-	get value() {
-		return this._value;
-	}
-
-	static get properties() {
-		return {
-			rawPlaceholder: { type: String },
-			required: {
-				type: Boolean
-			},
-			disabled: {
-				type: Boolean
-			},
-			/**
-			 * The value of the searchbox
-			 */
-			_value: {
-				type: String
-			},
-
-			/**
-			 * Input type
-			 */
-			type: {
-				type: String
-			},
-			/**
-			 * Placeholder text when searchbox is empty
-			 */
-			placeholder: {
-				type: String
-			},
-
-			_placeholder: {
-				type: String
-			},
-			/**
-			 * Mensaje de error al no complir con el pattern
-			 */
-			errorMessage: {
-				type: String
-			},
-			invalid: {
-				type: Boolean
-			},
-			/**
-			 * regexp
-			 */
-			pattern: {
-				type: String
-			},
-
-			/**
-			 * Raise searchbox is it's focused
-			 */
-			raiseOnActive: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Raise searchbox if it has value
-			 */
-			raiseOnValue: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Always raise the searchbox whether it is active or not, or whether is has value or not
-			 */
-			raiseForced: {
-				type: Boolean,
-				value: false
-			},
-			/**
-			 * Do not show any effects when hovering the searchbox
-			 */
-			noHover: {
-				type: Boolean
-			},
-			/**
-			 * Change default icon to whatever you like
-			 */
-			label: {
-				type: String
-			},
-			/**
-			 * Max length on input
-			 */
-			maxlength: {
-				type: Number
-			},
-			/**
-			 * Total chars on input
-			 */
-			countChar: {
-				type: Number
-			},
-			charCounter: {
-				type: Boolean
-			}
-		};
-	}
 
 	connectedCallback() {
 		super.connectedCallback();
 		this._placeholder = this.placeholder;
+	}
+
+	firstUpdated() {
+		if (this.input) {
+			this.input.value = this.initValue || this.getAttribute('value') || '';
+		}
+		this.validate();
+		this._onInput();
+	}
+
+	_onInput() {
+		this.fire('value', this.value);
+		if (this.placeholder) {
+			this.isEmpty = this.value == '' || this.value == void 0;
+		}
+		this.countChar = this.value!.length;
+	}
+
+	set value(val: string | number | undefined | null) {
+		val ||= '';
+		val = val.toString();
+		this.initValue = val;
+		if (this.input && this.input.value != val && val.length - 1 < this.maxlength) {
+			if (this.input) {
+				this.input.value = val;
+				this._onInput();
+			}
+		}
+	}
+
+	get value(): string {
+		return this.input?.value || '';
 	}
 
 	focus() {
@@ -515,9 +438,6 @@ export class CtTextarea extends CtLit {
 	}
 
 	set invalid(val) {
-		if (Object.keys(this.$).length == 0) {
-			return;
-		}
 		this._invalid = val;
 		if (!val) {
 			// remover error
@@ -532,17 +452,6 @@ export class CtTextarea extends CtLit {
 
 	get invalid() {
 		return this._invalid;
-	}
-
-	_onInput() {
-		this._value = this.input.value;
-		this.fire('value', this.value);
-		if (this.placeholder) {
-			var isEmpty = this.value == '' || this.value == void 0;
-			this.container.classList.toggle('has-value', !isEmpty);
-			this.input.classList.toggle('has-value', !isEmpty);
-		}
-		this.countChar = this.value!.length;
 	}
 }
 

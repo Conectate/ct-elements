@@ -33,7 +33,7 @@ export class DemoCtButtom extends CtLit {
 				<ct-button raised>raised</ct-button>
 				<ct-button light>light</ct-button>
 				<ct-button flat>flat</ct-button>
-				<ct-button gap><ct-icon icon="account_circle"></ct-icon>raised with ct-icon</ct-button>
+				<ct-button gap><ct-icon icon="account_circle" slot="prefix"></ct-icon>Button with [gap]</ct-button>
 
 				<ct-button><ct-icon slot="suffix" icon="account_circle"></ct-icon>raised with slot suffix ct-icon</ct-button>
 			</div>
@@ -57,7 +57,7 @@ export class DemoCtButtom extends CtLit {
 					`
 				)}
 				<ct-button-split raised>
-					<ct-button raised>Keep</ct-button>
+					<ct-button>Keep</ct-button>
 					<ct-button-menu icon="expand_more" rotate keep>
 						<ct-list-item text="H" icon="car_rental"></ct-list-item>
 						<ct-list-item text="Her" icon="car_rental"></ct-list-item>
@@ -70,7 +70,7 @@ export class DemoCtButtom extends CtLit {
 				</ct-button-split>
 
 				<ct-button-split raised>
-					<a><ct-button>with A</ct-button></a>
+					<a><ct-button>with &lt;a&gt;</ct-button></a>
 					<ct-button-menu icon="expand_more" rotate keep>
 						<ct-list-item text="H" icon="car_rental"></ct-list-item>
 						<ct-list-item text="Her" icon="car_rental"></ct-list-item>

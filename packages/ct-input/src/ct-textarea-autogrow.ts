@@ -1,4 +1,4 @@
-import { CtLit, css, customElement, html, property, unsafeHTML } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property, unsafeHTML, query } from '@conectate/ct-lit';
 
 /**
  * # `ct-textarea-autogrow`
@@ -83,11 +83,11 @@ export class CtTextareaAutogrow extends CtLit {
 	}
 
 	focus() {
-		this.$.textarea.focus();
+		this.$textarea.focus();
 	}
 
 	_onInput() {
-		this.value = this.$.textarea?.value;
+		this.value = this.$textarea?.value;
 	}
 
 	get value() {
@@ -181,20 +181,22 @@ export class CtTextareaAutogrow extends CtLit {
 	 */
 	@property({ type: String }) label = '';
 
+	@query('#textarea') $textarea!: HTMLTextAreaElement;
+
 	tokens: string[] = [];
 
 	/**
 	 * Returns the underlying textarea.
 	 */
 	get textarea(): HTMLTextAreaElement {
-		return this.$.textarea;
+		return this.$textarea;
 	}
 
 	/**
 	 * Returns textarea's selection start.
 	 */
 	get selectionStart(): number {
-		return this.$.textarea.selectionStart;
+		return this.$textarea.selectionStart;
 	}
 
 	/**
@@ -202,21 +204,21 @@ export class CtTextareaAutogrow extends CtLit {
 	 * @return {number}
 	 */
 	get selectionEnd() {
-		return this.$.textarea.selectionEnd;
+		return this.$textarea.selectionEnd;
 	}
 
 	/**
 	 * Sets the textarea's selection start.
 	 */
 	set selectionStart(value) {
-		this.$.textarea.selectionStart = value;
+		this.$textarea.selectionStart = value;
 	}
 
 	/**
 	 * Sets the textarea's selection end.
 	 */
 	set selectionEnd(value) {
-		this.$.textarea.selectionEnd = value;
+		this.$textarea.selectionEnd = value;
 	}
 
 	firstUpdated() {
