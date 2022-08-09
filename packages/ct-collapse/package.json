@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-collapse",
-	"version": "3.6.1",
+	"version": "3.7.0",
 	"description": "HTML webcomponent collapse",
 	"main": "ct-collapse.js",
 	"typings": "ct-collapse.d.ts",
@@ -14,8 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-helpers": "^3.5.11",
-		"@conectate/ct-lit": "^3.6.0"
+		"@conectate/ct-helpers": "^3.7.0",
+		"@conectate/ct-lit": "^3.7.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
