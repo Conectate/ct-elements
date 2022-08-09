@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-loading-placeholder",
-	"version": "3.7.0",
+	"version": "3.7.1",
 	"description": "Is a simple element to use skeleton loading such as Facebook.",
 	"main": "ct-loading-placeholder.js",
 	"typings": "ct-loading-placeholder.d.ts",
@@ -29,7 +29,7 @@
 		"placeholder"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.7.0",
+		"@conectate/ct-lit": "^3.7.1",
 		"lit": "^2.2.0",
 		"tslib": "^2.3.1"
 	},
