@@ -12,6 +12,11 @@ type topBottom = 'top' | 'bottom';
 /**
  * @group ct-elements
  * @element ct-button-menu
+ *
+ * @css --ct-button-menu-popup-background
+ * @css --ct-button-menu-box-shadow
+ * @css --ct-button-menu-radius
+ * @css --ct-button-menu-popup-radius
  */
 @customElement('ct-button-menu')
 export class CtButtonMenu extends LitElement {
@@ -20,8 +25,6 @@ export class CtButtonMenu extends LitElement {
 			:host {
 				display: inline-flex;
 
-				--radius: 26px;
-				--menu-radius: 16px;
 				--in-speed: 250ms;
 				--out-speed: 250ms;
 			}
@@ -45,7 +48,7 @@ export class CtButtonMenu extends LitElement {
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				border-radius: 0 var(--radius) var(--radius) 0;
+				border-radius: 0 var(--ct-button-menu-radius, 26px) var(--ct-button-menu-radius, 26px) 0;
 				transform: rotate(0);
 				z-index: 80;
 			}
@@ -87,9 +90,6 @@ export class CtButtonMenu extends LitElement {
 				}
 			}
 			.gui-popup {
-				--shadow: 220 70% 15%;
-				--shadow-strength: 1%;
-
 				opacity: 0;
 				pointer-events: none;
 
@@ -98,21 +98,19 @@ export class CtButtonMenu extends LitElement {
 				/* left: 25%; */
 
 				list-style-type: none;
-				background: var(--color-surface, #fff);
+				background: var(--ct-button-menu-popup-background, var(--color-surface, #fff));
 				color: var(--color-on-surface, #535353);
 				padding-inline: 0;
-				padding-top: calc(var(--menu-radius) / 2);
-				padding-bottom: calc(var(--menu-radius) / 2);
-				border-radius: var(--menu-radius);
+				padding-top: calc(var(--ct-button-menu-popup-radius, 16px) / 2);
+				padding-bottom: calc(var(--ct-button-menu-popup-radius, 16px) / 2);
+				border-radius: var(--ct-button-menu-popup-radius, 16px);
 				overflow: hidden;
 				display: flex;
 				flex-direction: column;
 				font-size: 0.9em;
 				transition: opacity var(--out-speed) ease;
 
-				box-shadow: 0 -2px 5px 0 hsl(var(--shadow) / calc(var(--shadow-strength) + 5%)), 0 1px 1px -2px hsl(var(--shadow) / calc(var(--shadow-strength) + 10%)),
-					0 2px 2px -2px hsl(var(--shadow) / calc(var(--shadow-strength) + 12%)), 0 5px 5px -2px hsl(var(--shadow) / calc(var(--shadow-strength) + 13%)),
-					0 9px 9px -2px hsl(var(--shadow) / calc(var(--shadow-strength) + 14%)), 0 16px 16px -2px hsl(var(--shadow) / calc(var(--shadow-strength) + 20%));
+				box-shadow: var(--ct-button-menu-box-shadow, #0a0e1d05 0px 8px 16px 0px, #0a0e1d0f 0px 8px 40px 0px);
 
 				/* fixes iOS trying to be helpful */
 			}
@@ -132,11 +130,13 @@ export class CtButtonMenu extends LitElement {
 			}
 		`
 	];
+	@property() anim_selector = 'ct-list-item';
 	@property({ type: Boolean, reflect: true }) rotate = false;
 	/** Location from opened */
 	@property({ type: String }) from?: topBottom | leftRight | `${topBottom}-${leftRight}` = 'bottom-left';
 	/** Template Result of Trigger */
 	@property({ type: Object }) dropDownTrigger?: TemplateResult<any>;
+	@property({ type: Boolean }) use_slot = false;
 	/** keep popup after click, you must close programmatically */
 	@property({ type: Boolean, reflect: true }) keep = false;
 	/** Dropdown icon */
@@ -150,10 +150,13 @@ export class CtButtonMenu extends LitElement {
 			title="Open for more actions"
 			tabindex="-1"
 			hidden
+			@click=${this.setAriaExpanded(true)}
 			@focus=${this.setAriaExpanded(true)}
 			@blur=${this.setAriaExpanded(false)}
 		>
-			<span class="dropdown-trigger center"> ${this.dropDownTrigger ? this.dropDownTrigger : html`<ct-icon icon="${this.icon}"></ct-icon>`} </span>
+			<span class="dropdown-trigger center">
+				${this.dropDownTrigger ? this.dropDownTrigger : this.use_slot ? html`<slot name="dropdown"></slot>` : html`<ct-icon icon="${this.icon}"></ct-icon>`}
+			</span>
 			<!-- <ct-icon icon="expand_more"></ct-icon> -->
 			<div class="gui-popup">
 				<slot></slot>
@@ -166,16 +169,17 @@ export class CtButtonMenu extends LitElement {
 		this.addEventListener('keyup', (e) => {
 			if (e.code === 'Escape') (e.target as this)?.blur();
 		});
-		this.addEventListener('click', (ev) => {
-			ev.stopPropagation();
-			ev.preventDefault();
-		});
 
 		if (!this.keep) {
+			this.addEventListener('click', (ev) => {
+				ev.stopPropagation();
+				ev.preventDefault();
+			});
 			this.popup.addEventListener('click', (e) => {
 				e.stopPropagation();
 				setTimeout(() => {
 					(e.target as this)?.blur();
+					this.blur();
 				}, 100);
 			});
 		}
@@ -226,7 +230,10 @@ export class CtButtonMenu extends LitElement {
 	}
 
 	setAriaExpanded(value: boolean) {
-		return (e: FocusEvent) => (e.target as HTMLElement)?.setAttribute('aria-expanded', `${value}`);
+		return (e: FocusEvent) => {
+			let el = e.target as HTMLElement;
+			el?.setAttribute('aria-expanded', `${value}`);
+		};
 	}
 
 	@query('.popup-btn') menu!: HTMLSpanElement;
@@ -235,8 +242,8 @@ export class CtButtonMenu extends LitElement {
 	extra() {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];
-			let menu_btns: NodeListOf<any> = this.querySelectorAll('ct-list-item');
-			menu_btns.forEach((btn) => btns.push(btn.button || btn));
+			let menu_btns: NodeListOf<HTMLElement> = this.querySelectorAll(this.anim_selector);
+			menu_btns.forEach((btn) => btns.push((btn as any).button || btn.shadowRoot?.firstElementChild || btn.firstChild || btn));
 			if (btns.length > 0)
 				rovingIndex({
 					element: this.menu,

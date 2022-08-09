@@ -24,6 +24,7 @@ export class CtImg extends CtLit {
 	@property({ type: String }) alt: string = '';
 	@property({ type: String }) src: string = '';
 	@property({ type: Boolean }) lazy = false;
+	@property({ type: Boolean }) disable_anim = false;
 	@property({ type: Boolean }) round: boolean = false;
 	/** Force use IntersectionObserver instead `img.loading=lazy` */
 	@property({ type: Boolean }) intersectionobserver: boolean = false;
@@ -225,8 +226,10 @@ export class CtImg extends CtLit {
 	}
 
 	_onImgLoad() {
-		this.$.img.style.transition = '0.5s opacity';
-		this.$.divimg.style.transition = '0.5s opacity';
+		if (!this.disable_anim) {
+			this.$.img.style.transition = '0.5s opacity';
+			this.$.divimg.style.transition = '0.5s opacity';
+		}
 		this.$.divimg.style.opacity = 1;
 		let src = this.src || this.srcset!;
 		this.$.divimg.style.backgroundImage = `url('${src.replace(/\\/g, '%5C')}')`;
@@ -234,7 +237,7 @@ export class CtImg extends CtLit {
 	}
 
 	_onImgError() {
-		this.$.divimg.style.transition = '0.5s opacity';
+		if (!this.disable_anim) this.$.divimg.style.transition = '0.5s opacity';
 		this.$.divimg.style.opacity = 1;
 		if (!this.placeholderImg) {
 			this.$.divimg.style.backgroundImage = `url(${this.onErrorSrc})`;
@@ -246,7 +249,6 @@ export class CtImg extends CtLit {
 		this.$.divimg.style.backgroundImage = `url(${placeholder})`;
 	}
 }
-
 declare global {
 	interface HTMLElementTagNameMap {
 		'ct-img': CtImg;

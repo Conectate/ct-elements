@@ -14,7 +14,7 @@
 	},
 	"homepage": "https://github.com/conectate/ct-elements",
 	"scripts": {
-		"prepare": "rm -rf *.map *.js *.ts;tsc"
+		"prepare": "rm -rf *.map *.js *.ts;tsc || true"
 	},
 	"keywords": [
 		"litElement",

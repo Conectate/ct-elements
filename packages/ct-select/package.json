@@ -15,11 +15,10 @@
 		"@conectate/ct-helpers": "^3.5.11",
 		"@conectate/ct-icon": "^3.6.0",
 		"@conectate/ct-input": "^3.6.0",
-		"@conectate/ct-lit": "^3.6.0",
-		"lit-virtualizer": "^0.4.2"
+		"@conectate/ct-lit": "^3.6.0"
 	},
 	"scripts": {
-		"prepare": "rm -rf *.map *.js *.ts;tsc"
+		"prepare": "rm -rf *.map *.js *.ts;tsc || true"
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",
