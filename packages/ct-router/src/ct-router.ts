@@ -1,5 +1,5 @@
-import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
-import { TemplateResult } from 'lit';
+import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
+import { css, html, TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { installRouter } from 'pwa-helpers/router';
 
@@ -61,7 +61,6 @@ type CtRouterListeners = 'beforeunload';
  */
 @customElement('ct-router')
 export class CtRouter extends CtLit {
-	$: { content?: HTMLDivElement; drawerSlot?: HTMLSlotElement } = {};
 	/**
 	 * This is a dictionary of routes linked to its corresponding elements.
 	 */

@@ -11,7 +11,9 @@ import './ct-textarea-autogrow';
 	found at https://wc.conectate.app/PATENTS.txt
  */
 // https://stackoverflow.com/a/56751153/4168512
-import { CtLit, css, customElement, html, property, query, state } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
+import { css, html } from 'lit';
+
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 

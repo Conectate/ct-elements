@@ -95,7 +95,7 @@ importers:
 
   packages/ct-button:
     specifiers:
-      '@conectate/ct-icon': ^3.6.0
+      '@conectate/ct-icon': ^3.7.0
       lit: ^2.0.2
       tslib: ^2.3.1
     dependencies:
@@ -121,8 +121,8 @@ importers:
 
   packages/ct-checkbox:
     specifiers:
-      '@conectate/ct-icon': ^3.6.0
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-icon': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -133,17 +133,17 @@ importers:
 
   packages/ct-collapse:
     specifiers:
-      '@conectate/ct-helpers': ^3.5.11
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-helpers': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
       '@conectate/ct-lit': link:../ct-lit
 
   packages/ct-date:
     specifiers:
-      '@conectate/ct-input': ^3.6.0
-      '@conectate/ct-lit': ^3.6.0
-      '@conectate/lit-if': ^3.6.0
+      '@conectate/ct-input': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
+      '@conectate/lit-if': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-input': link:../ct-input
@@ -153,11 +153,11 @@ importers:
 
   packages/ct-dialog:
     specifiers:
-      '@conectate/ct-button': ^3.6.4
-      '@conectate/ct-card': ^3.6.0
-      '@conectate/ct-helpers': ^3.5.11
-      '@conectate/ct-lit': ^3.6.0
-      '@conectate/ct-spinner': ^3.6.0
+      '@conectate/ct-button': ^3.7.0
+      '@conectate/ct-card': ^3.7.0
+      '@conectate/ct-helpers': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-spinner': ^3.7.0
       lit: ^2.2.0
     dependencies:
       '@conectate/ct-button': link:../ct-button
@@ -182,7 +182,7 @@ importers:
 
   packages/ct-img:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -190,8 +190,8 @@ importers:
 
   packages/ct-input:
     specifiers:
-      '@conectate/ct-helpers': ^3.5.11
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-helpers': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
@@ -200,8 +200,8 @@ importers:
 
   packages/ct-list:
     specifiers:
-      '@conectate/ct-icon': ^3.6.0
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-icon': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
     dependencies:
       '@conectate/ct-icon': link:../ct-icon
       '@conectate/ct-lit': link:../ct-lit
@@ -216,7 +216,7 @@ importers:
 
   packages/ct-loading-bar:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -224,7 +224,7 @@ importers:
 
   packages/ct-loading-placeholder:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -234,7 +234,7 @@ importers:
 
   packages/ct-menu:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -244,8 +244,8 @@ importers:
 
   packages/ct-phone-input:
     specifiers:
-      '@conectate/ct-input': ^3.6.0
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-input': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-input': link:../ct-input
@@ -264,7 +264,7 @@ importers:
 
   packages/ct-radio:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -272,7 +272,7 @@ importers:
 
   packages/ct-router:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       pwa-helpers: ^0.9.1
       tslib: ^2.3.1
     dependencies:
@@ -288,13 +288,13 @@ importers:
 
   packages/ct-select:
     specifiers:
-      '@conectate/ct-button': ^3.6.4
-      '@conectate/ct-card': ^3.6.0
-      '@conectate/ct-dialog': ^3.6.4
-      '@conectate/ct-helpers': ^3.5.11
-      '@conectate/ct-icon': ^3.6.0
-      '@conectate/ct-input': ^3.6.0
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-button': ^3.7.0
+      '@conectate/ct-card': ^3.7.0
+      '@conectate/ct-dialog': ^3.7.0
+      '@conectate/ct-helpers': ^3.7.0
+      '@conectate/ct-icon': ^3.7.0
+      '@conectate/ct-input': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
     dependencies:
       '@conectate/ct-button': link:../ct-button
       '@conectate/ct-card': link:../ct-card
@@ -306,8 +306,8 @@ importers:
 
   packages/ct-snackbar:
     specifiers:
-      '@conectate/ct-helpers': ^3.5.11
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-helpers': ^3.7.0
+      '@conectate/ct-lit': ^3.7.0
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
@@ -316,7 +316,7 @@ importers:
 
   packages/ct-spinner:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -326,7 +326,7 @@ importers:
 
   packages/ct-tabs:
     specifiers:
-      '@conectate/ct-lit': ^3.6.0
+      '@conectate/ct-lit': ^3.7.0
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:

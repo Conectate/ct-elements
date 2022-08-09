@@ -2,7 +2,8 @@ import './ct-autocomplete-suggestions';
 import './ct-input';
 
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { html } from 'lit';
 /**
  * # `ct-input-autocomplete`
  *

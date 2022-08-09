@@ -11,7 +11,7 @@
 		"Lazy load images"
 	],
 	"scripts": {
-		"prepare": "rm -rf *.map *.js *.ts;tsc || true"
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
 		"@conectate/ct-lit": "^3.7.0",

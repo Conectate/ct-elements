@@ -1,12 +1,13 @@
-import '@conectate/ct-card';
 import '@conectate/ct-button';
-import '@conectate/ct-input';
+import '@conectate/ct-card';
 import '@conectate/ct-dialog';
+import '@conectate/ct-input';
 
 import './ct-select-item';
 
 import { CtDialog, showCtDialog } from '@conectate/ct-dialog';
-import { CtLit, css, html, property, query, state, unsafeHTML } from '@conectate/ct-lit';
+import { CtLit, property, query, state, unsafeHTML } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.

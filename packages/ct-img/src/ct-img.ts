@@ -9,7 +9,8 @@
     found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { LitElement, css, html } from 'lit';
+import { query, customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 /**
  * ## `ct-img`
@@ -19,7 +20,7 @@ import { classMap } from 'lit/directives/class-map.js';
  * @attr {'left'|'right'} background-position - Position of Backgroud
  */
 @customElement('ct-img')
-export class CtImg extends CtLit {
+export class CtImg extends LitElement {
 	@property({ type: String }) srcset?: string;
 	@property({ type: String }) alt: string = '';
 	@property({ type: String }) src: string = '';
@@ -35,6 +36,8 @@ export class CtImg extends CtLit {
 		encodeURIComponent(
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>'
 		);
+	@query('#img') $img!: HTMLImageElement;
+	@query('#divimg') $divimg!: HTMLDivElement;
 
 	static styles = [
 		css`
@@ -118,9 +121,6 @@ export class CtImg extends CtLit {
 		}
 	}
 
-	firstUpdated() {
-		this.mapIDs();
-	}
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.updated(cp);
 		if (cp.has('src')) this._srcChanged(this.src);
@@ -149,9 +149,9 @@ export class CtImg extends CtLit {
 	 */
 	_initLazyLoad(polyfilled: boolean = false) {
 		// Native Load
-		if (this.$.img.loading && !this.intersectionobserver) {
-			this.$.img.loading = 'lazy';
-			this.$.img.src = this.srcset || this.src;
+		if (this.$img.loading && !this.intersectionobserver) {
+			this.$img.loading = 'lazy';
+			this.$img.src = this.srcset || this.src;
 		} else if (window.IntersectionObserver) {
 			// @ts-ignore
 			if (!window.CtImgIntersectionObserver) {
@@ -215,38 +215,38 @@ export class CtImg extends CtLit {
 	}
 
 	_srcChanged(src: string) {
-		this.$.img.removeAttribute('src');
-		this.$.img.style.transition = '';
-		this.$.img.style.opacity = 0;
-		this.$.divimg.style.transition = '';
-		this.$.divimg.style.opacity = 0;
+		this.$img.removeAttribute('src');
+		this.$img.style.transition = '';
+		this.$img.style.opacity = `0`;
+		this.$divimg.style.transition = '';
+		this.$divimg.style.opacity = `0`;
 		if (src) {
-			this.$.img.src = src;
+			this.$img.src = src;
 		}
 	}
 
 	_onImgLoad() {
 		if (!this.disable_anim) {
-			this.$.img.style.transition = '0.5s opacity';
-			this.$.divimg.style.transition = '0.5s opacity';
+			this.$img.style.transition = '0.5s opacity';
+			this.$divimg.style.transition = '0.5s opacity';
 		}
-		this.$.divimg.style.opacity = 1;
+		this.$divimg.style.opacity = '1';
 		let src = this.src || this.srcset!;
-		this.$.divimg.style.backgroundImage = `url('${src.replace(/\\/g, '%5C')}')`;
-		this.fire('loaded-changed', { value: src, img: this.$.img });
+		this.$divimg.style.backgroundImage = `url('${src.replace(/\\/g, '%5C')}')`;
+		this.dispatchEvent(new CustomEvent('loaded-changed'));
 	}
 
 	_onImgError() {
-		if (!this.disable_anim) this.$.divimg.style.transition = '0.5s opacity';
-		this.$.divimg.style.opacity = 1;
+		if (!this.disable_anim) this.$divimg.style.transition = '0.5s opacity';
+		this.$divimg.style.opacity = '1';
 		if (!this.placeholderImg) {
-			this.$.divimg.style.backgroundImage = `url(${this.onErrorSrc})`;
+			this.$divimg.style.backgroundImage = `url(${this.onErrorSrc})`;
 		}
 	}
 
 	_placeholderImgChanged(placeholder: string) {
-		this.$.divimg.style.opacity = 1;
-		this.$.divimg.style.backgroundImage = `url(${placeholder})`;
+		this.$divimg.style.opacity = '1';
+		this.$divimg.style.backgroundImage = `url(${placeholder})`;
 	}
 }
 declare global {

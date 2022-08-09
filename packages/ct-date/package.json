@@ -20,7 +20,7 @@
 		"tslib": "^2.3.1"
 	},
 	"scripts": {
-		"prepare": "rm -rf *.map *.js *.ts;tsc || true"
+		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",

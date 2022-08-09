@@ -1,6 +1,7 @@
 import '@conectate/ct-icon';
 
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, property, customElement } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 
 @customElement('ct-select-item')
 export class CtSelectItem extends CtLit {

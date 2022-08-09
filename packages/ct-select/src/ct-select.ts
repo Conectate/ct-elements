@@ -1,8 +1,8 @@
 import './ct-select-dialog';
 
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
-import { TemplateResult, css } from 'lit';
+import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { TemplateResult, css, html } from 'lit';
 
 import { showCtSelect } from './ct-select-dialog';
 

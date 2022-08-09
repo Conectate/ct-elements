@@ -1,6 +1,7 @@
 import './ct-input-container';
 
-import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+import { CtLit, customElement } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 
 /**
  * @element ct-input-phone

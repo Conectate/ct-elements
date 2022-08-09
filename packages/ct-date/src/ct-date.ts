@@ -1,6 +1,7 @@
 import '@conectate/ct-input/ct-input-container';
 
-import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query } from '@conectate/ct-lit';
+import { TemplateResult, html, css } from 'lit';
 
 /**
  * Simple cross-platform Date input for LitElement and Web Components
@@ -44,7 +45,7 @@ export class CtDate extends CtLit {
 	@query('#min') $min?: HTMLInputElement;
 	@query('#container') $container?: HTMLElementTagNameMap['ct-input-container'];
 
-	static styles = [
+	static styles: any[] = [
 		css`
 			:host {
 				display: inline-flex;
@@ -99,7 +100,7 @@ export class CtDate extends CtLit {
 		`
 	];
 
-	render() {
+	render(): TemplateResult {
 		return html`
 			<ct-input-container
 				id="container"

@@ -8,7 +8,8 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, css, customElement, html, property, state } from '@conectate/ct-lit';
+import { CtLit, customElement, property, state } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 

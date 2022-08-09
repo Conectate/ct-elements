@@ -1,6 +1,7 @@
 import '@conectate/ct-card/ct-card';
 
-import { CtLit, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { html } from 'lit';
 
 /* var DIRECTION = {
     UP: 'up',

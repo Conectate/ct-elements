@@ -9,7 +9,8 @@
 	found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { customElement, html, unsafeHTML } from '@conectate/ct-lit';
+import { customElement, unsafeHTML } from '@conectate/ct-lit';
+import { html } from 'lit';
 
 import { CtInput } from './ct-input';
 

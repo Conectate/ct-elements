@@ -1,5 +1,5 @@
-import { CtLit, css, customElement, html, property, unsafeHTML, query } from '@conectate/ct-lit';
-
+import { CtLit, customElement, property, query, unsafeHTML } from '@conectate/ct-lit';
+import { css, html } from 'lit';
 /**
  * # `ct-textarea-autogrow`
  *
