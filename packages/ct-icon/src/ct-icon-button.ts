@@ -26,7 +26,6 @@ export class CtIconButton extends LitElement {
 	static styles = css`
 		:host {
 			display: inline-block;
-			font-size: 24px;
 			border-radius: 50%;
 			outline: none;
 			--mdc-ripple-color: currentcolor;
@@ -36,14 +35,7 @@ export class CtIconButton extends LitElement {
 		:host([disabled]) {
 			pointer-events: none;
 		}
-		ct-icon {
-			font-size: inherit;
-			height: var(--ct-icon-size, 24px);
-			width: var(--ct-icon-size, 24px);
-		}
-
 		button {
-			font-size: inherit;
 			line-height: 0px;
 			vertical-align: top;
 			display: inline-block;
@@ -57,7 +49,7 @@ export class CtIconButton extends LitElement {
 			text-decoration: none;
 			cursor: pointer;
 			user-select: none;
-			padding: calc((var(--ct-icon-button-size, 48px) - var(--ct-icon-size, 24px)) / 2);
+			padding: calc((var(--ct-icon-size, 24px) * 2 - var(--ct-icon-size, 24px)) / 2);
 		}
 	`;
 	@property({ type: Boolean, reflect: true }) disabled = false;

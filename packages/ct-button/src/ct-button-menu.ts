@@ -13,7 +13,7 @@ type topBottom = 'top' | 'bottom';
  * @group ct-elements
  * @element ct-button-menu
  *
- * @css --ct-button-menu-popup-background
+ * @css --menu-outline
  * @css --ct-button-menu-box-shadow
  * @css --ct-button-menu-radius
  * @css --ct-button-menu-popup-radius
@@ -81,6 +81,7 @@ export class CtButtonMenu extends LitElement {
 				opacity: 1;
 				transform: translateY(0);
 				pointer-events: auto;
+				outline: 1px solid var(--color-disable, #0000002f);
 			}
 
 			@media (prefers-reduced-motion: no-preference) {
@@ -92,13 +93,9 @@ export class CtButtonMenu extends LitElement {
 			.gui-popup {
 				opacity: 0;
 				pointer-events: none;
-
 				position: absolute;
-				/* bottom: 80%; */
-				/* left: 25%; */
-
 				list-style-type: none;
-				background: var(--ct-button-menu-popup-background, var(--color-surface, #fff));
+				background: var(--color-menu, var(--color-surface, #fff));
 				color: var(--color-on-surface, #535353);
 				padding-inline: 0;
 				padding-top: calc(var(--ct-button-menu-popup-radius, 16px) / 2);
@@ -109,9 +106,8 @@ export class CtButtonMenu extends LitElement {
 				flex-direction: column;
 				font-size: 0.9em;
 				transition: opacity var(--out-speed) ease;
-
 				box-shadow: var(--ct-button-menu-box-shadow, #0a0e1d05 0px 8px 16px 0px, #0a0e1d0f 0px 8px 40px 0px);
-
+				outline: var(--menu-outline, none);
 				/* fixes iOS trying to be helpful */
 			}
 

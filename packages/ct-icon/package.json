@@ -27,5 +27,15 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"exports": {
+		".": {
+			"development": "./src/ct-icon.ts",
+			"default": "./ct-icon.js"
+		},
+		"./*": {
+			"development": "./src/*",
+			"default": "./*"
+		}
+	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"
 }
