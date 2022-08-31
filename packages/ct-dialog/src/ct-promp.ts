@@ -13,9 +13,10 @@ import '@conectate/ct-card';
 import '@conectate/ct-button';
 import '@conectate/ct-input';
 
-import { CtLit, customElement, html, unsafeHTML } from '@conectate/ct-lit';
+import { css, CtLit, customElement, html } from '@conectate/ct-lit';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
+import { TemplateResult } from 'lit';
 
 export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
@@ -29,96 +30,90 @@ export function showCtPrompt(title: string, body: string, ok?: string, cancel?: 
 }
 
 @customElement('ct-promp')
-export class CTPromp extends CtLit {
-	body: string = '';
+class CTPromp extends CtLit {
+	body: string | TemplateResult = '';
 	ttl: string = 'Title';
 	ok: string = 'OK';
-	neutral: string = '';
-	cancel: string = 'Cancel';
+	neutral?: string = '';
+	cancel?: string = 'Cancel';
 	reject!: (reason?: any) => void;
 	solve!: (param?: string | null) => void;
 	dialog!: CtDialog;
 
-	render() {
-		return html`<style>
-				:host {
-					display: block;
-				}
+	static styles = [
+		css`
+			:host {
+				display: block;
+			}
 
-				.title {
-					font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-					font-size: 1.5em;
-					font-weight: 400;
-					margin: 24px 24px 0;
-				}
+			.title {
+				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+				font-size: 1.5em;
+				font-weight: 400;
+				margin: 24px 24px 0;
+			}
 
-				.body {
-					margin: 20px 24px 24px;
-					color: #383838;
-					white-space: pre-wrap;
-					word-wrap: break-word;
-					max-height: 62vh;
-					overflow: hidden auto;
-				}
+			.body {
+				margin: 20px 24px 24px;
+				color: #383838;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				max-height: 62vh;
+				overflow: hidden auto;
+			}
 
-				.flex {
-					flex: 1;
-				}
+			.flex {
+				flex: 1;
+			}
 
-				.buttons {
-					color: var(--color-primary);
-					display: flex;
-					flex-direction: row;
-					text-align: center;
-					font-weight: bold;
-					padding: 16px;
-				}
+			.buttons {
+				color: var(--color-primary);
+				display: flex;
+				flex-direction: row;
+				text-align: center;
+				font-weight: bold;
+				padding: 16px;
+			}
 
-				paper-button {
-					display: block;
-					font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
-					padding: 0.45em 1.7em;
-					font-size: 0.95em;
-					border-radius: 8px;
-					text-transform: none;
-				}
+			#ok {
+				color: #fff;
+			}
 
-				#ok {
-					color: #fff;
-				}
+			a {
+				text-decoration: none;
+				color: var(--color-primary);
+			}
 
-				a {
-					text-decoration: none;
-					color: var(--color-primary);
-				}
-
-				@media (max-width: 800px) {
-					.buttons_vert {
-						flex-direction: column;
-						text-align: right;
-					}
-					.buttons_vert .ok,
-					.buttons_vert .cancel {
-						margin-top: 8px;
-					}
-				}
-
-				ct-card {
-					display: flex;
+			@media (max-width: 800px) {
+				.buttons_vert {
 					flex-direction: column;
-					max-height: 80vh;
-					margin: 0;
+					text-align: right;
 				}
+				.buttons_vert .ok,
+				.buttons_vert .cancel {
+					margin-top: 8px;
+				}
+			}
 
-				#in {
-					display: block;
-					margin-top: 16px;
-				}
-			</style>
-			<ct-card shadow border>
+			ct-card {
+				display: flex;
+				flex-direction: column;
+				max-height: 80vh;
+				margin: 0;
+			}
+
+			#in {
+				display: block;
+				margin-top: 16px;
+			}
+		`
+	];
+	render() {
+		return html`
+			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
 				<div class="body" id="confirmBody">
-					${unsafeHTML(this.body)}
+					${this.body}
 					<ct-input id="in"></ct-input>
 				</div>
 
@@ -127,7 +122,8 @@ export class CTPromp extends CtLit {
 					<ct-button id="cancel" @click="${this.cancelbtn}" shadow>${this.cancel}</ct-button>
 					<ct-button id="ok" @click="${this.okbtn}" raised>${this.ok}</ct-button>
 				</div>
-			</ct-card> `;
+			</ct-card>
+		`;
 	}
 
 	static get properties() {
@@ -145,7 +141,7 @@ export class CTPromp extends CtLit {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 	}
 
-	computeBtns(ok: string, neutral: string, cancel: string) {
+	computeBtns(ok: string, neutral?: string, cancel?: string) {
 		let auxok = ok || '',
 			auxcancel = cancel || '',
 			auxneutral = neutral || '';
@@ -183,8 +179,3 @@ declare global {
 		'ct-promp': CTPromp;
 	}
 }
-
-// @ts-ignore
-window.showCtPrompt = showCtPrompt;
-// @ts-ignore
-//window.showCtConfirmCupertino = showCtConfirmCupertino;

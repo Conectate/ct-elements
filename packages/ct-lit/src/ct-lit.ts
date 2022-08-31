@@ -116,7 +116,7 @@ export class CtLit extends LitElement {
 	 * @param ob Original Object
 	 */
 	deepClone(ob: object) {
-		return JSON.parse(JSON.stringify(ob));
+		return window.structuredClone != null ? structuredClone(ob) : JSON.parse(JSON.stringify(ob));
 	}
 
 	/**

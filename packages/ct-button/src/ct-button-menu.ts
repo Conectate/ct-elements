@@ -81,7 +81,6 @@ export class CtButtonMenu extends LitElement {
 				opacity: 1;
 				transform: translateY(0);
 				pointer-events: auto;
-				outline: 1px solid var(--color-disable, #0000002f);
 			}
 
 			@media (prefers-reduced-motion: no-preference) {
@@ -113,12 +112,6 @@ export class CtButtonMenu extends LitElement {
 
 			.gui-popup:focus {
 				outline: none;
-			}
-
-			@media (max-width: 400px) {
-				.gui-popup {
-					left: -200%;
-				}
 			}
 			.gui-popup button {
 				color: var(--color-on-surface, #535353);
