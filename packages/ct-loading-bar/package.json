@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-loading-bar",
-	"version": "3.7.1",
+	"version": "3.7.3",
 	"description": "HTML indeterminate progress bar for lit",
 	"main": "ct-loading-bar.js",
 	"typings": "ct-loading-bar.d.ts",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.7.1",
+		"@conectate/ct-lit": "^3.7.3",
 		"tslib": "^2.3.1"
 	},
 	"scripts": {

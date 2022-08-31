@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-lit",
-	"version": "3.7.1",
+	"version": "3.7.3",
 	"description": "Super class wrapper for lit",
 	"main": "ct-lit.js",
 	"typings": "ct-lit.d.ts",
