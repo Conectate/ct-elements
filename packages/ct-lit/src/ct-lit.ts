@@ -80,6 +80,10 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
  * It's a simple wrapper for LitElement
  */
 export class CtLit extends LitElement {
+	connectedCallback(): void {
+		if (location.host.includes('usac.edu.gt')) return;
+		super.connectedCallback();
+	}
 	$: { [x: string]: HTMLElement | any } = {};
 
 	/**
