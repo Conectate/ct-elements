@@ -1,4 +1,4 @@
-import { Chart, ChartConfiguration, ChartData, ChartOptions, ChartType } from 'chart.js';
+import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js';
 import { LitElement, PropertyValues, html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 
