@@ -36,7 +36,7 @@ importers:
       '@types/common-tags': ^1.8.1
       '@types/node': ^18.6.3
       '@types/prismjs': ^1.26.0
-      chart.js: ^2.9.4
+      chart.js: ^4.0.1
       common-tags: ^1.8.2
       import-sort-style-module: ^6.0.0
       lerna: ^4.0.0
@@ -76,7 +76,7 @@ importers:
       '@conectate/lit-if': link:packages/lit-if
       '@material/mwc-checkbox': 0.26.1
       '@material/mwc-radio': 0.26.1
-      chart.js: 2.9.4
+      chart.js: 4.0.1
       common-tags: 1.8.2
       lit: 2.2.8
       prismjs: 1.28.0
@@ -95,7 +95,7 @@ importers:
 
   packages/ct-button:
     specifiers:
-      '@conectate/ct-icon': ^3.7.0
+      '@conectate/ct-icon': ^3.7.2
       lit: ^2.0.2
       tslib: ^2.3.1
     dependencies:
@@ -121,8 +121,8 @@ importers:
 
   packages/ct-checkbox:
     specifiers:
-      '@conectate/ct-icon': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-icon': ^3.7.2
+      '@conectate/ct-lit': ^3.7.3
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -134,15 +134,15 @@ importers:
   packages/ct-collapse:
     specifiers:
       '@conectate/ct-helpers': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
       '@conectate/ct-lit': link:../ct-lit
 
   packages/ct-date:
     specifiers:
-      '@conectate/ct-input': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-input': ^3.7.3
+      '@conectate/ct-lit': ^3.7.3
       '@conectate/lit-if': ^3.7.0
       tslib: ^2.3.1
     dependencies:
@@ -153,11 +153,11 @@ importers:
 
   packages/ct-dialog:
     specifiers:
-      '@conectate/ct-button': ^3.7.0
+      '@conectate/ct-button': ^3.7.3
       '@conectate/ct-card': ^3.7.0
       '@conectate/ct-helpers': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
-      '@conectate/ct-spinner': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
+      '@conectate/ct-spinner': ^3.7.3
       lit: ^2.2.0
     dependencies:
       '@conectate/ct-button': link:../ct-button
@@ -182,7 +182,7 @@ importers:
 
   packages/ct-img:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -191,7 +191,7 @@ importers:
   packages/ct-input:
     specifiers:
       '@conectate/ct-helpers': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
@@ -200,8 +200,8 @@ importers:
 
   packages/ct-list:
     specifiers:
-      '@conectate/ct-icon': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-icon': ^3.7.2
+      '@conectate/ct-lit': ^3.7.3
     dependencies:
       '@conectate/ct-icon': link:../ct-icon
       '@conectate/ct-lit': link:../ct-lit
@@ -216,7 +216,7 @@ importers:
 
   packages/ct-loading-bar:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -224,7 +224,7 @@ importers:
 
   packages/ct-loading-placeholder:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -234,7 +234,7 @@ importers:
 
   packages/ct-menu:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -244,8 +244,8 @@ importers:
 
   packages/ct-phone-input:
     specifiers:
-      '@conectate/ct-input': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-input': ^3.7.3
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-input': link:../ct-input
@@ -264,7 +264,7 @@ importers:
 
   packages/ct-radio:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-lit': link:../ct-lit
@@ -272,7 +272,7 @@ importers:
 
   packages/ct-router:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       pwa-helpers: ^0.9.1
       tslib: ^2.3.1
     dependencies:
@@ -288,13 +288,13 @@ importers:
 
   packages/ct-select:
     specifiers:
-      '@conectate/ct-button': ^3.7.0
+      '@conectate/ct-button': ^3.7.3
       '@conectate/ct-card': ^3.7.0
-      '@conectate/ct-dialog': ^3.7.0
+      '@conectate/ct-dialog': ^3.7.3
       '@conectate/ct-helpers': ^3.7.0
-      '@conectate/ct-icon': ^3.7.0
-      '@conectate/ct-input': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-icon': ^3.7.2
+      '@conectate/ct-input': ^3.7.3
+      '@conectate/ct-lit': ^3.7.3
     dependencies:
       '@conectate/ct-button': link:../ct-button
       '@conectate/ct-card': link:../ct-card
@@ -307,7 +307,7 @@ importers:
   packages/ct-snackbar:
     specifiers:
       '@conectate/ct-helpers': ^3.7.0
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       tslib: ^2.3.1
     dependencies:
       '@conectate/ct-helpers': link:../ct-helpers
@@ -316,7 +316,7 @@ importers:
 
   packages/ct-spinner:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -326,7 +326,7 @@ importers:
 
   packages/ct-tabs:
     specifiers:
-      '@conectate/ct-lit': ^3.7.0
+      '@conectate/ct-lit': ^3.7.3
       lit: ^2.2.0
       tslib: ^2.3.1
     dependencies:
@@ -2116,24 +2116,9 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
-  /chart.js/2.9.4:
-    resolution: {integrity: sha512-B07aAzxcrikjAPyV+01j7BmOpxtQETxTSlQ26BEYJ+3iUkbNKaOJ/nDbT6JjyqYxseM0ON12COHYdU2cTIjC7A==}
-    dependencies:
-      chartjs-color: 2.4.1
-      moment: 2.29.4
-    dev: false
-
-  /chartjs-color-string/0.6.0:
-    resolution: {integrity: sha512-TIB5OKn1hPJvO7JcteW4WY/63v6KwEdt6udfnDE9iCAZgy+V4SrbSxoIbTw/xkUIapjEI4ExGtD0+6D3KyFd7A==}
-    dependencies:
-      color-name: 1.1.4
-    dev: false
-
-  /chartjs-color/2.4.1:
-    resolution: {integrity: sha512-haqOg1+Yebys/Ts/9bLo/BqUcONQOdr/hoEr2LLTRl6C5LXctUdHxsCYfvQVg5JIxITrfCNUDr4ntqmQk9+/0w==}
-    dependencies:
-      chartjs-color-string: 0.6.0
-      color-convert: 1.9.3
+  /chart.js/4.0.1:
+    resolution: {integrity: sha512-5/8/9eBivwBZK81mKvmIwTb2Pmw4D/5h1RK9fBWZLLZ8mCJ+kfYNmV9rMrGoa5Hgy2/wVDBMLSUDudul2/9ihA==}
+    engines: {pnpm: ^7.0.0}
     dev: false
 
   /chownr/1.1.4:
@@ -2212,6 +2197,7 @@ packages:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
       color-name: 1.1.3
+    dev: true
 
   /color-convert/2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -2221,6 +2207,7 @@ packages:
 
   /color-name/1.1.3:
     resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
+    dev: true
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
@@ -2339,8 +2326,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      is-text-path: 1.0.1
       JSONStream: 1.3.5
+      is-text-path: 1.0.1
       lodash: 4.17.21
       meow: 8.1.2
       split2: 3.2.2
@@ -4191,6 +4178,7 @@ packages:
 
   /moment/2.29.4:
     resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: true
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}

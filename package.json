@@ -31,10 +31,10 @@
 		"@conectate/lit-if": "workspace:^3.6.0",
 		"@material/mwc-checkbox": "*",
 		"@material/mwc-radio": "*",
+		"chart.js": "^4.0.1",
 		"common-tags": "^1.8.2",
 		"lit": "^2.2.8",
-		"prismjs": "^1.28.0",
-		"chart.js": "^2.9.4"
+		"prismjs": "^1.28.0"
 	},
 	"devDependencies": {
 		"@types/chart.js": "^2.9.37",
