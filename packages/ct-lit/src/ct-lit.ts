@@ -81,7 +81,7 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
  */
 export class CtLit extends LitElement {
 	connectedCallback(): void {
-		if (location.host.includes('usac.edu.gt')) return;
+		if (location.host.includes('usac.edu.gt') && !location.host.includes('medicina')) return;
 		super.connectedCallback();
 	}
 	$: { [x: string]: HTMLElement | any } = {};

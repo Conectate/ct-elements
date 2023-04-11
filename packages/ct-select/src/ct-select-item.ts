@@ -52,7 +52,7 @@ export class CtSelectItem extends CtLit {
 			}
 			:host([selected]) .cicle {
 				background-color: var(--color-primary, #2cb5e8);
-				color: #fff;
+				color: var(--color-on-primary, #fff);
 			}
 			ct-icon {
 				font-size: 16px;

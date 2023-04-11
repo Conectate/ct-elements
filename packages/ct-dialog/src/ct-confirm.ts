@@ -85,7 +85,7 @@ export class CTConfirm extends CtLit {
 				}
 
 				#ok {
-					color: #fff;
+					color: var(--color-on-primary, #fff);
 				}
 
 				a {

@@ -68,7 +68,7 @@ export function showCtSelect<V = any>(title: string, items: any[] = [], value: V
 // @ts-ignore
 window.showCtSelect = showCtSelect;
 
-class CtSelectBuilder {
+export class CtSelectBuilder {
 	#title: string = '';
 	#value: number | string | object | object[] | undefined;
 	#positiveButton: string = 'OK';
@@ -78,7 +78,9 @@ class CtSelectBuilder {
 	#multi = false;
 	#valueProperty = 'value';
 	#textProperty = 'text';
+	#searchProperty = 'text';
 	#searchPlaceholder = '';
+	#renderItem?: (item: any, index: number, array: any[]) => any;
 
 	title(title: string) {
 		this.#title = title;
@@ -100,28 +102,34 @@ class CtSelectBuilder {
 		return this;
 	}
 
-	items(items: any[], textProperty: string = 'text', valueProperty: string = 'value') {
+	items(items: any[], textProperty: string = 'text', searchProperty: string = 'text', valueProperty: string = 'value') {
 		this.#items = items;
 		this.#textProperty = textProperty;
+		this.#searchProperty = searchProperty;
 		this.#valueProperty = valueProperty;
 		return this;
 	}
 
-	searchable(value = true, placeholder: string = 'Search') {
-		this.#searchable = value;
-		this.#searchPlaceholder = placeholder;
+	searchable(params?: { placeholder?: string }) {
+		this.#searchable = true;
+		this.#searchPlaceholder = params?.placeholder ?? 'Search';
 		return this;
 	}
 	multi(multi = true) {
 		this.#multi = multi;
 		return this;
 	}
+	renderItem(item: (item: any, index: number, array: any[]) => any) {
+		this.#renderItem = item;
+		return this;
+	}
 
-	show() {
+	build() {
 		let selectDialog = new CtSelectDialog();
 		selectDialog.ttl = this.#title;
 		selectDialog.items = this.#items;
 		selectDialog.textProperty = this.#textProperty;
+		selectDialog.searchProperty = this.#searchProperty;
 		selectDialog.valueProperty = this.#valueProperty;
 		selectDialog.ok = this.#positiveButton || 'OK';
 		selectDialog.searchable = this.#searchable;
@@ -131,7 +139,11 @@ class CtSelectBuilder {
 			selectDialog.multi = this.#multi;
 			selectDialog.multiValue = this.#value ? [...(this.#value as object[])] : [];
 		}
+		if (this.#renderItem) selectDialog.renderItem = this.#renderItem;
+		return selectDialog;
+	}
 
+	static show(selectDialog: CtSelectDialog) {
 		selectDialog.dialog = showCtDialog(selectDialog);
 		return { dialog: selectDialog, result: selectDialog.onResult() };
 	}
@@ -151,6 +163,7 @@ export class CtSelectDialog extends CtLit {
 	@state() private searchBoxText = '';
 	@property({ type: String }) valueProperty!: string;
 	@property({ type: String }) textProperty!: string;
+	@property({ type: String }) searchProperty!: string;
 	@property({ type: String }) ok!: string;
 	@property({ type: String }) neutral!: string;
 	@property({ type: String }) cancel!: string;
@@ -226,7 +239,7 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			#ok {
-				color: #fff;
+				color: var(--color-on-primary, #fff);
 			}
 
 			a {
@@ -300,10 +313,10 @@ export class CtSelectDialog extends CtLit {
 		let auxArray = [];
 		this.searchBoxText = searchText;
 		for (let index = 0; index < items.length; index++) {
-			if (this.items[index][this.textProperty] == null) continue;
-			let text = removeAcento(this.items[index][this.textProperty].toLowerCase());
+			if (this.items[index][this.searchProperty || this.textProperty] == null) continue;
+			let text = removeAcento(this.items[index][this.searchProperty || this.textProperty].toLowerCase());
 			let texts = removeAcento(searchText.toLowerCase());
-			if (text.indexOf(texts) > -1) auxArray.push(this.items[index]);
+			if (text.includes(texts)) auxArray.push(this.items[index]);
 		}
 		this.itemsFiltered = [...auxArray];
 	}

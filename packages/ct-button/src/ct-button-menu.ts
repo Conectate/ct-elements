@@ -24,10 +24,21 @@ export class CtButtonMenu extends LitElement {
 		css`
 			:host {
 				display: inline-flex;
-
 				--in-speed: 250ms;
 				--out-speed: 250ms;
+				cursor: pointer;
+				position: relative;
+				align-items: center;
+				justify-content: center;
+				border-radius: 0 var(--ct-button-menu-radius, 26px) var(--ct-button-menu-radius, 26px) 0;
+				transform: rotate(0);
 			}
+
+			:host(:focus),
+			:host(:focus-within) {
+				z-index: 1000;
+			}
+
 			::slotted(span:empty),
 			::slotted(hr) {
 				height: 1px;
@@ -42,32 +53,8 @@ export class CtButtonMenu extends LitElement {
 				justify-content: center;
 				align-items: center;
 			}
-			.popup-btn {
-				cursor: pointer;
-				position: relative;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				border-radius: 0 var(--ct-button-menu-radius, 26px) var(--ct-button-menu-radius, 26px) 0;
-				transform: rotate(0);
-				z-index: 80;
-			}
-
-			.popup-btn:is(:hover, :focus-within) {
-				/* background: var(--color-primary-hover); */
-				/* color: var(--color-on-primary); */
-			}
-
-			.popup-btn:focus {
-				outline: none;
-			}
-
-			.popup-btn:active {
-				/* background: var(--color-primary-active); */
-			}
-
 			/* <Icon> */
-			.popup-btn > .dropdown-trigger {
+			.dropdown-trigger {
 				transition: transform var(--in-speed) ease-in-out;
 			}
 			:host([rotate]) :focus-within > .dropdown-trigger {
@@ -76,7 +63,7 @@ export class CtButtonMenu extends LitElement {
 			/* </Icon> */
 
 			/* <ul> */
-			.popup-btn:focus-within > .gui-popup {
+			:host(:focus-within) .gui-popup {
 				transition-duration: var(--in-speed);
 				opacity: 1;
 				transform: translateY(0);
@@ -84,7 +71,7 @@ export class CtButtonMenu extends LitElement {
 			}
 
 			@media (prefers-reduced-motion: no-preference) {
-				.popup-btn > .gui-popup {
+				.gui-popup {
 					transform: translateY(5px);
 					transition: opacity var(--out-speed) ease, transform var(--out-speed) ease;
 				}
@@ -120,6 +107,8 @@ export class CtButtonMenu extends LitElement {
 		`
 	];
 	@property() anim_selector = 'ct-list-item';
+	@property({ type: String, reflect: true }) title = 'Open for more actions';
+	@property({ type: Number, reflect: true }) tabindex = -1;
 	@property({ type: Boolean, reflect: true }) rotate = false;
 	/** Location from opened */
 	@property({ type: String }) from?: topBottom | leftRight | `${topBottom}-${leftRight}` = 'bottom-left';
@@ -131,31 +120,22 @@ export class CtButtonMenu extends LitElement {
 	/** Dropdown icon */
 	@property() icon: icon = 'expand_more';
 
+	@query('.gui-popup') popup!: HTMLSpanElement;
+
 	render() {
-		return html` <span
-			class="popup-btn"
-			aria-haspopup="true"
-			aria-expanded="false"
-			title="Open for more actions"
-			tabindex="-1"
-			hidden
-			@click=${this.setAriaExpanded(true)}
-			@focus=${this.setAriaExpanded(true)}
-			@blur=${this.setAriaExpanded(false)}
-		>
-			<span class="dropdown-trigger center">
+		return html` <span class="dropdown-trigger center">
 				${this.dropDownTrigger ? this.dropDownTrigger : this.use_slot ? html`<slot name="dropdown"></slot>` : html`<ct-icon icon="${this.icon}"></ct-icon>`}
 			</span>
 			<!-- <ct-icon icon="expand_more"></ct-icon> -->
 			<div class="gui-popup">
 				<slot></slot>
-			</div>
-		</span>`;
+			</div>`;
 	}
-
-	@query('.gui-popup') popup!: HTMLSpanElement;
 	firstUpdated() {
-		this.addEventListener('keyup', (e) => {
+		this.addEventListener('focus', this.setAriaExpanded(true));
+		this.addEventListener('click', this.setAriaExpanded(true));
+		this.addEventListener('blur', this.setAriaExpanded(false));
+		this.addEventListener('keyup', (e: KeyboardEvent) => {
 			if (e.code === 'Escape') (e.target as this)?.blur();
 		});
 
@@ -220,14 +200,11 @@ export class CtButtonMenu extends LitElement {
 
 	setAriaExpanded(value: boolean) {
 		return (e: FocusEvent) => {
-			let el = e.target as HTMLElement;
-			el?.setAttribute('aria-expanded', `${value}`);
+			this.setAttribute('aria-expanded', `${value}`);
 		};
 	}
 
 	@query('.popup-btn') menu!: HTMLSpanElement;
-	// @queryAll('.popup-btn ct-list-item') private menu_btns!: NodeListOf<HTMLElementTagNameMap['ct-list-item']>;
-
 	extra() {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];

@@ -53,7 +53,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 
 			:host([required]) > #c > .label:after {
 				content: var(--ct-indicator, '*');
-				color: #ed4f32;
+				color: var(--color-error, #ed4f32);
 				margin-left: 4px;
 				width: 1.5em;
 				text-align: center;
@@ -81,7 +81,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 
 			#container.error > input::placeholder {
-				color: #ed4f32 !important;
+				color: var(--color-error, #ed4f32) !important;
 			}
 
 			#container.active {

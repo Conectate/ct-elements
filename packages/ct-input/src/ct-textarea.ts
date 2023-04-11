@@ -98,7 +98,7 @@ export class CtTextarea extends CtLit {
 			}
 
 			.undeline .error {
-				background-color: #c53929;
+				background-color: var(--color-error, #ed4f32);
 			}
 
 			:host([block]) {
@@ -116,7 +116,7 @@ export class CtTextarea extends CtLit {
 
 			:host([required]) > .label:after {
 				content: var(--ct-indicator, '*');
-				color: #ed4f32;
+				color: var(--color-error, #ed4f32);
 				position: absolute;
 				width: 1.5em;
 				text-align: center;
@@ -157,7 +157,7 @@ export class CtTextarea extends CtLit {
 
 			#container.error > div > div > .float-label,
 			#container.error > div > input::placeholder {
-				color: #ed4f32 !important;
+				color: var(--color-error, #ed4f32) !important;
 			}
 
 			#container.active {

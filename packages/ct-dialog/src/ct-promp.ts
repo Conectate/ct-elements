@@ -13,16 +13,18 @@ import '@conectate/ct-card';
 import '@conectate/ct-button';
 import '@conectate/ct-input';
 
-import { css, CtLit, customElement, html } from '@conectate/ct-lit';
+import { css, CtLit, customElement, html, property } from '@conectate/ct-lit';
 
 import { CtDialog, showCtDialog } from './ct-dialog';
 import { TemplateResult } from 'lit';
 
-export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string): Promise<string | undefined> {
+export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { wordwrap?: boolean }): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
+
 	ctPromp.ttl = title;
 	ctPromp.body = body;
 	ctPromp.ok = ok ? ok : 'OK';
+	ctPromp.wordwrap = options?.wordwrap || false;
 	neutral && (ctPromp.neutral = neutral);
 	cancel && (ctPromp.cancel = cancel);
 	ctPromp.dialog = showCtDialog(ctPromp);
@@ -31,11 +33,12 @@ export function showCtPrompt(title: string, body: string, ok?: string, cancel?: 
 
 @customElement('ct-promp')
 class CTPromp extends CtLit {
-	body: string | TemplateResult = '';
-	ttl: string = 'Title';
-	ok: string = 'OK';
-	neutral?: string = '';
-	cancel?: string = 'Cancel';
+	@property({ type: String }) body: string | TemplateResult = '';
+	@property({ type: String }) ttl: string = 'Title';
+	@property({ type: String }) ok: string = 'OK';
+	@property({ type: String }) neutral?: string = '';
+	@property({ type: String }) cancel?: string = 'Cancel';
+	@property({ type: Boolean, reflect: true }) wordwrap: boolean = false;
 	reject!: (reason?: any) => void;
 	solve!: (param?: string | null) => void;
 	dialog!: CtDialog;
@@ -55,28 +58,29 @@ class CTPromp extends CtLit {
 
 			.body {
 				margin: 20px 24px 24px;
-				color: #383838;
-				white-space: pre-wrap;
-				word-wrap: break-word;
+				color: var(--color-surface, #383838);
 				max-height: 62vh;
 				overflow: hidden auto;
 			}
-
-			.flex {
-				flex: 1;
+			:host([wordwrap]) .body {
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
+			.actions {
+				margin: 20px 24px 24px;
 			}
 
 			.buttons {
-				color: var(--color-primary);
 				display: flex;
 				flex-direction: row;
-				text-align: center;
+				justify-content: flex-end;
+				color: var(--color-primary);
 				font-weight: bold;
 				padding: 16px;
 			}
 
 			#ok {
-				color: #fff;
+				color: var(--color-on-primary, #fff);
 			}
 
 			a {
@@ -104,7 +108,6 @@ class CTPromp extends CtLit {
 
 			#in {
 				display: block;
-				margin-top: 16px;
 			}
 		`
 	];
@@ -112,30 +115,17 @@ class CTPromp extends CtLit {
 		return html`
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
-				<div class="body" id="confirmBody">
-					${this.body}
+				<div class="body">${this.body}</div>
+				<div class="actions">
 					<ct-input id="in"></ct-input>
 				</div>
-
 				<div id="buttons" class="buttons">
-					<div class="flex"></div>
 					<ct-button id="cancel" @click="${this.cancelbtn}" shadow>${this.cancel}</ct-button>
 					<ct-button id="ok" @click="${this.okbtn}" raised>${this.ok}</ct-button>
 				</div>
 			</ct-card>
 		`;
 	}
-
-	static get properties() {
-		return {
-			body: { type: String },
-			ttl: { type: String },
-			ok: { type: String },
-			neutral: { type: String },
-			cancel: { type: String }
-		};
-	}
-
 	firstUpdated() {
 		this.mapIDs();
 		this.computeBtns(this.ok, this.neutral, this.cancel);

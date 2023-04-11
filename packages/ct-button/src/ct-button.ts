@@ -117,7 +117,7 @@ export class CtButton extends LitElement {
 
 			:host([raised]) {
 				background: var(--color-primary, #00aeff);
-				color: #fff;
+				color: var(--color-on-primary, #fff);
 				border: none;
 			}
 

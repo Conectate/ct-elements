@@ -159,7 +159,7 @@ export class CtInput extends CtLit {
 			}
 
 			.undeline .error {
-				background-color: #c53929;
+				background-color: var(--color-error, #ed4f32);
 			}
 
 			:host([block]) {
@@ -177,7 +177,7 @@ export class CtInput extends CtLit {
 
 			:host([required]) .label:after {
 				content: var(--ct-indicator, '*');
-				color: #ed4f32;
+				color: var(--color-error, #ed4f32);
 				width: 1.5em;
 				margin-left: 4px;
 				text-align: center;
@@ -216,7 +216,7 @@ export class CtInput extends CtLit {
 
 			#container.error > div > div > .float-label,
 			#container.error > div > input::placeholder {
-				color: #ed4f32 !important;
+				color: var(--color-error, #ed4f32) !important;
 			}
 
 			#container.active {
