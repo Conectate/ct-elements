@@ -1,6 +1,7 @@
 import '@conectate/ct-icon';
 
 import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
+import { PropertyValueMap } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 /**
  * ## `ct-checkbox`
@@ -138,7 +139,7 @@ export class CtCheckbox extends CtLit {
 
 	render() {
 		return html`
-			<input id="input" type="checkbox" @change=${this.change} .checked=${this.checked} .disabled=${this.disabled} />
+			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} />
 			<div class="c">
 				<span id="box">
 					<ct-icon
@@ -153,16 +154,22 @@ export class CtCheckbox extends CtLit {
 		`;
 	}
 
-	firstUpdated() {
-		this.mapIDs();
+	protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+		if (_changedProperties.has('checked') && _changedProperties.get('checked') != undefined) {
+			this.indeterminate = false;
+			this.change();
+		}
 	}
 
 	click() {
-		this.$.input.click();
+		this.$input.click();
+	}
+
+	toogleCheck() {
+		this.checked = this.$input.checked;
 	}
 
 	change() {
-		this.checked = this.$input.checked;
 		if (this.checked) this.indeterminate = false;
 		this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.$input.checked } }));
 	}

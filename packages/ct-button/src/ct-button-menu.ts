@@ -204,7 +204,6 @@ export class CtButtonMenu extends LitElement {
 		};
 	}
 
-	@query('.popup-btn') menu!: HTMLSpanElement;
 	extra() {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];
@@ -212,7 +211,7 @@ export class CtButtonMenu extends LitElement {
 			menu_btns.forEach((btn) => btns.push((btn as any).button || btn.shadowRoot?.firstElementChild || btn.firstChild || btn));
 			if (btns.length > 0)
 				rovingIndex({
-					element: this.menu,
+					element: this,
 					targets: btns
 				});
 		}, 2000);
