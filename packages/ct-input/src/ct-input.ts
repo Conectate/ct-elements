@@ -189,17 +189,13 @@ export class CtInput extends CtLit {
 			}
 
 			#container {
-				/* display: flex;
-		flex-direction: row;
-		flex: 1; 
-		align-items: center;*/
 				position: relative;
 				margin: 0 auto;
 				border-radius: 16px;
 				background: rgba(121, 130, 142, 0.1);
 				color: var(--color-on-surface, #535353);
 				transition: all 0.2s;
-				padding: 0em 1em;
+				padding: var(--ct-input-padding, 0em 1em);
 			}
 
 			.row {
@@ -232,8 +228,7 @@ export class CtInput extends CtLit {
 				display: inline-block;
 			}
 
-			::slotted([slot='prefix']),
-			[name='prefix'] {
+			::slotted([slot='prefix']) {
 				display: inline-block;
 				margin-right: 0.5em;
 			}
@@ -259,7 +254,7 @@ export class CtInput extends CtLit {
 			input[type='week'],
 			select,
 			textarea {
-				height: 3.3em;
+				height: var(--ct-input-height, 3.3em);
 				box-sizing: border-box;
 				background: none;
 				font: inherit;
