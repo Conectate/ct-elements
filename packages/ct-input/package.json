@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-input",
-	"version": "3.8.0",
+	"version": "3.8.1",
 	"description": "HTML input made with Web Components",
 	"main": "ct-input.js",
 	"typings": "ct-input.d.ts",
@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"@conectate/ct-helpers": "^3.7.0",
-		"@conectate/ct-lit": "^3.8.0",
+		"@conectate/ct-lit": "^3.8.1",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {
