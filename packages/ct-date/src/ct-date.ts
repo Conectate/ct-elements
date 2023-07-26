@@ -239,17 +239,32 @@ export class CtDate extends CtLit {
 	}
 
 	get value(): number | undefined {
-		if (this.showhour && (!this.yyyy || !this.mm || !this.dd || !this.hh || !this.min)) return undefined;
-		if (!this.yyyy || !this.mm || !this.dd) return undefined;
-		let val = Math.floor(
-			new Date(
-				this.showhour
-					? `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.nodd ? '02' : this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${
-							this.usetimezone ? '' : 'Z'
-					  }`
-					: `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.nodd ? '02' : this.dd)}`
-			).getTime() / 1000
-		);
+		// Si existe this.nodd, establece this.dd en '02'
+		if (this.nodd) {
+			this.dd = '02';
+		}
+
+		// Si this.showhour es verdadero y falta alguna de las propiedades requeridas, retorna undefined
+
+		// Si falta alguna de las propiedades requeridas, retorna undefined
+		if (!this.yyyy || !this.mm || !this.dd) {
+			return undefined;
+		} else if (this.showhour && (!this.hh || !this.min)) {
+			return undefined;
+		}
+
+		// Construye una fecha basada en las propiedades proporcionadas
+		let dateStr;
+		if (this.showhour) {
+			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`;
+		} else {
+			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}`;
+		}
+
+		// Obtiene el timestamp en segundos de la fecha construida
+		let val = Math.floor(new Date(dateStr).getTime() / 1000);
+
+		// Si val es NaN o 0, retorna undefined; de lo contrario, retorna val
 		return val || undefined;
 	}
 
