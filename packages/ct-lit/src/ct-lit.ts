@@ -109,6 +109,8 @@ export class CtLit extends LitElement {
 	 */
 	mapIDs() {
 		console.warn('mapIDs() is deprecated, use `@query` decorator from lit/decorators instead');
+		// @ts-ignore
+		this.$ = {};
 		let nodeList = this.renderRoot.querySelectorAll('[id]');
 		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
 			// @ts-ignore
