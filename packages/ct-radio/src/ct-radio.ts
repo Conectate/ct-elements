@@ -1,5 +1,5 @@
 import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { html, css, PropertyValueMap } from 'lit';
+import { css, html, PropertyValueMap } from 'lit';
 /**
  * ## `ct-radio`
  * radio element
@@ -143,7 +143,9 @@ export class CtRadio extends CtLit {
 
 	protected updated(_changedProperties: PropertyValueMap<this>): void {
 		if (_changedProperties.has('checked') && _changedProperties.get('checked') != undefined) {
-			console.log('updated checked', this, this.checked);
+			// @ts-ignore
+			let dev = localStorage.dev || window.dev;
+			if (dev) console.log('updated checked', this, this.checked);
 			this.change();
 		}
 	}

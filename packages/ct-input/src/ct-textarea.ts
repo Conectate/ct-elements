@@ -14,8 +14,8 @@ import './ct-textarea-autogrow';
 import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
 import { css, html } from 'lit';
 
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
 	`ct-textarea`
@@ -197,7 +197,6 @@ export class CtTextarea extends CtLit {
 				min-height: 1em;
 				box-sizing: border-box;
 				background: none;
-				font: inherit;
 				border: none;
 				outline: none;
 				margin: 1.15em 0;
@@ -205,8 +204,8 @@ export class CtTextarea extends CtLit {
 				width: 100%;
 				display: inline-block;
 				color: inherit;
-				font-family: inherit;
-				font-weight: inherit;
+				font-family: var(--ct-textarea-font-family, inherit);
+				font-weight: var(--ct-textarea-font-weight, inherit);
 				font-size: inherit;
 				letter-spacing: inherit;
 				word-spacing: inherit;

@@ -1,10 +1,10 @@
 import { LitElement } from 'lit';
 export type PropertyValues = Map<PropertyKey, any>;
-export { LitElement };
+export { css, html, svg, unsafeCSS } from 'lit';
+export { property, query, queryAll, queryAssignedNodes, queryAsync, state as internalProperty, state } from 'lit/decorators.js';
 export { unsafeHTML } from 'lit/directives/unsafe-html.js';
 export { until } from 'lit/directives/until.js';
-export { html, svg, css } from 'lit';
-export { property, query, queryAll, queryAssignedNodes, queryAsync, state, state as internalProperty } from 'lit/decorators.js';
+export { LitElement };
 
 // From the TC39 Decorators proposal
 interface ClassDescriptor {
@@ -84,7 +84,6 @@ export class CtLit extends LitElement {
 		if (location.host.includes('usac.edu.gt') && !location.host.includes('medicina')) return;
 		super.connectedCallback();
 	}
-	$: { [x: string]: HTMLElement | any } = {};
 
 	/**
 	 * Returns the first element that is a descendant of node that matches selectors.
@@ -106,20 +105,22 @@ export class CtLit extends LitElement {
 	/**
 	 * Map all IDs for shadowRoot and save in `this.$` like a polymer element.
 	 * You should add in the first line of `firstUpdated()`
+	 * @deprecated
 	 */
 	mapIDs() {
+		console.warn('mapIDs() is deprecated, use `@query` decorator from lit/decorators instead');
 		let nodeList = this.renderRoot.querySelectorAll('[id]');
 		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
+			// @ts-ignore
 			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
 		}
-		return this.$;
 	}
 
 	/**
 	 * Clone all `native` types of object in a new object reference
 	 * @param ob Original Object
 	 */
-	deepClone(ob: object) {
+	deepClone<T extends object>(ob: T): T {
 		return window.structuredClone != null ? structuredClone(ob) : JSON.parse(JSON.stringify(ob));
 	}
 

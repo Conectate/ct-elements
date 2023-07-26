@@ -1,12 +1,11 @@
-import '../../packages/ct-icon';
+import '@conectate/ct-icon';
 
 import { stripIndent } from 'common-tags';
-import { TemplateResult, unsafeCSS } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import * as Prism from 'prismjs';
 import Dark from 'prismjs/themes/prism-okaidia.css';
 
-import { CtLit, css, customElement, html, property, query, state } from '../../packages/ct-lit/ct-lit';
+import { css, CtLit, customElement, html, property, query, state, unsafeCSS } from '@conectate/ct-lit';
 
 @customElement('code-example')
 export class CodeExample extends CtLit {
@@ -155,7 +154,7 @@ export class CodeExample extends CtLit {
 		return this.classList.contains('language-html') || this.classList.contains('language-html-live');
 	}
 
-	private get highlightedCode(): TemplateResult {
+	private get highlightedCode() {
 		const highlightedHtml = Prism.highlight(this.rawcode, Prism.languages[this.language], this.language);
 
 		const code = unsafeHTML(highlightedHtml);
@@ -163,7 +162,7 @@ export class CodeExample extends CtLit {
 		return html` <pre><code>${code}</code></pre> `;
 	}
 
-	protected render(): TemplateResult {
+	protected render() {
 		const { highlightedCode } = this;
 		return html`
 			${this.showDemo

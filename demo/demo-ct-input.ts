@@ -1,10 +1,9 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { css, CtLit, customElement, html } from '@conectate/ct-lit';
 
 import '@conectate/ct-input';
 import '@conectate/ct-input/ct-textarea';
 @customElement('demo-ct-input')
-export class DemoCtInput extends LitElement {
+export class DemoCtInput extends CtLit {
 	static styles = [
 		css`
 			:host {

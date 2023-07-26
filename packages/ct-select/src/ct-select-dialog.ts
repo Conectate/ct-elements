@@ -155,6 +155,8 @@ export class CtSelectDialog extends CtLit {
 	}
 	solve!: (value?: any) => void;
 	reject!: (value?: any) => void;
+	@query('#buttons') $buttons!: HTMLElement;
+	@query('#cancel') $cancel!: HTMLElement;
 	@property({ type: String }) ttl!: string;
 	@property({ type: Boolean }) searchable = false;
 	@property({ type: String }) searchPlaceholder: string = 'Search...';
@@ -294,7 +296,6 @@ export class CtSelectDialog extends CtLit {
 	}
 
 	firstUpdated() {
-		this.mapIDs();
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 		this.itemsFiltered = [...this.items];
 		setTimeout(() => {
@@ -329,10 +330,10 @@ export class CtSelectDialog extends CtLit {
 		let auxok = ok || '',
 			auxcancel = cancel || '';
 		if (auxok.length > 15 || auxcancel.length > 15) {
-			this.$.buttons.classList.add('buttons_vert');
+			this.$buttons.classList.add('buttons_vert');
 		}
 		if (cancel == null) {
-			this.$.cancel.style.display = 'none';
+			this.$cancel.style.display = 'none';
 		}
 	}
 

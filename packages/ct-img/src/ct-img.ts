@@ -10,8 +10,9 @@
  */
 
 import { LitElement, css, html } from 'lit';
-import { query, customElement, property } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 /**
  * ## `ct-img`
  * Normal and lazy images loader element
@@ -93,7 +94,7 @@ export class CtImg extends LitElement {
 	render() {
 		let classes = { r: this.round };
 		return html`
-			<img id="img" .alt="${this.alt}" @load=${this._onImgLoad} @error=${this._onImgError} />
+			<img id="img" alt=${ifDefined(this.alt)} @load=${this._onImgLoad} @error=${this._onImgError} />
 			<div id="divimg" class=${classMap(classes)}></div>
 			<slot></slot>
 		`;

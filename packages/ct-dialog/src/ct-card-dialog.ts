@@ -55,10 +55,6 @@ export class CtCardDialog extends CtLit {
 			${this.el}
 		`;
 	}
-
-	firstUpdated() {
-		this.mapIDs();
-	}
 }
 declare global {
 	interface HTMLElementTagNameMap {

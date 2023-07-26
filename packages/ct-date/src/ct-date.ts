@@ -1,7 +1,7 @@
 import '@conectate/ct-input/ct-input-container';
 
 import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { TemplateResult, html, css } from 'lit';
+import { css, html, TemplateResult } from 'lit';
 
 /**
  * Simple cross-platform Date input for LitElement and Web Components
@@ -99,6 +99,31 @@ export class CtDate extends CtLit {
 			}
 		`
 	];
+
+	constructor() {
+		// on paste "12/12/2020" or "12/12/2020 12:12", fill data properly
+		super();
+		this.addEventListener('paste', (e: ClipboardEvent) => {
+			let data = e.clipboardData?.getData('text/plain');
+			if (data) {
+				let splitter = data.includes('/') ? '/' : '-';
+				let parts = data.split(' ');
+				let date = parts[0].split(splitter);
+				if (date.length == 3) {
+					this.dd = date[0];
+					this.mm = date[1];
+					this.yyyy = date[2];
+				}
+				if (parts.length == 2) {
+					let time = parts[1].split(':');
+					if (time.length == 2) {
+						this.hh = time[0];
+						this.min = time[1];
+					}
+				}
+			}
+		});
+	}
 
 	render(): TemplateResult {
 		return html`
@@ -198,18 +223,14 @@ export class CtDate extends CtLit {
 		} else if (attr == 'mm' && (v > 9 || (this.mm.startsWith('0') && this.mm.length == 2))) {
 			this.$yyyy?.focus();
 		}
-		this.fireValue();
-	}
-
-	fireValue() {
-		let val = Math.floor(
+		// this.fireValue();
+		let unix = Math.floor(
 			new Date(
 				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`
 			).getTime() / 1000
 		);
-		if (`NaN` != `${val}`) {
-			// console.log('fireValue', new Date(`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh,'0')}:${this.addZero(this.min,'0')}`))
-			this.dispatchEvent(new CustomEvent('value', { detail: val }));
+		if (`NaN` != `${unix}`) {
+			this.dispatchEvent(new CustomEvent('value', { detail: unix }));
 		}
 	}
 
@@ -217,7 +238,9 @@ export class CtDate extends CtLit {
 		this.loadValue(val);
 	}
 
-	get value() {
+	get value(): number | undefined {
+		if (this.showhour && (!this.yyyy || !this.mm || !this.dd || !this.hh || !this.min)) return undefined;
+		if (!this.yyyy || !this.mm || !this.dd) return undefined;
 		let val = Math.floor(
 			new Date(
 				this.showhour
@@ -234,6 +257,8 @@ export class CtDate extends CtLit {
 	 * Return value in yyyy-mm-dd format
 	 */
 	get valueFormat() {
+		if (this.showhour && (!this.yyyy || !this.mm || !this.dd || !this.hh || !this.min)) return undefined;
+		if (!this.yyyy || !this.mm || !this.dd) return undefined;
 		if (!this.showhour) return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}`;
 		else return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`;
 	}
@@ -248,19 +273,20 @@ export class CtDate extends CtLit {
 	 * @param value timestamp value in seconds
 	 */
 	loadValue(value?: number) {
-		if (value && value != -1) {
+		if (value != null && value != -1) {
+			let d = new Date(value * 1000);
 			if (this.usetimezone) {
-				this.dd = `${new Date(value * 1000).getDate()}`;
-				this.mm = `${new Date(value * 1000).getMonth() + 1}`;
-				this.yyyy = `${new Date(value * 1000).getFullYear()}`;
-				this.hh = `${new Date(value * 1000).getHours()}`;
-				this.min = `${new Date(value * 1000).getMinutes()}`;
+				this.dd = `${d.getDate()}`;
+				this.mm = `${d.getMonth() + 1}`;
+				this.yyyy = `${d.getFullYear()}`;
+				this.hh = `${d.getHours()}`;
+				this.min = `${d.getMinutes()}`;
 			} else {
-				this.dd = `${new Date(value * 1000).getUTCDate()}`;
-				this.mm = `${new Date(value * 1000).getUTCMonth() + 1}`;
-				this.yyyy = `${new Date(value * 1000).getUTCFullYear()}`;
-				this.hh = `${new Date(value * 1000).getUTCHours()}`;
-				this.min = `${new Date(value * 1000).getUTCMinutes()}`;
+				this.dd = `${d.getUTCDate()}`;
+				this.mm = `${d.getUTCMonth() + 1}`;
+				this.yyyy = `${d.getUTCFullYear()}`;
+				this.hh = `${d.getUTCHours()}`;
+				this.min = `${d.getUTCMinutes()}`;
 			}
 		} else {
 			this.dd = '';

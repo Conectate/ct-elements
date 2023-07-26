@@ -221,10 +221,6 @@ export class CtTextareaAutogrow extends CtLit {
 		this.$textarea.selectionEnd = value;
 	}
 
-	firstUpdated() {
-		this.mapIDs();
-	}
-
 	_constrain(tokens: string[]) {
 		var _tokens = tokens || [''];
 		// Enforce the min and max heights for a multiline input to avoid

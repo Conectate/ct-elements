@@ -8,10 +8,10 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, customElement, property, state } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
 import { css, html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 export type CtInputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week' | 'color';
 export type CtInputAutoComplete =
@@ -264,8 +264,8 @@ export class CtInput extends CtLit {
 				width: 100%;
 				display: inline-block;
 				color: inherit;
-				font-family: inherit;
-				font-weight: inherit;
+				font-family: var(--ct-input-font-family, inherit);
+				font-weight: var(--ct-input-font-weight, inherit);
 				font-size: inherit;
 				letter-spacing: inherit;
 				word-spacing: inherit;
@@ -338,11 +338,9 @@ export class CtInput extends CtLit {
 			}
 		`
 	];
+	@query('input') $input!: HTMLInputElement;
+	@query('container') $container!: HTMLElement;
 
-	$!: {
-		input: HTMLInputElement;
-		container: HTMLElement;
-	};
 	@property({ type: String }) inputmode!: CtInputMode;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) min?: number;
@@ -485,9 +483,8 @@ export class CtInput extends CtLit {
 	}
 
 	firstUpdated() {
-		this.mapIDs();
-		if (this.$.input) {
-			this.$.input.value = this.initValue || this.getAttribute('value') || '';
+		if (this.$input) {
+			this.$input.value = this.initValue || this.getAttribute('value') || '';
 		}
 		this.validate();
 		this._onInput();
@@ -505,26 +502,26 @@ export class CtInput extends CtLit {
 		val ||= '';
 		val = val.toString();
 		this.initValue = val;
-		if (this.$.input && this.$.input.value != val && val.length - 1 < this.maxlength) {
-			if (this.$.input) {
-				this.$.input.value = val;
+		if (this.$input && this.$input.value != val && val.length - 1 < this.maxlength) {
+			if (this.$input) {
+				this.$input.value = val;
 				this._onInput();
 			}
 		}
 	}
 
 	get value(): string {
-		return this.$.input?.value || '';
+		return this.$input?.value || '';
 	}
 	get valueAsnumber() {
-		return this.$.input?.valueAsNumber;
+		return this.$input?.valueAsNumber;
 	}
 	get valueAsDate() {
-		return this.$.input?.valueAsDate;
+		return this.$input?.valueAsDate;
 	}
 
 	focus() {
-		this.$.input?.focus();
+		this.$input?.focus();
 	}
 
 	/**
@@ -550,14 +547,14 @@ export class CtInput extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$.input?.value === undefined || this.$.input?.value === '') return !this.invalid;
+			if (this.$input?.value === undefined || this.$input?.value === '') return !this.invalid;
 		}
 
 		if (this.pattern) {
 			let re = this.pattern instanceof RegExp ? this.pattern : new RegExp(this.pattern);
-			this.invalid = !this.$.input?.value.match(re);
+			this.invalid = !this.$input?.value.match(re);
 		} else if (this.required) {
-			this.invalid = !(this.$.input?.value.length > 0 && this.$.input?.value.length >= (this.min || 0));
+			this.invalid = !(this.$input?.value.length > 0 && this.$input?.value.length >= (this.min || 0));
 		}
 		return !this.invalid;
 	}

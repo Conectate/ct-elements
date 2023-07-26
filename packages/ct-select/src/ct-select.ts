@@ -1,8 +1,8 @@
 import './ct-select-dialog';
 
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property } from '@conectate/ct-lit';
-import { TemplateResult, css, html } from 'lit';
+import { CtLit, customElement, property, query } from '@conectate/ct-lit';
+import { css, html, TemplateResult } from 'lit';
 
 import { showCtSelect } from './ct-select-dialog';
 
@@ -243,6 +243,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 		`
 	];
+	@query('#container') $container!: HTMLElement;
+	@query('#input') $input!: HTMLInputElement;
+	@query('#c') $c!: HTMLElement;
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: String }) raw_placeholder = '';
 	okPlaceholder: string = 'Ok';
@@ -305,9 +308,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			let items = this.items.filter((item) => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
 			//console.log(this.searchIn, items);
 			if (items.length > 0) {
-				this.$.input.value = items[0][this.textProperty];
+				this.$input.value = items[0][this.textProperty];
 			} else {
-				this.$.input.value = this.items.find((item) => item[this.valueProperty] == this.value)?.[this.textProperty];
+				this.$input.value = this.items.find((item) => item[this.valueProperty] == this.value)?.[this.textProperty];
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
@@ -319,7 +322,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	firstUpdated() {
-		this.mapIDs();
 		this.computeValues();
 	}
 
@@ -375,9 +377,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		this.computeValues();
 		if (this.placeholder) {
 			var isEmpty = this.value == null;
-			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$.container);
-			this.$.container.classList.toggle('has-value', !isEmpty);
-			this.$.input.classList.toggle('has-value', !isEmpty);
+			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$container);
+			this.$container.classList.toggle('has-value', !isEmpty);
+			this.$input.classList.toggle('has-value', !isEmpty);
 		}
 	}
 
@@ -534,9 +536,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	async bounce() {
-		this.$.c.classList.add('bounce');
+		this.$c.classList.add('bounce');
 		await sleep(1000);
-		this.$.c.classList.remove('bounce');
+		this.$c.classList.remove('bounce');
 	}
 }
 

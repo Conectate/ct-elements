@@ -57,3 +57,9 @@ export class CtTab extends CtLit {
 		`;
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-tab': CtTab;
+	}
+}

@@ -1,16 +1,17 @@
+import { css, CtLit, customElement, html, property, query } from '@conectate/ct-lit';
+
 import { sleep } from '@conectate/ct-helpers';
-import { css, LitElement, html } from 'lit';
-import { query, property, customElement } from 'lit/decorators.js';
+
 /**
  * @element ct-collapse
  */
 @customElement('ct-collapse')
-export class CtCollapse extends LitElement {
+export class CtCollapse extends CtLit {
 	@property({ type: Boolean }) opened = false;
 	@query('#content') $content!: HTMLSlotElement;
 	content: any;
 	elems: any[] = [];
-	static styles = [
+	static styles: any = [
 		css`
 			:host {
 				display: block;
@@ -23,7 +24,7 @@ export class CtCollapse extends LitElement {
 			}
 		`
 	];
-	render() {
+	render(): any {
 		return html` <slot id="content"></slot> `;
 	}
 	firstUpdated() {

@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@conectate/ct-lit": "^3.7.5",
-		"tslib": "^2.3.1"
+		"tslib": "^2.6.1"
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",

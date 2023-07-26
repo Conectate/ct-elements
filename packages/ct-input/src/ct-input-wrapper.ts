@@ -1,4 +1,4 @@
-import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query } from '@conectate/ct-lit';
 import { html } from 'lit';
 
 /**
@@ -35,6 +35,7 @@ export class CtInputWrapper extends CtLit {
 		| 'button' = 'file';
 	@property({ type: String }) accept = 'text';
 	@property({ type: Boolean }) multiple = false;
+	@query('#inputElement') $inputElement!: HTMLInputElement;
 
 	render() {
 		return html` <style>
@@ -60,12 +61,8 @@ export class CtInputWrapper extends CtLit {
 			<input @change=${this.callOnChange} .type="${this.type}" .accept="${this.accept}" id="inputElement" ?multiple=${this.multiple} />`;
 	}
 
-	firstUpdated() {
-		this.mapIDs();
-	}
-
 	callOnChange(e: any) {
-		const files = (this.$.inputElement as HTMLInputElement).files;
+		const files = (this.$inputElement as HTMLInputElement).files;
 		if (files && files.length > 0) {
 			this.dispatchEvent(
 				new CustomEvent('files', {
@@ -76,7 +73,7 @@ export class CtInputWrapper extends CtLit {
 	}
 
 	clear() {
-		this.$.inputElement.value = '';
+		this.$inputElement.value = '';
 	}
 }
 declare global {

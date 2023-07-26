@@ -1,6 +1,6 @@
 import '@conectate/ct-input/ct-input-container';
 
-import { CtLit, html } from '@conectate/ct-lit';
+import { CtLit, html, query } from '@conectate/ct-lit';
 
 class CtPhoneInput extends CtLit {
 	code: string = '502';
@@ -10,6 +10,8 @@ class CtPhoneInput extends CtLit {
 	errorMessage: string = '';
 	required: boolean = false;
 	value!: string | null;
+	@query('#cd') $cd!: HTMLInputElement;
+	@query('#phoneInput') $phoneInput!: HTMLInputElement;
 
 	render() {
 		return html`
@@ -67,7 +69,7 @@ class CtPhoneInput extends CtLit {
 					<input
 						id="cd"
 						.value="${this.code}"
-						@input="${() => (this.code = this.$.cd.value)}"
+						@input="${() => (this.code = this.$cd.value)}"
 						maxlength="3"
 						size="1"
 						placeholder="XXX"
@@ -78,7 +80,7 @@ class CtPhoneInput extends CtLit {
 					<input
 						id="phoneInput"
 						.value="${this.phone}"
-						@input="${() => (this.phone = this.$.phoneInput.value)}"
+						@input="${() => (this.phone = this.$phoneInput.value)}"
 						maxlength="17"
 						size="15"
 						placeholder="XXXX XXXX"
@@ -88,10 +90,6 @@ class CtPhoneInput extends CtLit {
 				</span>
 			</ct-input-container>
 		`;
-	}
-
-	firstUpdated() {
-		this.mapIDs();
 	}
 
 	updated(cp: Map<PropertyKey, unknown>) {
@@ -125,7 +123,7 @@ class CtPhoneInput extends CtLit {
 
 	focusPhone(code: string) {
 		if (code.length == 3) {
-			this.$.phoneInput.focus();
+			this.$phoneInput.focus();
 		}
 	}
 

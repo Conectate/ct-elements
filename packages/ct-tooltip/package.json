@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit": "^2.2.0"
+		"lit": "^2.7.6"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

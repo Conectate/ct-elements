@@ -6,8 +6,8 @@
 	"typings": "ct-chartjs.d.ts",
 	"module": "ct-chartjs.js",
 	"dependencies": {
-		"lit": "^2.2.0",
-		"tslib": "^2.3.1"
+		"lit": "^2.7.6",
+		"tslib": "^2.6.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
@@ -31,9 +31,9 @@
 			"development": "./src/ct-chartjs.ts",
 			"default": "./ct-chartjs.js"
 		},
-		"./ct-chartjs": {
-			"development": "./src/ct-chartjs.ts",
-			"default": "./ct-chartjs.js"
+		"./*": {
+			"development": "./src/*",
+			"default": "./*"
 		}
 	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"

@@ -1,6 +1,6 @@
-import { CtLit, customElement } from '@conectate/ct-lit';
-import { html, css } from 'lit';
-import { CtTab } from './ct-tab';
+import { CtLit, customElement, query } from '@conectate/ct-lit';
+import { css, html } from 'lit';
+import { CtTab } from './ct-tab.js';
 
 /**
  *
@@ -77,6 +77,8 @@ export class CtTabs extends CtLit {
 			</div>
 		`;
 	}
+	@query('#container') $container!: HTMLElement;
+	@query('#content') $content!: HTMLSlotElement;
 
 	_selected!: string;
 	tabs: CtTab[] = [];
@@ -107,9 +109,10 @@ export class CtTabs extends CtLit {
 	}
 
 	firstUpdated() {
-		this.mapIDs();
 		this.setTab(this.selected);
-		this.tabs = this.$.content.assignedNodes().filter((elem: { nodeType: number }) => elem.nodeType == Node.ELEMENT_NODE);
+		// this.tabs = this.$content.assignedNodes().filter((elem) => elem.nodeType == Node.ELEMENT_NODE && elem.tagName == 'CT-TAB');
+		// @ts-ignore
+		this.tabs = [...this.querySelectorAll('ct-tab')];
 		if (this.handletabs) {
 			this.tabs.forEach((item, index) => {
 				item.addEventListener('click', () => {
@@ -122,8 +125,9 @@ export class CtTabs extends CtLit {
 	}
 
 	setTab(selected: string) {
-		this.tabs = this.$.content?.assignedNodes().filter((elem: { nodeType: number }) => elem.nodeType == Node.ELEMENT_NODE);
-
+		// this.tabs = this.$content?.assignedNodes().filter((elem: { nodeType: number }) => elem.nodeType == Node.ELEMENT_NODE);
+		// @ts-ignore
+		this.tabs = [...this.querySelectorAll('ct-tab')];
 		if (this.selected != undefined) {
 			this.tabs?.forEach((tab, index) => {
 				if (`${index}` == selected) {
@@ -136,6 +140,11 @@ export class CtTabs extends CtLit {
 	}
 
 	isOverflown() {
-		return this.$.container.scrollHeight > this.$.container.clientHeight || this.$.container.scrollWidth > this.$.container.clientWidth;
+		return this.$container.scrollHeight > this.$container.clientHeight || this.$container.scrollWidth > this.$container.clientWidth;
+	}
+}
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-tabs': CtTabs;
 	}
 }

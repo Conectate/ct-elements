@@ -18,7 +18,7 @@
 	"dependencies": {
 		"@conectate/ct-input": "^3.7.7",
 		"@conectate/ct-lit": "^3.7.5",
-		"tslib": "^2.3.1"
+		"tslib": "^2.6.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

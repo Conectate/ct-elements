@@ -7,6 +7,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 /**
  * @element ct-list-item
+ *
+ * @slot prefix - Content placed above the main content
+ * @slot - Default content placed in the middle
+ * @slot suffix - Content placed below the main content
  */
 @customElement('ct-list-item')
 export class CtListItem extends CtLit {
@@ -65,20 +69,24 @@ export class CtListItem extends CtLit {
 	@property({ type: String }) icon?: icon;
 	/** Inner Text */
 	@property({ type: String }) text = '';
-	/** Link */
+	/** @deprecated use href instead */
 	@property({ type: String }) link?: string;
+	/** Link */
+	@property({ type: String }) href?: string;
 	/** Link */
 	@property({ type: String }) target?: '_self' | '_top' | '_blank';
 
 	render() {
-		return html`<a href="${ifDefined(this.link)}" target="${ifDefined(this.target)}">
-			<button>
-				<slot name="prefix"></slot>
-				${this.icon || this.svg ? html`<ct-icon .svg="${this.svg}" icon="${ifDefined(this.icon)}"></ct-icon>` : ''}
-				<div class="text">${this.text}<slot></slot></div>
-				<slot name="sufix"></slot>
-			</button>
-		</a>`;
+		let button = html`<button>
+			<slot name="prefix"></slot>
+			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon)}></ct-icon>` : ''}
+			<div class="text">${this.text}<slot></slot></div>
+			<slot name="sufix"></slot>
+			<slot name="suffix"></slot>
+		</button>`;
+		let href = this.href || this.link;
+		if (href) return html`<a href="${href}" target="${ifDefined(this.target)}"> ${button}</a> `;
+		return button;
 	}
 }
 

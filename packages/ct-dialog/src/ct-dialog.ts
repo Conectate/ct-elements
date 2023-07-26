@@ -9,8 +9,8 @@
     found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { PushID, getClient, sleep } from '@conectate/ct-helpers';
-import { CtLit, css, customElement, html, property, state } from '@conectate/ct-lit';
+import { getClient, PushID, sleep } from '@conectate/ct-helpers';
+import { css, CtLit, customElement, html, property, state } from '@conectate/ct-lit';
 
 let ctDialogs: string[] = [];
 // @ts-ignore
@@ -370,7 +370,6 @@ export class CtDialog extends CtLit {
 	}
 
 	firstUpdated() {
-		this.mapIDs();
 		// Checkeo que no sea Chrome de iOS porque esa mierda no sirve aquí 😡
 		if (navigator.userAgent.match(/CriOS\/([0-9\.]+)/)) this.disableHistoryAPI = true;
 

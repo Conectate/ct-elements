@@ -39,6 +39,10 @@
 			"development": "./src/ct-select.ts",
 			"default": "./ct-select.js"
 		},
+		"./*": {
+			"development": "./src/*",
+			"default": "./*"
+		},
 		"./ct-select-dialog": {
 			"development": "./src/ct-select-dialog.ts",
 			"default": "./ct-select-dialog.js"

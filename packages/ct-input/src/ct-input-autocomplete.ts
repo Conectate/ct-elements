@@ -2,7 +2,7 @@ import './ct-autocomplete-suggestions';
 import './ct-input';
 
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query } from '@conectate/ct-lit';
 import { html } from 'lit';
 /**
  * # `ct-input-autocomplete`
@@ -51,7 +51,8 @@ export class CtInputAutocomplete extends CtLit {
 			</ct-autocomplete-suggestions>
 		`;
 	}
-
+	@query('#autocompleteInput') $autocompleteInput!: HTMLInputElement;
+	@query('#autocompleteSuggestions') $autocompleteSuggestions!: any;
 	@property({ type: String }) label = '';
 	@property({ type: String }) placeholder = '';
 	@property({ type: String }) errorMessage = '';
@@ -68,7 +69,7 @@ export class CtInputAutocomplete extends CtLit {
 
 	async onBlur() {
 		await sleep(500);
-		this.$.autocompleteSuggestions.hiddeSugg();
+		this.$autocompleteSuggestions.hiddeSugg();
 	}
 
 	get value() {
@@ -114,10 +115,5 @@ export class CtInputAutocomplete extends CtLit {
 
 	validate() {
 		return true;
-	}
-
-	// Element Lifecycle
-	firstUpdated() {
-		this.mapIDs();
 	}
 }

@@ -9,14 +9,14 @@
  found at https://wc.conectate.app/PATENTS.txt
  */
 
-import '@conectate/ct-card';
 import '@conectate/ct-button';
+import '@conectate/ct-card';
 import '@conectate/ct-input';
 
-import { css, CtLit, customElement, html, property } from '@conectate/ct-lit';
+import { css, CtLit, customElement, html, property, query } from '@conectate/ct-lit';
 
-import { CtDialog, showCtDialog } from './ct-dialog';
 import { TemplateResult } from 'lit';
+import { CtDialog, showCtDialog } from './ct-dialog';
 
 export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { wordwrap?: boolean }): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
@@ -39,6 +39,10 @@ class CTPromp extends CtLit {
 	@property({ type: String }) neutral?: string = '';
 	@property({ type: String }) cancel?: string = 'Cancel';
 	@property({ type: Boolean, reflect: true }) wordwrap: boolean = false;
+	@query('#buttons') $buttons!: HTMLDivElement;
+	@query('#neutral') $neutral!: HTMLButtonElement;
+	@query('#cancel') $cancel!: HTMLButtonElement;
+	@query('#in') $in!: HTMLInputElement;
 	reject!: (reason?: any) => void;
 	solve!: (param?: string | null) => void;
 	dialog!: CtDialog;
@@ -127,7 +131,6 @@ class CTPromp extends CtLit {
 		`;
 	}
 	firstUpdated() {
-		this.mapIDs();
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 	}
 
@@ -136,19 +139,19 @@ class CTPromp extends CtLit {
 			auxcancel = cancel || '',
 			auxneutral = neutral || '';
 		if (neutral == null) {
-			this.$.neutral.style.display = 'none';
+			this.$neutral.style.display = 'none';
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.$.buttons.classList.add('buttons_vert');
+			this.$buttons.classList.add('buttons_vert');
 		}
 		if (cancel == null) {
-			this.$.cancel.style.display = 'none';
+			this.$cancel.style.display = 'none';
 		}
 	}
 
 	async okbtn(e: Event) {
 		await this.dialog.closeDialog(e, 'click');
-		this.solve(this.$.in.value);
+		this.solve(this.$in.value);
 	}
 
 	async cancelbtn(e: Event) {
