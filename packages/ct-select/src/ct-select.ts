@@ -70,10 +70,10 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				align-items: center;
 				position: relative;
 				margin: 0 auto;
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 				background: rgba(121, 130, 142, 0.1);
 				transition: all 0.2s;
-				padding: 0em 1em;
+				padding: var(--ct-input-padding, 0em 1em);
 			}
 
 			#container.error {
@@ -108,7 +108,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 
 			#input {
-				height: 3.3em;
+				height: var(--ct-input-height, 3.3em);
 				box-sizing: border-box;
 				background: none;
 				font: inherit;
@@ -123,7 +123,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				font-size: inherit;
 				letter-spacing: inherit;
 				word-spacing: inherit;
-				line-height: 3.3em;
+				line-height: var(--ct-input-height, 3.3em);
 				text-shadow: inherit;
 				transition: all 0.2s;
 				pointer-events: none;

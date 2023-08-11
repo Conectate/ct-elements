@@ -10,7 +10,7 @@
  */
 
 import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { html, css } from 'lit';
+import { css, html } from 'lit';
 /**
  * `ct-input-container`
  * Input element
@@ -73,11 +73,11 @@ export class CtInputContainer extends CtLit {
 				align-items: center;
 				position: relative;
 				margin: 0 auto;
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 				background: rgba(121, 130, 142, 0.1);
 				color: var(--color-on-surface, #535353);
 				transition: all 0.2s;
-				padding: 0em 1em;
+				padding: var(--ct-input-padding, 0em 1em);
 			}
 
 			#container.error {
@@ -106,12 +106,12 @@ export class CtInputContainer extends CtLit {
 				padding-right: 0.5em;
 			}
 			::slotted([slot='input']) {
-				height: 3.3em;
+				height: var(--ct-input-height, 3.3em);
 				box-sizing: border-box;
 			}
 
 			::slotted(input) {
-				height: 3.3em;
+				height: var(--ct-input-height, 3.3em);
 				box-sizing: border-box;
 				background: none;
 				font: inherit;

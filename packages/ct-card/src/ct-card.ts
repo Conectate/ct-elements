@@ -8,7 +8,7 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { LitElement, css, html } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -28,24 +28,41 @@ export class CtCard extends LitElement {
 	 * Add border-top to card with --color-app  CSS var
 	 */
 	@property({ type: Boolean }) decorator = false;
-	/** @deprecated */
-	@property({ type: Boolean }) border = false;
+	@property({ type: Boolean }) withborder = false;
+	@property({ type: Boolean }) primary = false;
+	@property({ type: Boolean }) secondary = false;
+	@property({ type: Boolean }) error = false;
 
 	static styles = [
 		css`
 			:host {
 				display: block;
 				position: relative;
-				margin: 16px auto;
 				border: 1px solid var(--color-borders, #8d8d8d38);
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 				color: var(--color-on-surface);
 				background-color: var(--color-surface, #fff);
 			}
+			:host([primary]) {
+				background-color: var(--color-primary-container, var(--color-surface, #fff));
+				color: var(--color-on-primary-container, var(--color-on-surface, #000));
+			}
+			:host([secondary]) {
+				background-color: var(--color-secondary-container, var(--color-surface, #fff));
+				color: var(--color-on-secondary-container, var(--color-on-surface, #000));
+			}
+			:host([error]) {
+				background-color: var(--color-error-container, var(--color-surface, #fff));
+				color: var(--color-on-error-container, var(--color-on-surface, #000));
+			}
+			/** @deprecated */
 			:host([shadow]) {
-				box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02), 0 8px 40px 0 rgba(10, 14, 29, 0.06);
+				box-shadow: var(--ct-card-box-shadow, 0 8px 16px 0 rgba(10, 14, 29, 0.02), 0 8px 40px 0 rgba(10, 14, 29, 0.06));
 				/* box-shadow: 0 4px 28px 4px rgba(0, 0, 0, 0.1); */
 				border: none;
+			}
+			:host([withborder]) {
+				border: 1px solid var(--color-borders, #8d8d8d38);
 			}
 			:host([decorator]) {
 				overflow: hidden;
@@ -75,7 +92,7 @@ export class CtCard extends LitElement {
 
 	render() {
 		return html`
-			${this.decorator || this.border ? html`<div class="dec"></div>` : ''}
+			${this.decorator ? html`<div class="dec"></div>` : ''}
 			<slot></slot>
 		`;
 	}

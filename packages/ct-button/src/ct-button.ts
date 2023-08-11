@@ -9,7 +9,7 @@ part of the Conectate Open Source Project is also subject to an additional IP ri
 found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { LitElement, css, html } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -100,7 +100,7 @@ export class CtButton extends LitElement {
 				color: var(--color-primary, #00aeff);
 				outline-color: var(--color-primary, #19ace1);
 				border: 1px solid rgba(128, 128, 128, 0.31);
-				border-radius: var(--ct-button-radius, 26px);
+				border-radius: var(--ct-button-radius, var(--border-radius, 24px));
 				touch-action: manipulation;
 				user-select: none;
 				-webkit-tap-highlight-color: #0000;
@@ -193,6 +193,7 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) shadow = false;
 	@property({ type: Boolean, reflect: true }) flat = false;
 	@property({ type: Boolean, reflect: true }) light = false;
+
 	@property({ type: String, reflect: true }) role = 'button';
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) gap = false;

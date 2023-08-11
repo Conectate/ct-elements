@@ -32,7 +32,7 @@ export class CtCardDialog extends CtLit {
 					position: relative;
 					margin: 16px auto;
 					overflow: auto;
-					border-radius: 16px;
+					border-radius: var(--border-radius, 16px);
 					background: var(--color-background, #fff);
 					box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02), 0 8px 40px 0 rgba(10, 14, 29, 0.06);
 					color: var(--color-on-surface);

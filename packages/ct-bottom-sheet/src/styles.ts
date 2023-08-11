@@ -45,7 +45,7 @@ export default css`
 		margin: 12px auto;
 		max-width: 48px;
 		cursor: move;
-		border-radius: 16px;
+		border-radius: var(--border-radius, 16px);
 		height: 4px;
 		background: var(--bottom-sheet-draggable-background-color, #9292922d);
 	}

@@ -26,7 +26,7 @@ export class DemoCtIcon extends CtLit {
 				display: inline-flex;
 				padding: 8px;
 				border: 1px solid #88888867;
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 			}
 		`
 	];

@@ -32,8 +32,8 @@ class CtPhoneInput extends CtLit {
 					box-shadow: none;
 					border: none;
 					width: auto;
-					height: 3.3em;
-					line-height: 3.3em;
+					height: var(--ct-input-height, 3.3em);
+					line-height: var(--ct-input-height, 3.3em);
 					color: var(--color-on-surface, #535353);
 				}
 

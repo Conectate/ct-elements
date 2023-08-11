@@ -71,7 +71,7 @@ export class CodeExample extends CtLit {
 				display: flex;
 				margin: 1rem 0 2rem 0;
 				flex-direction: column;
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 				border: 1px solid var(--spectrum-global-color-gray-100);
 				width: 100%;
 				position: relative;

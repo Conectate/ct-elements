@@ -85,12 +85,12 @@ export class CtTextarea extends CtLit {
 				background-color: var(--color-primary, #2cb5e8);
 				bottom: 0;
 				height: 2px;
-				left: 8px;
-				right: 8px;
+				left: calc(var(--border-radius, 16px) / 2);
+				right: calc(var(--border-radius, 16px) / 2);
 				margin: 0;
 				padding: 0;
 				position: absolute;
-				border-radius: 0 0 8px 8px;
+				border-radius: 0 0 calc(var(--border-radius, 16px) / 2) calc(var(--border-radius, 16px) / 2);
 
 				-webkit-transform: scaleX(0);
 				transform: scaleX(0);
@@ -143,11 +143,11 @@ export class CtTextarea extends CtLit {
 				align-items: center;
 				position: relative;
 				margin: 0 auto;
-				border-radius: 16px;
+				border-radius: var(--border-radius, 16px);
 				background: rgba(121, 130, 142, 0.1);
 				color: var(--color-on-surface, #535353);
 				transition: all 0.2s;
-				padding: 0em 1em;
+				padding: var(--ct-input-padding, 0em 1em);
 				overflow: hidden;
 			}
 
