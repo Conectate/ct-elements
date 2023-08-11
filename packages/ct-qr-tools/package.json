@@ -1,6 +1,6 @@
 {
     "name": "@conectate/ct-qr-tools",
-    "version": "3.7.0",
+    "version": "3.9.0",
     "description": "Ct Elements",
     "main": "ct-qr-tools.js",
     "types": "ct-qr-tools.d.ts",

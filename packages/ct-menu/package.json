@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-menu",
-	"version": "3.8.1",
+	"version": "3.9.0",
 	"description": "Menu web component for lit",
 	"main": "ct-menu.js",
 	"types": "ct-menu.d.ts",
@@ -14,7 +14,7 @@
 		"Menu"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.8.1",
+		"@conectate/ct-lit": "^3.9.0",
 		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
