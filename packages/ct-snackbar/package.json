@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "Super class for snackbar-element",
 	"main": "ct-snackbar.js",
-	"typings": "ct-snackbar.d.ts",
+	"types": "ct-snackbar.d.ts",
 	"module": "ct-snackbar.js",
 	"keywords": [
 		"LitElement",

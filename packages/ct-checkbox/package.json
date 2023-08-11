@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "HTML checkbox web component based on Material design",
 	"main": "ct-checkbox.js",
-	"typings": "ct-checkbox.d.ts",
+	"types": "ct-checkbox.d.ts",
 	"module": "ct-checkbox.js",
 	"keywords": [
 		"litElement",
@@ -12,7 +12,7 @@
 	"dependencies": {
 		"@conectate/ct-icon": "^3.8.0",
 		"@conectate/ct-lit": "^3.8.1",
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

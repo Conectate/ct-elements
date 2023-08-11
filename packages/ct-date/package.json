@@ -3,7 +3,7 @@
 	"version": "3.8.2",
 	"description": "HTML input date type made with Web Components",
 	"main": "ct-date.js",
-	"typings": "ct-date.d.ts",
+	"types": "ct-date.d.ts",
 	"module": "ct-date.js",
 	"type": "module",
 	"keywords": [
@@ -13,6 +13,14 @@
 		"Angular",
 		"Web Components",
 		"Polymer"
+	],
+	"files": [
+		"**/*.d.ts",
+		"**/*.js",
+		"**/*.js.map",
+		"custom-elements.json",
+		"!stories/",
+		"!test/"
 	],
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

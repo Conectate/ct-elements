@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "HTML input made with Web Components",
 	"main": "ct-input.js",
-	"typings": "ct-input.d.ts",
+	"types": "ct-input.d.ts",
 	"module": "ct-input.js",
 	"keywords": [
 		"Lit",

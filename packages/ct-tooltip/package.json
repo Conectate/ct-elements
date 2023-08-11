@@ -3,7 +3,7 @@
 	"version": "3.8.0",
 	"description": "Tooltip styles for lit",
 	"main": "ct-tooltip.js",
-	"typings": "ct-tooltip.d.ts",
+	"types": "ct-tooltip.d.ts",
 	"module": "ct-tooltip.js",
 	"keywords": [
 		"LitElement",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit": "^2.7.6"
+		"lit": "^2.8.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

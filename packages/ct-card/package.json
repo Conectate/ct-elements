@@ -3,10 +3,10 @@
 	"version": "3.8.0",
 	"description": "HTML card made with Web Components and Lit",
 	"main": "ct-card.js",
-	"typings": "ct-card.d.ts",
+	"types": "ct-card.d.ts",
 	"module": "ct-card.js",
 	"dependencies": {
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

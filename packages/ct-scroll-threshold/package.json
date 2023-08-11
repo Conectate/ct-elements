@@ -3,13 +3,13 @@
 	"version": "3.8.0",
 	"description": "Ct Elements",
 	"main": "ct-scroll-threshold.js",
-	"typings": "ct-scroll-threshold.d.ts",
+	"types": "ct-scroll-threshold.d.ts",
 	"module": "ct-scroll-threshold.js",
 	"keywords": [
 		"ct-elements"
 	],
 	"dependencies": {
-		"lit": "^2.7.6"
+		"lit": "^2.8.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

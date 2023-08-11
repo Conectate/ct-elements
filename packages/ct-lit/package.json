@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "Super class wrapper for lit",
 	"main": "ct-lit.js",
-	"typings": "ct-lit.d.ts",
+	"types": "ct-lit.d.ts",
 	"module": "ct-lit.js",
 	"keywords": [
 		"Lit",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

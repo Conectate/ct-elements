@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "Ct Elements",
 	"main": "ct-select.js",
-	"typings": "ct-select.d.ts",
+	"types": "ct-select.d.ts",
 	"module": "ct-select.js",
 	"keywords": [
 		"ct-elements"

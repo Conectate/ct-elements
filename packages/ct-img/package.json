@@ -4,7 +4,7 @@
 	"description": "Lazy load images in web with Web Components and lit",
 	"module": "ct-img.js",
 	"main": "ct-img.js",
-	"typings": "ct-img.d.ts",
+	"types": "ct-img.d.ts",
 	"keywords": [
 		"lit",
 		"Web Components",

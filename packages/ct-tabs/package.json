@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "Tabs HTMLElement",
 	"main": "ct-tabs.js",
-	"typings": "ct-tabs.d.ts",
+	"types": "ct-tabs.d.ts",
 	"module": "ct-tabs.js",
 	"keywords": [
 		"LitElement",
@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"@conectate/ct-lit": "^3.8.1",
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

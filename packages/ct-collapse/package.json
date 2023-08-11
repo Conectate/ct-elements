@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "HTML webcomponent collapse",
 	"main": "ct-collapse.js",
-	"typings": "ct-collapse.d.ts",
+	"types": "ct-collapse.d.ts",
 	"module": "ct-collapse.js",
 	"keywords": [
 		"LitElement",

@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "HTML indeterminate progress bar for lit",
 	"main": "ct-loading-bar.js",
-	"typings": "ct-loading-bar.d.ts",
+	"types": "ct-loading-bar.d.ts",
 	"module": "ct-loading-bar.js",
 	"keywords": [
 		"LitElement",

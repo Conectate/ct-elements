@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "HTML dialog made with Web Components",
 	"main": "ct-dialog.js",
-	"typings": "ct-dialog.d.ts",
+	"types": "ct-dialog.d.ts",
 	"module": "ct-dialog.js",
 	"keywords": [
 		"LitElement",
@@ -19,7 +19,7 @@
 		"@conectate/ct-helpers": "^3.7.0",
 		"@conectate/ct-lit": "^3.8.1",
 		"@conectate/ct-spinner": "^3.8.1",
-		"lit": "^2.7.6"
+		"lit": "^2.8.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

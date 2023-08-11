@@ -3,13 +3,13 @@
 	"version": "3.8.0",
 	"description": "HTML Material Design icon made with Web Components and Lit",
 	"main": "ct-icon.js",
-	"typings": "ct-icon.d.ts",
+	"types": "ct-icon.d.ts",
 	"module": "ct-icon.js",
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"type": "module",

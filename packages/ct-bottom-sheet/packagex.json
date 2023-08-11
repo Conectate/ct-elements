@@ -3,13 +3,13 @@
 	"version": "3.5.0",
 	"description": "Bottom sheets slide up from the bottom of the screen to reveal more content. Made with Lit 🔥",
 	"main": "ct-bottom-sheet.js",
-	"typings": "ct-bottom-sheet.d.ts",
+	"types": "ct-bottom-sheet.d.ts",
 	"module": "ct-bottom-sheet.js",
 	"keywords": [
 		"ct-elements"
 	],
 	"dependencies": {
-		"lit": "^2.7.6"
+		"lit": "^2.8.0"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc",

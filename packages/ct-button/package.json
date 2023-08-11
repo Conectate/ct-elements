@@ -3,7 +3,7 @@
 	"version": "3.8.0",
 	"description": "HTML Button made with Web Components and Lit",
 	"main": "ct-button.js",
-	"typings": "ct-button.d.ts",
+	"types": "ct-button.d.ts",
 	"module": "ct-button.js",
 	"keywords": [
 		"LitElement",
@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"@conectate/ct-icon": "^3.8.0",
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

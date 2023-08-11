@@ -3,7 +3,7 @@
 	"version": "3.8.1",
 	"description": "Spinner web component",
 	"main": "ct-spinner.js",
-	"typings": "ct-spinner.d.ts",
+	"types": "ct-spinner.d.ts",
 	"module": "ct-spinner.js",
 	"keywords": [
 		"LitElement",
@@ -15,7 +15,7 @@
 	],
 	"dependencies": {
 		"@conectate/ct-lit": "^3.8.1",
-		"lit": "^2.7.6",
+		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {
