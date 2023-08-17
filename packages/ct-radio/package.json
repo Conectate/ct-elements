@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-radio",
-	"version": "3.9.0",
+	"version": "3.9.2",
 	"description": "HTML Radio web component based on Material design",
 	"main": "ct-radio.js",
 	"types": "ct-radio.d.ts",
