@@ -144,8 +144,7 @@ export class CtRadio extends CtLit {
 	protected updated(_changedProperties: PropertyValueMap<this>): void {
 		if (_changedProperties.has('checked') && _changedProperties.get('checked') != undefined) {
 			// @ts-ignore
-			let dev = localStorage.dev || window.dev;
-			if (dev) console.log('updated checked', this, this.checked);
+			if (localStorage.dev || window.dev) console.log('updated checked', this, this.checked);
 			this.change();
 		}
 	}
@@ -155,7 +154,7 @@ export class CtRadio extends CtLit {
 	}
 
 	toogleCheck() {
-		this.checked = this.$input.checked;
+		this.checked = !this.checked;
 	}
 
 	isFn(obj: any) {
@@ -163,18 +162,20 @@ export class CtRadio extends CtLit {
 	}
 
 	change() {
-		this.checked = this.$input.checked;
-		let parent = (this.isFn(this.parent) ? this.parent() : false) || this.parent || this.parentElement || this.parentNode;
+		let parent: HTMLElement | null = (this.isFn(this.parent) ? this.parent() : false) || this.parent || this.parentElement || this.parentNode;
 		if (this.name && parent?.querySelectorAll) {
-			// @ts-ignore
-			let radios: CtRadio[] = parent.querySelectorAll('ct-radio') || [];
-			for (let radio of radios) {
-				if (radio.name == this.name && radio != this && this.checked) {
-					radio.checked = false;
-				}
+			if (this.checked) {
+				let radios: NodeListOf<CtRadio> = parent.querySelectorAll('ct-radio');
+				radios.forEach((radio) => {
+					if (radio.name == this.name && radio != this && this.checked) {
+						radio.checked = false;
+					}
+				});
+				this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.checked } }));
 			}
+		} else {
+			this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.checked } }));
 		}
-		this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.$input.checked } }));
 	}
 }
 

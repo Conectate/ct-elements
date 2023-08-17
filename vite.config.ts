@@ -1,12 +1,9 @@
-import fs from 'fs';
-
-import { Plugin } from 'rollup';
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 
 function LitCSSLoader(): Plugin {
 	return {
 		name: 'vite-css-plg',
-		transform: function (code, id) {
+		transform: function (code: string, id: string) {
 			if (id.endsWith('.css')) {
 				return `import {css} from 'lit'; console.log('cssloader');export const style = css\`${code}\`\n;export default style`;
 			}
@@ -20,7 +17,7 @@ export default (opts: any) => {
 	let development = process.env.NODE_ENV != 'production';
 	return defineConfig({
 		server: {
-			port: 3000,
+			port: 3080,
 			host: '0.0.0.0'
 		},
 		plugins: [LitCSSLoader()],

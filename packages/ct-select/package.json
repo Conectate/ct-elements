@@ -36,20 +36,12 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-select.ts",
+			"development": "./src/ct-select.js",
 			"default": "./ct-select.js"
 		},
 		"./*": {
-			"development": "./src/*",
-			"default": "./*"
-		},
-		"./ct-select-dialog": {
-			"development": "./src/ct-select-dialog.ts",
-			"default": "./ct-select-dialog.js"
-		},
-		"./ct-select-item": {
-			"development": "./src/ct-select-item.ts",
-			"default": "./ct-select-item.js"
+			"development": "./src/*.js",
+			"default": "./*.js"
 		}
 	},
 	"gitHead": "8d3071caa3798622e9a6cbf763d2f686a5b3774a"

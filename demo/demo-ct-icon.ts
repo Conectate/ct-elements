@@ -1,6 +1,6 @@
 import '@conectate/ct-card';
 import '@conectate/ct-icon/ct-icon-button.js';
-import './code-example/code-example';
+import './code-example/code-example.js';
 
 import { css, CtLit, customElement, html } from '@conectate/ct-lit';
 

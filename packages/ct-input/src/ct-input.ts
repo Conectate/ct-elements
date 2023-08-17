@@ -491,7 +491,7 @@ export class CtInput extends CtLit {
 	}
 
 	_onInput() {
-		this.fire('value', this.value);
+		this.dispatchEvent(new CustomEvent('value', { detail: { value: this.value } }));
 		if (this.placeholder) {
 			this.isEmpty = this.value == '' || this.value == null;
 		}

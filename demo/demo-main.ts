@@ -28,13 +28,15 @@ export class DemoMain extends CtLit {
 	];
 
 	render() {
-		return html`<demo-ct-select></demo-ct-select>
+		return html`
+			<demo-ct-input></demo-ct-input>
+			<demo-ct-select></demo-ct-select>
 			<demo-ct-radio></demo-ct-radio>
 			<demo-ct-date></demo-ct-date>
 			<demo-ct-icon></demo-ct-icon>
 			<!-- <demo-ct-bottom-sheet></demo-ct-bottom-sheet> -->
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-button></demo-ct-button>
-			<demo-ct-input></demo-ct-input> `;
+		`;
 	}
 }
