@@ -19,6 +19,7 @@
 		"@conectate/ct-helpers": "^3.7.0",
 		"@conectate/ct-lit": "^3.9.0",
 		"@conectate/ct-spinner": "^3.9.0",
+		"@conectate/ct-input": "^3.9.2",
 		"lit": "^2.8.0"
 	},
 	"scripts": {

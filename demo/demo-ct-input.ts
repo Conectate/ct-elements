@@ -1,7 +1,8 @@
 import { css, CtLit, customElement, html, state } from '@conectate/ct-lit';
 
-import '@conectate/ct-input/ct-input';
-import '@conectate/ct-input/ct-textarea';
+import '@conectate/ct-dialog/ct-promp.js';
+import '@conectate/ct-input';
+import '@conectate/ct-input/ct-textarea.js';
 @customElement('demo-ct-input')
 export class DemoCtInput extends CtLit {
 	static styles = [
