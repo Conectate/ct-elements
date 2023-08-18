@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-list",
-	"version": "3.9.0",
+	"version": "3.9.3",
 	"description": "Wrapper from LitElement",
 	"main": "ct-list.js",
 	"module": "ct-list.js",
