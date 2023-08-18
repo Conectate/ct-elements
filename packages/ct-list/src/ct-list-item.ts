@@ -56,6 +56,7 @@ export class CtListItem extends CtLit {
 				flex: 1;
 			}
 			ct-icon {
+				--ct-icon-size: 21px;
 				margin-right: 16px;
 				width: 21px;
 				height: 21px;
