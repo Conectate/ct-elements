@@ -2,7 +2,7 @@ import './ct-autocomplete-suggestions';
 import './ct-input';
 
 import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
+import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
 import { html } from 'lit';
 /**
  * # `ct-input-autocomplete`
@@ -63,9 +63,9 @@ export class CtInputAutocomplete extends CtLit {
 	@property({ type: Array }) source: any[] = [];
 	@property({ type: String }) textProperty = 'text';
 	@property({ type: String }) valueProperty = 'value';
-	@property({ type: String }) _text = '';
-	@property({ type: Object }) _value = null;
 	@property({ type: Object }) renderItem = (item: any, index: number) => html`<button>item ${index}</button>`;
+	@state() _text: string = '';
+	@state() _value?: any = undefined;
 
 	async onBlur() {
 		await sleep(500);
@@ -115,5 +115,10 @@ export class CtInputAutocomplete extends CtLit {
 
 	validate() {
 		return true;
+	}
+}
+declare global {
+	interface HTMLElementTagNameMap {
+		'ct-input-autocomplete': CtInputAutocomplete;
 	}
 }
