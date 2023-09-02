@@ -134,7 +134,6 @@ export class CtAutocompleteSuggestions extends CtLit {
 				});
 			}
 		});
-		console.log('filtro');
 		return this.queryResult;
 	}
 
