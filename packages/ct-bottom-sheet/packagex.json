@@ -31,11 +31,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-bottom-sheet.ts",
+			"dev": "./src/ct-bottom-sheet.ts",
 			"default": "./ct-bottom-sheet.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

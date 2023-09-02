@@ -1,14 +1,12 @@
 {
 	"compilerOptions": {
-		"target": "es2017",
-		"module": "es2020",
+		"target": "ES2022",
+		"module": "es2015",
 		"moduleResolution": "node",
-		"lib": ["esnext.array", "esnext", "es2017", "dom"],
+		"lib": [
+			"dom"
+		],
 		"declaration": true,
-		"declarationMap": true,
-		"sourceMap": true,
-		"inlineSources": true,
-		"strict": true,
 		"noUnusedLocals": true,
 		"outDir": "./",
 		// Only necessary because @types/uglify-js can't find types for source-map

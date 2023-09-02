@@ -37,11 +37,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-input.js",
+			"dev": "./src/ct-input.js",
 			"default": "./ct-input.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

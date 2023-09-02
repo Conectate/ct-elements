@@ -31,11 +31,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-list-item.ts",
+			"dev": "./src/ct-list-item.ts",
 			"default": "./ct-list-item.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

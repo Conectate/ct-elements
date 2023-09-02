@@ -37,11 +37,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-button.ts",
+			"dev": "./src/ct-button.ts",
 			"default": "./ct-button.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	}

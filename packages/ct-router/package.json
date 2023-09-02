@@ -23,11 +23,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-router.ts",
+			"dev": "./src/ct-router.ts",
 			"default": "./ct-router.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

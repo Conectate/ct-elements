@@ -21,6 +21,9 @@ export default (opts: any) => {
 			host: '0.0.0.0'
 		},
 		plugins: [LitCSSLoader()],
+		resolve: {
+			conditions: ['dev']
+		},
 		define: {
 			'process.env.NODE_ENV': JSON.stringify(development ? 'development' : 'production')
 		}

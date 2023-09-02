@@ -37,11 +37,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-menu.ts",
+			"dev": "./src/ct-menu.ts",
 			"default": "./ct-menu.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

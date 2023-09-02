@@ -36,11 +36,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-select.js",
+			"dev": "./src/ct-select.js",
 			"default": "./ct-select.js"
 		},
 		"./*": {
-			"development": "./src/*.js",
+			"dev": "./src/*.js",
 			"default": "./*.js"
 		}
 	},

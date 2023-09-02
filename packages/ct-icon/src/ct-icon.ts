@@ -13,6 +13,7 @@ function addFont(family: string) {
 	document.head.appendChild(link);
 }
 
+console.log('comox!');
 /**
  * @element ct-icon
  */

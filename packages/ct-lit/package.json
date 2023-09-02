@@ -36,11 +36,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-lit.ts",
+			"dev": "./src/ct-lit.ts",
 			"default": "./ct-lit.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

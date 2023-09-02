@@ -28,11 +28,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-chartjs.ts",
+			"dev": "./src/ct-chartjs.ts",
 			"default": "./ct-chartjs.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

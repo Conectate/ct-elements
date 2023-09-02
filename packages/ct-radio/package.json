@@ -32,11 +32,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-radio.ts",
+			"dev": "./src/ct-radio.ts",
 			"default": "./ct-radio.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

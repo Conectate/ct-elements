@@ -34,11 +34,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-date.ts",
+			"dev": "./src/ct-date.ts",
 			"default": "./ct-date.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},

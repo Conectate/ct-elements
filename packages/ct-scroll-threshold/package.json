@@ -30,11 +30,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-scroll-threshold.ts",
+			"dev": "./src/ct-scroll-threshold.ts",
 			"default": "./ct-scroll-threshold.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	}

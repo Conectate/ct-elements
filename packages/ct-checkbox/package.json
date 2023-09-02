@@ -34,11 +34,11 @@
 	},
 	"exports": {
 		".": {
-			"development": "./src/ct-checkbox.ts",
+			"dev": "./src/ct-checkbox.ts",
 			"default": "./ct-checkbox.js"
 		},
 		"./*": {
-			"development": "./src/*",
+			"dev": "./src/*",
 			"default": "./*"
 		}
 	},
