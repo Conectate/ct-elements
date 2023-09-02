@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-list",
-	"version": "3.10.0",
+	"version": "3.11.0",
 	"description": "Wrapper from LitElement",
 	"main": "ct-list.js",
 	"module": "ct-list.js",
@@ -23,8 +23,8 @@
 		"Web Components"
 	],
 	"dependencies": {
-		"@conectate/ct-icon": "^3.10.0",
-		"@conectate/ct-lit": "^3.10.0"
+		"@conectate/ct-icon": "^3.11.0",
+		"@conectate/ct-lit": "^3.11.0"
 	},
 	"publishConfig": {
 		"access": "public"
