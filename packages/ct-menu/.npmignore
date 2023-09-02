@@ -1,3 +1,4 @@
 .tsbuildinfo
 tsconfig.json
 node_modules
+src/*.ts
