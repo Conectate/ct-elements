@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-scroll-threshold",
-	"version": "3.9.0",
+	"version": "3.10.0",
 	"description": "Ct Elements",
 	"main": "ct-scroll-threshold.js",
 	"types": "ct-scroll-threshold.d.ts",

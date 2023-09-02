@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-tooltip",
-	"version": "3.9.0",
+	"version": "3.10.0",
 	"description": "Tooltip styles for lit",
 	"main": "ct-tooltip.js",
 	"types": "ct-tooltip.d.ts",

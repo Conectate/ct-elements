@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-helpers",
-	"version": "3.7.0",
+	"version": "3.10.0",
 	"description": "Simple helpers for web developers",
 	"main": "ct-helpers.js",
 	"module": "ct-helpers.js",

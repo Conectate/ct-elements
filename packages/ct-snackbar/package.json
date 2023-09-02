@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-snackbar",
-	"version": "3.9.0",
+	"version": "3.10.0",
 	"description": "Super class for snackbar-element",
 	"main": "ct-snackbar.js",
 	"types": "ct-snackbar.d.ts",
@@ -14,8 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-helpers": "^3.7.0",
-		"@conectate/ct-lit": "^3.9.0",
+		"@conectate/ct-helpers": "^3.10.0",
+		"@conectate/ct-lit": "^3.10.0",
 		"tslib": "^2.6.1"
 	},
 	"scripts": {

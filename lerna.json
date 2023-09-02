@@ -1,14 +1,10 @@
 {
-	"packages": [
-		"packages/*"
-	],
+	"packages": ["packages/*"],
 	"command": {
 		"bootstrap": {
 			"hoist": true,
-			"npmClientArgs": [
-				"--no-package-lock"
-			]
+			"npmClientArgs": ["--no-package-lock"]
 		}
 	},
-	"version": "3.9.5"
+	"version": "3.10.0"
 }
