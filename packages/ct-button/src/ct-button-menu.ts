@@ -1,13 +1,13 @@
-import '@conectate/ct-icon';
+import "@conectate/ct-icon";
 
-import { icon } from '@conectate/ct-icon/icon-list';
-import { LitElement, TemplateResult, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { icon } from "@conectate/ct-icon/icon-list";
+import { LitElement, TemplateResult, css, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
-import { rovingIndex } from './ct-button-helpers';
+import { rovingIndex } from "./ct-button-helpers";
 
-type leftRight = 'left' | 'right';
-type topBottom = 'top' | 'bottom';
+type leftRight = "left" | "right";
+type topBottom = "top" | "bottom";
 
 /**
  * @group ct-elements
@@ -18,7 +18,7 @@ type topBottom = 'top' | 'bottom';
  * @css --ct-button-menu-radius
  * @css --ct-button-menu-popup-radius
  */
-@customElement('ct-button-menu')
+@customElement("ct-button-menu")
 export class CtButtonMenu extends LitElement {
 	static styles = [
 		css`
@@ -73,7 +73,9 @@ export class CtButtonMenu extends LitElement {
 			@media (prefers-reduced-motion: no-preference) {
 				.gui-popup {
 					transform: translateY(5px);
-					transition: opacity var(--out-speed) ease, transform var(--out-speed) ease;
+					transition:
+						opacity var(--out-speed) ease,
+						transform var(--out-speed) ease;
 				}
 			}
 			.gui-popup {
@@ -106,21 +108,21 @@ export class CtButtonMenu extends LitElement {
 			}
 		`
 	];
-	@property() anim_selector = 'ct-list-item';
-	@property({ type: String, reflect: true }) title = 'Open for more actions';
+	@property() anim_selector = "ct-list-item";
+	@property({ type: String, reflect: true }) title = "Open for more actions";
 	@property({ type: Number, reflect: true }) tabindex = -1;
 	@property({ type: Boolean, reflect: true }) rotate = false;
 	/** Location from opened */
-	@property({ type: String }) from?: topBottom | leftRight | `${topBottom}-${leftRight}` = 'bottom-left';
+	@property({ type: String }) from?: topBottom | leftRight | `${topBottom}-${leftRight}` = "bottom-left";
 	/** Template Result of Trigger */
 	@property({ type: Object }) dropDownTrigger?: TemplateResult<any>;
 	@property({ type: Boolean }) use_slot = false;
 	/** keep popup after click, you must close programmatically */
 	@property({ type: Boolean, reflect: true }) keep = false;
 	/** Dropdown icon */
-	@property() icon: icon = 'expand_more';
+	@property() icon: icon = "expand_more";
 
-	@query('.gui-popup') popup!: HTMLSpanElement;
+	@query(".gui-popup") popup!: HTMLSpanElement;
 
 	render() {
 		return html` <span class="dropdown-trigger center">
@@ -132,19 +134,19 @@ export class CtButtonMenu extends LitElement {
 			</div>`;
 	}
 	firstUpdated() {
-		this.addEventListener('focus', this.setAriaExpanded(true));
-		this.addEventListener('click', this.setAriaExpanded(true));
-		this.addEventListener('blur', this.setAriaExpanded(false));
-		this.addEventListener('keyup', (e: KeyboardEvent) => {
-			if (e.code === 'Escape') (e.target as this)?.blur();
+		this.addEventListener("focus", this.setAriaExpanded(true));
+		this.addEventListener("click", this.setAriaExpanded(true));
+		this.addEventListener("blur", this.setAriaExpanded(false));
+		this.addEventListener("keyup", (e: KeyboardEvent) => {
+			if (e.code === "Escape") (e.target as this)?.blur();
 		});
 
 		if (!this.keep) {
-			this.addEventListener('click', (ev) => {
+			this.addEventListener("click", ev => {
 				ev.stopPropagation();
 				ev.preventDefault();
 			});
-			this.popup.addEventListener('click', (e) => {
+			this.popup.addEventListener("click", e => {
 				e.stopPropagation();
 				setTimeout(() => {
 					(e.target as this)?.blur();
@@ -154,41 +156,41 @@ export class CtButtonMenu extends LitElement {
 		}
 
 		switch (this.from) {
-			case 'top': {
-				this.popup.style.top = '80%';
-				this.popup.style.right = '0';
-				this.popup.style.transformOrigin = 'center top 0px';
+			case "top": {
+				this.popup.style.top = "80%";
+				this.popup.style.right = "0";
+				this.popup.style.transformOrigin = "center top 0px";
 				break;
 			}
-			case 'top-right': {
-				this.popup.style.top = '80%';
-				this.popup.style.right = '30%';
-				this.popup.style.transformOrigin = 'right top 0px';
+			case "top-right": {
+				this.popup.style.top = "80%";
+				this.popup.style.right = "30%";
+				this.popup.style.transformOrigin = "right top 0px";
 				break;
 			}
-			case 'top-left': {
-				this.popup.style.top = '80%';
-				this.popup.style.left = '0';
-				this.popup.style.transformOrigin = 'left top 0px';
+			case "top-left": {
+				this.popup.style.top = "80%";
+				this.popup.style.left = "0";
+				this.popup.style.transformOrigin = "left top 0px";
 				break;
 			}
-			case 'bottom': {
-				this.popup.style.bottom = '80%';
-				this.popup.style.right = '0';
-				this.popup.style.transformOrigin = 'center bottom 0px';
+			case "bottom": {
+				this.popup.style.bottom = "80%";
+				this.popup.style.right = "0";
+				this.popup.style.transformOrigin = "center bottom 0px";
 				break;
 			}
-			case 'bottom-right': {
-				this.popup.style.bottom = '80%';
-				this.popup.style.right = '30%';
-				this.popup.style.transformOrigin = 'right bottom 0px';
+			case "bottom-right": {
+				this.popup.style.bottom = "80%";
+				this.popup.style.right = "30%";
+				this.popup.style.transformOrigin = "right bottom 0px";
 				break;
 			}
 			default:
-			case 'bottom-left': {
-				this.popup.style.bottom = '80%';
-				this.popup.style.left = '30%';
-				this.popup.style.transformOrigin = 'left bottom 0px';
+			case "bottom-left": {
+				this.popup.style.bottom = "80%";
+				this.popup.style.left = "30%";
+				this.popup.style.transformOrigin = "left bottom 0px";
 				break;
 			}
 		}
@@ -200,7 +202,7 @@ export class CtButtonMenu extends LitElement {
 
 	setAriaExpanded(value: boolean) {
 		return (e: FocusEvent) => {
-			this.setAttribute('aria-expanded', `${value}`);
+			this.setAttribute("aria-expanded", `${value}`);
 		};
 	}
 
@@ -208,7 +210,7 @@ export class CtButtonMenu extends LitElement {
 		setTimeout(() => {
 			let btns: HTMLButtonElement[] = [];
 			let menu_btns: NodeListOf<HTMLElement> = this.querySelectorAll(this.anim_selector);
-			menu_btns.forEach((btn) => btns.push((btn as any).button || btn.shadowRoot?.firstElementChild || btn.firstChild || btn));
+			menu_btns.forEach(btn => btns.push((btn as any).button || btn.shadowRoot?.firstElementChild || btn.firstChild || btn));
 			if (btns.length > 0)
 				rovingIndex({
 					element: this,
@@ -220,6 +222,6 @@ export class CtButtonMenu extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-button-menu': CtButtonMenu;
+		"ct-button-menu": CtButtonMenu;
 	}
 }

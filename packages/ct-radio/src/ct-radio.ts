@@ -1,5 +1,5 @@
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { css, html, PropertyValueMap } from 'lit';
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { PropertyValueMap, css, html } from "lit";
 /**
  * ## `ct-radio`
  * radio element
@@ -8,7 +8,7 @@ import { css, html, PropertyValueMap } from 'lit';
  * @element ct-radio
  * @attr {boolean} checked
  */
-@customElement('ct-radio')
+@customElement("ct-radio")
 export class CtRadio extends CtLit {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
@@ -60,7 +60,9 @@ export class CtRadio extends CtLit {
 			#checkmark {
 				opacity: 0;
 				transform: scale(0);
-				transition: opacity 0.13s ease-in-out, transform 0.13s ease-in-out;
+				transition:
+					opacity 0.13s ease-in-out,
+					transform 0.13s ease-in-out;
 				height: 10px;
 				width: 10px;
 				overflow: hidden;
@@ -105,7 +107,7 @@ export class CtRadio extends CtLit {
 				display: block;
 				z-index: 0;
 				inset: 0;
-				content: '';
+				content: "";
 				box-sizing: border-box;
 				position: absolute;
 				width: var(--ct-checkbox-box-size);
@@ -114,7 +116,9 @@ export class CtRadio extends CtLit {
 				border-width: var(--ct-checkbox-box-border-size);
 				border-style: solid;
 				border-color: var(--color-on-background, #535353);
-				transition: border 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
+				transition:
+					border 0.13s ease-in-out,
+					box-shadow 0.13s ease-in-out;
 			}
 			#input:checked + .c > #box::before {
 				/* border-width: calc(var(--ct-checkbox-box-size) / 2); */
@@ -127,7 +131,7 @@ export class CtRadio extends CtLit {
 		`
 	];
 
-	@query('#input') $input!: HTMLInputElement;
+	@query("#input") $input!: HTMLInputElement;
 	render() {
 		return html`
 			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} />
@@ -142,9 +146,9 @@ export class CtRadio extends CtLit {
 	}
 
 	protected updated(_changedProperties: PropertyValueMap<this>): void {
-		if (_changedProperties.has('checked') && _changedProperties.get('checked') != undefined) {
+		if (_changedProperties.has("checked") && _changedProperties.get("checked") != undefined) {
 			// @ts-ignore
-			if (localStorage.dev || window.dev) console.log('updated checked', this, this.checked);
+			if (localStorage.dev || window.dev) console.log("updated checked", this, this.checked);
 			this.change();
 		}
 	}
@@ -165,22 +169,22 @@ export class CtRadio extends CtLit {
 		let parent: HTMLElement | null = (this.isFn(this.parent) ? this.parent() : false) || this.parent || this.parentElement || this.parentNode;
 		if (this.name && parent?.querySelectorAll) {
 			if (this.checked) {
-				let radios: NodeListOf<CtRadio> = parent.querySelectorAll('ct-radio');
-				radios.forEach((radio) => {
+				let radios: NodeListOf<CtRadio> = parent.querySelectorAll("ct-radio");
+				radios.forEach(radio => {
 					if (radio.name == this.name && radio != this && this.checked) {
 						radio.checked = false;
 					}
 				});
-				this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.checked } }));
+				this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.checked } }));
 			}
 		} else {
-			this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.checked } }));
+			this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.checked } }));
 		}
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-radio': CtRadio;
+		"ct-radio": CtRadio;
 	}
 }

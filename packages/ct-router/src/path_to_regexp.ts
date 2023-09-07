@@ -4,18 +4,18 @@
 var MATCHING_GROUP_REGEXP = /\((?!\?)/g;
 
 interface OptionsType {
-	sensitive?: boolean,
-	strict?: boolean,
-	end?: boolean,
-	start?: boolean,
-	delimiter?: boolean,
-	endsWith?: string,
-	whitelist?: any[]
+	sensitive?: boolean;
+	strict?: boolean;
+	end?: boolean;
+	start?: boolean;
+	delimiter?: boolean;
+	endsWith?: string;
+	whitelist?: any[];
 }
 
 export interface C2RegexpType {
-	regexp: RegExp,
-	groups: string[]
+	regexp: RegExp;
+	groups: string[];
 }
 
 /**
@@ -38,7 +38,7 @@ export function pathtoRegexp(path: string | RegExp | Array<any>, keys: Array<any
 	keys = keys || [];
 	var strict = options.strict;
 	var end = options.end !== false;
-	var flags = options.sensitive ? '' : 'i';
+	var flags = options.sensitive ? "" : "i";
 	var extraOffset = 0;
 	var keysOffset = keys.length;
 	var i = 0;
@@ -46,7 +46,7 @@ export function pathtoRegexp(path: string | RegExp | Array<any>, keys: Array<any
 	var m;
 
 	if (path instanceof RegExp) {
-		while (m = MATCHING_GROUP_REGEXP.exec(path.source)) {
+		while ((m = MATCHING_GROUP_REGEXP.exec(path.source))) {
 			keys.push({
 				name: name++,
 				optional: false,
@@ -65,17 +65,17 @@ export function pathtoRegexp(path: string | RegExp | Array<any>, keys: Array<any
 			return pathtoRegexp(value, keys, options).source;
 		});
 
-		return new RegExp('(?:' + path.join('|') + ')', flags);
+		return new RegExp("(?:" + path.join("|") + ")", flags);
 	}
 
-	path = ('^' + path + (strict ? '' : path[path.length - 1] === '/' ? '?' : '/?'))
-		.replace(/\/\(/g, '/(?:')
-		.replace(/([\/\.])/g, '\\$1')
+	path = ("^" + path + (strict ? "" : path[path.length - 1] === "/" ? "?" : "/?"))
+		.replace(/\/\(/g, "/(?:")
+		.replace(/([\/\.])/g, "\\$1")
 		.replace(/(\\\/)?(\\\.)?:(\w+)(\(.*?\))?(\*)?(\?)?/g, function (match, slash, format, key, capture, star, optional, offset) {
-			slash = slash || '';
-			format = format || '';
-			capture = capture || '([^\\/' + format + ']+?)';
-			optional = optional || '';
+			slash = slash || "";
+			format = format || "";
+			capture = capture || "([^\\/" + format + "]+?)";
+			optional = optional || "";
 
 			keys.push({
 				name: key,
@@ -83,34 +83,28 @@ export function pathtoRegexp(path: string | RegExp | Array<any>, keys: Array<any
 				offset: offset + extraOffset
 			});
 
-			var result = ''
-				+ (optional ? '' : slash)
-				+ '(?:'
-				+ format + (optional ? slash : '') + capture
-				+ (star ? '((?:[\\/' + format + '].+?)?)' : '')
-				+ ')'
-				+ optional;
+			var result = "" + (optional ? "" : slash) + "(?:" + format + (optional ? slash : "") + capture + (star ? "((?:[\\/" + format + "].+?)?)" : "") + ")" + optional;
 
 			extraOffset += result.length - match.length;
 
 			return result;
 		})
 		.replace(/\*/g, function (_star, index) {
-			var len = keys.length
+			var len = keys.length;
 
 			while (len-- > keysOffset && keys[len].offset > index) {
 				keys[len].offset += 3; // Replacement length minus asterisk length.
 			}
 
-			return '(.*)';
+			return "(.*)";
 		});
 
 	// This is a workaround for handling unnamed matching groups.
-	while (m = MATCHING_GROUP_REGEXP.exec(path)) {
+	while ((m = MATCHING_GROUP_REGEXP.exec(path))) {
 		var escapeCount = 0;
 		var index = m.index;
 
-		while (path.charAt(--index) === '\\') {
+		while (path.charAt(--index) === "\\") {
 			escapeCount++;
 		}
 
@@ -131,10 +125,10 @@ export function pathtoRegexp(path: string | RegExp | Array<any>, keys: Array<any
 	}
 
 	// If the path is non-ending, match until the end or a slash.
-	path += (end ? '$' : (path[path.length - 1] === '/' ? '' : '(?=\\/|$)'));
-	
+	path += end ? "$" : path[path.length - 1] === "/" ? "" : "(?=\\/|$)";
+
 	return new RegExp(path, flags);
-};
+}
 
 /**
  * https://www.npmjs.com/package/path-to-regexp
@@ -145,7 +139,7 @@ var opts = {
 	strict: false,
 	sensitive: false,
 	end: true
-}
+};
 
 export function EvaluateParams(path: string, c2regexp: C2RegexpType) {
 	let r = path.match(c2regexp.regexp);
@@ -158,9 +152,10 @@ export function EvaluateParams(path: string, c2regexp: C2RegexpType) {
 	}
 }
 
-export function C2Regexp(path: string) : C2RegexpType {
+export function C2Regexp(path: string): C2RegexpType {
 	try {
-		let keys: any[] = [], finalKeys: string[] = [];
+		let keys: any[] = [],
+			finalKeys: string[] = [];
 		let r = pathtoRegexp(path, keys, opts);
 		for (let i = 0; i < keys.length; i++) {
 			finalKeys.push(keys[i].name);
@@ -168,9 +163,9 @@ export function C2Regexp(path: string) : C2RegexpType {
 		return {
 			regexp: r,
 			groups: finalKeys
-		}
+		};
 	} catch (e) {
-		console.error(e,'Error al generar', path)
+		console.error(e, "Error al generar", path);
 		return {
 			regexp: /^\/?$/i,
 			groups: []

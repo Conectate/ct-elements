@@ -1,17 +1,17 @@
-import { css, CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { CtLit, css, customElement, property, query } from "@conectate/ct-lit";
+import { html } from "lit";
 /**
  * # `ct-menu`
  * @element ct-menu
  * @slot - Items in menu
  * @slot dropdown-trigger - Item trigger
  */
-@customElement('ct-menu')
+@customElement("ct-menu")
 export class CtMenu extends CtLit {
 	close!: (e: KeyboardEvent) => void;
-	@query('#menu') $menu!: HTMLDivElement;
-	@query('#items') $items!: HTMLSlotElement;
-	@property({ type: String }) align: 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-right' | 'bottom-left' | null = 'top-right';
+	@query("#menu") $menu!: HTMLDivElement;
+	@query("#items") $items!: HTMLSlotElement;
+	@property({ type: String }) align: "top" | "top-right" | "top-left" | "bottom" | "bottom-right" | "bottom-left" | null = "top-right";
 	@property({ type: Array }) addedNodes: (Node & { style?: { [x: string]: string } })[] = [];
 	@property({ type: String }) icon!: string;
 	opened = false;
@@ -90,7 +90,7 @@ export class CtMenu extends CtLit {
 			font-weight: bold;
 			text-transform: uppercase;
 			letter-spacing: 0.15em;
-			font-family: 'Google Sans', 'Ubuntu', arial, sans-serif;
+			font-family: "Google Sans", "Ubuntu", arial, sans-serif;
 			margin: 0;
 		}
 
@@ -130,66 +130,66 @@ export class CtMenu extends CtLit {
 	_onFocusOut() {
 		if (this.opened && !localStorage.ctmc) {
 			this.opened = false;
-			setTimeout(() => this.$menu.classList.remove('active'), 250);
+			setTimeout(() => this.$menu.classList.remove("active"), 250);
 		}
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		document.body.removeEventListener('keydown', this.close);
+		document.body.removeEventListener("keydown", this.close);
 	}
 
 	constructor() {
 		super();
 		this.close = (e: KeyboardEvent) => {
-			if (e.key == 'Escape') {
-				this.$menu.classList.remove('active');
+			if (e.key == "Escape") {
+				this.$menu.classList.remove("active");
 			}
 		};
-		document.body.addEventListener('keydown', this.close);
+		document.body.addEventListener("keydown", this.close);
 	}
 
 	firstUpdated() {
 		switch (this.align) {
-			case 'top': {
-				this.$menu.style.top = '0';
-				this.$menu.style.right = '4px';
-				this.$menu.style.transformOrigin = 'center top 0px';
+			case "top": {
+				this.$menu.style.top = "0";
+				this.$menu.style.right = "4px";
+				this.$menu.style.transformOrigin = "center top 0px";
 				break;
 			}
-			case 'top-right': {
-				this.$menu.style.top = '0';
-				this.$menu.style.right = '4px';
-				this.$menu.style.transformOrigin = 'right top 0px';
+			case "top-right": {
+				this.$menu.style.top = "0";
+				this.$menu.style.right = "4px";
+				this.$menu.style.transformOrigin = "right top 0px";
 				break;
 			}
-			case 'top-left': {
-				this.$menu.style.top = '0';
-				this.$menu.style.right = '';
-				this.$menu.style.transformOrigin = 'left top 0px';
+			case "top-left": {
+				this.$menu.style.top = "0";
+				this.$menu.style.right = "";
+				this.$menu.style.transformOrigin = "left top 0px";
 				break;
 			}
-			case 'bottom': {
-				this.$menu.style.bottom = '0';
-				this.$menu.style.right = '4px';
-				this.$menu.style.transformOrigin = 'center bottom 0px';
+			case "bottom": {
+				this.$menu.style.bottom = "0";
+				this.$menu.style.right = "4px";
+				this.$menu.style.transformOrigin = "center bottom 0px";
 				break;
 			}
-			case 'bottom-right': {
-				this.$menu.style.bottom = '0';
-				this.$menu.style.right = '4px';
-				this.$menu.style.transformOrigin = 'right bottom 0px';
+			case "bottom-right": {
+				this.$menu.style.bottom = "0";
+				this.$menu.style.right = "4px";
+				this.$menu.style.transformOrigin = "right bottom 0px";
 				break;
 			}
-			case 'bottom-left': {
-				this.$menu.style.bottom = '0';
-				this.$menu.style.right = '';
-				this.$menu.style.transformOrigin = 'left bottom 0px';
+			case "bottom-left": {
+				this.$menu.style.bottom = "0";
+				this.$menu.style.right = "";
+				this.$menu.style.transformOrigin = "left bottom 0px";
 				break;
 			}
 			default: {
-				this.$menu.style.top = '8px';
-				this.$menu.style.right = '4px';
-				this.$menu.style.transformOrigin = 'right top 0px';
+				this.$menu.style.top = "8px";
+				this.$menu.style.right = "4px";
+				this.$menu.style.transformOrigin = "right top 0px";
 				break;
 			}
 		}
@@ -201,19 +201,19 @@ export class CtMenu extends CtLit {
 	toggle(e: CustomEvent) {
 		this.$menu.focus();
 		this.addedNodes.forEach((item, index) => {
-			var delay = index * 40 + 'ms';
+			var delay = index * 40 + "ms";
 			let o = {
-				'-webkit-transition-delay': delay,
-				'-moz-transition-delay': delay,
-				'-o-transition-delay': delay,
-				'transition-delay': delay
+				"-webkit-transition-delay": delay,
+				"-moz-transition-delay": delay,
+				"-o-transition-delay": delay,
+				"transition-delay": delay
 			};
 			for (let key in o) {
-				item.style![key] = o[key as 'transition-delay'];
-				setTimeout(() => (item.style![key] = ''), index * 40 + 1000);
+				item.style![key] = o[key as "transition-delay"];
+				setTimeout(() => (item.style![key] = ""), index * 40 + 1000);
 			}
 		});
-		this.$menu.classList.add('active');
+		this.$menu.classList.add("active");
 		this.opened = true;
 		e.stopPropagation();
 	}
@@ -221,6 +221,6 @@ export class CtMenu extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-menu': CtMenu;
+		"ct-menu": CtMenu;
 	}
 }

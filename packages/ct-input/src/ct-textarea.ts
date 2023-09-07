@@ -1,4 +1,4 @@
-import './ct-textarea-autogrow';
+import "./ct-textarea-autogrow";
 
 /**
     @license		
@@ -11,11 +11,10 @@ import './ct-textarea-autogrow';
 	found at https://wc.conectate.app/PATENTS.txt
  */
 // https://stackoverflow.com/a/56751153/4168512
-import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { css, html } from 'lit';
-
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
+import { css, html } from "lit";
+import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 /**
 	`ct-textarea`
@@ -27,7 +26,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 	@slot prefix - Content placed start the main content
 	@slot suffix - Content placed end the main content
  */
-@customElement('ct-textarea')
+@customElement("ct-textarea")
 export class CtTextarea extends CtLit {
 	static styles = [
 		css`
@@ -115,7 +114,7 @@ export class CtTextarea extends CtLit {
 			}
 
 			:host([required]) > .label:after {
-				content: var(--ct-indicator, '*');
+				content: var(--ct-indicator, "*");
 				color: var(--color-error, #ed4f32);
 				position: absolute;
 				width: 1.5em;
@@ -168,30 +167,30 @@ export class CtTextarea extends CtLit {
 			#container.has-value > div > .charCount {
 				transition: all 0.2s;
 			}
-			::slotted([slot='suffix']) {
+			::slotted([slot="suffix"]) {
 				display: inline-block;
 			}
 
-			::slotted([slot='prefix']) {
+			::slotted([slot="prefix"]) {
 				display: inline-block;
 				padding-right: 0.5em;
 			}
 
 			ct-textarea-autogrow:not([type]),
-			input[type='color'],
-			input[type='date'],
-			input[type='datetime-local'],
-			input[type='datetime'],
-			input[type='email'],
-			input[type='month'],
-			input[type='number'],
-			input[type='password'],
-			input[type='search'],
-			input[type='tel'],
-			input[type='text'],
-			input[type='time'],
-			input[type='url'],
-			input[type='week'],
+			input[type="color"],
+			input[type="date"],
+			input[type="datetime-local"],
+			input[type="datetime"],
+			input[type="email"],
+			input[type="month"],
+			input[type="number"],
+			input[type="password"],
+			input[type="search"],
+			input[type="tel"],
+			input[type="text"],
+			input[type="time"],
+			input[type="url"],
+			input[type="week"],
 			select,
 			textarea {
 				min-height: 1em;
@@ -279,20 +278,20 @@ export class CtTextarea extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	private initValue?: string = '';
+	private initValue?: string = "";
 	render() {
 		return html`
 			<div>
 				${this.label ? html`<h4 class="label">${this.label}</h4>` : html``}
 
-				<div id="container" class=${classMap({ 'has-value': !this.isEmpty })}>
+				<div id="container" class=${classMap({ "has-value": !this.isEmpty })}>
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
 							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this._placeholder}</label>`}
 							<ct-textarea-autogrow
 								id="input"
-								class=${classMap({ 'has-value': !this.isEmpty })}
+								class=${classMap({ "has-value": !this.isEmpty })}
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
 								@input="${this._onInput}"
@@ -320,7 +319,7 @@ export class CtTextarea extends CtLit {
 	}
 
 	@state() private __isFirstValueUpdate = true;
-	@state() private _placeholder = '';
+	@state() private _placeholder = "";
 	@state() private _invalid = false;
 
 	/**
@@ -336,21 +335,21 @@ export class CtTextarea extends CtLit {
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) required = false;
 	@property({ type: Boolean }) noHover = false;
-	@property({ type: String }) inputmode = '';
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) inputmode = "";
+	@property({ type: String }) placeholder = "";
 	@property({ type: String }) pattern?: string;
 	@property({ type: String }) errorMessage?: string;
-	@property({ type: String }) rawPlaceholder = '';
-	@property({ type: String }) autocorrect = 'off';
-	@property({ type: String }) autocapitalize!: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
-	@property({ type: String }) label = '';
+	@property({ type: String }) rawPlaceholder = "";
+	@property({ type: String }) autocorrect = "off";
+	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
+	@property({ type: String }) label = "";
 	@property({ type: Number }) countChar = 0;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) maxlength = 5000;
 	@property({ type: Number }) rows = 1;
 
-	@query('#container') container!: HTMLElement;
-	@query('#input') input!: HTMLInputElement;
+	@query("#container") container!: HTMLElement;
+	@query("#input") input!: HTMLInputElement;
 
 	connectedCallback() {
 		super.connectedCallback();
@@ -359,22 +358,22 @@ export class CtTextarea extends CtLit {
 
 	firstUpdated() {
 		if (this.input) {
-			this.input.value = this.initValue || this.getAttribute('value') || '';
+			this.input.value = this.initValue || this.getAttribute("value") || "";
 		}
 		this.validate();
 		this._onInput();
 	}
 
 	_onInput() {
-		this.fire('value', this.value);
+		this.fire("value", this.value);
 		if (this.placeholder) {
-			this.isEmpty = this.value == '' || this.value == void 0;
+			this.isEmpty = this.value == "" || this.value == void 0;
 		}
 		this.countChar = this.value!.length;
 	}
 
 	set value(val: string | number | undefined | null) {
-		val ||= '';
+		val ||= "";
 		val = val.toString();
 		this.initValue = val;
 		if (this.input && this.input.value != val && val.length - 1 < this.maxlength) {
@@ -386,7 +385,7 @@ export class CtTextarea extends CtLit {
 	}
 
 	get value(): string {
-		return this.input?.value || '';
+		return this.input?.value || "";
 	}
 
 	focus() {
@@ -398,8 +397,8 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.container.classList.add('active');
-		this.container.classList.remove('error');
+		this.container.classList.add("active");
+		this.container.classList.remove("error");
 		this._placeholder = this.placeholder;
 	}
 
@@ -408,7 +407,7 @@ export class CtTextarea extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.container.classList.remove('active');
+		this.container.classList.remove("active");
 		this.validate();
 	}
 
@@ -416,7 +415,7 @@ export class CtTextarea extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.input.value === undefined || this.input.value === '') return !this.invalid;
+			if (this.input.value === undefined || this.input.value === "") return !this.invalid;
 		}
 
 		if (this.pattern) {
@@ -428,10 +427,10 @@ export class CtTextarea extends CtLit {
 
 		if (!this.invalid) {
 			// remover error
-			this.container.classList.remove('error');
+			this.container.classList.remove("error");
 			this._placeholder = this.placeholder;
 		} else {
-			this.container.classList.add('error');
+			this.container.classList.add("error");
 			// agregar error
 			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
 		}
@@ -442,10 +441,10 @@ export class CtTextarea extends CtLit {
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.container.classList.remove('error');
+			this.container.classList.remove("error");
 			this._placeholder = this.placeholder;
 		} else {
-			this.container.classList.add('error');
+			this.container.classList.add("error");
 			// agregar error
 			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
 		}
@@ -458,6 +457,6 @@ export class CtTextarea extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-textarea': CtTextarea;
+		"ct-textarea": CtTextarea;
 	}
 }

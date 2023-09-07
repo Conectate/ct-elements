@@ -1,6 +1,6 @@
-import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
 
-@customElement('render-item')
+@customElement("render-item")
 export class RenderItem extends CtLit {
 	static styles = [
 		css`
@@ -22,8 +22,8 @@ export class RenderItem extends CtLit {
 			}
 		`
 	];
-	@property({ type: String }) text = '';
-	@property({ type: String }) subtext = '';
+	@property({ type: String }) text = "";
+	@property({ type: String }) subtext = "";
 	@property({ type: Number }) value = 0;
 	@property({ type: Boolean, reflect: true }) selected = false;
 

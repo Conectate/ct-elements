@@ -1,5 +1,5 @@
-import { CtLit, css, customElement } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { CtLit, css, customElement } from "@conectate/ct-lit";
+import { html } from "lit";
 
 /**
 `loading-placeholder` is a simple element to use skeleton loading such as Facebook.
@@ -18,7 +18,7 @@ Custom property | Description | Default
 
  * @element ct-loading-placeholder
  */
-@customElement('ct-loading-placeholder')
+@customElement("ct-loading-placeholder")
 export class CtLoadingPlaceholder extends CtLit {
 	static styles = css`
 		:host {
@@ -56,6 +56,6 @@ export class CtLoadingPlaceholder extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-loading-placeholder': CtLoadingPlaceholder;
+		"ct-loading-placeholder": CtLoadingPlaceholder;
 	}
 }

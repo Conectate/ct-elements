@@ -1,5 +1,5 @@
-import { CtLit, customElement, property } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtLit, customElement, property } from "@conectate/ct-lit";
+import { css, html } from "lit";
 /**
  * ## `ct-spinner`
  * Spinner web Component
@@ -8,7 +8,7 @@ import { css, html } from 'lit';
  * @cssProp --ct-spinner-1 - Spinner Color 1
  * @cssProp --ct-spinner-2 - Spinner Color 2
  */
-@customElement('ct-spinner')
+@customElement("ct-spinner")
 export class CtSpinner extends CtLit {
 	@property({ type: Boolean, reflect: true }) active: boolean = true;
 	static styles = css`
@@ -44,6 +44,6 @@ export class CtSpinner extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-spinner': CtSpinner;
+		"ct-spinner": CtSpinner;
 	}
 }

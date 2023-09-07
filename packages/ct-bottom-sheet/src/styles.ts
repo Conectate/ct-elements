@@ -1,4 +1,4 @@
-import { css } from 'lit';
+import { css } from "lit";
 
 export default css`
 	:host {
@@ -16,8 +16,12 @@ export default css`
 		margin: 0 12px;
 		font-size: 14px;
 		cursor: default;
-		-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-		transition: transform 0.3s, opacity 0.3s;
+		-webkit-transition:
+			-webkit-transform 0.3s,
+			opacity 0.3s;
+		transition:
+			transform 0.3s,
+			opacity 0.3s;
 		opacity: 0;
 		-webkit-transform: translateY(100px);
 		transform: translateY(100px);

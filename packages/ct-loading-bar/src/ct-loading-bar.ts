@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
 /**
 
 ## ct-loading-bar
@@ -24,7 +24,7 @@ Custom property | Description | Default
 
 	@element ct-loading-bar
  */
-@customElement('ct-loading-bar')
+@customElement("ct-loading-bar")
 export class CtLoadingBar extends LitElement {
 	render() {
 		return html`
@@ -58,7 +58,7 @@ export class CtLoadingBar extends LitElement {
 				}
 				.horizontal-loader-bar {
 					height: 100%;
-					content: '';
+					content: "";
 					display: inline-block;
 					position: absolute;
 					left: 50%;
@@ -97,6 +97,6 @@ export class CtLoadingBar extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-loading-bar': CtLoadingBar;
+		"ct-loading-bar": CtLoadingBar;
 	}
 }

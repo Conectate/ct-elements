@@ -9,10 +9,10 @@
     found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { LitElement, css, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 /**
  * ## `ct-img`
  * Normal and lazy images loader element
@@ -20,25 +20,25 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @attr {Boolean} contain - For contain background size
  * @attr {'left'|'right'} background-position - Position of Backgroud
  */
-@customElement('ct-img')
+@customElement("ct-img")
 export class CtImg extends LitElement {
 	@property({ type: String }) srcset?: string;
-	@property({ type: String }) alt: string = '';
-	@property({ type: String }) src: string = '';
+	@property({ type: String }) alt: string = "";
+	@property({ type: String }) src: string = "";
 	@property({ type: Boolean }) lazy = false;
 	@property({ type: Boolean }) disable_anim = false;
 	@property({ type: Boolean }) round: boolean = false;
 	/** Force use IntersectionObserver instead `img.loading=lazy` */
 	@property({ type: Boolean }) intersectionobserver: boolean = false;
 	@property({ type: Object }) viewport: HTMLElement = document.body;
-	@property({ type: String }) placeholderImg: string = '';
+	@property({ type: String }) placeholderImg: string = "";
 	@property({ type: String }) onErrorSrc =
-		'data:image/svg+xml,' +
+		"data:image/svg+xml," +
 		encodeURIComponent(
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>'
 		);
-	@query('#img') $img!: HTMLImageElement;
-	@query('#divimg') $divimg!: HTMLDivElement;
+	@query("#img") $img!: HTMLImageElement;
+	@query("#divimg") $divimg!: HTMLDivElement;
 
 	static styles = [
 		css`
@@ -68,10 +68,10 @@ export class CtImg extends LitElement {
 			:host([contain]) #divimg {
 				background-size: contain;
 			}
-			:host([background-position='left']) #divimg {
+			:host([background-position="left"]) #divimg {
 				background-position: left;
 			}
-			:host([background-position='right']) #divimg {
+			:host([background-position="right"]) #divimg {
 				background-position: right;
 			}
 
@@ -124,9 +124,9 @@ export class CtImg extends LitElement {
 
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.updated(cp);
-		if (cp.has('src')) this._srcChanged(this.src);
-		if (cp.has('srcset') || cp.has('lazy')) this._lazyChanged(this.lazy);
-		if (cp.has('placeholderImg')) this._placeholderImgChanged(this.placeholderImg);
+		if (cp.has("src")) this._srcChanged(this.src);
+		if (cp.has("srcset") || cp.has("lazy")) this._lazyChanged(this.lazy);
+		if (cp.has("placeholderImg")) this._placeholderImgChanged(this.placeholderImg);
 	}
 
 	_lazyChanged(lazy: boolean) {
@@ -151,14 +151,14 @@ export class CtImg extends LitElement {
 	_initLazyLoad(polyfilled: boolean = false) {
 		// Native Load
 		if (this.$img.loading && !this.intersectionobserver) {
-			this.$img.loading = 'lazy';
+			this.$img.loading = "lazy";
 			this.$img.src = this.srcset || this.src;
 		} else if (window.IntersectionObserver) {
 			// @ts-ignore
 			if (!window.CtImgIntersectionObserver) {
 				var options = {
 					root: this.viewport,
-					rootMargin: '0px'
+					rootMargin: "0px"
 				};
 
 				// @ts-ignore
@@ -166,7 +166,7 @@ export class CtImg extends LitElement {
 					/* the number of elements sharing this observer */
 					counter: 0,
 					/* an IntersectionObserver with only default arguments */
-					observer: new IntersectionObserver((entries) => {
+					observer: new IntersectionObserver(entries => {
 						entries.forEach(function (entry) {
 							if (entry.isIntersecting) {
 								let lazyImage = entry.target as CtImg;
@@ -191,11 +191,11 @@ export class CtImg extends LitElement {
 			// @ts-ignore
 			window.CtImgIntersectionObserver.counter++;
 		} else {
-			let polyfillScript = document.getElementById('polyfill-IntersectionObserver');
+			let polyfillScript = document.getElementById("polyfill-IntersectionObserver");
 			if (!polyfillScript) {
 				// load the intersection-observer polyfill script
-				polyfillScript = document.createElement('script');
-				polyfillScript.id = 'polyfill-IntersectionObserver';
+				polyfillScript = document.createElement("script");
+				polyfillScript.id = "polyfill-IntersectionObserver";
 				// The current version, 0.3.0, supports Safari which now has
 				// native shadow DOM.  The version currently served by polyfill.io
 				// does not support native shadow dom.
@@ -204,22 +204,22 @@ export class CtImg extends LitElement {
 				// we will use version 0.3.0 and include it with the element.
 				//
 				// @ts-ignore
-				polyfillScript.src = 'https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js';
+				polyfillScript.src = "https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js";
 				// @ts-ignore
 				polyfillScript.async = true;
 				document.head.appendChild(polyfillScript);
 			}
 			// listen for the polyfill to finish loading
 			// then retry the initLazyLoad process
-			polyfillScript.addEventListener('load', (_) => this._initLazyLoad(true));
+			polyfillScript.addEventListener("load", _ => this._initLazyLoad(true));
 		}
 	}
 
 	_srcChanged(src: string) {
-		this.$img.removeAttribute('src');
-		this.$img.style.transition = '';
+		this.$img.removeAttribute("src");
+		this.$img.style.transition = "";
 		this.$img.style.opacity = `0`;
-		this.$divimg.style.transition = '';
+		this.$divimg.style.transition = "";
 		this.$divimg.style.opacity = `0`;
 		if (src) {
 			this.$img.src = src;
@@ -228,30 +228,30 @@ export class CtImg extends LitElement {
 
 	_onImgLoad() {
 		if (!this.disable_anim) {
-			this.$img.style.transition = '0.5s opacity';
-			this.$divimg.style.transition = '0.5s opacity';
+			this.$img.style.transition = "0.5s opacity";
+			this.$divimg.style.transition = "0.5s opacity";
 		}
-		this.$divimg.style.opacity = '1';
+		this.$divimg.style.opacity = "1";
 		let src = this.src || this.srcset!;
-		this.$divimg.style.backgroundImage = `url('${src.replace(/\\/g, '%5C')}')`;
-		this.dispatchEvent(new CustomEvent('loaded-changed'));
+		this.$divimg.style.backgroundImage = `url('${src.replace(/\\/g, "%5C")}')`;
+		this.dispatchEvent(new CustomEvent("loaded-changed"));
 	}
 
 	_onImgError() {
-		if (!this.disable_anim) this.$divimg.style.transition = '0.5s opacity';
-		this.$divimg.style.opacity = '1';
+		if (!this.disable_anim) this.$divimg.style.transition = "0.5s opacity";
+		this.$divimg.style.opacity = "1";
 		if (!this.placeholderImg) {
 			this.$divimg.style.backgroundImage = `url(${this.onErrorSrc})`;
 		}
 	}
 
 	_placeholderImgChanged(placeholder: string) {
-		this.$divimg.style.opacity = '1';
+		this.$divimg.style.opacity = "1";
 		this.$divimg.style.backgroundImage = `url(${placeholder})`;
 	}
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-img': CtImg;
+		"ct-img": CtImg;
 	}
 }

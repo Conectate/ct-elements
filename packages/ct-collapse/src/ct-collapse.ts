@@ -1,14 +1,13 @@
-import { css, CtLit, customElement, html, property, query } from '@conectate/ct-lit';
-
-import { sleep } from '@conectate/ct-helpers';
+import { sleep } from "@conectate/ct-helpers";
+import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
 
 /**
  * @element ct-collapse
  */
-@customElement('ct-collapse')
+@customElement("ct-collapse")
 export class CtCollapse extends CtLit {
 	@property({ type: Boolean }) opened = false;
-	@query('#content') $content!: HTMLSlotElement;
+	@query("#content") $content!: HTMLSlotElement;
 	content: any;
 	elems: any[] = [];
 	static styles: any = [
@@ -28,16 +27,16 @@ export class CtCollapse extends CtLit {
 		return html` <slot id="content"></slot> `;
 	}
 	firstUpdated() {
-		let elems = (this.$content.assignedNodes() as HTMLElement[]).filter((elem) => elem.nodeType == Node.ELEMENT_NODE);
+		let elems = (this.$content.assignedNodes() as HTMLElement[]).filter(elem => elem.nodeType == Node.ELEMENT_NODE);
 		this.content = elems[0];
 		if (elems.length > 1) {
-			console.warn('`ct-collapse` can have a ONE child, you can wrap him in a <div>');
+			console.warn("`ct-collapse` can have a ONE child, you can wrap him in a <div>");
 		}
 	}
 
 	update(map: Map<PropertyKey, any>) {
 		super.update(map);
-		if (map.has('opened')) {
+		if (map.has("opened")) {
 			this.calcMaxHeight(this.opened);
 		}
 	}
@@ -50,7 +49,7 @@ export class CtCollapse extends CtLit {
 		if (this.content) {
 			this.style.maxHeight = `${this.content.offsetHeight}px`;
 			await sleep(50);
-			this.classList.toggle('open', val);
+			this.classList.toggle("open", val);
 			await sleep(250);
 			this.style.maxHeight = ``;
 		} else if (val) {
@@ -62,6 +61,6 @@ export class CtCollapse extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-collapse': CtCollapse;
+		"ct-collapse": CtCollapse;
 	}
 }

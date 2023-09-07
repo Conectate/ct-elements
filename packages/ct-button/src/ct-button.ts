@@ -9,8 +9,8 @@ part of the Conectate Open Source Project is also subject to an additional IP ri
 found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 /**
 ## Example usage
@@ -84,7 +84,7 @@ _None_
  * @attr {Boolean} flat - Shown with a primary color border
  * @attr {Boolean} light - Shown with a primary color border
  */
-@customElement('ct-button')
+@customElement("ct-button")
 export class CtButton extends LitElement {
 	static styles = [
 		css`
@@ -94,7 +94,7 @@ export class CtButton extends LitElement {
 				justify-content: center;
 				/* overflow: hidden; */
 				position: relative;
-				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+				font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
 				padding: 0;
 				background: #00aeff00;
 				color: var(--color-primary, #00aeff);
@@ -194,11 +194,11 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) flat = false;
 	@property({ type: Boolean, reflect: true }) light = false;
 
-	@property({ type: String, reflect: true }) role = 'button';
+	@property({ type: String, reflect: true }) role = "button";
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
-		return html` <button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent('btnclick'))}>
+		return html` <button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent("btnclick"))}>
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
@@ -209,10 +209,10 @@ export class CtButton extends LitElement {
 declare global {
 	namespace JSX {
 		interface IntrinsicElements {
-			'ct-button': any;
+			"ct-button": any;
 		}
 	}
 	interface HTMLElementTagNameMap {
-		'ct-button': CtButton;
+		"ct-button": CtButton;
 	}
 }

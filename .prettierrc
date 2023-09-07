@@ -6,11 +6,15 @@
 	"jsxBracketSameLine": true,
 	"jsxSingleQuote": false,
 	"proseWrap": "preserve",
+	"arrowParens": "avoid",
 	"quoteProps": "as-needed",
 	"requirePragma": false,
 	"semi": true,
-	"singleQuote": true,
+	"singleQuote": false,
 	"tabWidth": 4,
 	"trailingComma": "none",
-	"useTabs": true
+	"useTabs": true,
+	"plugins": [
+		"./node_modules/prettier-plugin-import-sort/src/index.js"
+	]
 }

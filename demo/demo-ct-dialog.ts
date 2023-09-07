@@ -1,6 +1,6 @@
-import { CtLit, css, customElement, html, query } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
 
-@customElement('demo-ct-dialog')
+@customElement("demo-ct-dialog")
 export class DemoCtDialog extends CtLit {
 	static styles = [
 		css`

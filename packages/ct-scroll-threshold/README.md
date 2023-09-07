@@ -43,30 +43,30 @@ pnpm add @conectate/ct-scroll-threshold
 
 ```html
 <html>
-    <head>
-        <script type="module">
-            // Use bare imports!
-            // you can use `vitejs` to sprin up a complete server:
-            // npm i -g vite && vite
-            import '@conectate/ct-scroll-threshold/ct-scroll-threshold.js';
-        </script>
-    </head>
-    <body>
-        <ct-scroll-threshold id="ctScrollTheshold">
-            <div>content</div>
-        </ct-scroll-threshold>
+	<head>
+		<script type="module">
+			// Use bare imports!
+			// you can use `vitejs` to sprin up a complete server:
+			// npm i -g vite && vite
+			import '@conectate/ct-scroll-threshold/ct-scroll-threshold.js';
+		</script>
+	</head>
+	<body>
+		<ct-scroll-threshold id="ctScrollTheshold">
+			<div>content</div>
+		</ct-scroll-threshold>
 
-        <script>
-            const ctScrollTheshold = document.querySelector('#ctScrollTheshold');
-            ctScrollTheshold.addEventListener('lower-threshold', () => {
-                console.log('lower-threshold triggered');
-                // load async stuff. e.g. XHR
-                setTimeout(() => {
-                    ctScrollTheshold.clearTriggers();
-                });
-            });
-        </script>
-    </body>
+		<script>
+			const ctScrollTheshold = document.querySelector('#ctScrollTheshold');
+			ctScrollTheshold.addEventListener('lower-threshold', () => {
+			    console.log('lower-threshold triggered');
+			    // load async stuff. e.g. XHR
+			    setTimeout(() => {
+			        ctScrollTheshold.clearTriggers();
+			    });
+			});
+		</script>
+	</body>
 </html>
 ```
 

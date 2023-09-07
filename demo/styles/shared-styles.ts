@@ -1,4 +1,4 @@
-import { css } from 'lit';
+import { css } from "lit";
 
 export let defaultTheme = css`
 	:root {
@@ -90,7 +90,7 @@ export let defaultTheme = css`
 		background: var(--color-background);
 		color: var(--color-on-background);
 		height: 100%;
-		font-family: 'Roboto', sans-serif !important;
+		font-family: "Roboto", sans-serif !important;
 		transition: all 0.2s;
 	}
 
@@ -109,16 +109,16 @@ export let defaultTheme = css`
 	}
 `;
 export function addCSS(src: string) {
-	const link = document.createElement('link');
-	link.rel = 'stylesheet';
-	link.type = 'text/css';
+	const link = document.createElement("link");
+	link.rel = "stylesheet";
+	link.type = "text/css";
 	link.href = src;
 	document.head.appendChild(link);
 }
 export function addFont(family: string) {
-	const link = document.createElement('link');
-	link.rel = 'stylesheet';
-	link.type = 'text/css';
+	const link = document.createElement("link");
+	link.rel = "stylesheet";
+	link.type = "text/css";
 	link.href = `https://fonts.googleapis.com/css?family=${family}&display=swap`;
 	document.head.appendChild(link);
 }
@@ -130,8 +130,8 @@ export function applyTheme() {
 	// addFont(`Material+Icons+Round`);
 	// addFont(`Google+Sans:400,500,700`);
 	// addFont(`Product+Sans:400,500,700`);
-	const style = document.createElement('style');
-	style.id = 'ctStyles';
+	const style = document.createElement("style");
+	style.id = "ctStyles";
 	style.innerHTML = defaultTheme.toString();
 	document.head.appendChild(style);
 }

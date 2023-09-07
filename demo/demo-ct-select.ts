@@ -1,13 +1,13 @@
-import './code-example/code-example';
-import '@conectate/ct-select';
-import '@conectate/ct-card';
+import "@conectate/ct-select";
+import "@conectate/ct-card";
 
-import { html as stripIndent } from 'common-tags';
+import "./code-example/code-example";
 
-import { CtLit, css, customElement, html, query } from '@conectate/ct-lit';
-import { CtSelect } from '@conectate/ct-select';
+import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
+import { CtSelect } from "@conectate/ct-select";
+import { html as stripIndent } from "common-tags";
 
-@customElement('demo-ct-select')
+@customElement("demo-ct-select")
 export class DemoCtSelect extends CtLit {
 	static styles = [
 		css`
@@ -22,7 +22,7 @@ export class DemoCtSelect extends CtLit {
 			}
 		`
 	];
-	name = 'ct-select';
+	name = "ct-select";
 	render() {
 		return html`
 			<header class="card-content">
@@ -32,7 +32,7 @@ export class DemoCtSelect extends CtLit {
 		`;
 	}
 
-	@query('#ct-select') ctSelect!: CtSelect;
+	@query("#ct-select") ctSelect!: CtSelect;
 	example() {
 		let code = stripIndent`
 		<!-- getItems(): {text: string;value: number;}[] -->
@@ -50,7 +50,7 @@ export class DemoCtSelect extends CtLit {
 					.subtext=\${\`Sub \${item.text}\`}
 					.value=\${item.value}
 				></render-item>\`}"
-		></ct-select>`.replaceAll('\t', '    ');
+		></ct-select>`.replaceAll("\t", "    ");
 
 		return html`
 			<code-example class="language-html" .rawcode=${code}>
@@ -79,7 +79,7 @@ export class DemoCtSelect extends CtLit {
 	getItems() {
 		let items: { text: string; value: number }[] = [];
 		for (let i = 0; i < 5; i++) {
-			items.push({ text: 'Item ' + i, value: i });
+			items.push({ text: "Item " + i, value: i });
 		}
 		return items;
 	}

@@ -1,5 +1,5 @@
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { html } from "lit";
 
 /**
  * # `ct-input-wrapper`
@@ -7,35 +7,35 @@ import { html } from 'lit';
  * @group ct-elements
  * @element ct-input-wrapper
  */
-@customElement('ct-input-wrapper')
+@customElement("ct-input-wrapper")
 export class CtInputWrapper extends CtLit {
 	@property({ type: String }) type:
-		| 'hidden'
-		| 'text'
-		| 'search'
-		| 'tel'
-		| 'url'
-		| 'email'
-		| 'password'
-		| 'datetime'
-		| 'date'
-		| 'month'
-		| 'week'
-		| 'time'
-		| 'datetime-local'
-		| 'number'
-		| 'range'
-		| 'color'
-		| 'checkbox'
-		| 'radio'
-		| 'file'
-		| 'submit'
-		| 'image'
-		| 'reset'
-		| 'button' = 'file';
-	@property({ type: String }) accept = 'text';
+		| "hidden"
+		| "text"
+		| "search"
+		| "tel"
+		| "url"
+		| "email"
+		| "password"
+		| "datetime"
+		| "date"
+		| "month"
+		| "week"
+		| "time"
+		| "datetime-local"
+		| "number"
+		| "range"
+		| "color"
+		| "checkbox"
+		| "radio"
+		| "file"
+		| "submit"
+		| "image"
+		| "reset"
+		| "button" = "file";
+	@property({ type: String }) accept = "text";
 	@property({ type: Boolean }) multiple = false;
-	@query('#inputElement') $inputElement!: HTMLInputElement;
+	@query("#inputElement") $inputElement!: HTMLInputElement;
 
 	render() {
 		return html` <style>
@@ -65,7 +65,7 @@ export class CtInputWrapper extends CtLit {
 		const files = (this.$inputElement as HTMLInputElement).files;
 		if (files && files.length > 0) {
 			this.dispatchEvent(
-				new CustomEvent('files', {
+				new CustomEvent("files", {
 					detail: { files: files }
 				})
 			);
@@ -73,11 +73,11 @@ export class CtInputWrapper extends CtLit {
 	}
 
 	clear() {
-		this.$inputElement.value = '';
+		this.$inputElement.value = "";
 	}
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-input-wrapper': CtInputWrapper;
+		"ct-input-wrapper": CtInputWrapper;
 	}
 }

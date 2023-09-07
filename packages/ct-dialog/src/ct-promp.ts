@@ -9,21 +9,21 @@
  found at https://wc.conectate.app/PATENTS.txt
  */
 
-import '@conectate/ct-button';
-import '@conectate/ct-card';
-import '@conectate/ct-input';
+import "@conectate/ct-button";
+import "@conectate/ct-card";
+import "@conectate/ct-input";
 
-import { css, CtLit, customElement, html, property, query } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
+import { TemplateResult } from "lit";
 
-import { TemplateResult } from 'lit';
-import { CtDialog, showCtDialog } from './ct-dialog';
+import { CtDialog, showCtDialog } from "./ct-dialog";
 
 export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { wordwrap?: boolean }): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
 
 	ctPromp.ttl = title;
 	ctPromp.body = body;
-	ctPromp.ok = ok ? ok : 'OK';
+	ctPromp.ok = ok ? ok : "OK";
 	ctPromp.wordwrap = options?.wordwrap || false;
 	neutral && (ctPromp.neutral = neutral);
 	cancel && (ctPromp.cancel = cancel);
@@ -31,18 +31,18 @@ export function showCtPrompt(title: string, body: string, ok?: string, cancel?: 
 	return ctPromp.onResult();
 }
 
-@customElement('ct-promp')
+@customElement("ct-promp")
 class CTPromp extends CtLit {
-	@property({ type: String }) body: string | TemplateResult = '';
-	@property({ type: String }) ttl: string = 'Title';
-	@property({ type: String }) ok: string = 'OK';
-	@property({ type: String }) neutral?: string = '';
-	@property({ type: String }) cancel?: string = 'Cancel';
+	@property({ type: String }) body: string | TemplateResult = "";
+	@property({ type: String }) ttl: string = "Title";
+	@property({ type: String }) ok: string = "OK";
+	@property({ type: String }) neutral?: string = "";
+	@property({ type: String }) cancel?: string = "Cancel";
 	@property({ type: Boolean, reflect: true }) wordwrap: boolean = false;
-	@query('#buttons') $buttons!: HTMLDivElement;
-	@query('#neutral') $neutral!: HTMLButtonElement;
-	@query('#cancel') $cancel!: HTMLButtonElement;
-	@query('#in') $in!: HTMLInputElement;
+	@query("#buttons") $buttons!: HTMLDivElement;
+	@query("#neutral") $neutral!: HTMLButtonElement;
+	@query("#cancel") $cancel!: HTMLButtonElement;
+	@query("#in") $in!: HTMLInputElement;
 	reject!: (reason?: any) => void;
 	solve!: (param?: string | null) => void;
 	dialog!: CtDialog;
@@ -54,7 +54,7 @@ class CTPromp extends CtLit {
 			}
 
 			.title {
-				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+				font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
 				font-size: 1.5em;
 				font-weight: 400;
 				margin: 24px 24px 0;
@@ -135,27 +135,27 @@ class CTPromp extends CtLit {
 	}
 
 	computeBtns(ok: string, neutral?: string, cancel?: string) {
-		let auxok = ok || '',
-			auxcancel = cancel || '',
-			auxneutral = neutral || '';
+		let auxok = ok || "",
+			auxcancel = cancel || "",
+			auxneutral = neutral || "";
 		if (neutral == null) {
-			this.$neutral.style.display = 'none';
+			this.$neutral.style.display = "none";
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.$buttons.classList.add('buttons_vert');
+			this.$buttons.classList.add("buttons_vert");
 		}
 		if (cancel == null) {
-			this.$cancel.style.display = 'none';
+			this.$cancel.style.display = "none";
 		}
 	}
 
 	async okbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(this.$in.value);
 	}
 
 	async cancelbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve();
 	}
 
@@ -169,6 +169,6 @@ class CTPromp extends CtLit {
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-promp': CTPromp;
+		"ct-promp": CTPromp;
 	}
 }

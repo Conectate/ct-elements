@@ -5,9 +5,7 @@
 	"main": "ct-bottom-sheet.js",
 	"types": "ct-bottom-sheet.d.ts",
 	"module": "ct-bottom-sheet.js",
-	"keywords": [
-		"ct-elements"
-	],
+	"keywords": ["ct-elements"],
 	"dependencies": {
 		"lit": "^2.8.0"
 	},

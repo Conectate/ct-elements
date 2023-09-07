@@ -1,6 +1,6 @@
-import { TemplateResult } from 'lit';
+import { TemplateResult } from "lit";
 
-import { CtDialog } from './ct-dialog';
+import { CtDialog } from "./ct-dialog";
 
 export default class CtDialogBuilder {
 	dialog: CtDialog;

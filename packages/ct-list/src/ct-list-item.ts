@@ -1,9 +1,9 @@
-import '@conectate/ct-icon/ct-icon';
+import "@conectate/ct-icon/ct-icon";
 
-import type { icon } from '@conectate/ct-icon/icon-list';
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { css, html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import type { icon } from "@conectate/ct-icon/icon-list";
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { css, html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 /**
  * @element ct-list-item
@@ -12,7 +12,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * @slot - Default content placed in the middle
  * @slot suffix - Content placed below the main content
  */
-@customElement('ct-list-item')
+@customElement("ct-list-item")
 export class CtListItem extends CtLit {
 	static styles = [
 		css`
@@ -65,22 +65,22 @@ export class CtListItem extends CtLit {
 			}
 		`
 	];
-	@query('button') public button!: HTMLButtonElement;
-	@property({ type: String }) svg = '';
+	@query("button") public button!: HTMLButtonElement;
+	@property({ type: String }) svg = "";
 	@property({ type: String }) icon?: icon;
 	/** Inner Text */
-	@property({ type: String }) text = '';
+	@property({ type: String }) text = "";
 	/** @deprecated use href instead */
 	@property({ type: String }) link?: string;
 	/** Link */
 	@property({ type: String }) href?: string;
 	/** Link */
-	@property({ type: String }) target?: '_self' | '_top' | '_blank';
+	@property({ type: String }) target?: "_self" | "_top" | "_blank";
 
 	render() {
 		let button = html`<button>
 			<slot name="prefix"></slot>
-			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon)}></ct-icon>` : ''}
+			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon)}></ct-icon>` : ""}
 			<div class="text">${this.text}<slot></slot></div>
 			<slot name="sufix"></slot>
 			<slot name="suffix"></slot>
@@ -93,6 +93,6 @@ export class CtListItem extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-list-item': CtListItem;
+		"ct-list-item": CtListItem;
 	}
 }

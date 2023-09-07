@@ -1,9 +1,9 @@
-import '@conectate/ct-icon';
+import "@conectate/ct-icon";
 
-import { CtLit, property, customElement } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtLit, customElement, property } from "@conectate/ct-lit";
+import { css, html } from "lit";
 
-@customElement('ct-select-item')
+@customElement("ct-select-item")
 export class CtSelectItem extends CtLit {
 	static styles = [
 		css`
@@ -68,7 +68,7 @@ export class CtSelectItem extends CtLit {
 	@property({ type: Boolean, reflect: true }) selected = false;
 
 	render() {
-		return html`<div class="cicle" ?hidden=${!this.multi}><ct-icon icon="${this.selected ? `check` : ''}"></ct-icon></div>
+		return html`<div class="cicle" ?hidden=${!this.multi}><ct-icon icon="${this.selected ? `check` : ""}"></ct-icon></div>
 			<button>
 				<b><slot></slot></b>
 			</button> `;
@@ -77,6 +77,6 @@ export class CtSelectItem extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-select-item': CtSelectItem;
+		"ct-select-item": CtSelectItem;
 	}
 }

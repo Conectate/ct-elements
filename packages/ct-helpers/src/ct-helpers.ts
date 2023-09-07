@@ -1,8 +1,8 @@
 export interface UAClientDescription {
-	browser: 'firefox' | 'edge' | 'chrome' | 'facebook' | 'google_app' | 'ie' | 'safari' | 'safari_mobile' | 'other';
+	browser: "firefox" | "edge" | "chrome" | "facebook" | "google_app" | "ie" | "safari" | "safari_mobile" | "other";
 	browserVersion: number;
 	isMobile: boolean;
-	os: 'ios' | 'ipados' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'chromeos' | 'other';
+	os: "ios" | "ipados" | "android" | "linux" | "mac" | "windows" | "playstation" | "chromeos" | "other";
 	osVersion: number;
 	device?: string;
 }
@@ -13,33 +13,33 @@ export interface UAClientDescription {
 export function getClient(ua?: string) {
 	interface os {
 		regex: RegExp;
-		os: 'ios' | 'ipados' | 'android' | 'linux' | 'mac' | 'windows' | 'playstation' | 'chromeos' | 'other';
+		os: "ios" | "ipados" | "android" | "linux" | "mac" | "windows" | "playstation" | "chromeos" | "other";
 		apply: Function;
 	}
 	interface browser {
-		browser: 'firefox' | 'edge' | 'chrome' | 'facebook' | 'google_app' | 'ie' | 'safari' | 'safari_mobile' | 'other';
+		browser: "firefox" | "edge" | "chrome" | "facebook" | "google_app" | "ie" | "safari" | "safari_mobile" | "other";
 		regex: RegExp;
 	}
 
 	let o: UAClientDescription = {
-		browser: 'other',
+		browser: "other",
 		browserVersion: 0,
 		isMobile: false,
-		os: 'other',
+		os: "other",
 		osVersion: 0
 	};
 	ua = ua || navigator.userAgent;
 	let a: browser[] = [
-		{ browser: 'facebook', regex: /FBAV\/([0-9\.]+)/i },
-		{ browser: 'facebook', regex: /FBSV\/([0-9\.]+)/i },
-		{ browser: 'google_app', regex: /GSA\/([0-9\.]+)/i },
-		{ browser: 'firefox', regex: /Firefox\/([0-9\.]+)/i },
-		{ browser: 'firefox', regex: /FxiOS\/([0-9\.]+)/i },
-		{ browser: 'edge', regex: /Edge\/([0-9\.]+)/i },
-		{ browser: 'chrome', regex: /Chrome\/([0-9\.]+)/i },
-		{ browser: 'chrome', regex: /CriOS\/([0-9\.]+)/i },
-		{ browser: 'ie', regex: /Trident\/.+rv[: ]?([0-9]+)/i },
-		{ browser: 'safari', regex: /Version\/([0-9\.]+).+Safari/ }
+		{ browser: "facebook", regex: /FBAV\/([0-9\.]+)/i },
+		{ browser: "facebook", regex: /FBSV\/([0-9\.]+)/i },
+		{ browser: "google_app", regex: /GSA\/([0-9\.]+)/i },
+		{ browser: "firefox", regex: /Firefox\/([0-9\.]+)/i },
+		{ browser: "firefox", regex: /FxiOS\/([0-9\.]+)/i },
+		{ browser: "edge", regex: /Edge\/([0-9\.]+)/i },
+		{ browser: "chrome", regex: /Chrome\/([0-9\.]+)/i },
+		{ browser: "chrome", regex: /CriOS\/([0-9\.]+)/i },
+		{ browser: "ie", regex: /Trident\/.+rv[: ]?([0-9]+)/i },
+		{ browser: "safari", regex: /Version\/([0-9\.]+).+Safari/ }
 	];
 	for (let i = 0; i < a.length; i++) {
 		let reg = ua.match(a[i].regex);
@@ -54,64 +54,64 @@ export function getClient(ua?: string) {
 	}
 	let opSys: os[] = [
 		{
-			os: 'ios',
+			os: "ios",
 			regex: /([0-9_]+) like Mac OS X/,
-			apply: (v: string) => v.replace(/_/g, '.')
+			apply: (v: string) => v.replace(/_/g, ".")
 		},
 		{
-			os: 'ipados',
+			os: "ipados",
 			regex: /iPad.+ ([0-9_]+) like Mac OS X/,
-			apply: (v: string) => v.replace(/_/g, '.')
+			apply: (v: string) => v.replace(/_/g, ".")
 		},
 		{
-			os: 'android',
+			os: "android",
 			regex: /Android ([0-9\.]+)/,
 			apply: (v: string) => v
 		},
 		{
-			os: 'linux',
+			os: "linux",
 			regex: /Linux (x86_64|x86|armv7l|aarch64)/,
 			apply: (v: string) => {
 				switch (v) {
-					case 'x86_64':
-						return '64';
-					case 'x86':
-						return '32';
-					case 'armv7l':
-						return '32';
-					case 'aarch64':
-						return '64';
+					case "x86_64":
+						return "64";
+					case "x86":
+						return "32";
+					case "armv7l":
+						return "32";
+					case "aarch64":
+						return "64";
 				}
 			}
 		},
 		{
-			os: 'mac',
+			os: "mac",
 			regex: /Macintosh.+Mac OS X ([0-9_]+)/,
-			apply: (v: string) => v.replace(/_/g, '.')
+			apply: (v: string) => v.replace(/_/g, ".")
 		},
 		{
-			os: 'windows',
+			os: "windows",
 			regex: /Windows NT ([0-9\.]+)/,
-			apply: (v: string) => v.replace(/_/g, '.')
+			apply: (v: string) => v.replace(/_/g, ".")
 		},
 		{
-			os: 'playstation',
+			os: "playstation",
 			regex: /PlayStation ([0-9\.]+)/,
-			apply: (v: string) => v.replace(/_/g, '.')
+			apply: (v: string) => v.replace(/_/g, ".")
 		},
 		{
-			os: 'chromeos',
+			os: "chromeos",
 			regex: /CrOS (x86_64|x86|armv7l|aarch64) ([0-9\.]+)/,
 			apply: (v: string) => {
 				switch (v) {
-					case 'x86_64':
-						return '64';
-					case 'x86':
-						return '32';
-					case 'armv7l':
-						return '32';
-					case 'aarch64':
-						return '64';
+					case "x86_64":
+						return "64";
+					case "x86":
+						return "32";
+					case "armv7l":
+						return "32";
+					case "aarch64":
+						return "64";
 				}
 			}
 		}
@@ -168,7 +168,7 @@ export function browserCapabilities(userAgent: string) {
 		if (!version) {
 			return [];
 		}
-		return new String(version).split('.').map((part) => {
+		return new String(version).split(".").map(part => {
 			const i = parseInt(part, 10);
 			return isNaN(i) ? -1 : i;
 		});
@@ -275,15 +275,15 @@ export function browserCapabilities(userAgent: string) {
 	const ua = getClient(userAgent);
 	const capabilities = new Set<tCapabilities>();
 	let browserName = ua.browser;
-	if (ua.os === 'ios') {
+	if (ua.os === "ios") {
 		// if iOS is really safari_mobile.
-		browserName = 'safari_mobile';
-	} else if (ua.browser == 'facebook') {
-		browserName = 'chrome';
+		browserName = "safari_mobile";
+	} else if (ua.browser == "facebook") {
+		browserName = "chrome";
 	}
-	const predicates = browserPredicates[browserName as 'chrome'] || {};
+	const predicates = browserPredicates[browserName as "chrome"] || {};
 	for (const capability of Object.keys(predicates)) {
-		if (predicates[capability as 'push'](ua)) {
+		if (predicates[capability as "push"](ua)) {
 			capabilities.add(capability as tCapabilities);
 		}
 	}
@@ -296,32 +296,32 @@ export function getGeoLocation(): Promise<{ lat: number; lon: number }> {
 	return new Promise((solve, err) => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
-				(p) => {
+				p => {
 					solve({
 						lat: p.coords.latitude,
 						lon: p.coords.longitude
 					});
 				},
 				() => {
-					err({ error: 'Haz denagado los permisos de ubicación', code: 0 });
+					err({ error: "Haz denagado los permisos de ubicación", code: 0 });
 				}
 			);
 		} else {
-			err({ error: 'Tu navegador no soporta la Geolocalizacion', code: -1 });
+			err({ error: "Tu navegador no soporta la Geolocalizacion", code: -1 });
 		}
 	});
 }
 /**
  * Sleep Promise
  */
-export let sleep = (time: number) => new Promise((resolve) => setTimeout(() => resolve(0), time));
+export let sleep = (time: number) => new Promise(resolve => setTimeout(() => resolve(0), time));
 
 /**
  * Generate Random ID
  */
 export class PushID {
 	// Modeled after base64 web-safe chars, but ordered by ASCII.
-	PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+	PUSH_CHARS = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
 
 	// Timestamp of last push, used to prevent local collisions if you push twice in one ms.
 	lastPushTime = 0;
@@ -345,9 +345,9 @@ export class PushID {
 			// NOTE: Can't use << here because javascript will convert to int and lose the upper bits.
 			now = Math.floor(now / 64);
 		}
-		if (now !== 0) throw new Error('We should have converted the entire timestamp.');
+		if (now !== 0) throw new Error("We should have converted the entire timestamp.");
 
-		let id = timeStampChars.join('');
+		let id = timeStampChars.join("");
 		let i;
 		if (!duplicateTime) {
 			for (i = 0; i < computeTotal; i++) {
@@ -369,7 +369,7 @@ export class PushID {
 	}
 	decodePushID(str: string) {
 		let alphabet = this.PUSH_CHARS;
-		if (str[0] == '-') str = str.substring(1, 8);
+		if (str[0] == "-") str = str.substring(1, 8);
 		var decoded = 0;
 		while (str) {
 			var index = alphabet.indexOf(str[0]);

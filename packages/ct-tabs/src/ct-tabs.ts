@@ -1,6 +1,7 @@
-import { CtLit, customElement, query } from '@conectate/ct-lit';
-import { css, html } from 'lit';
-import { CtTab } from './ct-tab.js';
+import { CtLit, customElement, query } from "@conectate/ct-lit";
+import { css, html } from "lit";
+
+import { CtTab } from "./ct-tab.js";
 
 /**
  *
@@ -9,7 +10,7 @@ import { CtTab } from './ct-tab.js';
  * @cssProp --ct-tabs-box-shadow - can be used to document css custom properties.
  * @cssProp --ct-tabs-border-color - can be used to document css custom properties.
  */
-@customElement('ct-tabs')
+@customElement("ct-tabs")
 export class CtTabs extends CtLit {
 	static get styles() {
 		return css`
@@ -46,7 +47,7 @@ export class CtTabs extends CtLit {
 			}
 
 			.tabs {
-				font-family: 'Google Sans', 'Google Sans', 'Ubuntu', arial, sans-serif;
+				font-family: "Google Sans", "Google Sans", "Ubuntu", arial, sans-serif;
 				display: flex;
 				max-width: 900px;
 				margin: 0 auto;
@@ -77,8 +78,8 @@ export class CtTabs extends CtLit {
 			</div>
 		`;
 	}
-	@query('#container') $container!: HTMLElement;
-	@query('#content') $content!: HTMLSlotElement;
+	@query("#container") $container!: HTMLElement;
+	@query("#content") $content!: HTMLSlotElement;
 
 	_selected!: string;
 	tabs: CtTab[] = [];
@@ -90,8 +91,8 @@ export class CtTabs extends CtLit {
 			let old = this._selected;
 			this._selected = val;
 			this.setTab(val);
-			this.dispatchEvent(new CustomEvent('selected', { detail: { value: val } }));
-			this.requestUpdate('selected', old);
+			this.dispatchEvent(new CustomEvent("selected", { detail: { value: val } }));
+			this.requestUpdate("selected", old);
 		}
 	}
 
@@ -112,14 +113,14 @@ export class CtTabs extends CtLit {
 		this.setTab(this.selected);
 		// this.tabs = this.$content.assignedNodes().filter((elem) => elem.nodeType == Node.ELEMENT_NODE && elem.tagName == 'CT-TAB');
 		// @ts-ignore
-		this.tabs = [...this.querySelectorAll('ct-tab')];
+		this.tabs = [...this.querySelectorAll("ct-tab")];
 		if (this.handletabs) {
 			this.tabs.forEach((item, index) => {
-				item.addEventListener('click', () => {
+				item.addEventListener("click", () => {
 					this.selected = `${index}`;
 				});
 			});
-			this.selected = this.selected ?? '0';
+			this.selected = this.selected ?? "0";
 		}
 		setTimeout(() => (this.overflow = this.isOverflown()), 500);
 	}
@@ -127,7 +128,7 @@ export class CtTabs extends CtLit {
 	setTab(selected: string) {
 		// this.tabs = this.$content?.assignedNodes().filter((elem: { nodeType: number }) => elem.nodeType == Node.ELEMENT_NODE);
 		// @ts-ignore
-		this.tabs = [...this.querySelectorAll('ct-tab')];
+		this.tabs = [...this.querySelectorAll("ct-tab")];
 		if (this.selected != undefined) {
 			this.tabs?.forEach((tab, index) => {
 				if (`${index}` == selected) {
@@ -145,6 +146,6 @@ export class CtTabs extends CtLit {
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-tabs': CtTabs;
+		"ct-tabs": CtTabs;
 	}
 }

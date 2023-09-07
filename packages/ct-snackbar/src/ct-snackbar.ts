@@ -1,10 +1,10 @@
-import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { sleep } from "@conectate/ct-helpers";
+import { CtLit, customElement, property } from "@conectate/ct-lit";
+import { css, html } from "lit";
 
 export function showSnackBar(msg: string) {
 	// @ts-ignore
-	let _networkSnackbar: CtSnackbar | undefined = document.querySelector('ct-snackbar') as CtSnackbar;
+	let _networkSnackbar: CtSnackbar | undefined = document.querySelector("ct-snackbar") as CtSnackbar;
 	if (!_networkSnackbar) {
 		_networkSnackbar = new CtSnackbar();
 		// @ts-ignore
@@ -20,7 +20,7 @@ window.showSnackBar = showSnackBar;
 /**
  * @element ct-snackbar
  */
-@customElement('ct-snackbar')
+@customElement("ct-snackbar")
 export class CtSnackbar extends CtLit {
 	static styles = [
 		css`
@@ -80,8 +80,8 @@ export class CtSnackbar extends CtLit {
 
 	arr: string[] = [];
 	alwaysVisible = false;
-	alwaysMsg = '';
-	@property({ type: String }) msg = '';
+	alwaysMsg = "";
+	@property({ type: String }) msg = "";
 
 	async open(msg?: string) {
 		// Si esta Abierto
@@ -97,7 +97,7 @@ export class CtSnackbar extends CtLit {
 			this.close();
 			return null;
 		}
-		this.classList.add('opened');
+		this.classList.add("opened");
 		await sleep(4000);
 		if (this.alwaysMsg != this.msg) {
 			this.close();
@@ -105,14 +105,14 @@ export class CtSnackbar extends CtLit {
 	}
 
 	async close() {
-		this.classList.remove('opened');
+		this.classList.remove("opened");
 		if (this.arr.length != 0) {
 			await sleep(200);
 			this.open(this.arr.shift());
 		} else if (this.alwaysVisible) {
 			await sleep(200);
 			this.msg = this.alwaysMsg;
-			this.classList.add('opened');
+			this.classList.add("opened");
 		}
 	}
 
@@ -124,6 +124,6 @@ export class CtSnackbar extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-snackbar': CtSnackbar;
+		"ct-snackbar": CtSnackbar;
 	}
 }

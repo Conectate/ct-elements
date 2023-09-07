@@ -1,14 +1,14 @@
-import '@conectate/ct-input/ct-input-container';
+import "@conectate/ct-input/ct-input-container";
 
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { css, html, TemplateResult } from 'lit';
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { TemplateResult, css, html } from "lit";
 
 /**
  * Simple cross-platform Date input for LitElement and Web Components
  *
  * @element ct-date
  */
-@customElement('ct-date')
+@customElement("ct-date")
 export class CtDate extends CtLit {
 	/**
 	 * Hide Day Value
@@ -22,28 +22,28 @@ export class CtDate extends CtLit {
 	 * Return timestamp with timezone value
 	 */
 	@property({ type: Boolean }) usetimezone = false;
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) placeholder = "";
 
 	@property({ type: Number }) minYYYY = 1800;
 	@property({ type: Number }) maxYYYY = 2300;
 
-	@property({ type: String }) label = '';
+	@property({ type: String }) label = "";
 	@property({ type: Boolean }) required = false;
 	@property({ type: Boolean }) hidden = false;
 
 	@property({ type: Boolean }) invalid: boolean = false;
-	@property({ type: String }) mm = '';
-	@property({ type: String }) dd = '';
-	@property({ type: String }) yyyy = '';
-	@property({ type: String }) hh = '';
-	@property({ type: String }) min = '';
+	@property({ type: String }) mm = "";
+	@property({ type: String }) dd = "";
+	@property({ type: String }) yyyy = "";
+	@property({ type: String }) hh = "";
+	@property({ type: String }) min = "";
 
-	@query('#dd') $dd?: HTMLInputElement;
-	@query('#mm') $mm?: HTMLInputElement;
-	@query('#yyyy') $yyyy?: HTMLInputElement;
-	@query('#hh') $hh?: HTMLInputElement;
-	@query('#min') $min?: HTMLInputElement;
-	@query('#container') $container?: HTMLElementTagNameMap['ct-input-container'];
+	@query("#dd") $dd?: HTMLInputElement;
+	@query("#mm") $mm?: HTMLInputElement;
+	@query("#yyyy") $yyyy?: HTMLInputElement;
+	@query("#hh") $hh?: HTMLInputElement;
+	@query("#min") $min?: HTMLInputElement;
+	@query("#container") $container?: HTMLElementTagNameMap["ct-input-container"];
 
 	static styles: any[] = [
 		css`
@@ -103,11 +103,11 @@ export class CtDate extends CtLit {
 	constructor() {
 		// on paste "12/12/2020" or "12/12/2020 12:12", fill data properly
 		super();
-		this.addEventListener('paste', (e: ClipboardEvent) => {
-			let data = e.clipboardData?.getData('text/plain');
+		this.addEventListener("paste", (e: ClipboardEvent) => {
+			let data = e.clipboardData?.getData("text/plain");
 			if (data) {
-				let splitter = data.includes('/') ? '/' : '-';
-				let parts = data.split(' ');
+				let splitter = data.includes("/") ? "/" : "-";
+				let parts = data.split(" ");
 				let date = parts[0].split(splitter);
 				if (date.length == 3) {
 					this.dd = date[0];
@@ -115,7 +115,7 @@ export class CtDate extends CtLit {
 					this.yyyy = date[2];
 				}
 				if (parts.length == 2) {
-					let time = parts[1].split(':');
+					let time = parts[1].split(":");
 					if (time.length == 2) {
 						this.hh = time[0];
 						this.min = time[1];
@@ -145,7 +145,7 @@ export class CtDate extends CtLit {
 							placeholder="DD"
 							type="tel"
 							.value=${this.dd}
-							@input=${() => this.validX('dd', this.$dd?.value || '', 0, 31)}
+							@input=${() => this.validX("dd", this.$dd?.value || "", 0, 31)}
 							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 						/>
 						<span class="sep">/</span>
@@ -157,7 +157,7 @@ export class CtDate extends CtLit {
 						placeholder="MM"
 						type="tel"
 						.value=${this.mm}
-						@input=${() => this.validX('mm', this.$mm?.value || '', 0, 12)}
+						@input=${() => this.validX("mm", this.$mm?.value || "", 0, 12)}
 						onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					/>
 					<span class="sep">/</span>
@@ -168,7 +168,7 @@ export class CtDate extends CtLit {
 						placeholder="YYYY"
 						type="tel"
 						.value=${this.yyyy}
-						@input=${() => this.validX('yyyy', this.$yyyy?.value || '', this.minYYYY, this.maxYYYY)}
+						@input=${() => this.validX("yyyy", this.$yyyy?.value || "", this.minYYYY, this.maxYYYY)}
 						onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					/>
 					<span ?hidden=${!this.showhour}>
@@ -180,7 +180,7 @@ export class CtDate extends CtLit {
 							placeholder="HH"
 							type="tel"
 							.value=${this.hh}
-							@input=${() => this.validX('hh', this.$hh?.value || '', 0, 24)}
+							@input=${() => this.validX("hh", this.$hh?.value || "", 0, 24)}
 							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 						/>
 						<span class="sep">:</span>
@@ -191,7 +191,7 @@ export class CtDate extends CtLit {
 							placeholder="mm"
 							type="tel"
 							.value=${this.min}
-							@input=${() => this.validX('min', this.$min?.value || '', 0, 59)}
+							@input=${() => this.validX("min", this.$min?.value || "", 0, 59)}
 							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 						/>
 					</span>
@@ -200,11 +200,11 @@ export class CtDate extends CtLit {
 		`;
 	}
 
-	validX(attr: 'yyyy' | 'mm' | 'dd' | 'hh' | 'min', val: string, min: number, max: number) {
+	validX(attr: "yyyy" | "mm" | "dd" | "hh" | "min", val: string, min: number, max: number) {
 		this.resetInvalid();
 
 		let v = parseInt(val);
-		if (`${v}` == 'NaN') {
+		if (`${v}` == "NaN") {
 			this[attr] = ``;
 		} else if (v < min && `${v}`.length == `${min}`.length) {
 			this[attr] = this.addZero(min);
@@ -214,23 +214,23 @@ export class CtDate extends CtLit {
 			this[attr] = val;
 		}
 		if (!this.showhour) {
-			this.hh = '';
-			this.min = '';
+			this.hh = "";
+			this.min = "";
 		}
 		// focus on next input
-		if (attr == 'dd' && (v > 9 || (this.dd.startsWith('0') && this.dd.length == 2))) {
+		if (attr == "dd" && (v > 9 || (this.dd.startsWith("0") && this.dd.length == 2))) {
 			this.$mm?.focus();
-		} else if (attr == 'mm' && (v > 9 || (this.mm.startsWith('0') && this.mm.length == 2))) {
+		} else if (attr == "mm" && (v > 9 || (this.mm.startsWith("0") && this.mm.length == 2))) {
 			this.$yyyy?.focus();
 		}
 		// this.fireValue();
 		let unix = Math.floor(
 			new Date(
-				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`
+				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`
 			).getTime() / 1000
 		);
 		if (`NaN` != `${unix}`) {
-			this.dispatchEvent(new CustomEvent('value', { detail: unix }));
+			this.dispatchEvent(new CustomEvent("value", { detail: unix }));
 		}
 	}
 
@@ -241,7 +241,7 @@ export class CtDate extends CtLit {
 	get value(): number | undefined {
 		// Si existe this.nodd, establece this.dd en '02'
 		if (this.nodd) {
-			this.dd = '02';
+			this.dd = "02";
 		}
 
 		// Si this.showhour es verdadero y falta alguna de las propiedades requeridas, retorna undefined
@@ -256,7 +256,7 @@ export class CtDate extends CtLit {
 		// Construye una fecha basada en las propiedades proporcionadas
 		let dateStr;
 		if (this.showhour) {
-			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`;
+			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`;
 		} else {
 			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}`;
 		}
@@ -275,7 +275,7 @@ export class CtDate extends CtLit {
 		if (this.showhour && (!this.yyyy || !this.mm || !this.dd || !this.hh || !this.min)) return undefined;
 		if (!this.yyyy || !this.mm || !this.dd) return undefined;
 		if (!this.showhour) return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}`;
-		else return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, '0')}:${this.addZero(this.min, '0')}${this.usetimezone ? '' : 'Z'}`;
+		else return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`;
 	}
 
 	resetInvalid() {
@@ -304,11 +304,11 @@ export class CtDate extends CtLit {
 				this.min = `${d.getUTCMinutes()}`;
 			}
 		} else {
-			this.dd = '';
-			this.mm = '';
-			this.yyyy = '';
-			this.hh = '';
-			this.min = '';
+			this.dd = "";
+			this.mm = "";
+			this.yyyy = "";
+			this.hh = "";
+			this.min = "";
 		}
 	}
 
@@ -335,9 +335,9 @@ export class CtDate extends CtLit {
 		return num != null && num != 0 && `${num}` != `NaN`;
 	}
 
-	addZero(n: number | string, onError = '1') {
+	addZero(n: number | string, onError = "1") {
 		n = parseInt(n as string);
-		if (`${n}` == 'NaN') {
+		if (`${n}` == "NaN") {
 			return `0${onError}`;
 		}
 		if (n < 10) {
@@ -349,6 +349,6 @@ export class CtDate extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-date': CtDate;
+		"ct-date": CtDate;
 	}
 }

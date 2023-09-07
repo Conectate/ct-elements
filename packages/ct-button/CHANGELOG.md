@@ -1,30 +1,41 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0]
 
-## [1.3.0] 
 ### Changed
- - Update mwc version
 
-## [1.2.0] 
+-   Update mwc version
+
+## [1.2.0]
+
 ### Changed
- - CSS vars name
 
-## [1.1.0] 
-### Added
- - Demo
+-   CSS vars name
 
-## [1.1.0] 
+## [1.1.0]
+
 ### Added
- - CHANGELOG.md
- - dist/ for JS support
+
+-   Demo
+
+## [1.1.0]
+
+### Added
+
+-   CHANGELOG.md
+-   dist/ for JS support
 
 ### Fixed
- - package.json
 
-## [1.0.0] 
+-   package.json
+
+## [1.0.0]
+
 ### Added
- - Initial Release
+
+-   Initial Release

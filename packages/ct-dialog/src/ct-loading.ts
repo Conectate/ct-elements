@@ -1,14 +1,14 @@
-import '@conectate/lit-if';
-import '@conectate/ct-card';
-import '@conectate/ct-spinner';
+import "@conectate/lit-if";
+import "@conectate/ct-card";
+import "@conectate/ct-spinner";
 
-import { CtLit, customElement, html } from '@conectate/ct-lit';
+import { CtLit, customElement, html } from "@conectate/ct-lit";
 
-import { CtDialog, showCtDialog } from './ct-dialog';
+import { CtDialog, showCtDialog } from "./ct-dialog";
 
-@customElement('ct-loading')
+@customElement("ct-loading")
 export class CtLoading extends CtLit {
-	ttl: string = 'Loading';
+	ttl: string = "Loading";
 	dialog!: CtDialog;
 
 	render() {
@@ -43,7 +43,7 @@ export class CtLoading extends CtLit {
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-loading': CtLoading;
+		"ct-loading": CtLoading;
 	}
 }
 
@@ -53,7 +53,7 @@ declare global {
  * @param {string} [str] - String to show in loading
  */
 export function showCtLoading(id?: string, str?: string): CtDialog {
-	let ctConfirm = document.createElement('ct-loading') as CtLoading;
+	let ctConfirm = document.createElement("ct-loading") as CtLoading;
 	if (str) ctConfirm.ttl = str;
 	ctConfirm.dialog = showCtDialog(ctConfirm, id);
 	return ctConfirm.dialog;

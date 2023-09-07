@@ -1,19 +1,19 @@
-import '@conectate/ct-button';
-import '@conectate/ct-card';
-import '@conectate/ct-dialog';
-import '@conectate/ct-input';
+import "@conectate/ct-button";
+import "@conectate/ct-card";
+import "@conectate/ct-dialog";
+import "@conectate/ct-input";
 
-import './ct-select-item';
+import "./ct-select-item";
 
-import { CtDialog, showCtDialog } from '@conectate/ct-dialog';
-import { CtLit, property, query, state, unsafeHTML } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtDialog, showCtDialog } from "@conectate/ct-dialog";
+import { CtLit, property, query, state, unsafeHTML } from "@conectate/ct-lit";
+import { css, html } from "lit";
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.
-	let original = 'áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ';
+	let original = "áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
 	// Cadena de caracteres ASCII que reemplazarán los originales.
-	let ascii = 'aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC';
+	let ascii = "aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
 	let output = input;
 	for (let i = 0; i < original.length; i++) {
 		// Reemplazamos los caracteres especiales.
@@ -44,16 +44,16 @@ export interface OptionsCtSelect {
 	textProperty: string;
 	valueProperty: string;
 }
-export function showCtSelect<V = any>(title: string, items: any[] = [], value: V | undefined, ok: string = 'OK', cancel: string = 'Cancel', options: OptionsCtSelect) {
+export function showCtSelect<V = any>(title: string, items: any[] = [], value: V | undefined, ok: string = "OK", cancel: string = "Cancel", options: OptionsCtSelect) {
 	let selectDialog = new CtSelectDialog();
 	selectDialog.ttl = title;
 	selectDialog.items = items;
-	selectDialog.ok = ok ? ok : 'OK';
+	selectDialog.ok = ok ? ok : "OK";
 	selectDialog.searchable = options.searchable;
 	selectDialog.searchPlaceholder = options.searchPlaceholder;
 	selectDialog.textProperty = options.textProperty;
 	selectDialog.valueProperty = options.valueProperty;
-	selectDialog.cancel = cancel ? cancel : 'Cancel';
+	selectDialog.cancel = cancel ? cancel : "Cancel";
 	if (options.multi) {
 		selectDialog.multi = options.multi;
 		selectDialog.multiValue = value && Array.isArray(value) ? [...value] : [];
@@ -69,17 +69,17 @@ export function showCtSelect<V = any>(title: string, items: any[] = [], value: V
 window.showCtSelect = showCtSelect;
 
 export class CtSelectBuilder {
-	#title: string = '';
+	#title: string = "";
 	#value: number | string | object | object[] | undefined;
-	#positiveButton: string = 'OK';
-	#negativeButton: string = 'Cancel';
+	#positiveButton: string = "OK";
+	#negativeButton: string = "Cancel";
 	#items: KeyValueCtSelect[] = [];
 	#searchable = false;
 	#multi = false;
-	#valueProperty = 'value';
-	#textProperty = 'text';
-	#searchProperty = 'text';
-	#searchPlaceholder = '';
+	#valueProperty = "value";
+	#textProperty = "text";
+	#searchProperty = "text";
+	#searchPlaceholder = "";
 	#renderItem?: (item: any, index: number, array: any[]) => any;
 
 	title(title: string) {
@@ -102,7 +102,7 @@ export class CtSelectBuilder {
 		return this;
 	}
 
-	items(items: any[], textProperty: string = 'text', searchProperty: string = 'text', valueProperty: string = 'value') {
+	items(items: any[], textProperty: string = "text", searchProperty: string = "text", valueProperty: string = "value") {
 		this.#items = items;
 		this.#textProperty = textProperty;
 		this.#searchProperty = searchProperty;
@@ -112,7 +112,7 @@ export class CtSelectBuilder {
 
 	searchable(params?: { placeholder?: string }) {
 		this.#searchable = true;
-		this.#searchPlaceholder = params?.placeholder ?? 'Search';
+		this.#searchPlaceholder = params?.placeholder ?? "Search";
 		return this;
 	}
 	multi(multi = true) {
@@ -131,10 +131,10 @@ export class CtSelectBuilder {
 		selectDialog.textProperty = this.#textProperty;
 		selectDialog.searchProperty = this.#searchProperty;
 		selectDialog.valueProperty = this.#valueProperty;
-		selectDialog.ok = this.#positiveButton || 'OK';
+		selectDialog.ok = this.#positiveButton || "OK";
 		selectDialog.searchable = this.#searchable;
 		selectDialog.searchPlaceholder = this.#searchPlaceholder;
-		selectDialog.cancel = this.#negativeButton || 'Cancel';
+		selectDialog.cancel = this.#negativeButton || "Cancel";
 		if (this.#multi) {
 			selectDialog.multi = this.#multi;
 			selectDialog.multiValue = this.#value ? [...(this.#value as object[])] : [];
@@ -155,14 +155,14 @@ export class CtSelectDialog extends CtLit {
 	}
 	solve!: (value?: any) => void;
 	reject!: (value?: any) => void;
-	@query('#buttons') $buttons!: HTMLElement;
-	@query('#cancel') $cancel!: HTMLElement;
+	@query("#buttons") $buttons!: HTMLElement;
+	@query("#cancel") $cancel!: HTMLElement;
 	@property({ type: String }) ttl!: string;
 	@property({ type: Boolean }) searchable = false;
-	@property({ type: String }) searchPlaceholder: string = 'Search...';
+	@property({ type: String }) searchPlaceholder: string = "Search...";
 	@property({ type: Array }) items: any[] = [];
 	@state() private itemsFiltered: any[] = [];
-	@state() private searchBoxText = '';
+	@state() private searchBoxText = "";
 	@property({ type: String }) valueProperty!: string;
 	@property({ type: String }) textProperty!: string;
 	@property({ type: String }) searchProperty!: string;
@@ -177,16 +177,15 @@ export class CtSelectDialog extends CtLit {
 	 * If true, multiple options can be selected.
 	 */
 	@property({ type: Boolean, reflect: true }) multi = false;
-	@property({ type: String }) selectedPlaceholder = 'items selected';
+	@property({ type: String }) selectedPlaceholder = "items selected";
 	@property({ type: Array }) multiValue: object[] = [];
 	@property({ type: Object }) dialog!: CtDialog;
-	@query('#search') $search!: HTMLElementTagNameMap['ct-input'];
-	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) =>
-		html`
-			<ct-select-item ?multi=${this.multi} ?selected="${this.multi && ((this.multiValue as object[]) ||= []).includes(item[this.valueProperty])}">
-				${unsafeHTML(item[this.textProperty])}
-			</ct-select-item>
-		`;
+	@query("#search") $search!: HTMLElementTagNameMap["ct-input"];
+	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) => html`
+		<ct-select-item ?multi=${this.multi} ?selected="${this.multi && ((this.multiValue as object[]) ||= []).includes(item[this.valueProperty])}">
+			${unsafeHTML(item[this.textProperty])}
+		</ct-select-item>
+	`;
 
 	static styles = [
 		css`
@@ -199,7 +198,7 @@ export class CtSelectDialog extends CtLit {
 			}
 
 			.title {
-				font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+				font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
 				font-size: 1.5em;
 				font-weight: 400;
 				margin: 24px 24px 0;
@@ -323,17 +322,17 @@ export class CtSelectDialog extends CtLit {
 	}
 
 	typeOf(obj: any) {
-		return {}.toString.call(obj).split(' ')[1].slice(0, -1).toLowerCase();
+		return {}.toString.call(obj).split(" ")[1].slice(0, -1).toLowerCase();
 	}
 
 	computeBtns(ok: string, neutral: string, cancel: string) {
-		let auxok = ok || '',
-			auxcancel = cancel || '';
+		let auxok = ok || "",
+			auxcancel = cancel || "";
 		if (auxok.length > 15 || auxcancel.length > 15) {
-			this.$buttons.classList.add('buttons_vert');
+			this.$buttons.classList.add("buttons_vert");
 		}
 		if (cancel == null) {
-			this.$cancel.style.display = 'none';
+			this.$cancel.style.display = "none";
 		}
 	}
 
@@ -346,10 +345,10 @@ export class CtSelectDialog extends CtLit {
 			// e.target.classList.toggle('selected', !selected);
 			e.target.selected = !selected;
 			if (selected) {
-				console.log('removed');
+				console.log("removed");
 				this.multiValue.splice(this.multiValue.indexOf(value), 1);
 			} else if (value != null) {
-				console.log('added');
+				console.log("added");
 				this.multiValue.push(value);
 				this.multiValue = Array.from(new Set(this.multiValue));
 			}
@@ -374,4 +373,4 @@ export class CtSelectDialog extends CtLit {
 	}
 }
 
-window.customElements.define('ct-select-dialog', CtSelectDialog);
+window.customElements.define("ct-select-dialog", CtSelectDialog);

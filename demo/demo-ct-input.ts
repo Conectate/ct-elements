@@ -1,9 +1,10 @@
-import { css, CtLit, customElement, html, state } from '@conectate/ct-lit';
+import "@conectate/ct-dialog/ct-promp.js";
+import "@conectate/ct-input";
+import "@conectate/ct-input/ct-textarea.js";
 
-import '@conectate/ct-dialog/ct-promp.js';
-import '@conectate/ct-input';
-import '@conectate/ct-input/ct-textarea.js';
-@customElement('demo-ct-input')
+import { CtLit, css, customElement, html, state } from "@conectate/ct-lit";
+
+@customElement("demo-ct-input")
 export class DemoCtInput extends CtLit {
 	static styles = [
 		css`
@@ -20,7 +21,7 @@ export class DemoCtInput extends CtLit {
 			}
 		`
 	];
-	@state() macs = ['00-00-00-00-00-00', 'BC-A9-93-73-74-A7', 'AA-AC-AE-73-00-01'];
+	@state() macs = ["00-00-00-00-00-00", "BC-A9-93-73-74-A7", "AA-AC-AE-73-00-01"];
 	connectedCallback() {
 		super.connectedCallback();
 		// @ts-ignore
@@ -29,9 +30,10 @@ export class DemoCtInput extends CtLit {
 
 	render() {
 		return html`${this.macs.map(
-				(m, i) => html`<ct-input label="Value ${i}: ${m}" .value=${m} @value=${(e: CustomEvent<{ value: string }>) => (this.macs[i] = e.detail.value)}>
-					<slot slot="suffix"><span @click=${() => this.deleteItem(i)}>DEL</span></slot>
-				</ct-input>`
+				(m, i) =>
+					html`<ct-input label="Value ${i}: ${m}" .value=${m} @value=${(e: CustomEvent<{ value: string }>) => (this.macs[i] = e.detail.value)}>
+						<slot slot="suffix"><span @click=${() => this.deleteItem(i)}>DEL</span></slot>
+					</ct-input>`
 			)}
 			<span @click=${() => this.addItem()}>ADD</span>
 			<hr />
@@ -44,7 +46,7 @@ export class DemoCtInput extends CtLit {
 			<ct-textarea id="i2" errorMessage="Este es un error" rows="3" required></ct-textarea> `;
 	}
 	addItem() {
-		this.macs.push('');
+		this.macs.push("");
 		this.macs = [...this.macs];
 	}
 	deleteItem(i: number) {

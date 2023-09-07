@@ -1,16 +1,17 @@
-import './demo-ct-button';
-import './demo-ct-checkbox';
-import './demo-ct-radio';
-import './demo-ct-select';
+import "./demo-ct-button";
+import "./demo-ct-checkbox";
+import "./demo-ct-radio";
+import "./demo-ct-select";
+import "./demo-ct-bottom-sheet";
+import "./demo-ct-date";
+import "./demo-ct-icon";
+import "./demo-ct-input";
 
-import { css, CtLit, customElement, html } from '@conectate/ct-lit';
-import './demo-ct-bottom-sheet';
-import './demo-ct-date';
-import './demo-ct-icon';
-import './demo-ct-input';
-import { applyTheme } from './styles/shared-styles';
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
-@customElement('demo-main')
+import { applyTheme } from "./styles/shared-styles";
+
+@customElement("demo-main")
 export class DemoMain extends CtLit {
 	constructor() {
 		super();
@@ -21,7 +22,7 @@ export class DemoMain extends CtLit {
 		css`
 			:host {
 				display: block;
-				font-family: 'Roboto', 'Ubuntu', sans-serif;
+				font-family: "Roboto", "Ubuntu", sans-serif;
 				padding-bottom: 128px;
 			}
 		`

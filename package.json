@@ -54,7 +54,8 @@
 		"bootstrap": "lerna bootstrap",
 		"new-ver": "lerna version --conventional-commits --yes",
 		"clean": "lerna clean -y; find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; find . -name 'yarn.lock' -type f -prune -exec rm -rf '{}' +; find . -name 'package-lock.json' -type f -prune -exec rm -rf '{}' +",
-		"build": "lerna run prepare"
+		"build": "lerna run prepare",
+		"format": "prettier --write --ignore-unknown packages"
 	},
 	"private": true,
 	"exports": {

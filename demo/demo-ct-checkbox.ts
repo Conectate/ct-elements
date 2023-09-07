@@ -1,8 +1,8 @@
-import '@conectate/ct-checkbox';
+import "@conectate/ct-checkbox";
 
-import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
-@customElement('demo-ct-checkbox')
+@customElement("demo-ct-checkbox")
 export class DemoCtCheckbox extends CtLit {
 	static styles = [
 		css`

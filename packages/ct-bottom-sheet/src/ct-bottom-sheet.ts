@@ -12,10 +12,10 @@ License for the specific language governing permissions and limitations under
 the License.
 */
 
-import { LitElement, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { LitElement, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
-import sheetStyles from './styles';
+import sheetStyles from "./styles";
 
 // Keeps track of the toast currently opened.
 let currentSheet: CtBottomSheet | null = null;
@@ -79,7 +79,7 @@ let currentSheet: CtBottomSheet | null = null;
  * @attr {boolean} withbackdrop - If true the bottom sheet will have a backdrop
  *  @element ct-bottom-sheet
  */
-@customElement('ct-bottom-sheet')
+@customElement("ct-bottom-sheet")
 export class CtBottomSheet extends LitElement {
 	static styles = [sheetStyles];
 
@@ -88,16 +88,16 @@ export class CtBottomSheet extends LitElement {
 	/**
 	 * Returns the scrolling element.
 	 */
-	@query('.scrollable') scrollTarget!: HTMLElement;
+	@query(".scrollable") scrollTarget!: HTMLElement;
 
 	/**
 	 * The label of the bottom sheet.
 	 */
-	@property({ type: String }) label = '';
+	@property({ type: String }) label = "";
 	/**
 	 * The label of the bottom sheet.
 	 */
-	@property({ type: String }) closelabel = 'Close';
+	@property({ type: String }) closelabel = "Close";
 
 	/**
 	 * Removes padding from the element styles
@@ -110,7 +110,7 @@ export class CtBottomSheet extends LitElement {
 	render() {
 		const { label } = this;
 		return html`<div class="draggable"></div>
-			${label ? html`<label>${label}</label>` : ''}
+			${label ? html`<label>${label}</label>` : ""}
 			<div class="scrollable">
 				<slot></slot>
 			</div>
@@ -141,12 +141,12 @@ export class CtBottomSheet extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.addEventListener('transitionend', this.__onTransitionEnd);
+		this.addEventListener("transitionend", this.__onTransitionEnd);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		this.removeEventListener('transitionend', this.__onTransitionEnd);
+		this.removeEventListener("transitionend", this.__onTransitionEnd);
 	}
 
 	firstUpdated() {
@@ -160,11 +160,11 @@ export class CtBottomSheet extends LitElement {
 			}
 			currentSheet = this;
 			this.dispatchEvent(
-				new CustomEvent('iron-announce', {
+				new CustomEvent("iron-announce", {
 					bubbles: true,
 					composed: true,
 					detail: {
-						text: 'Menu opened'
+						text: "Menu opened"
 					}
 				})
 			);
@@ -178,7 +178,7 @@ export class CtBottomSheet extends LitElement {
 	 */
 	_renderOpened() {
 		const node = this;
-		node.classList.add('bottom-sheet-open');
+		node.classList.add("bottom-sheet-open");
 	}
 
 	/**
@@ -186,7 +186,7 @@ export class CtBottomSheet extends LitElement {
 	 */
 	_renderClosed() {
 		const node = this;
-		node.classList.remove('bottom-sheet-open');
+		node.classList.remove("bottom-sheet-open");
 	}
 
 	/**
@@ -202,7 +202,7 @@ export class CtBottomSheet extends LitElement {
 		// closing the toast. The last one so far is for `opacity`.
 		// This marks the end of the transition, so we check for this to determine if this
 		// is the correct event.
-		if (e && e.target === this && e.propertyName === 'opacity') {
+		if (e && e.target === this && e.propertyName === "opacity") {
 			if (this.opened) {
 				this._finishRenderOpened();
 			} else {
@@ -211,12 +211,12 @@ export class CtBottomSheet extends LitElement {
 		}
 	}
 	private _finishRenderOpened() {
-		throw new Error('Method not implemented.');
+		throw new Error("Method not implemented.");
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-bottom-sheet': CtBottomSheet;
+		"ct-bottom-sheet": CtBottomSheet;
 	}
 }

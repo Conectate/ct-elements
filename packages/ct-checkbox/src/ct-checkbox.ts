@@ -1,8 +1,9 @@
-import '@conectate/ct-icon';
+import "@conectate/ct-icon";
 
-import { CtLit, css, customElement, html, property, query } from '@conectate/ct-lit';
-import { PropertyValueMap } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
+import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
+import { PropertyValueMap } from "lit";
+import { classMap } from "lit/directives/class-map.js";
+
 /**
  * ## `ct-checkbox`
  * Checkbox element
@@ -12,15 +13,15 @@ import { classMap } from 'lit/directives/class-map.js';
  * @attr {boolean} checked
  * @attr {boolean} margin
  */
-@customElement('ct-checkbox')
+@customElement("ct-checkbox")
 export class CtCheckbox extends CtLit {
 	@property({ type: Boolean, reflect: true }) indeterminate?: boolean;
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
 	@property({ type: Object }) value: any;
-	@property({ type: String }) name: string = '';
-	@property({ type: String }) label: string = '';
-	@query('#input') $input!: HTMLInputElement;
+	@property({ type: String }) name: string = "";
+	@property({ type: String }) label: string = "";
+	@query("#input") $input!: HTMLInputElement;
 	static styles = [
 		css`
 			:host {
@@ -67,7 +68,9 @@ export class CtCheckbox extends CtLit {
 			#checkmark {
 				opacity: 0;
 				transform: scale(0);
-				transition: opacity 0.13s ease-in-out, transform 0.13s ease-in-out;
+				transition:
+					opacity 0.13s ease-in-out,
+					transform 0.13s ease-in-out;
 			}
 			:host([indeterminate]) #box #checkmark,
 			#input:checked + .c > #box #checkmark {
@@ -114,7 +117,7 @@ export class CtCheckbox extends CtLit {
 				display: block;
 				z-index: 0;
 				inset: 0;
-				content: '';
+				content: "";
 				box-sizing: border-box;
 				position: absolute;
 				width: var(--ct-checkbox-box-size, 24px);
@@ -123,7 +126,9 @@ export class CtCheckbox extends CtLit {
 				border-width: var(--ct-checkbox-box-border-size, 3px);
 				border-style: solid;
 				border-color: var(--color-on-background, #535353);
-				transition: border 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
+				transition:
+					border 0.13s ease-in-out,
+					box-shadow 0.13s ease-in-out;
 			}
 			:host([indeterminate]) #box::before,
 			#input:checked + .c > #box::before {
@@ -145,7 +150,7 @@ export class CtCheckbox extends CtLit {
 					<ct-icon
 						id="checkmark"
 						class=${classMap({ rotate: this.indeterminate == false && this.checked })}
-						icon="${this.indeterminate ? 'horizontal_rule' : `check`}"
+						icon="${this.indeterminate ? "horizontal_rule" : `check`}"
 						dir="ltr"
 					></ct-icon>
 				</span>
@@ -155,7 +160,7 @@ export class CtCheckbox extends CtLit {
 	}
 
 	protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-		if (_changedProperties.has('checked') && _changedProperties.get('checked') != undefined) {
+		if (_changedProperties.has("checked") && _changedProperties.get("checked") != undefined) {
 			this.indeterminate = false;
 			this.change();
 		}
@@ -171,12 +176,12 @@ export class CtCheckbox extends CtLit {
 
 	change() {
 		if (this.checked) this.indeterminate = false;
-		this.dispatchEvent(new CustomEvent('checked', { detail: { checked: this.$input.checked } }));
+		this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.$input.checked } }));
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-checkbox': CtCheckbox;
+		"ct-checkbox": CtCheckbox;
 	}
 }

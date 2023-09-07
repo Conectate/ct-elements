@@ -1,13 +1,13 @@
-import '@conectate/ct-list/ct-list-item';
-import '@conectate/ct-button/ct-button';
-import '@conectate/ct-button/ct-button-menu';
-import '@conectate/ct-button/ct-button-split';
-import { CtButtonSplit } from '@conectate/ct-button/ct-button-split';
-import '@conectate/ct-menu/ct-menu';
+import "@conectate/ct-list/ct-list-item";
+import "@conectate/ct-button/ct-button";
+import "@conectate/ct-button/ct-button-menu";
+import "@conectate/ct-button/ct-button-split";
+import "@conectate/ct-menu/ct-menu";
 
-import { CtLit, css, customElement, html } from '@conectate/ct-lit';
+import { CtButtonSplit } from "@conectate/ct-button/ct-button-split";
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
-@customElement('demo-ct-button')
+@customElement("demo-ct-button")
 export class DemoCtButtom extends CtLit {
 	static styles = [
 		css`
@@ -40,8 +40,8 @@ export class DemoCtButtom extends CtLit {
 
 			<!--  -->
 			<div>
-				${['top-right', 'top-left', 'bottom-right', 'bottom-left'].map(
-					(from) => html`
+				${["top-right", "top-left", "bottom-right", "bottom-left"].map(
+					from => html`
 						<ct-button-split shadow>
 							<ct-button disabled>From ${from}</ct-button>
 							<ct-button-menu from=${from as any} icon="expand_more" rotate>
@@ -94,8 +94,8 @@ export class DemoCtButtom extends CtLit {
 			</div>`;
 	}
 	firstUpdated() {
-		this.shadowRoot?.querySelectorAll('ct-button').forEach((el) => {
-			el.addEventListener('click', () => {
+		this.shadowRoot?.querySelectorAll("ct-button").forEach(el => {
+			el.addEventListener("click", () => {
 				console.log(el.innerHTML);
 			});
 		});

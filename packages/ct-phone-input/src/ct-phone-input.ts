@@ -1,17 +1,17 @@
-import '@conectate/ct-input/ct-input-container';
+import "@conectate/ct-input/ct-input-container";
 
-import { CtLit, html, query } from '@conectate/ct-lit';
+import { CtLit, html, query } from "@conectate/ct-lit";
 
 class CtPhoneInput extends CtLit {
-	code: string = '502';
-	phone: string = '';
+	code: string = "502";
+	phone: string = "";
 	invalid: boolean = false;
-	label: string = '';
-	errorMessage: string = '';
+	label: string = "";
+	errorMessage: string = "";
 	required: boolean = false;
 	value!: string | null;
-	@query('#cd') $cd!: HTMLInputElement;
-	@query('#phoneInput') $phoneInput!: HTMLInputElement;
+	@query("#cd") $cd!: HTMLInputElement;
+	@query("#phoneInput") $phoneInput!: HTMLInputElement;
 
 	render() {
 		return html`
@@ -94,9 +94,9 @@ class CtPhoneInput extends CtLit {
 
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.update(cp);
-		if (cp.has('value')) this.value && this.updateValue(this.value);
-		if (cp.has('code')) this.focusPhone(this.code);
-		if (cp.has('code') || cp.has('phone')) this._computeValue(this.code, this.phone);
+		if (cp.has("value")) this.value && this.updateValue(this.value);
+		if (cp.has("code")) this.focusPhone(this.code);
+		if (cp.has("code") || cp.has("phone")) this._computeValue(this.code, this.phone);
 	}
 
 	static get properties() {
@@ -111,13 +111,13 @@ class CtPhoneInput extends CtLit {
 	}
 
 	updateValue(phone: string) {
-		if (phone && phone.split(',').length == 2) {
-			let arr = phone.split(',');
+		if (phone && phone.split(",").length == 2) {
+			let arr = phone.split(",");
 			this.code = arr[0];
 			this.phone = arr[1];
 		} else {
 			this.value = null;
-			this.phone = '';
+			this.phone = "";
 		}
 	}
 
@@ -129,8 +129,8 @@ class CtPhoneInput extends CtLit {
 
 	_computeValue(code: string, phone: string) {
 		if (code.trim().length > 0 && phone.trim().length > 0) {
-			this.value = code.trim().replace(/,/g, '') + ',' + phone.trim().replace(/,/g, '');
-			this.dispatchEvent(new CustomEvent('value', { detail: { value: this.value } }));
+			this.value = code.trim().replace(/,/g, "") + "," + phone.trim().replace(/,/g, "");
+			this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value } }));
 		}
 	}
 
@@ -144,4 +144,4 @@ class CtPhoneInput extends CtLit {
 	}
 }
 
-window.customElements.define('ct-phone-input', CtPhoneInput);
+window.customElements.define("ct-phone-input", CtPhoneInput);

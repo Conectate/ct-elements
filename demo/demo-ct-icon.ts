@@ -1,10 +1,11 @@
-import '@conectate/ct-card';
-import '@conectate/ct-icon/ct-icon-button.js';
-import './code-example/code-example.js';
+import "@conectate/ct-card";
+import "@conectate/ct-icon/ct-icon-button.js";
 
-import { css, CtLit, customElement, html } from '@conectate/ct-lit';
+import "./code-example/code-example.js";
 
-@customElement('demo-ct-icon')
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+
+@customElement("demo-ct-icon")
 export class DemoCtIcon extends CtLit {
 	static styles = [
 		css`
@@ -30,7 +31,7 @@ export class DemoCtIcon extends CtLit {
 			}
 		`
 	];
-	name = 'ct-icon';
+	name = "ct-icon";
 	render() {
 		return html`
 			<header class="card-content">
@@ -43,7 +44,7 @@ export class DemoCtIcon extends CtLit {
 		return html` <code-example class="language-html">
 			${`
             <ct-icon-button icon="power_off"></ct-icon-button>
-			<ct-icon-button class="mini" icon="power_off"></ct-icon-button>`.replaceAll('\t', '    ')}
+			<ct-icon-button class="mini" icon="power_off"></ct-icon-button>`.replaceAll("\t", "    ")}
 			<div slot="demo">
 				<ct-icon-button icon="power_off"></ct-icon-button>
 				<ct-icon-button class="mini" icon="power_off"></ct-icon-button>

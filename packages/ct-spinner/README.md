@@ -9,9 +9,11 @@
 </p>
 
 ## `ct-spinner`
+
 Spinner web component
 
 ## Install
+
 ```bash
 yarn add @conectate/ct-spinner
 #or
@@ -19,22 +21,26 @@ npm i @conectate/ct-spinner
 ```
 
 ## Usage
+
 On HTML
+
 ```html
 <!-- Active -->
 <ct-spinner active="true"></ct-spinner>
 <!-- Inactive -->
 <ct-spinner active="false"></ct-spinner>
 ```
+
 On `LitElement` with typescript
+
 ```typescript
-import { LitElement, html, property, customElement, css } from "lit";
+import { LitElement, css, customElement, html, property } from "lit";
 
 @customElement("ct-main")
 export class CtMain extends LitElement {
 	@property({ type: Boolean, reflect: true }) active = true;
-	
-    static styles = css`
+
+	static styles = css`
 		:host {
 			display: block;
 		}
@@ -44,9 +50,10 @@ export class CtMain extends LitElement {
 		return html`<ct-spinner></ct-spinner>`;
 	}
 }
-
 ```
+
 ### DEMO
+
 <img src="https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/ct-spinner.png"/>
 
 <!--
@@ -69,12 +76,12 @@ export class CtMain extends LitElement {
 ## Properties
 
 | Property | Attribute | Type      | Default |
-|----------|-----------|-----------|---------|
+| -------- | --------- | --------- | ------- |
 | `active` | `active`  | `boolean` | true    |
 
 ## CSS Custom Properties
 
 | Property         | Description     |
-|------------------|-----------------|
+| ---------------- | --------------- |
 | `--ct-spinner-1` | Spinner Color 1 |
 | `--ct-spinner-2` | Spinner Color 2 |

@@ -1,10 +1,10 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { LitElement, css, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
 /**
  * @element ct-scroll-threshold
  */
-@customElement('ct-scroll-threshold')
+@customElement("ct-scroll-threshold")
 export class CtScrollThreshold extends LitElement {
 	static styles = [
 		css`
@@ -16,7 +16,7 @@ export class CtScrollThreshold extends LitElement {
 	@property({ type: Number }) threshold = 0.9;
 	@property({ type: Object }) scrollTarget = document.body;
 	observer?: IntersectionObserver & { POLL_INTERVAL?: number };
-	@query('#threshold') $threshold!: HTMLDivElement;
+	@query("#threshold") $threshold!: HTMLDivElement;
 	render() {
 		return html`<slot></slot>
 			<div id="threshold"></div>`;
@@ -29,11 +29,11 @@ export class CtScrollThreshold extends LitElement {
 	#observe(polyfilled: boolean = false) {
 		if (window.IntersectionObserver) {
 			this.observer = new window.IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
+				entries => {
+					entries.forEach(entry => {
 						if (entry.isIntersecting) {
 							this.observer?.unobserve(this.$threshold);
-							this.dispatchEvent(new CustomEvent('lower-threshold', { detail: {} }));
+							this.dispatchEvent(new CustomEvent("lower-threshold", { detail: {} }));
 						}
 					});
 				},
@@ -48,11 +48,11 @@ export class CtScrollThreshold extends LitElement {
 			// observe this element
 			this.observer.observe(this.$threshold);
 		} else {
-			let polyfillScript = document.getElementById('polyfill-IntersectionObserver') as HTMLScriptElement;
+			let polyfillScript = document.getElementById("polyfill-IntersectionObserver") as HTMLScriptElement;
 			if (!polyfillScript) {
 				// load the intersection-observer polyfill script
-				polyfillScript = document.createElement('script');
-				polyfillScript.id = 'polyfill-IntersectionObserver';
+				polyfillScript = document.createElement("script");
+				polyfillScript.id = "polyfill-IntersectionObserver";
 				// The current version, 0.3.0, supports Safari which now has
 				// native shadow DOM.  The version currently served by polyfill.io
 				// does not support native shadow dom.
@@ -60,13 +60,13 @@ export class CtScrollThreshold extends LitElement {
 				// Until the polyfill is updated to 0.3.0 or greater on polyfill.io
 				// we will use version 0.3.0 and include it with the element.
 				//
-				polyfillScript.src = 'https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js';
+				polyfillScript.src = "https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js";
 				polyfillScript.async = true;
 				document.head.appendChild(polyfillScript);
 			}
 			// listen for the polyfill to finish loading
 			// then retry the initLazyLoad process
-			polyfillScript.addEventListener('load', () => this.#observe(true));
+			polyfillScript.addEventListener("load", () => this.#observe(true));
 		}
 	}
 
@@ -90,6 +90,6 @@ export class CtScrollThreshold extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-scroll-threshold': CtScrollThreshold;
+		"ct-scroll-threshold": CtScrollThreshold;
 	}
 }

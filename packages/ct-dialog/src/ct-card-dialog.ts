@@ -1,11 +1,11 @@
-import '@conectate/ct-card/ct-card';
+import "@conectate/ct-card/ct-card";
 
-import { CtLit, customElement, html } from '@conectate/ct-lit';
+import { CtLit, customElement, html } from "@conectate/ct-lit";
 
-import { ConectateHistory, CtDialog, showCtDialog } from './ct-dialog';
+import { ConectateHistory, CtDialog, showCtDialog } from "./ct-dialog";
 
 export function showCtCardDialog(el: HTMLElement, id?: string, history?: ConectateHistory) {
-	let cardDialog = document.createElement('ct-card-dialog') as CtCardDialog;
+	let cardDialog = document.createElement("ct-card-dialog") as CtCardDialog;
 	cardDialog.el = el;
 	cardDialog.dialog = showCtDialog(cardDialog, id, history);
 	return cardDialog.dialog;
@@ -13,7 +13,7 @@ export function showCtCardDialog(el: HTMLElement, id?: string, history?: Conecta
 // @ts-ignore
 window.showCtCardDialog = showCtCardDialog;
 
-@customElement('ct-card-dialog')
+@customElement("ct-card-dialog")
 export class CtCardDialog extends CtLit {
 	el!: any;
 	dialog!: CtDialog;
@@ -34,7 +34,9 @@ export class CtCardDialog extends CtLit {
 					overflow: auto;
 					border-radius: var(--border-radius, 16px);
 					background: var(--color-background, #fff);
-					box-shadow: 0 8px 16px 0 rgba(10, 14, 29, 0.02), 0 8px 40px 0 rgba(10, 14, 29, 0.06);
+					box-shadow:
+						0 8px 16px 0 rgba(10, 14, 29, 0.02),
+						0 8px 40px 0 rgba(10, 14, 29, 0.06);
 					color: var(--color-on-surface);
 				}
 
@@ -58,6 +60,6 @@ export class CtCardDialog extends CtLit {
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-card-dialog': CtCardDialog;
+		"ct-card-dialog": CtCardDialog;
 	}
 }

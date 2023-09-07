@@ -1,12 +1,12 @@
-import { CtLit, customElement, property, query, unsafeHTML } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtLit, customElement, property, query, unsafeHTML } from "@conectate/ct-lit";
+import { css, html } from "lit";
 /**
  * # `ct-textarea-autogrow`
  *
  * @group ct-elements
  * @element ct-textarea-autogrow
  */
-@customElement('ct-textarea-autogrow')
+@customElement("ct-textarea-autogrow")
 export class CtTextareaAutogrow extends CtLit {
 	static styles = [
 		css`
@@ -100,17 +100,17 @@ export class CtTextareaAutogrow extends CtLit {
 		if (this._value !== value) {
 			let oldValue = this._value;
 			this._value = value;
-			this.dispatchEvent(new CustomEvent('value', { detail: { value: value } }));
-			this.requestUpdate('value', oldValue);
+			this.dispatchEvent(new CustomEvent("value", { detail: { value: value } }));
+			this.requestUpdate("value", oldValue);
 		}
 	}
 
-	@property({ type: String }) name = '';
+	@property({ type: String }) name = "";
 
 	/**
 	 * Use this property instead of `bind-value` for two-way data binding.
 	 */
-	@property({ type: String }) _value = '';
+	@property({ type: String }) _value = "";
 
 	/**
 	 * The initial number of rows.
@@ -134,7 +134,7 @@ export class CtTextareaAutogrow extends CtLit {
 	/**
 	 * Bound to the textarea's `autocomplete` attribute.
 	 */
-	@property({ type: String }) autocomplete = 'off';
+	@property({ type: String }) autocomplete = "off";
 
 	/**
 	 * Bound to the textarea's `autofocus` attribute.
@@ -144,12 +144,12 @@ export class CtTextareaAutogrow extends CtLit {
 	/**
 	 * Bound to the textarea's `inputmode` attribute.
 	 */
-	@property({ type: String }) inputmode = '';
+	@property({ type: String }) inputmode = "";
 
 	/**
 	 * Bound to the textarea's `placeholder` attribute.
 	 */
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) placeholder = "";
 
 	/**
 	 * Bound to the textarea's `readonly` attribute.
@@ -179,9 +179,9 @@ export class CtTextareaAutogrow extends CtLit {
 	/**
 	 * Bound to the textarea's `aria-label` attribute.
 	 */
-	@property({ type: String }) label = '';
+	@property({ type: String }) label = "";
 
-	@query('#textarea') $textarea!: HTMLTextAreaElement;
+	@query("#textarea") $textarea!: HTMLTextAreaElement;
 
 	tokens: string[] = [];
 
@@ -222,7 +222,7 @@ export class CtTextareaAutogrow extends CtLit {
 	}
 
 	_constrain(tokens: string[]) {
-		var _tokens = tokens || [''];
+		var _tokens = tokens || [""];
 		// Enforce the min and max heights for a multiline input to avoid
 		// measurement
 		if (this.maxRows > 0 && tokens.length > this.maxRows) {
@@ -231,21 +231,21 @@ export class CtTextareaAutogrow extends CtLit {
 			_tokens = tokens.slice(0);
 		}
 		while (this.rows > 0 && _tokens.length < this.rows) {
-			_tokens.push('');
+			_tokens.push("");
 		}
 		// Use &#160; instead &nbsp; of to allow this element to be used in XHTML.
-		return _tokens.join('<br/>') + '&#160;';
+		return _tokens.join("<br/>") + "&#160;";
 	}
 
 	_valueForMirror(val?: string) {
 		let value = val ? val : this.value;
-		this.tokens = value ? value.replace(/&/gm, '&amp;').replace(/"/gm, '&quot;').replace(/'/gm, '&#39;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;').split('\n') : [''];
+		this.tokens = value ? value.replace(/&/gm, "&amp;").replace(/"/gm, "&quot;").replace(/'/gm, "&#39;").replace(/</gm, "&lt;").replace(/>/gm, "&gt;").split("\n") : [""];
 		return this._constrain(this.tokens);
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-textarea-autogrow': CtTextareaAutogrow;
+		"ct-textarea-autogrow": CtTextareaAutogrow;
 	}
 }

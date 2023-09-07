@@ -9,8 +9,8 @@
  found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
+import { css, html } from "lit";
 /**
  * `ct-input-container`
  * Input element
@@ -22,7 +22,7 @@ import { css, html } from 'lit';
  * @hero hero.svg
  * @homepage wc.conectate.app
  */
-@customElement('ct-input-container')
+@customElement("ct-input-container")
 export class CtInputContainer extends CtLit {
 	static styles = [
 		css`
@@ -46,7 +46,7 @@ export class CtInputContainer extends CtLit {
 			}
 
 			:host([required]) > .label:after {
-				content: var(--ct-indicator, '*');
+				content: var(--ct-indicator, "*");
 				color: #ed4f32;
 				width: 1.5em;
 				margin-left: 4px;
@@ -97,15 +97,15 @@ export class CtInputContainer extends CtLit {
 			#container.has-value > div > .charCount {
 				transition: all 0.2s;
 			}
-			::slotted([slot='suffix']) {
+			::slotted([slot="suffix"]) {
 				display: inline-block;
 			}
 
-			::slotted([slot='prefix']) {
+			::slotted([slot="prefix"]) {
 				display: inline-block;
 				padding-right: 0.5em;
 			}
-			::slotted([slot='input']) {
+			::slotted([slot="input"]) {
 				height: var(--ct-input-height, 3.3em);
 				box-sizing: border-box;
 			}
@@ -135,7 +135,7 @@ export class CtInputContainer extends CtLit {
 				outline: none;
 			}
 
-			#container.has-value ::slotted([slot='input']) {
+			#container.has-value ::slotted([slot="input"]) {
 				padding: 1.4em 0 0.6em;
 			}
 
@@ -211,34 +211,34 @@ export class CtInputContainer extends CtLit {
 		}
 		return ``;
 	}
-	@query('#container') container!: HTMLElement;
+	@query("#container") container!: HTMLElement;
 	@state() private__isFirstValueUpdate = true;
 	@property({ type: Boolean }) focused = false;
 
 	/**
 	 * The value of the searchbox
 	 */
-	@property({ type: String }) value = '';
+	@property({ type: String }) value = "";
 
 	/**
 	 * Placeholder text when searchbox is empty
 	 */
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) placeholder = "";
 
 	/**
 	 * Input type
 	 */
-	@property({ type: String }) type = 'text';
+	@property({ type: String }) type = "text";
 
 	@state() private _invalid = false;
 
 	/**
 	 * Mensaje de error al no complir con el pattern
 	 */
-	@property({ type: String }) errorMessage = '';
-	@property({ type: String }) label = '';
-	@property({ type: String }) autocorrect = 'off';
-	@property({ type: String }) autocapitalize = 'none';
+	@property({ type: String }) errorMessage = "";
+	@property({ type: String }) label = "";
+	@property({ type: String }) autocorrect = "off";
+	@property({ type: String }) autocapitalize = "none";
 	@property({ type: Boolean }) noHover = false;
 	@property({ type: Boolean }) charCounter = false;
 	@property({ type: Number }) countChar = 0;
@@ -253,8 +253,8 @@ export class CtInputContainer extends CtLit {
 	 * @private
 	 */
 	_onFocus() {
-		this.container.classList.add('active');
-		this.container.classList.remove('error');
+		this.container.classList.add("active");
+		this.container.classList.remove("error");
 		this.focused = true;
 	}
 
@@ -263,7 +263,7 @@ export class CtInputContainer extends CtLit {
 	 * @private
 	 */
 	_onBlur() {
-		this.container.classList.remove('active');
+		this.container.classList.remove("active");
 		this.focused = false;
 	}
 
@@ -274,9 +274,9 @@ export class CtInputContainer extends CtLit {
 		this._invalid = val;
 		if (!val) {
 			// remover error
-			this.container.classList.remove('error');
+			this.container.classList.remove("error");
 		} else {
-			this.container.classList.add('error');
+			this.container.classList.add("error");
 		}
 	}
 
@@ -287,6 +287,6 @@ export class CtInputContainer extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-input-container': CtInputContainer;
+		"ct-input-container": CtInputContainer;
 	}
 }

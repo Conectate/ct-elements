@@ -9,10 +9,10 @@
 	found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { customElement, unsafeHTML } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { customElement, unsafeHTML } from "@conectate/ct-lit";
+import { html } from "lit";
 
-import { CtInput } from './ct-input';
+import { CtInput } from "./ct-input";
 
 /**
  * # `ct-input-open`
@@ -20,10 +20,10 @@ import { CtInput } from './ct-input';
  * @group ct-elements
  * @element ct-input-open
  */
-@customElement('ct-input-open')
+@customElement("ct-input-open")
 export class CtInputOpen extends CtInput {
 	render() {
-		return html`${unsafeHTML(`<style>${CtInput.styles.map((s) => s.toString())}</style>`)}${super.render()}`;
+		return html`${unsafeHTML(`<style>${CtInput.styles.map(s => s.toString())}</style>`)}${super.render()}`;
 	}
 	createRenderRoot() {
 		return this;

@@ -36,47 +36,49 @@ If you will use lit, react, vue, etc. need to import the web component.
 #### `LitElement example (Typescript)`
 
 ```ts
-// my-element.ts
-import { LitElement, html, customElement} from 'lit';
-import '@conectate/ct-icon';
-import '@conectate/ct-icon-button';
+import "@conectate/ct-icon";
+import "@conectate/ct-icon-button";
 
-@customElement('my-element')
+// my-element.ts
+import { LitElement, customElement, html } from "lit";
+
+@customElement("my-element")
 class MyElement extends LitElement {
-    render() {
-        return html`
-          <ct-icon icon="print"></ct-icon>
-          <ct-icon-button icon="headphones"></ct-icon-button>
-        `;
-    }
+	render() {
+		return html`
+			<ct-icon icon="print"></ct-icon>
+			<ct-icon-button icon="headphones"></ct-icon-button>
+		`;
+	}
 }
 ```
 
 #### `Change font style`
 
 ```ts
+import "@conectate/ct-icon";
+
+import { CtIcon } from "@conectate/ct-icon";
 // my-element.ts
-import { LitElement, html, customElement} from 'lit';
-import { CtIcon } from '@conectate/ct-icon';
-import '@conectate/ct-icon';
+import { LitElement, customElement, html } from "lit";
 
-@customElement('my-element')
+@customElement("my-element")
 class MyElement extends LitElement {
-  constructor(){
-    // Select type
-    CtIcon.FontStyle = "Sharp";
-  }
+	constructor() {
+		// Select type
+		CtIcon.FontStyle = "Sharp";
+	}
 
-  render() {
-    return html`<style>
-      /* Specify new font family */
-      ct-icon{
-        font-family: 'Material Icons Sharp';
-      }
-    </style>
+	render() {
+		return html`<style>
+				/* Specify new font family */
+				ct-icon {
+					font-family: "Material Icons Sharp";
+				}
+			</style>
 
-    <ct-icon icon="print"></ct-icon>`;
-  }
+			<ct-icon icon="print"></ct-icon>`;
+	}
 }
 ```
 

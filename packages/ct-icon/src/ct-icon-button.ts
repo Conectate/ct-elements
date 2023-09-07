@@ -1,10 +1,10 @@
-import './ct-icon.js';
+import "./ct-icon.js";
 
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
-import { icon } from './icon-list.js';
+import { icon } from "./icon-list.js";
 
 /**
 ## `ct-icon-button`
@@ -17,7 +17,7 @@ import { icon } from './icon-list.js';
 
  *  @element ct-icon-button
  */
-@customElement('ct-icon-button')
+@customElement("ct-icon-button")
 export class CtIconButton extends LitElement {
 	static styles = css`
 		:host {
@@ -58,8 +58,8 @@ export class CtIconButton extends LitElement {
 	@property({ type: String }) icon?: icon;
 	@property({ type: String }) svg?: string;
 
-	@property({ type: String, attribute: 'aria-label' })
-	ariaLabel: string = '';
+	@property({ type: String, attribute: "aria-label" })
+	ariaLabel: string = "";
 
 	render() {
 		return html`<button aria-label="${ifDefined(this.ariaLabel || this.icon)}" ?disabled="${this.disabled}">

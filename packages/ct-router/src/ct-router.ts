@@ -1,9 +1,9 @@
-import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { css, html, TemplateResult } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { installRouter } from 'pwa-helpers/router';
+import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
+import { TemplateResult, css, html } from "lit";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import { installRouter } from "pwa-helpers/router";
 
-import { C2Regexp, C2RegexpType, EvaluateParams } from './path_to_regexp';
+import { C2Regexp, C2RegexpType, EvaluateParams } from "./path_to_regexp";
 
 export interface Page {
 	path: string;
@@ -45,10 +45,10 @@ declare global {
 		href(path: string, name?: string): void;
 	}
 	interface HTMLElementTagNameMap {
-		'ct-router': CtRouter;
+		"ct-router": CtRouter;
 	}
 }
-type CtRouterListeners = 'beforeunload';
+type CtRouterListeners = "beforeunload";
 /**
  * ## `ct-router`
  * It's a simple routing system that changes the viewport depending on the route given
@@ -59,7 +59,7 @@ type CtRouterListeners = 'beforeunload';
  * @event location-changed it shoots when the route changes
  * @event error-import it fires when the page is not found
  */
-@customElement('ct-router')
+@customElement("ct-router")
 export class CtRouter extends CtLit {
 	/**
 	 * This is a dictionary of routes linked to its corresponding elements.
@@ -68,22 +68,22 @@ export class CtRouter extends CtLit {
 	/**
 	 * This holds the next route to be viewed after the url has been changed.
 	 */
-	@state() private patternMatched: string = '';
+	@state() private patternMatched: string = "";
 	/**
 	 * This holds the current route that is being viewed
 	 */
-	@state() private _currentView: any = '';
+	@state() private _currentView: any = "";
 	/**
 	 * Current Path
 	 */
-	@state() private pathname: string = '/';
+	@state() private pathname: string = "/";
 
-	@query('#root') root!: HTMLElement;
+	@query("#root") root!: HTMLElement;
 	unmountComponentAtNode?: (root: any) => any;
 	/**
 	 * Login needed fallback path
 	 */
-	@property({ type: String }) loginFallback = '/login';
+	@property({ type: String }) loginFallback = "/login";
 	/**
 	 * Array de elementos {path,element(HTML),from,auth,title}
 	 */
@@ -131,15 +131,15 @@ export class CtRouter extends CtLit {
 	render() {
 		return html`
 			<slot id="drawerSlot" name="banner"></slot>
-			<div id="content">${typeof this._currentView == 'string' ? unsafeHTML(this._currentView) : this._currentView}</div>
+			<div id="content">${typeof this._currentView == "string" ? unsafeHTML(this._currentView) : this._currentView}</div>
 			<div id="root"></div>
 		`;
 	}
 
 	constructor() {
 		super();
-		installRouter((l) => this.handleRoutes(l));
-		window.addEventListener('href-fire', () => this.handleRoutes(window.location));
+		installRouter(l => this.handleRoutes(l));
+		window.addEventListener("href-fire", () => this.handleRoutes(window.location));
 		this._contentAdded(this.pages);
 	}
 
@@ -150,11 +150,11 @@ export class CtRouter extends CtLit {
 		return id;
 	}
 	deleteListener(id: number) {
-		this.listeners = this.listeners.filter((l) => l.id != id);
+		this.listeners = this.listeners.filter(l => l.id != id);
 	}
 
 	updated(m: Map<string, any>) {
-		if (m.has('pages')) {
+		if (m.has("pages")) {
 			this._contentAdded(this.pages || []);
 		}
 	}
@@ -170,7 +170,7 @@ export class CtRouter extends CtLit {
         ej: /herberth -> /herberth#showDialog -> /herberth
         */
 		if (location.pathname != this.pathname) {
-			let beforeunload = this.listeners.find((l) => l.name == 'beforeunload');
+			let beforeunload = this.listeners.find(l => l.name == "beforeunload");
 			if (beforeunload) {
 				let cont = await beforeunload.callback();
 				if (cont) {
@@ -192,7 +192,7 @@ export class CtRouter extends CtLit {
 	 * Sets the path property
 	 */
 	_setPath(path: string) {
-		this.pathname = path || '/';
+		this.pathname = path || "/";
 	}
 
 	/**
@@ -216,7 +216,7 @@ export class CtRouter extends CtLit {
 				if (el.regex != null && el.groups != null) {
 					// regex : expresion regular
 					// keys : Array(0)
-					let regex = new RegExp(el.regex, 'i');
+					let regex = new RegExp(el.regex, "i");
 					c2regexp = { regexp: regex, groups: el.groups };
 				} else {
 					c2regexp = C2Regexp(el.path);
@@ -253,7 +253,7 @@ export class CtRouter extends CtLit {
 			return;
 		}
 
-		this.patternMatched = '';
+		this.patternMatched = "";
 		for (let i = 0; i < routePaths.length; i++) {
 			let element = routes[routePaths[i].path]; // element,c2regexp,from,auth
 			// console.log(routePaths[i].path,element.c2regexp.regexp);
@@ -272,37 +272,37 @@ export class CtRouter extends CtLit {
 		if (this.patternMatched) {
 			// Si la vista es protegida y no esta logeado entonces lo mando a /login y no esta autenticado
 			if (routes[this.patternMatched].auth && !this.auth) {
-				console.warn('You need to log in to perform this action');
+				console.warn("You need to log in to perform this action");
 				this.patternMatched = this.patternMatched = this.loginFallback;
 				this.patternMatched = this.loginFallback;
 				this.pathname = this.loginFallback;
 				this._currentView = this._routes[this.loginFallback]?.element || html`<h1>Login Required</h1>`;
-				let ce = new CustomEvent('login-needed', {
+				let ce = new CustomEvent("login-needed", {
 					detail: { path: window.location.pathname }
 				});
 				this.dispatchEvent(ce);
 				window.dispatchEvent(ce);
 			} else {
 				this.patternMatched = this.patternMatched;
-				this._currentView = this._routes[this.patternMatched].element || '';
+				this._currentView = this._routes[this.patternMatched].element || "";
 				if (this._routes[this.patternMatched].renderRoot) {
 					this.unmountComponentAtNode?.(this.root);
 					this._routes[this.patternMatched].renderRoot!(this.root);
 				}
 			}
 		} else {
-			console.log('/404');
-			this.patternMatched = '/404';
-			this.pathname = '/404';
+			console.log("/404");
+			this.patternMatched = "/404";
+			this.pathname = "/404";
 			// window.history.replaceState(null, document.title, '/404');
-			this._currentView = this._routes['/404']?.element || html`<h1>404 - Not Found</h1>`;
+			this._currentView = this._routes["/404"]?.element || html`<h1>404 - Not Found</h1>`;
 			if (this._routes[this.patternMatched].renderRoot) {
 				this.unmountComponentAtNode?.(this.root);
 				this._routes[this.patternMatched].renderRoot!(this.root);
 			}
 		}
 
-		let ce = new CustomEvent('location-changed', {
+		let ce = new CustomEvent("location-changed", {
 			detail: {
 				search: location.search,
 				path: this.patternMatched,
@@ -316,19 +316,19 @@ export class CtRouter extends CtLit {
 		if (this.patternMatched && routes[this.patternMatched]) {
 			let fromImport = routes[this.patternMatched].from;
 			if (fromImport) {
-				this.dispatchEvent(new CustomEvent('loading', { detail: true }));
+				this.dispatchEvent(new CustomEvent("loading", { detail: true }));
 				fromImport()
 					?.then(() => {
 						if (this.patternMatched) this.dispatchEvent(new CustomEvent(this.patternMatched));
-						setTimeout(() => this.dispatchEvent(new CustomEvent('loading', { detail: false })), 500);
+						setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 500);
 					})
 					.catch((e: any) => {
 						console.error(e);
-						this.dispatchEvent(new CustomEvent('error-import', { detail: { error: e } }));
+						this.dispatchEvent(new CustomEvent("error-import", { detail: { error: e } }));
 						console.error("Can't lazy-import - " + fromImport);
 					});
 			} else {
-				setTimeout(() => this.dispatchEvent(new CustomEvent('loading', { detail: false })), 800);
+				setTimeout(() => this.dispatchEvent(new CustomEvent("loading", { detail: false })), 800);
 			}
 			if (routes[this.patternMatched].title()) {
 				document.title = routes[this.patternMatched].title() as string;
@@ -344,7 +344,7 @@ export class CtRouter extends CtLit {
 
 export function href(path: string, name: string = document.title) {
 	window.history.pushState({}, name, path);
-	window.dispatchEvent(new CustomEvent('href-fire'));
+	window.dispatchEvent(new CustomEvent("href-fire"));
 }
 
 window.href = href;
@@ -360,15 +360,15 @@ export function getQuery(): URLSearchParams {
 
 /** @deprecated */
 export function getQueryParams() {
-	let pairs = window.location.search.substring(1).split('&'),
+	let pairs = window.location.search.substring(1).split("&"),
 		obj: { [x: string]: any } = {},
 		pair,
 		i;
 
 	for (i in pairs) {
-		if (pairs[i] === '') continue;
+		if (pairs[i] === "") continue;
 
-		pair = pairs[i].split('=');
+		pair = pairs[i].split("=");
 		obj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 	}
 	return obj || {};

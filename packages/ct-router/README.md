@@ -47,97 +47,99 @@ Add to your html\`\` (Litelement Template) like this:
 ### Full LitElement example in Typescript
 
 ```typescript
-import {CtLit, html, property, customElement, state } from '@conectate/ct-lit'; /* or 'lit' */
-import '@conectate/ct-router';
-import { href } from '@conectate/ct-router';
+import "@conectate/ct-router";
 
-@customElement('my-router')
-class MyRouter extends CtLit{
-  @property({type : Boolean}) isLogged = false;
-  @query('#ctrouter') $ctrouter!: HTMLElementTagNameMap['ct-router'];
-  /*
+import { CtLit, customElement, html, property, state } from "@conectate/ct-lit"; /* or 'lit' */
+import { href } from "@conectate/ct-router";
+
+@customElement("my-router")
+class MyRouter extends CtLit {
+	@property({ type: Boolean }) isLogged = false;
+	@query("#ctrouter") $ctrouter!: HTMLElementTagNameMap["ct-router"];
+	/*
   You can use lit-html @event bindings in your template inside the render function to add event listeners to your component.
   You can use lit-html '?' bindings in your template inside the render function to add boolean property.
   */
-  @state() private pages = [
-    {
-      path: "/page1",
-      element: html`<page-number1></page-number1>`, // you cand use html``
-      from: () => import("./src/page-number1"),
-      auth: false,
-      title: () => `Page 1 • Example.com`
-    },
-    {
-      path: "/profile",
-      element: "<my-profile></my-profile>", // or you cand use a simple string
-      from: () => import("./src/my-profile"),
-      auth: true,
-      title: () => `Profile • Example.com`
-    },
-    {
-      path: "/404",
-      element: html`<page-404></page-404>`,
-      from: () => import("./src/page-404"),
-      auth: false,
-      title: () => null
-    }
-  ];
+	@state() private pages = [
+		{
+			path: "/page1",
+			element: html`<page-number1></page-number1>`, // you cand use html``
+			from: () => import("./src/page-number1"),
+			auth: false,
+			title: () => `Page 1 • Example.com`
+		},
+		{
+			path: "/profile",
+			element: "<my-profile></my-profile>", // or you cand use a simple string
+			from: () => import("./src/my-profile"),
+			auth: true,
+			title: () => `Profile • Example.com`
+		},
+		{
+			path: "/404",
+			element: html`<page-404></page-404>`,
+			from: () => import("./src/page-404"),
+			auth: false,
+			title: () => null
+		}
+	];
 
-  render(){
-    return html`
-    <ct-router id="ctrouter"
-      loginFallback="/404"
-      .pages=${this.pages}
-      ?auth=${this.isLogged}
-      @login-needed=${this.loginNeeded}
-      @loading=${this.isLoading}
-      @location-changed=${this.pathChanged}>
-    </ct-router>`
-  }
+	render() {
+		return html` <ct-router
+			id="ctrouter"
+			loginFallback="/404"
+			.pages=${this.pages}
+			?auth=${this.isLogged}
+			@login-needed=${this.loginNeeded}
+			@loading=${this.isLoading}
+			@location-changed=${this.pathChanged}
+		>
+		</ct-router>`;
+	}
 
-  firstUpdated(_changedProperties: Map<string, any>) {
-    // set if user is not isAnonymous
-    this.isLogged = true; // !firebase.auth().currentUser.isAnonymous
-  }
+	firstUpdated(_changedProperties: Map<string, any>) {
+		// set if user is not isAnonymous
+		this.isLogged = true; // !firebase.auth().currentUser.isAnonymous
+	}
 
-  /* =================== (optional) DEBUG ROUTER =================== */
-  /* You can view state of you web */
-  printCurrentState(){
-    // More details in interface LocationChanged
-    console.log('Current patternMatched',this.$ctrouter.path);
-    console.log('Current pathname',this.$ctrouter.pathname);
-    console.log('Current queryParams',this.$ctrouter.queryParams);
-    console.log('Current params',this.$ctrouter.params);
-    console.log('is Logged?',this.$ctrouter.auth);
-  }
+	/* =================== (optional) DEBUG ROUTER =================== */
+	/* You can view state of you web */
+	printCurrentState() {
+		// More details in interface LocationChanged
+		console.log("Current patternMatched", this.$ctrouter.path);
+		console.log("Current pathname", this.$ctrouter.pathname);
+		console.log("Current queryParams", this.$ctrouter.queryParams);
+		console.log("Current params", this.$ctrouter.params);
+		console.log("is Logged?", this.$ctrouter.auth);
+	}
 
-  loginNeeded(e : CustomEvent< { path: string } >){
-    let path = e.detail.path;
-    alert(`loginNeeded on: ${path}`);
-  }
+	loginNeeded(e: CustomEvent<{ path: string }>) {
+		let path = e.detail.path;
+		alert(`loginNeeded on: ${path}`);
+	}
 
-  isLoading(e : CustomEvent< boolean >){
-    console.log('loading...', e.detail);
-  }
+	isLoading(e: CustomEvent<boolean>) {
+		console.log("loading...", e.detail);
+	}
 
-  pathChanged(e : CustomEvent<LocationChanged>){
-    console.log('path changed',location.href);
-    console.log('patternMatched',this.$ctrouter.path,'==',e.detail.path);
-    console.log('pathname',this.$ctrouter.pathname,'==',e.detail.pathname,'==',location.pathname);
-    console.log(this.$ctrouter.queryParams,'==',e.detail.queryParams);
-    console.log(this.$ctrouter.params,'==',e.detail.params);
-  }
+	pathChanged(e: CustomEvent<LocationChanged>) {
+		console.log("path changed", location.href);
+		console.log("patternMatched", this.$ctrouter.path, "==", e.detail.path);
+		console.log("pathname", this.$ctrouter.pathname, "==", e.detail.pathname, "==", location.pathname);
+		console.log(this.$ctrouter.queryParams, "==", e.detail.queryParams);
+		console.log(this.$ctrouter.params, "==", e.detail.params);
+	}
 }
 
 interface LocationChanged {
-  //patternMatched like a: /:profile/preferences
-  path: string,
-  // pathname like a: /herberthobregon/preferences
-  pathname: string,
-  // if path is /home?hello=word then queryParams is { hello : "world" }
-  queryParams?: { [x:string] : string },
-  // if href is /herberth/preference and path is /:username/preference then params is { username : "herberth" }
-  params?: { [x:string] : string }
+	//patternMatched like a: /:profile/preferences
+	path: string;
+	// pathname like a: /herberthobregon/preferences
+	pathname: string;
+	// if path is /home?hello=word then queryParams is { hello : "world" }
+	queryParams?: { [x: string]: string };
+	// if href is /herberth/preference and path is /:username/preference then params is { username : "herberth" }
+	params?: { [x: string]: string };
 }
 ```
 
@@ -150,34 +152,34 @@ function App() {
 	let pages: Page[] = [
 		{
 			path: "/",
-			renderRoot: (root) => ReactDOM.render(<MainApp />, root!),
+			renderRoot: root => ReactDOM.render(<MainApp />, root!),
 			auth: false,
 			title: () => `Page 1 • Example.com`
 		},
 		{
 			path: "/page2",
-			renderRoot: (root) => ReactDOM.render(<Page2 />, root!),
+			renderRoot: root => ReactDOM.render(<Page2 />, root!),
 			auth: false,
 			title: () => `Page 2 • Example.com`
 		},
 		{
 			path: "/404",
-			renderRoot: (root) => ReactDOM.render(<Page404 />, root!),
+			renderRoot: root => ReactDOM.render(<Page404 />, root!),
 			auth: false,
 			title: () => `404 Not Found • Example.com`
 		}
 	];
-  const router = useRef<HTMLElement>(null);
-  useEffect(()=>{
-    const ctrouter = router.current;
-    // ctrouter.addEventListener('login-needed',this.loginNeeded);
-    // ctrouter.addEventListener('loading',this.isLoading);
-    // ctrouter.addEventListener('location-changed',this.pathChanged);
-  })
+	const router = useRef<HTMLElement>(null);
+	useEffect(() => {
+		const ctrouter = router.current;
+		// ctrouter.addEventListener('login-needed',this.loginNeeded);
+		// ctrouter.addEventListener('loading',this.isLoading);
+		// ctrouter.addEventListener('location-changed',this.pathChanged);
+	});
 	return (
 		<div>
 			<header>My App</header>
-			<CtRouter ref={router} pages={pages} unmountComponentAtNode={(root) => ReactDOM.unmountComponentAtNode(root)}></CtRouter>
+			<CtRouter ref={router} pages={pages} unmountComponentAtNode={root => ReactDOM.unmountComponentAtNode(root)}></CtRouter>
 		</div>
 	);
 }

@@ -1,11 +1,11 @@
-import { CtLit, customElement, property } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { CtLit, customElement, property } from "@conectate/ct-lit";
+import { html } from "lit";
 /**
  * # `ct-tab`
  *
  * @element ct-tab
  */
-@customElement('ct-tab')
+@customElement("ct-tab")
 export class CtTab extends CtLit {
 	@property({ type: Boolean, reflect: true }) selected = false;
 
@@ -35,7 +35,7 @@ export class CtTab extends CtLit {
 					border-color: var(--ct-tabs-border-color, var(--color-primary, #0e92c1));
 					border-radius: 0.4rem 0.4rem 0 0;
 					bottom: 0;
-					content: '';
+					content: "";
 					height: 0;
 					left: 16px;
 					position: absolute;
@@ -60,6 +60,6 @@ export class CtTab extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-tab': CtTab;
+		"ct-tab": CtTab;
 	}
 }

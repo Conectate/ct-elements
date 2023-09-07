@@ -8,19 +8,19 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import '@conectate/ct-button';
-import '@conectate/ct-card';
+import "@conectate/ct-button";
+import "@conectate/ct-card";
 
-import { CtLit, customElement, html, query } from '@conectate/ct-lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { CtLit, customElement, html, query } from "@conectate/ct-lit";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
-import { CtDialog, showCtDialog } from './ct-dialog';
+import { CtDialog, showCtDialog } from "./ct-dialog";
 
 export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
 	ctConfirm.body = body;
-	ctConfirm.ok = ok ? ok : 'Ok';
+	ctConfirm.ok = ok ? ok : "Ok";
 	neutral && (ctConfirm.neutral = neutral);
 	cancel && (ctConfirm.cancel = cancel);
 	ctConfirm.dialog = showCtDialog(ctConfirm).enableHistoryAPI(options?.history ?? true);
@@ -31,17 +31,17 @@ export function showCtConfirmCupertino(title: string, body: string, ok?: string,
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
 	ctConfirm.body = body;
-	ctConfirm.ok = ok ? ok : 'Ok';
+	ctConfirm.ok = ok ? ok : "Ok";
 	neutral && (ctConfirm.neutral = neutral);
-	ctConfirm.cancel = cancel ? cancel : 'Cancel';
+	ctConfirm.cancel = cancel ? cancel : "Cancel";
 	ctConfirm.dialog = showCtDialog(ctConfirm);
 	return ctConfirm.onResult();
 }
-@customElement('ct-confirm')
+@customElement("ct-confirm")
 export class CTConfirm extends CtLit {
-	body: string = '';
-	ttl: string = 'Title';
-	ok: string = 'OK';
+	body: string = "";
+	ttl: string = "Title";
+	ok: string = "OK";
 	neutral!: string;
 	cancel!: string;
 	reject!: (reason?: any) => void;
@@ -56,7 +56,7 @@ export class CTConfirm extends CtLit {
 				}
 
 				.title {
-					font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+					font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
 					font-size: 1.5em;
 					font-weight: 400;
 					margin: 24px 24px 0;
@@ -134,10 +134,10 @@ export class CTConfirm extends CtLit {
 		};
 	}
 
-	@query('#cancel') $cancel!: HTMLElement;
-	@query('#neutral') $neutral!: HTMLElement;
-	@query('#confirmBody') confirmBody!: HTMLElement;
-	@query('#buttons') buttons!: HTMLElement;
+	@query("#cancel") $cancel!: HTMLElement;
+	@query("#neutral") $neutral!: HTMLElement;
+	@query("#confirmBody") confirmBody!: HTMLElement;
+	@query("#buttons") buttons!: HTMLElement;
 
 	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
@@ -145,17 +145,17 @@ export class CTConfirm extends CtLit {
 	}
 
 	computeBtns(ok: string, neutral: string, cancel: string) {
-		let auxok = ok || '',
-			auxcancel = cancel || '',
-			auxneutral = neutral || '';
+		let auxok = ok || "",
+			auxcancel = cancel || "",
+			auxneutral = neutral || "";
 		if (neutral == null) {
-			this.$neutral.style.display = 'none';
+			this.$neutral.style.display = "none";
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.buttons.classList.add('buttons_vert');
+			this.buttons.classList.add("buttons_vert");
 		}
 		if (cancel == null) {
-			this.$cancel.style.display = 'none';
+			this.$cancel.style.display = "none";
 		}
 	}
 
@@ -165,17 +165,17 @@ export class CTConfirm extends CtLit {
 	}
 
 	async okbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(true);
 	}
 
 	async cancelbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(false);
 	}
 
 	async neutralbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(null);
 	}
 
@@ -188,21 +188,21 @@ export class CTConfirm extends CtLit {
 	}
 }
 
-@customElement('ct-confirm-cupertino')
+@customElement("ct-confirm-cupertino")
 export class CTConfirmCupertino extends CtLit {
-	body: string = '';
-	ttl: string = 'Title';
-	ok: string = 'OK';
+	body: string = "";
+	ttl: string = "Title";
+	ok: string = "OK";
 	neutral!: string;
 	cancel!: string;
 	reject!: (reason?: any) => void;
 	solve!: (param: boolean | null | undefined) => void;
 	dialog!: CtDialog;
 
-	@query('#cancel') $cancel!: HTMLElement;
-	@query('#neutral') $neutral!: HTMLElement;
-	@query('#confirmBody') confirmBody!: HTMLElement;
-	@query('#buttons') buttons!: HTMLElement;
+	@query("#cancel") $cancel!: HTMLElement;
+	@query("#neutral") $neutral!: HTMLElement;
+	@query("#confirmBody") confirmBody!: HTMLElement;
+	@query("#buttons") buttons!: HTMLElement;
 
 	render() {
 		return html`
@@ -211,7 +211,7 @@ export class CTConfirmCupertino extends CtLit {
 					display: block;
 					min-width: 276px !important;
 					max-width: 400px !important;
-					font-family: SFText, Helvetica, 'Google Sans', 'Ubuntu', sans-serif;
+					font-family: SFText, Helvetica, "Google Sans", "Ubuntu", sans-serif;
 					display: block;
 					max-height: 80vh;
 					margin: 0;
@@ -232,7 +232,7 @@ export class CTConfirmCupertino extends CtLit {
 				}
 
 				#title {
-					font-family: 'Google Sans', 'Ubuntu', 'Roboto', sans-serif;
+					font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
 					font-size: 17px;
 					color: var(--high-emphasis, #303030);
 					font-weight: 600;
@@ -321,17 +321,17 @@ export class CTConfirmCupertino extends CtLit {
 	}
 
 	computeBtns(ok: string, neutral: string, cancel: string) {
-		let auxok = ok || '',
-			auxcancel = cancel || '',
-			auxneutral = neutral || '';
+		let auxok = ok || "",
+			auxcancel = cancel || "",
+			auxneutral = neutral || "";
 		if (neutral == null) {
-			this.$neutral.style.display = 'none';
+			this.$neutral.style.display = "none";
 		}
 		if (auxneutral.length > 15 || auxok.length > 15 || auxcancel.length > 15) {
-			this.buttons.classList.add('buttons_vert');
+			this.buttons.classList.add("buttons_vert");
 		}
 		if (cancel == null) {
-			this.$cancel.style.display = 'none';
+			this.$cancel.style.display = "none";
 		}
 	}
 
@@ -341,17 +341,17 @@ export class CTConfirmCupertino extends CtLit {
 	}
 
 	async okbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(true);
 	}
 
 	async cancelbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(false);
 	}
 
 	async neutralbtn(e: Event) {
-		await this.dialog.closeDialog(e, 'click');
+		await this.dialog.closeDialog(e, "click");
 		this.solve(null);
 	}
 
@@ -366,8 +366,8 @@ export class CTConfirmCupertino extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-confirm-cupertino': CTConfirmCupertino;
-		'ct-confirm': CTConfirm;
+		"ct-confirm-cupertino": CTConfirmCupertino;
+		"ct-confirm": CTConfirm;
 	}
 }
 

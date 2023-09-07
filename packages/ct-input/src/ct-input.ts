@@ -8,76 +8,76 @@
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
 	found at https://wc.conectate.app/PATENTS.txt
 */
-import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { css, html } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
+import { css, html } from "lit";
+import { classMap } from "lit/directives/class-map.js";
+import { ifDefined } from "lit/directives/if-defined.js";
 
-export type CtInputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week' | 'color';
+export type CtInputType = "text" | "password" | "email" | "number" | "tel" | "url" | "search" | "date" | "time" | "datetime-local" | "month" | "week" | "color";
 export type CtInputAutoComplete =
-	| 'on'
-	| 'off'
-	| 'one-time-code'
-	| 'additional-name'
-	| 'address-level1'
-	| 'address-level2'
-	| 'address-level3'
-	| 'address-level4'
-	| 'address-line1'
-	| 'address-line2'
-	| 'address-line3'
-	| 'bday'
-	| 'bday-year'
-	| 'bday-day'
-	| 'bday-month'
-	| 'billing'
-	| 'cc-additional-name'
-	| 'cc-csc'
-	| 'cc-exp'
-	| 'cc-exp-month'
-	| 'cc-exp-year'
-	| 'cc-family-name'
-	| 'cc-given-name'
-	| 'cc-name'
-	| 'cc-number'
-	| 'cc-type'
-	| 'country'
-	| 'country-name'
-	| 'current-password'
-	| 'email'
-	| 'family-name'
-	| 'fax'
-	| 'given-name'
-	| 'home'
-	| 'honorific-prefix'
-	| 'honorific-suffix'
-	| 'impp'
-	| 'language'
-	| 'mobile'
-	| 'name'
-	| 'new-password'
-	| 'nickname'
-	| 'organization'
-	| 'organization-title'
-	| 'pager'
-	| 'photo'
-	| 'postal-code'
-	| 'sex'
-	| 'shipping'
-	| 'street-address'
-	| 'tel-area-code'
-	| 'tel'
-	| 'tel-country-code'
-	| 'tel-extension'
-	| 'tel-local'
-	| 'tel-local-prefix'
-	| 'tel-local-suffix'
-	| 'tel-national'
-	| 'transaction-amount'
-	| 'transaction-currency'
-	| 'url'
-	| 'username';
-export type CtInputMode = 'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 'full-width-latin' | 'kana' | 'kana-name' | 'katakana' | 'numeric' | 'tel' | 'email' | 'url';
+	| "on"
+	| "off"
+	| "one-time-code"
+	| "additional-name"
+	| "address-level1"
+	| "address-level2"
+	| "address-level3"
+	| "address-level4"
+	| "address-line1"
+	| "address-line2"
+	| "address-line3"
+	| "bday"
+	| "bday-year"
+	| "bday-day"
+	| "bday-month"
+	| "billing"
+	| "cc-additional-name"
+	| "cc-csc"
+	| "cc-exp"
+	| "cc-exp-month"
+	| "cc-exp-year"
+	| "cc-family-name"
+	| "cc-given-name"
+	| "cc-name"
+	| "cc-number"
+	| "cc-type"
+	| "country"
+	| "country-name"
+	| "current-password"
+	| "email"
+	| "family-name"
+	| "fax"
+	| "given-name"
+	| "home"
+	| "honorific-prefix"
+	| "honorific-suffix"
+	| "impp"
+	| "language"
+	| "mobile"
+	| "name"
+	| "new-password"
+	| "nickname"
+	| "organization"
+	| "organization-title"
+	| "pager"
+	| "photo"
+	| "postal-code"
+	| "sex"
+	| "shipping"
+	| "street-address"
+	| "tel-area-code"
+	| "tel"
+	| "tel-country-code"
+	| "tel-extension"
+	| "tel-local"
+	| "tel-local-prefix"
+	| "tel-local-suffix"
+	| "tel-national"
+	| "transaction-amount"
+	| "transaction-currency"
+	| "url"
+	| "username";
+export type CtInputMode = "verbatim" | "latin" | "latin-name" | "latin-prose" | "full-width-latin" | "kana" | "kana-name" | "katakana" | "numeric" | "tel" | "email" | "url";
 /**
  * ## `ct-input`
  * Input element
@@ -89,7 +89,7 @@ export type CtInputMode = 'verbatim' | 'latin' | 'latin-name' | 'latin-prose' | 
  * @slot prefix - Content placed start the main content
  * @slot suffix - Content placed end the main content
  */
-@customElement('ct-input')
+@customElement("ct-input")
 export class CtInput extends CtLit {
 	static styles = [
 		css`
@@ -176,7 +176,7 @@ export class CtInput extends CtLit {
 			}
 
 			:host([required]) .label:after {
-				content: var(--ct-indicator, '*');
+				content: var(--ct-indicator, "*");
 				color: var(--color-error, #ed4f32);
 				width: 1.5em;
 				margin-left: 4px;
@@ -223,12 +223,12 @@ export class CtInput extends CtLit {
 			#container.has-value > div > .charCount {
 				transition: all 0.2s;
 			}
-			::slotted([slot='suffix']),
-			[name='suffix'] {
+			::slotted([slot="suffix"]),
+			[name="suffix"] {
 				display: inline-block;
 			}
 
-			::slotted([slot='prefix']) {
+			::slotted([slot="prefix"]) {
 				display: inline-block;
 				margin-right: 0.5em;
 			}
@@ -238,20 +238,20 @@ export class CtInput extends CtLit {
 			}
 
 			input:not([type]),
-			input[type='color'],
-			input[type='date'],
-			input[type='datetime-local'],
-			input[type='datetime'],
-			input[type='email'],
-			input[type='month'],
-			input[type='number'],
-			input[type='password'],
-			input[type='search'],
-			input[type='tel'],
-			input[type='text'],
-			input[type='time'],
-			input[type='url'],
-			input[type='week'],
+			input[type="color"],
+			input[type="date"],
+			input[type="datetime-local"],
+			input[type="datetime"],
+			input[type="email"],
+			input[type="month"],
+			input[type="number"],
+			input[type="password"],
+			input[type="search"],
+			input[type="tel"],
+			input[type="text"],
+			input[type="time"],
+			input[type="url"],
+			input[type="week"],
 			select,
 			textarea {
 				height: var(--ct-input-height, 3.3em);
@@ -338,15 +338,15 @@ export class CtInput extends CtLit {
 			}
 		`
 	];
-	@query('input') $input!: HTMLInputElement;
-	@query('container') $container!: HTMLElement;
+	@query("input") $input!: HTMLInputElement;
+	@query("container") $container!: HTMLElement;
 
 	@property({ type: String }) inputmode!: CtInputMode;
 	@property({ type: Number }) minlength = 0;
 	@property({ type: Number }) min?: number;
 	@property({ type: Number }) max?: number;
 	@property({ type: Number }) step?: number;
-	@property({ type: String }) autocapitalize!: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
+	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
 	@property({ type: String }) autocomplete?: CtInputAutoComplete;
 	@property({ type: String }) name?: string;
 	@property({ type: String }) accept?: string;
@@ -373,23 +373,23 @@ export class CtInput extends CtLit {
 	/**
 	 * Input type
 	 */
-	@property({ type: String }) type = 'text';
+	@property({ type: String }) type = "text";
 	/**
 	 * Placeholder text when searchbox is empty
 	 */
-	@property({ type: String }) rawPlaceholder = '';
+	@property({ type: String }) rawPlaceholder = "";
 	/**
 	 * Placeholder text when searchbox is empty
 	 */
-	@property({ type: String }) placeholder = '';
+	@property({ type: String }) placeholder = "";
 	/**
 	 * Mensaje de error al no complir con el pattern
 	 */
-	@property({ type: String }) errorMessage = '';
+	@property({ type: String }) errorMessage = "";
 	/**
 	 * regexp
 	 */
-	@property({ type: String }) pattern: string | RegExp = '';
+	@property({ type: String }) pattern: string | RegExp = "";
 
 	/**
 	 * Do not show any effects when hovering the searchbox
@@ -398,7 +398,7 @@ export class CtInput extends CtLit {
 	/**
 	 * Change default icon to whatever you like
 	 */
-	@property({ type: String }) label = '';
+	@property({ type: String }) label = "";
 	/**
 	 * Max length on input
 	 */
@@ -437,13 +437,13 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	private initValue?: string = '';
+	private initValue?: string = "";
 
 	render() {
 		return html`
 			<div class="inbody">
 				${this.label ? html` <label for="input" class="label">${this.label}</label> ` : html``}
-				<div id="container" class=${classMap({ 'has-value': !this.isEmpty, error: this.invalid, active: this.active })}>
+				<div id="container" class=${classMap({ "has-value": !this.isEmpty, error: this.invalid, active: this.active })}>
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
@@ -451,7 +451,7 @@ export class CtInput extends CtLit {
 							${this.placeholder && html` <label class="float-label" for="input" aria-live="assertive">${this.placeholder}</label> `}
 							<input
 								id="input"
-								class=${classMap({ 'has-value': !this.isEmpty, error: this.invalid && this.errorMessage })}
+								class=${classMap({ "has-value": !this.isEmpty, error: this.invalid && this.errorMessage })}
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
 								@input="${this._onInput}"
@@ -474,7 +474,7 @@ export class CtInput extends CtLit {
 							/>
 						</div>
 						<slot name="suffix"></slot>
-						${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? '1000+' : this.maxlength}</div> ` : ``}
+						${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? "1000+" : this.maxlength}</div> ` : ``}
 					</div>
 					<div class="underline"></div>
 				</div>
@@ -484,23 +484,23 @@ export class CtInput extends CtLit {
 
 	firstUpdated() {
 		if (this.$input) {
-			this.$input.value = this.initValue || this.getAttribute('value') || '';
+			this.$input.value = this.initValue || this.getAttribute("value") || "";
 		}
 		this.validate();
 		this._onInput();
 	}
 
 	_onInput() {
-		this.dispatchEvent(new CustomEvent('value', { detail: this.value }));
-		this.dispatchEvent(new CustomEvent('val', { detail: { value: this.value } }));
+		this.dispatchEvent(new CustomEvent("value", { detail: this.value }));
+		this.dispatchEvent(new CustomEvent("val", { detail: { value: this.value } }));
 		if (this.placeholder) {
-			this.isEmpty = this.value == '' || this.value == null;
+			this.isEmpty = this.value == "" || this.value == null;
 		}
 		this.countChar = this.value!.length;
 	}
 
 	set value(val: string | number | undefined | null) {
-		val ||= '';
+		val ||= "";
 		val = val.toString();
 		this.initValue = val;
 		if (this.$input && this.$input.value != val && val.length - 1 < this.maxlength) {
@@ -512,7 +512,7 @@ export class CtInput extends CtLit {
 	}
 
 	get value(): string {
-		return this.$input?.value || '';
+		return this.$input?.value || "";
 	}
 	get valueAsnumber() {
 		return this.$input?.valueAsNumber;
@@ -548,7 +548,7 @@ export class CtInput extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.$input?.value === undefined || this.$input?.value === '') return !this.invalid;
+			if (this.$input?.value === undefined || this.$input?.value === "") return !this.invalid;
 		}
 
 		if (this.pattern) {
@@ -563,6 +563,6 @@ export class CtInput extends CtLit {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-input': CtInput;
+		"ct-input": CtInput;
 	}
 }

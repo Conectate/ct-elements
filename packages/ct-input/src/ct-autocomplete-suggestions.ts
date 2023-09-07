@@ -1,7 +1,7 @@
-import '@conectate/ct-card/ct-card';
+import "@conectate/ct-card/ct-card";
 
-import { CtLit, customElement, property } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { CtLit, customElement, property } from "@conectate/ct-lit";
+import { html } from "lit";
 
 /* var DIRECTION = {
     UP: 'up',
@@ -22,7 +22,7 @@ var KEY_CODES = {
  * @group ct-elements
  * @element ct-autocomplete-suggestions
  */
-@customElement('ct-autocomplete-suggestions')
+@customElement("ct-autocomplete-suggestions")
 export class CtAutocompleteSuggestions extends CtLit {
 	render() {
 		return html`<style>
@@ -81,7 +81,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 	@property({ type: Object }) renderItem = (item: any, index: number) => html`<button>item ${index}</button>`;
 	@property({ type: Array }) source: any[] = [];
 	@property({ type: Array }) queryResult: any[] = [];
-	@property({ type: String }) text = '';
+	@property({ type: String }) text = "";
 	@property({ type: Boolean }) remote = false;
 	@property({ type: Object }) klasses = {
 		wrapper: true,
@@ -117,7 +117,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 		}
 		datasource.forEach((item: { text: string; value: any }) => {
 			var objText, objValue;
-			if (typeof item == 'object') {
+			if (typeof item == "object") {
 				objText = item.text;
 				objValue = item.value;
 			} else {
@@ -144,9 +144,9 @@ export class CtAutocompleteSuggestions extends CtLit {
 	 */
 	removeAcento(input: string): string {
 		// Cadena de caracteres original a sustituir.
-		let original = 'áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ';
+		let original = "áàäêéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
 		// Cadena de caracteres ASCII que reemplazarán los originales.
-		let ascii = 'aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC';
+		let ascii = "aaaeeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
 		let output = input;
 		for (let i = 0; i < original.length; i++) {
 			// Reemplazamos los caracteres especiales.

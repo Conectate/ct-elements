@@ -1,10 +1,11 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { CtButton } from './ct-button';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
+import { CtButton } from "./ct-button";
 /**
  * @element ct-button-split
  */
-@customElement('ct-button-split')
+@customElement("ct-button-split")
 export class CtButtonSplit extends LitElement {
 	static CtButtonStyle = css`
 		ct-button-split ct-button {
@@ -53,6 +54,6 @@ export class CtButtonSplit extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-button-split': CtButtonSplit;
+		"ct-button-split": CtButtonSplit;
 	}
 }

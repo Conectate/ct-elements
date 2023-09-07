@@ -1,20 +1,19 @@
-import '@conectate/ct-icon';
+import "@conectate/ct-icon";
 
-import { stripIndent } from 'common-tags';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import * as Prism from 'prismjs';
-import Dark from 'prismjs/themes/prism-okaidia.css';
+import { CtLit, css, customElement, html, property, query, state, unsafeCSS } from "@conectate/ct-lit";
+import { stripIndent } from "common-tags";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import * as Prism from "prismjs";
+import Dark from "prismjs/themes/prism-okaidia.css";
 
-import { css, CtLit, customElement, html, property, query, state, unsafeCSS } from '@conectate/ct-lit';
-
-@customElement('code-example')
+@customElement("code-example")
 export class CodeExample extends CtLit {
-	@query('#markup') private markup?: HTMLDivElement;
-	@query('.demo-example') private demo?: HTMLDivElement;
+	@query("#markup") private markup?: HTMLDivElement;
+	@query(".demo-example") private demo?: HTMLDivElement;
 
-	@property() codeTheme: 'dark' | 'light' = 'light';
-	@state() _code = '';
-	@property() codestyle = '';
+	@property() codeTheme: "dark" | "light" = "light";
+	@state() _code = "";
+	@property() codestyle = "";
 
 	static styles = [
 		/* toCssTemplateString(Light),
@@ -140,18 +139,18 @@ export class CodeExample extends CtLit {
 	}
 
 	public get rawcode(): string {
-		return stripIndent`${this._code || this.textContent}` || '';
+		return stripIndent`${this._code || this.textContent}` || "";
 	}
 
-	public get language(): 'markup' | 'javascript' {
-		if (this.classList.contains('language-javascript')) {
-			return 'javascript';
+	public get language(): "markup" | "javascript" {
+		if (this.classList.contains("language-javascript")) {
+			return "javascript";
 		}
-		return 'markup';
+		return "markup";
 	}
 
 	public get showDemo() {
-		return this.classList.contains('language-html') || this.classList.contains('language-html-live');
+		return this.classList.contains("language-html") || this.classList.contains("language-html-live");
 	}
 
 	private get highlightedCode() {
@@ -185,17 +184,17 @@ export class CodeExample extends CtLit {
 	}
 
 	private copyToClipboard(): void {
-		console.log('copy');
+		console.log("copy");
 	}
 
 	private shouldManageTabOrderForScrolling = (): void => {
-		[this.markup, this.demo].map((el) => {
+		[this.markup, this.demo].map(el => {
 			if (!el) return;
 			const { offsetWidth, scrollWidth } = el;
 			if (offsetWidth < scrollWidth) {
 				el.tabIndex = 0;
 			} else {
-				el.removeAttribute('tabindex');
+				el.removeAttribute("tabindex");
 			}
 		});
 	};
@@ -208,12 +207,12 @@ export class CodeExample extends CtLit {
 
 	public connectedCallback(): void {
 		super.connectedCallback();
-		window.addEventListener('resize', this.shouldManageTabOrderForScrolling);
+		window.addEventListener("resize", this.shouldManageTabOrderForScrolling);
 		// console.log(Dark);
 	}
 
 	public disconnectedCallback(): void {
-		window.removeEventListener('resize', this.shouldManageTabOrderForScrolling);
+		window.removeEventListener("resize", this.shouldManageTabOrderForScrolling);
 		super.disconnectedCallback();
 	}
 }

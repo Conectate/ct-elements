@@ -1,17 +1,17 @@
-import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js';
-import { LitElement, PropertyValues, html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { Chart, ChartData, ChartOptions, ChartType } from "chart.js";
+import { LitElement, PropertyValues, html } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
-let sleep = (time: number) => new Promise((resolve) => setTimeout(() => resolve(0), time));
+let sleep = (time: number) => new Promise(resolve => setTimeout(() => resolve(0), time));
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-chartjs': CtChartJS;
+		"ct-chartjs": CtChartJS;
 	}
 }
 /**
  * @element ct-chartjs
  */
-@customElement('ct-chartjs')
+@customElement("ct-chartjs")
 export class CtChartJS extends LitElement {
 	private firstLoad = false;
 	@property({ type: Object }) chart!: Chart;
@@ -23,22 +23,21 @@ export class CtChartJS extends LitElement {
 	@property({ type: Boolean }) autoadjust = false;
 	@property({ type: Number }) x_ = 400;
 	@property({ type: Number }) y_ = 400;
-	@property({ type: Object }) sizeChart = (x: number, y: number) =>
-		html`
-			<style>
-				canvas,
-				.chart-size {
-					height: ${y + `px!important`};
-					width: 100% !important;
-					max-width: ${x + `px!important`};
-					min-width: 100px;
-				}
-				.chartjs-size-monitor {
-					display: none !important;
-				}
-			</style>
-		`;
-	@query('#canvas') $canvas!: HTMLCanvasElement;
+	@property({ type: Object }) sizeChart = (x: number, y: number) => html`
+		<style>
+			canvas,
+			.chart-size {
+				height: ${y + `px!important`};
+				width: 100% !important;
+				max-width: ${x + `px!important`};
+				min-width: 100px;
+			}
+			.chartjs-size-monitor {
+				display: none !important;
+			}
+		</style>
+	`;
+	@query("#canvas") $canvas!: HTMLCanvasElement;
 	ctx!: CanvasRenderingContext2D;
 	resize!: any;
 
@@ -72,7 +71,7 @@ export class CtChartJS extends LitElement {
 
 	async firstUpdated(_props: Map<PropertyKey, unknown>) {
 		await sleep(200);
-		console.log('Se inicio firstUpdated', this.id, this);
+		console.log("Se inicio firstUpdated", this.id, this);
 		this.firstLoad = true;
 		if (this.autopaint) {
 			this.init();
@@ -100,16 +99,16 @@ export class CtChartJS extends LitElement {
 			data: data,
 			options: { ...options }
 		});
-		window.addEventListener('resize', this.resize);
+		window.addEventListener("resize", this.resize);
 	}
 
 	paint() {
-		console.log('Se inicio paint', this.id, this);
+		console.log("Se inicio paint", this.id, this);
 
 		let data: ChartData = this.data || {};
 		let options: ChartOptions = this.options || {};
 		if (!this.chart) {
-			let ctx: CanvasRenderingContext2D = this.shadowRoot!.querySelector('canvas')!.getContext('2d')!;
+			let ctx: CanvasRenderingContext2D = this.shadowRoot!.querySelector("canvas")!.getContext("2d")!;
 			this.chart = new Chart(ctx, {
 				type: this.type,
 				data: data,
@@ -133,18 +132,18 @@ export class CtChartJS extends LitElement {
 		// 	dataset.data = this.observe(dataset.data);
 		// 	return this.observe(dataset);
 		// });
-		window.addEventListener('resize', this.resize);
+		window.addEventListener("resize", this.resize);
 	}
 
 	updated(_changedProperties: PropertyValues<this>) {
-		if ((_changedProperties.has('data') || _changedProperties.has('options') || _changedProperties.has('type')) && this.firstLoad) {
+		if ((_changedProperties.has("data") || _changedProperties.has("options") || _changedProperties.has("type")) && this.firstLoad) {
 			this.paint();
 		}
 	}
 
 	disconnectedCallback() {
 		this.chart.destroy();
-		window.removeEventListener('resize', this.resize);
+		window.removeEventListener("resize", this.resize);
 		super.disconnectedCallback();
 	}
 
@@ -167,7 +166,7 @@ export class CtChartJS extends LitElement {
 	 */
 	public updateChart = (): void => {
 		if (this.chart) {
-			console.log('update');
+			console.log("update");
 
 			this.chart.update();
 		}

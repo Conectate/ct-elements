@@ -1,10 +1,11 @@
-import '@conectate/ct-card';
-import '@conectate/ct-date';
-import './code-example/code-example';
+import "@conectate/ct-card";
+import "@conectate/ct-date";
 
-import { css, CtLit, customElement, html } from '@conectate/ct-lit';
+import "./code-example/code-example";
 
-@customElement('demo-ct-date')
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+
+@customElement("demo-ct-date")
 export class DemoCtDate extends CtLit {
 	static styles = [
 		css`
@@ -27,7 +28,7 @@ export class DemoCtDate extends CtLit {
 			}
 		`
 	];
-	name = 'ct-date';
+	name = "ct-date";
 	render() {
 		return html`
 			<header class="card-content">
@@ -38,7 +39,7 @@ export class DemoCtDate extends CtLit {
 	}
 	example() {
 		return html` <code-example class="language-html">
-			${``.replaceAll('\t', '    ')}
+			${``.replaceAll("\t", "    ")}
 			<div slot="demo">
 				<ct-date label="date"></ct-date>
 			</div>

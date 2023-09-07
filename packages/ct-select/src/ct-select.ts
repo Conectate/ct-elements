@@ -1,10 +1,10 @@
-import './ct-select-dialog';
+import "./ct-select-dialog";
 
-import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property, query } from '@conectate/ct-lit';
-import { css, html, TemplateResult } from 'lit';
+import { sleep } from "@conectate/ct-helpers";
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { TemplateResult, css, html } from "lit";
 
-import { showCtSelect } from './ct-select-dialog';
+import { showCtSelect } from "./ct-select-dialog";
 
 export interface KeyValueCtSelect<V = any> {
 	text?: string;
@@ -24,7 +24,7 @@ export interface KeyValueCtSelect<V = any> {
  * @fires value - Cuando el valor del select Cambia
  * @fires items - Cuando se setean nuevos items al element
  */
-@customElement('ct-select')
+@customElement("ct-select")
 export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
 	static styles = [
 		css`
@@ -52,7 +52,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 
 			:host([required]) > #c > .label:after {
-				content: var(--ct-indicator, '*');
+				content: var(--ct-indicator, "*");
 				color: var(--color-error, #ed4f32);
 				margin-left: 4px;
 				width: 1.5em;
@@ -93,13 +93,13 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				transition: all 0.2s;
 			}
 
-			::slotted([slot='prefix']) {
+			::slotted([slot="prefix"]) {
 				display: inline-block;
 				margin-right: 0.5em;
 			}
 
 			#input.has-value,
-			#container.has-value > ::slotted([slot='prefix']) {
+			#container.has-value > ::slotted([slot="prefix"]) {
 				padding-top: 1.1em;
 			}
 
@@ -243,28 +243,28 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 		`
 	];
-	@query('#container') $container!: HTMLElement;
-	@query('#input') $input!: HTMLInputElement;
-	@query('#c') $c!: HTMLElement;
+	@query("#container") $container!: HTMLElement;
+	@query("#input") $input!: HTMLInputElement;
+	@query("#c") $c!: HTMLElement;
 	@property({ type: Boolean, reflect: true }) disabled = false;
-	@property({ type: String }) raw_placeholder = '';
-	okPlaceholder: string = 'Ok';
-	cancelPlaceholder: string = 'Cancel';
-	selectedPlaceholder: string = 'Items selected';
+	@property({ type: String }) raw_placeholder = "";
+	okPlaceholder: string = "Ok";
+	cancelPlaceholder: string = "Cancel";
+	selectedPlaceholder: string = "Items selected";
 	label: any;
 	invalid: any;
-	valuePlaceholder = '';
-	placeholder = '';
-	searchPlaceholder = 'Search...';
+	valuePlaceholder = "";
+	placeholder = "";
+	searchPlaceholder = "Search...";
 	preventClick = false;
-	order?: 'asc' | 'desc';
-	textProperty = 'text';
-	valueProperty = 'value';
+	order?: "asc" | "desc";
+	textProperty = "text";
+	valueProperty = "value";
 	multi = false;
-	_value?: T['value'];
+	_value?: T["value"];
 	_text: any;
 	_items: T[] = [];
-	ttl: string = '';
+	ttl: string = "";
 	searchable = false;
 	required: boolean = false;
 	renderItem?: (item: T, index: number, array: T[]) => TemplateResult<1>;
@@ -272,8 +272,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	render() {
 		return html`
 			<div id="c">
-				${this.label ? html` <label class="label h4" for="input">${this.label}</label> ` : ''}
-				<div id="container" @click="${this.onClickContainer}" class="${this.invalid ? 'error' : ''}">
+				${this.label ? html` <label class="label h4" for="input">${this.label}</label> ` : ""}
+				<div id="container" @click="${this.onClickContainer}" class="${this.invalid ? "error" : ""}">
 					${this.placeholder && html` <label class="float-label">${this.placeholder}</label> `}
 					<slot name="prefix"></slot>
 					<input id="input" .value="${this.valuePlaceholder}" placeholder="${this.placeholder || this.raw_placeholder}" />
@@ -291,32 +291,32 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			</div>
 		`;
 	}
-	searchIn = '';
+	searchIn = "";
 	timeout: any;
 	constructor() {
 		super();
 		this.items = [];
 		this.timeout = setTimeout(() => {
-			this.searchIn = '';
+			this.searchIn = "";
 		}, 1000);
 
 		// Only for single select
-		this.addEventListener('input', (e: any) => {
+		this.addEventListener("input", (e: any) => {
 			if (this.multi) return;
-			this.searchIn += e.data || '';
+			this.searchIn += e.data || "";
 			clearTimeout(this.timeout);
-			let items = this.items.filter((item) => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
+			let items = this.items.filter(item => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
 			//console.log(this.searchIn, items);
 			if (items.length > 0) {
 				this.$input.value = items[0][this.textProperty];
 			} else {
-				this.$input.value = this.items.find((item) => item[this.valueProperty] == this.value)?.[this.textProperty];
+				this.$input.value = this.items.find(item => item[this.valueProperty] == this.value)?.[this.textProperty];
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
 					this.value = items[0][this.valueProperty];
 				}
-				this.searchIn = '';
+				this.searchIn = "";
 			}, 1000);
 		});
 	}
@@ -326,7 +326,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	typeOf(obj: any) {
-		return {}.toString.call(obj).split(' ')[1].slice(0, -1).toLowerCase();
+		return {}.toString.call(obj).split(" ")[1].slice(0, -1).toLowerCase();
 	}
 
 	computeValues() {
@@ -341,14 +341,14 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 					let values = this.value[j];
 					if (items[this.valueProperty] == values) {
 						strBuilder.push(items[this.textProperty]);
-					} else if (this.typeOf(values) == 'object') {
+					} else if (this.typeOf(values) == "object") {
 						if (JSON.stringify(items[this.valueProperty]) == JSON.stringify(values)) {
 							strBuilder.push(items[this.textProperty]);
 						}
 					}
 				}
 			}
-			this.valuePlaceholder = strBuilder.length > 3 ? strBuilder.length + ' ' + this.selectedPlaceholder : strBuilder.join(', ');
+			this.valuePlaceholder = strBuilder.length > 3 ? strBuilder.length + " " + this.selectedPlaceholder : strBuilder.join(", ");
 		} else {
 			for (let i = 0; i < this.items.length; i++) {
 				let items = this.items[i];
@@ -357,12 +357,12 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 					return;
 				}
 			}
-			this.valuePlaceholder = '';
+			this.valuePlaceholder = "";
 			//this.value = null;
 		}
 	}
 
-	set value(val: T['value']) {
+	set value(val: T["value"]) {
 		if (this._value !== val) {
 			this._value = val;
 			this.setValue(val);
@@ -371,15 +371,15 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	get value() {
 		return this._value!;
 	}
-	async setValue(val?: T['value']) {
+	async setValue(val?: T["value"]) {
 		await this.updateComplete;
-		this.dispatchEvent(new CustomEvent('value', { detail: { value: val } }));
+		this.dispatchEvent(new CustomEvent("value", { detail: { value: val } }));
 		this.computeValues();
 		if (this.placeholder) {
 			var isEmpty = this.value == null;
 			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$container);
-			this.$container.classList.toggle('has-value', !isEmpty);
-			this.$input.classList.toggle('has-value', !isEmpty);
+			this.$container.classList.toggle("has-value", !isEmpty);
+			this.$input.classList.toggle("has-value", !isEmpty);
 		}
 	}
 
@@ -395,7 +395,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 					let el = this.items[i];
 					if (el[this.valueProperty] == this.value[j]) {
 						items.push(el[this.textProperty]);
-					} else if (this.typeOf(this.value[j]) == 'object') {
+					} else if (this.typeOf(this.value[j]) == "object") {
 						if (JSON.stringify(el[this.valueProperty]) == JSON.stringify(this.value[j])) {
 							items.push(el[this.textProperty]);
 						}
@@ -425,13 +425,13 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	set items(val) {
 		if (this.order)
 			this._items = val.sort((a, b) =>
-				this.order == 'asc'
+				this.order == "asc"
 					? a[this.textProperty].charCodeAt(0) - b[this.textProperty].charCodeAt(0)
 					: b[this.textProperty].charCodeAt(0) - a[this.textProperty].charCodeAt(0)
 			);
 		else this._items = val;
 		this.updateComplete.then(() => {
-			this.dispatchEvent(new CustomEvent('items', { detail: { value: val } }));
+			this.dispatchEvent(new CustomEvent("items", { detail: { value: val } }));
 			this.computeValues();
 		});
 	}
@@ -509,7 +509,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	 */
 	async showDialog(): Promise<void> {
 		this.invalid = false;
-		let ctSelect = showCtSelect<T['value']>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
+		let ctSelect = showCtSelect<T["value"]>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
 			multi: this.multi,
 			searchable: this.searchable,
 			searchPlaceholder: this.searchPlaceholder,
@@ -521,7 +521,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		if (value !== undefined) {
 			this.value = value;
 		} else {
-			this.dispatchEvent(new CustomEvent('dismiss', { detail: {} }));
+			this.dispatchEvent(new CustomEvent("dismiss", { detail: {} }));
 		}
 		if (this.required && this.value == null) {
 			this.invalid = true;
@@ -536,14 +536,14 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	async bounce() {
-		this.$c.classList.add('bounce');
+		this.$c.classList.add("bounce");
 		await sleep(1000);
-		this.$c.classList.remove('bounce');
+		this.$c.classList.remove("bounce");
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-select': CtSelect;
+		"ct-select": CtSelect;
 	}
 }

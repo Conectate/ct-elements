@@ -8,8 +8,8 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://wc.conectate.app/PATENTS.txt
  */
-import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, css, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 /**
  *
@@ -22,7 +22,7 @@ import { customElement, property } from 'lit/decorators.js';
  * @attr decorator - Add box-shadow to element
  * @attr padding - Add box-shadow to element
  */
-@customElement('ct-card')
+@customElement("ct-card")
 export class CtCard extends LitElement {
 	/**
 	 * Add border-top to card with --color-app  CSS var
@@ -92,7 +92,7 @@ export class CtCard extends LitElement {
 
 	render() {
 		return html`
-			${this.decorator ? html`<div class="dec"></div>` : ''}
+			${this.decorator ? html`<div class="dec"></div>` : ""}
 			<slot></slot>
 		`;
 	}
@@ -100,6 +100,6 @@ export class CtCard extends LitElement {
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-card': CtCard;
+		"ct-card": CtCard;
 	}
 }

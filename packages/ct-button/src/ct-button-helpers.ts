@@ -7,14 +7,14 @@ const state = new Map<HTMLElement | string, HTMLElement | RoverOptions>();
 
 export const rovingIndex = ({ element: rover, target: selector, targets }: { element: HTMLElement; target?: string; targets?: NodeListOf<HTMLElement> | HTMLElement[] }) => {
 	// this api allows empty or a query string
-	const target_query = selector || ':scope *';
+	const target_query = selector || ":scope *";
 	targets = targets || rover.querySelectorAll<HTMLElement>(target_query);
 	const startingPoint = targets[0];
 
 	// take container out of the focus flow
 	rover.tabIndex = -1;
 	// and all the children
-	targets.forEach((a) => (a.tabIndex = -1));
+	targets.forEach(a => (a.tabIndex = -1));
 	// except the first target, that accepts focus
 	startingPoint.tabIndex = 0;
 
@@ -28,40 +28,40 @@ export const rovingIndex = ({ element: rover, target: selector, targets }: { ele
 
 	// when container or children get focus
 	const onFocusin = () => {
-		if (state.get('last_rover') == rover) return;
+		if (state.get("last_rover") == rover) return;
 
 		activate(rover, (state.get(rover) as RoverOptions).active);
-		state.set('last_rover', rover);
+		state.set("last_rover", rover);
 	};
-	rover.addEventListener('focusin', onFocusin);
+	rover.addEventListener("focusin", onFocusin);
 
 	// watch for arrow keys
 	const onKeydown = (e: KeyboardEvent) => {
 		switch (e.code) {
-			case 'ArrowRight':
-			case 'ArrowDown':
+			case "ArrowRight":
+			case "ArrowDown":
 				e.preventDefault();
 				focusNextItem(rover);
 				break;
-			case 'ArrowLeft':
-			case 'ArrowUp':
+			case "ArrowLeft":
+			case "ArrowUp":
 				e.preventDefault();
 				focusPreviousItem(rover);
 				break;
 		}
 	};
-	rover.addEventListener('keydown', onKeydown);
+	rover.addEventListener("keydown", onKeydown);
 
 	const cleanup = () => {
-		rover.removeEventListener('focusin', onFocusin);
-		rover.removeEventListener('keydown', onKeydown);
-		rover.removeEventListener('DOMNodeRemoved', cleanup);
+		rover.removeEventListener("focusin", onFocusin);
+		rover.removeEventListener("keydown", onKeydown);
+		rover.removeEventListener("DOMNodeRemoved", cleanup);
 
 		state.delete(rover);
-		targets!.forEach((a) => (a.tabIndex = -1));
+		targets!.forEach(a => (a.tabIndex = -1));
 	};
 
-	rover.addEventListener('DOMNodeRemovedFromDocument', cleanup);
+	rover.addEventListener("DOMNodeRemovedFromDocument", cleanup);
 };
 
 const focusNextItem = (rover: HTMLElement) => {

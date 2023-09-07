@@ -11,13 +11,12 @@ The `<ct-bottom-sheet>` module contains extensions to turn modal dialogs into bo
 ## Basic Example
 
 ```typescript
+import { CtBottomSheet } from "@conectate/ct-bottom-sheet";
 // import { ... } from 'lit';
 // @conectate/ct-lit is a base class wrapper of lit
-import { CtLit, css, customElement, html, property } from '@conectate/ct-lit';
+import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
 
-import { CtBottomSheet } from '@conectate/ct-bottom-sheet';
-
-@customElement('demo-ct-bottom-sheet')
+@customElement("demo-ct-bottom-sheet")
 export class DemoCtBottomSheet extends CtLit {
 	static styles = [
 		css`
@@ -34,7 +33,7 @@ export class DemoCtBottomSheet extends CtLit {
 		`
 	];
 
-	@query('ct-bottom-sheet') botton!: CtBottomSheet;
+	@query("ct-bottom-sheet") botton!: CtBottomSheet;
 
 	render() {
 		return html`<ct-button @click=${() => this.botton.open()} raised>Open</ct-button>
@@ -61,5 +60,4 @@ export class DemoCtBottomSheet extends CtLit {
 			</ct-bottom-sheet>`;
 	}
 }
-
 ```

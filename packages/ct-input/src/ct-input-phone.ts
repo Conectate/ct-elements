@@ -1,21 +1,21 @@
-import './ct-input-container';
+import "./ct-input-container.js";
 
-import { CtLit, customElement, query } from '@conectate/ct-lit';
-import { css, html } from 'lit';
+import { CtLit, customElement, query } from "@conectate/ct-lit";
+import { css, html } from "lit";
 
 /**
  * @element ct-input-phone
  */
-@customElement('ct-input-phone')
+@customElement("ct-input-phone")
 export class CtInputPhone extends CtLit {
 	code?: number = 502;
-	phone?: string = '';
+	phone?: string = "";
 	invalid: boolean = false;
-	label: string = '';
-	errorMessage: string = '';
+	label: string = "";
+	errorMessage: string = "";
 	required: boolean = false;
-	@query('#cd') $cd!: HTMLInputElement;
-	@query('#phone') $phone!: HTMLInputElement;
+	@query("#cd") $cd!: HTMLInputElement;
+	@query("#phone") $phone!: HTMLInputElement;
 
 	static styles = [
 		css`
@@ -86,7 +86,7 @@ export class CtInputPhone extends CtLit {
 					<span class="sep">)</span>
 					<input
 						id="phone"
-						.value="${this.phone || ''}"
+						.value="${this.phone || ""}"
 						@input="${() => (this.phone = this.$phone.value)}"
 						maxlength="17"
 						size="15"
@@ -102,7 +102,7 @@ export class CtInputPhone extends CtLit {
 
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.update(cp);
-		if (cp.has('code')) this.focusPhone(this.code);
+		if (cp.has("code")) this.focusPhone(this.code);
 	}
 
 	static get properties() {
@@ -123,7 +123,7 @@ export class CtInputPhone extends CtLit {
 
 	validate() {
 		let code = this.code || 0,
-			phone = this.phone || '';
+			phone = this.phone || "";
 		if (code > 0 && phone.trim().length > 4) {
 			this.invalid = false;
 		} else {

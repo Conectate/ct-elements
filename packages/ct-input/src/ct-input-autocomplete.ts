@@ -1,16 +1,17 @@
-import './ct-autocomplete-suggestions';
-import './ct-input';
+import "./ct-autocomplete-suggestions";
+import "./ct-input";
 
-import { sleep } from '@conectate/ct-helpers';
-import { CtLit, customElement, property, query, state } from '@conectate/ct-lit';
-import { html } from 'lit';
+import { sleep } from "@conectate/ct-helpers";
+import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
+import { html } from "lit";
+
 /**
  * # `ct-input-autocomplete`
  *
  * @group ct-elements
  * @element ct-input-autocomplete
  */
-@customElement('ct-input-autocomplete')
+@customElement("ct-input-autocomplete")
 export class CtInputAutocomplete extends CtLit {
 	render() {
 		return html`
@@ -51,20 +52,20 @@ export class CtInputAutocomplete extends CtLit {
 			</ct-autocomplete-suggestions>
 		`;
 	}
-	@query('#autocompleteInput') $autocompleteInput!: HTMLInputElement;
-	@query('#autocompleteSuggestions') $autocompleteSuggestions!: any;
-	@property({ type: String }) label = '';
-	@property({ type: String }) placeholder = '';
-	@property({ type: String }) errorMessage = '';
+	@query("#autocompleteInput") $autocompleteInput!: HTMLInputElement;
+	@query("#autocompleteSuggestions") $autocompleteSuggestions!: any;
+	@property({ type: String }) label = "";
+	@property({ type: String }) placeholder = "";
+	@property({ type: String }) errorMessage = "";
 	@property({ type: Boolean }) required = false;
 	@property({ type: Boolean }) compute = false;
 	@property({ type: Boolean }) remote = false;
 	@property({ type: Number }) maxlength!: number;
 	@property({ type: Array }) source: any[] = [];
-	@property({ type: String }) textProperty = 'text';
-	@property({ type: String }) valueProperty = 'value';
+	@property({ type: String }) textProperty = "text";
+	@property({ type: String }) valueProperty = "value";
 	@property({ type: Object }) renderItem = (item: any, index: number) => html`<button>item ${index}</button>`;
-	@state() _text: string = '';
+	@state() _text: string = "";
 	@state() _value?: any = undefined;
 
 	async onBlur() {
@@ -80,8 +81,8 @@ export class CtInputAutocomplete extends CtLit {
 		if (this._value != val) {
 			let old = this._value;
 			this._value = val;
-			this.requestUpdate('value', old);
-			this.dispatchEvent(new CustomEvent('value', { detail: { value: val } }));
+			this.requestUpdate("value", old);
+			this.dispatchEvent(new CustomEvent("value", { detail: { value: val } }));
 			// Si seteo un valor y este existe en el source entonces
 			for (let i = 0; this.compute && this.source && i < this.source.length; i++) {
 				let el = this.source[i];
@@ -101,8 +102,8 @@ export class CtInputAutocomplete extends CtLit {
 		if (this._text != text) {
 			let old = this._text;
 			this._text = text;
-			this.requestUpdate('text', old);
-			this.dispatchEvent(new CustomEvent('text', { detail: { value: text } }));
+			this.requestUpdate("text", old);
+			this.dispatchEvent(new CustomEvent("text", { detail: { value: text } }));
 			for (let i = 0; this.compute && this.source && i < this.source.length; i++) {
 				let el = this.source[i];
 				if (text == el.text) {
@@ -119,6 +120,6 @@ export class CtInputAutocomplete extends CtLit {
 }
 declare global {
 	interface HTMLElementTagNameMap {
-		'ct-input-autocomplete': CtInputAutocomplete;
+		"ct-input-autocomplete": CtInputAutocomplete;
 	}
 }
