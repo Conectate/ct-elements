@@ -1,1 +1,1 @@
-export { CtScrollThreshold } from "./ct-scroll-threshold";
+export { CtScrollThreshold } from "./ct-scroll-threshold.js";

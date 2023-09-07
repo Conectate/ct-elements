@@ -1,9 +1,9 @@
 import "@conectate/ct-button";
 
-import "./render-item";
+import "./render-item.js";
 
 import { CtBottomSheet } from "@conectate/ct-bottom-sheet";
-import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
+import { css, CtLit, customElement, html, query } from "@conectate/ct-lit";
 
 @customElement("demo-ct-bottom-sheet")
 export class DemoCtBottomSheet extends CtLit {

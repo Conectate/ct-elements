@@ -1,9 +1,9 @@
 import "@conectate/ct-card";
 import "@conectate/ct-icon/ct-icon-button.js";
 
-import "./code-example/code-example.js";
+import "./code-example/code-example.js.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { css, CtLit, customElement, html } from "@conectate/ct-lit";
 
 @customElement("demo-ct-icon")
 export class DemoCtIcon extends CtLit {

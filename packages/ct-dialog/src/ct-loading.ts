@@ -1,10 +1,10 @@
-import "@conectate/lit-if";
 import "@conectate/ct-card";
 import "@conectate/ct-spinner";
+import "@conectate/lit-if";
 
 import { CtLit, customElement, html } from "@conectate/ct-lit";
 
-import { CtDialog, showCtDialog } from "./ct-dialog";
+import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
 @customElement("ct-loading")
 export class CtLoading extends CtLit {

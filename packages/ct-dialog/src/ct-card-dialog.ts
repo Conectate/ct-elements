@@ -2,7 +2,7 @@ import "@conectate/ct-card/ct-card";
 
 import { CtLit, customElement, html } from "@conectate/ct-lit";
 
-import { ConectateHistory, CtDialog, showCtDialog } from "./ct-dialog";
+import { ConectateHistory, CtDialog, showCtDialog } from "./ct-dialog.js";
 
 export function showCtCardDialog(el: HTMLElement, id?: string, history?: ConectateHistory) {
 	let cardDialog = document.createElement("ct-card-dialog") as CtCardDialog;

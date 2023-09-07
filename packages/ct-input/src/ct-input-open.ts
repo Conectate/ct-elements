@@ -12,7 +12,7 @@
 import { customElement, unsafeHTML } from "@conectate/ct-lit";
 import { html } from "lit";
 
-import { CtInput } from "./ct-input";
+import { CtInput } from "./ct-input.js";
 
 /**
  * # `ct-input-open`

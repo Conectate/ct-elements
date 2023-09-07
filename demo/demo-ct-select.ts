@@ -1,9 +1,9 @@
-import "@conectate/ct-select";
 import "@conectate/ct-card";
+import "@conectate/ct-select";
 
-import "./code-example/code-example";
+import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
+import { css, CtLit, customElement, html, query } from "@conectate/ct-lit";
 import { CtSelect } from "@conectate/ct-select";
 import { html as stripIndent } from "common-tags";
 

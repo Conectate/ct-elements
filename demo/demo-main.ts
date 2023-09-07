@@ -1,15 +1,15 @@
-import "./demo-ct-button";
-import "./demo-ct-checkbox";
-import "./demo-ct-radio";
-import "./demo-ct-select";
-import "./demo-ct-bottom-sheet";
-import "./demo-ct-date";
-import "./demo-ct-icon";
-import "./demo-ct-input";
+import "./demo-ct-bottom-sheet.js";
+import "./demo-ct-button.js";
+import "./demo-ct-checkbox.js";
+import "./demo-ct-date.js";
+import "./demo-ct-icon.js";
+import "./demo-ct-input.js";
+import "./demo-ct-radio.js";
+import "./demo-ct-select.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { css, CtLit, customElement, html } from "@conectate/ct-lit";
 
-import { applyTheme } from "./styles/shared-styles";
+import { applyTheme } from "./styles/shared-styles.js";
 
 @customElement("demo-main")
 export class DemoMain extends CtLit {

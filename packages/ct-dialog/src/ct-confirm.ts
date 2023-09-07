@@ -14,7 +14,7 @@ import "@conectate/ct-card";
 import { CtLit, customElement, html, query } from "@conectate/ct-lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
-import { CtDialog, showCtDialog } from "./ct-dialog";
+import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
 export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
 	let ctConfirm = new CTConfirmCupertino();

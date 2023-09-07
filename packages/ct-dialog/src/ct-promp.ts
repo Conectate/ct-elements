@@ -16,7 +16,7 @@ import "@conectate/ct-input";
 import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
 import { TemplateResult } from "lit";
 
-import { CtDialog, showCtDialog } from "./ct-dialog";
+import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
 export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { wordwrap?: boolean }): Promise<string | undefined> {
 	let ctPromp = new CTPromp();

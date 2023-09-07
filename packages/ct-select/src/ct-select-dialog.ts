@@ -3,7 +3,7 @@ import "@conectate/ct-card";
 import "@conectate/ct-dialog";
 import "@conectate/ct-input";
 
-import "./ct-select-item";
+import "./ct-select-item.js";
 
 import { CtDialog, showCtDialog } from "@conectate/ct-dialog";
 import { CtLit, property, query, state, unsafeHTML } from "@conectate/ct-lit";

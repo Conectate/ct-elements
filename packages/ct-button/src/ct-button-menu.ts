@@ -4,7 +4,7 @@ import { icon } from "@conectate/ct-icon/icon-list";
 import { LitElement, TemplateResult, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
-import { rovingIndex } from "./ct-button-helpers";
+import { rovingIndex } from "./ct-button-helpers.js";
 
 type leftRight = "left" | "right";
 type topBottom = "top" | "bottom";

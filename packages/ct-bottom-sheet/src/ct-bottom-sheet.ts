@@ -15,7 +15,7 @@ the License.
 import { LitElement, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
-import sheetStyles from "./styles";
+import sheetStyles from "./styles.js";
 
 // Keeps track of the toast currently opened.
 let currentSheet: CtBottomSheet | null = null;

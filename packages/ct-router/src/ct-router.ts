@@ -3,7 +3,7 @@ import { TemplateResult, css, html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { installRouter } from "pwa-helpers/router";
 
-import { C2Regexp, C2RegexpType, EvaluateParams } from "./path_to_regexp";
+import { C2Regexp, C2RegexpType, EvaluateParams } from "./path_to_regexp.js";
 
 export interface Page {
 	path: string;

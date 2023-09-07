@@ -1,9 +1,9 @@
 import "@conectate/ct-card";
 import "@conectate/ct-date";
 
-import "./code-example/code-example";
+import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { css, CtLit, customElement, html } from "@conectate/ct-lit";
 
 @customElement("demo-ct-date")
 export class DemoCtDate extends CtLit {

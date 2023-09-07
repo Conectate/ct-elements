@@ -1,7 +1,8 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-import { CtButton } from "./ct-button";
+import { CtButton } from "./ct-button.js";
+
 /**
  * @element ct-button-split
  */

@@ -1,4 +1,4 @@
-import "./ct-textarea-autogrow";
+import "./ct-textarea-autogrow.js";
 
 /**
     @license		

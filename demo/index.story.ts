@@ -1,3 +1,3 @@
-import * as s from "../stories";
+import * as s from "../stories.js";
 
 console.log(s);

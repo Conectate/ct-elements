@@ -2,7 +2,7 @@ import "@conectate/ct-button";
 
 import { html } from "lit";
 
-import { LitStory } from "./types";
+import { LitStory } from "./types.js";
 
 export default {
 	title: "ct-elements/ct-button",

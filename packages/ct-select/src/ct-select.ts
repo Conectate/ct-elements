@@ -1,10 +1,10 @@
-import "./ct-select-dialog";
+import "./ct-select-dialog.js";
 
 import { sleep } from "@conectate/ct-helpers";
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
 import { TemplateResult, css, html } from "lit";
 
-import { showCtSelect } from "./ct-select-dialog";
+import { showCtSelect } from "./ct-select-dialog.js";
 
 export interface KeyValueCtSelect<V = any> {
 	text?: string;

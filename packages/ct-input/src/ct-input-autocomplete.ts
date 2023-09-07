@@ -1,5 +1,5 @@
-import "./ct-autocomplete-suggestions";
-import "./ct-input";
+import "./ct-autocomplete-suggestions.js";
+import "./ct-input.js";
 
 import { sleep } from "@conectate/ct-helpers";
 import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
