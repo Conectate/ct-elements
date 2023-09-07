@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-radio",
-	"version": "3.11.0",
+	"version": "3.12.0",
 	"description": "HTML Radio web component based on Material design",
 	"main": "ct-radio.js",
 	"types": "ct-radio.d.ts",
@@ -24,7 +24,7 @@
 		"Web Components"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.11.0",
+		"@conectate/ct-lit": "^3.12.0",
 		"tslib": "^2.6.1"
 	},
 	"publishConfig": {
