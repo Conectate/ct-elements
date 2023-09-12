@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-button",
-	"version": "3.12.0",
+	"version": "3.12.1",
 	"description": "HTML Button made with Web Components and Lit",
 	"main": "ct-button.js",
 	"types": "ct-button.d.ts",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-icon": "^3.12.0",
+		"@conectate/ct-icon": "^3.12.1",
 		"lit": "^2.8.0",
 		"tslib": "^2.6.1"
 	},
