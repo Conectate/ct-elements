@@ -514,7 +514,13 @@ export class CtInput extends CtLit {
 	get value(): string {
 		return this.$input?.value || "";
 	}
+	/** @deprecated */
 	get valueAsnumber() {
+		console.warn("valueAsnumber is deprecated, use valueAsNumber");
+		return this.valueAsNumber;
+	}
+
+	get valueAsNumber() {
 		return this.$input?.valueAsNumber;
 	}
 	get valueAsDate() {

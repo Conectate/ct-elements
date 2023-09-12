@@ -1,7 +1,7 @@
-import "@conectate/ct-list/ct-list-item";
 import "@conectate/ct-button/ct-button";
 import "@conectate/ct-button/ct-button-menu";
 import "@conectate/ct-button/ct-button-split";
+import "@conectate/ct-list/ct-list-item";
 import "@conectate/ct-menu/ct-menu";
 
 import { CtButtonSplit } from "@conectate/ct-button/ct-button-split";
@@ -35,7 +35,19 @@ export class DemoCtButtom extends CtLit {
 				<ct-button flat>flat</ct-button>
 				<ct-button gap><ct-icon icon="account_circle" slot="prefix"></ct-icon>Button with [gap]</ct-button>
 
-				<ct-button><ct-icon slot="suffix" icon="account_circle"></ct-icon>raised with slot suffix ct-icon</ct-button>
+				<ct-button gap>
+					raised with slot suffix ct-icon and gap
+					<ct-icon slot="suffix" icon="account_circle"></ct-icon>
+				</ct-button>
+				<ct-button gap>
+					<ct-icon slot="prefix" icon="home"></ct-icon>
+					Home
+				</ct-button>
+
+				<ct-button gap>
+					<ct-icon slot="prefix" id="t" icon="home" font="Icons" fontstyle="Round"></ct-icon>
+					Home
+				</ct-button>
 			</div>
 
 			<!--  -->

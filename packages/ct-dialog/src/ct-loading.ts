@@ -58,6 +58,12 @@ export function showCtLoading(id?: string, str?: string): CtDialog {
 	ctConfirm.dialog = showCtDialog(ctConfirm, id);
 	return ctConfirm.dialog;
 }
+export function showCtLoading2(id?: string, str?: string): CtLoading {
+	let ctConfirm = document.createElement("ct-loading") as CtLoading;
+	if (str) ctConfirm.ttl = str;
+	ctConfirm.dialog = showCtDialog(ctConfirm, id);
+	return ctConfirm;
+}
 export { CtDialog };
 // @ts-ignore
 window.showCtLoading = showCtLoading;

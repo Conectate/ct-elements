@@ -1,4 +1,4 @@
-import "@conectate/ct-input/ct-input-container";
+import "@conectate/ct-input/ct-input-container.js";
 
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
 import { TemplateResult, css, html } from "lit";
@@ -336,7 +336,8 @@ export class CtDate extends CtLit {
 	}
 
 	addZero(n: number | string, onError = "1") {
-		n = parseInt(n as string);
+		if (`${n}` == "") return "";
+		n = Number(n);
 		if (`${n}` == "NaN") {
 			return `0${onError}`;
 		}

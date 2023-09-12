@@ -1,6 +1,6 @@
-import "@conectate/ct-icon/ct-icon";
+import "@conectate/ct-icon";
 
-import type { icon } from "@conectate/ct-icon/icon-list";
+import type { icon } from "@conectate/ct-icon/icon-list.js";
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
 import { css, html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";

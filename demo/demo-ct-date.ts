@@ -3,7 +3,7 @@ import "@conectate/ct-date";
 
 import "./code-example/code-example.js";
 
-import { css, CtLit, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
 @customElement("demo-ct-date")
 export class DemoCtDate extends CtLit {
@@ -42,6 +42,7 @@ export class DemoCtDate extends CtLit {
 			${``.replaceAll("\t", "    ")}
 			<div slot="demo">
 				<ct-date label="date"></ct-date>
+				<ct-date label="date" showhour></ct-date>
 			</div>
 		</code-example>`;
 	}
