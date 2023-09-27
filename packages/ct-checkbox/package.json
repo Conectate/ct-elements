@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-checkbox",
-	"version": "3.12.1",
+	"version": "3.12.2",
 	"description": "HTML checkbox web component based on Material design",
 	"main": "ct-checkbox.js",
 	"types": "ct-checkbox.d.ts",
