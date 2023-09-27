@@ -15,7 +15,7 @@ import { classMap } from "lit/directives/class-map.js";
  */
 @customElement("ct-checkbox")
 export class CtCheckbox extends CtLit {
-	@property({ type: Boolean, reflect: true }) indeterminate?: boolean;
+	@property({ type: Boolean, reflect: true }) indeterminate = false;
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
 	@property({ type: Object }) value: any;
@@ -144,7 +144,7 @@ export class CtCheckbox extends CtLit {
 
 	render() {
 		return html`
-			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} />
+			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} @change=${this.handleChange} />
 			<div class="c">
 				<span id="box">
 					<ct-icon
@@ -174,12 +174,26 @@ export class CtCheckbox extends CtLit {
 		this.checked = this.$input.checked;
 	}
 
+	private handleChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		this.checked = target.checked;
+		this.indeterminate = target.indeterminate;
+		redispatchEvent(this, event);
+	}
+
 	change() {
 		if (this.checked) this.indeterminate = false;
 		this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.$input.checked } }));
 	}
 }
 
+function redispatchEvent(wc: Element, event: Event) {
+	if (event.bubbles && (!wc.shadowRoot || event.composed)) event.stopPropagation();
+	const copy = Reflect.construct(event.constructor, [event.type, event]);
+	const dispatched = wc.dispatchEvent(copy);
+	if (!dispatched) event.preventDefault();
+	return dispatched;
+}
 declare global {
 	interface HTMLElementTagNameMap {
 		"ct-checkbox": CtCheckbox;

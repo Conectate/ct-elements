@@ -134,7 +134,7 @@ export class CtRadio extends CtLit {
 	@query("#input") $input!: HTMLInputElement;
 	render() {
 		return html`
-			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} />
+			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} @change=${this.handleChange} />
 			<div class="c">
 				<span id="box">
 					<div id="checkmark" dir="ltr"></div>
@@ -164,6 +164,11 @@ export class CtRadio extends CtLit {
 	isFn(obj: any) {
 		return !!(obj && obj.constructor && obj.call && obj.apply);
 	}
+	private handleChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		this.checked = target.checked;
+		redispatchEvent(this, event);
+	}
 
 	change() {
 		let parent: HTMLElement | null = (this.isFn(this.parent) ? this.parent() : false) || this.parent || this.parentElement || this.parentNode;
@@ -181,6 +186,14 @@ export class CtRadio extends CtLit {
 			this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.checked } }));
 		}
 	}
+}
+
+function redispatchEvent(wc: Element, event: Event) {
+	if (event.bubbles && (!wc.shadowRoot || event.composed)) event.stopPropagation();
+	const copy = Reflect.construct(event.constructor, [event.type, event]);
+	const dispatched = wc.dispatchEvent(copy);
+	if (!dispatched) event.preventDefault();
+	return dispatched;
 }
 
 declare global {
