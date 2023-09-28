@@ -161,7 +161,6 @@ export class CtCheckbox extends CtLit {
 
 	protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
 		if (_changedProperties.has("checked") && _changedProperties.get("checked") != undefined) {
-			this.indeterminate = false;
 			this.change();
 		}
 	}
