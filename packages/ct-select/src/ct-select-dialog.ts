@@ -297,9 +297,10 @@ export class CtSelectDialog extends CtLit {
 	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
 		this.itemsFiltered = [...this.items];
-		setTimeout(() => {
-			this.$search.focus();
-		}, 500);
+		if (this.searchable)
+			setTimeout(() => {
+				this.$search?.focus();
+			}, 500);
 	}
 
 	/**
