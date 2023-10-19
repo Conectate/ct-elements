@@ -319,8 +319,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
+					let old = this.value;
 					this.value = items[0][this.valueProperty];
-					this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value } }));
+					if (this.value !== old) this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value, old } }));
 				}
 				this.searchIn = "";
 			}, 1000);
@@ -524,8 +525,9 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		if (this.renderItem) ctSelect.dialog.renderItem = this.renderItem;
 		let value = await ctSelect.result;
 		if (value !== undefined) {
+			let old = this.value;
 			this.value = value;
-			this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value } }));
+			if (this.value !== old) this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value, old } }));
 		} else {
 			this.dispatchEvent(new CustomEvent("dismiss", { detail: {} }));
 		}
