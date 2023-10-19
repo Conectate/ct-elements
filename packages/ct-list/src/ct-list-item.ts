@@ -77,8 +77,10 @@ export class CtListItem extends CtLit {
 	/** Link */
 	@property({ type: String }) target?: "_self" | "_top" | "_blank";
 
+	@property({ type: Boolean, reflect: true, attribute: "keep-open" }) keepOpen = false;
+
 	render() {
-		let button = html`<button>
+		let button = html`<button @click=${this.closeMenu}>
 			<slot name="prefix"></slot>
 			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon)}></ct-icon>` : ""}
 			<div class="text">${this.text}<slot></slot></div>
@@ -88,6 +90,15 @@ export class CtListItem extends CtLit {
 		let href = this.href || this.link;
 		if (href) return html`<a href="${href}" target="${ifDefined(this.target)}"> ${button}</a> `;
 		return button;
+	}
+
+	closeMenu(e: MouseEvent) {
+		let menu = this.closest("ct-button-menu") || this.closest("md-menu");
+		if (menu && !this.keepOpen) {
+			this.blur();
+			// @ts-ignore
+			menu.open = false;
+		}
 	}
 }
 

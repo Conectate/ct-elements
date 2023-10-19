@@ -1,7 +1,7 @@
 import "@conectate/ct-icon";
 
 import { icon } from "@conectate/ct-icon/icon-list";
-import { LitElement, TemplateResult, css, html } from "lit";
+import { LitElement, PropertyValueMap, TemplateResult, css, html } from "lit";
 import { customElement, property, query } from "lit/decorators.js";
 
 import { rovingIndex } from "./ct-button-helpers.js";
@@ -112,6 +112,7 @@ export class CtButtonMenu extends LitElement {
 	@property({ type: String, reflect: true }) title = "Open for more actions";
 	@property({ type: Number, reflect: true }) tabindex = -1;
 	@property({ type: Boolean, reflect: true }) rotate = false;
+	@property({ type: Boolean, reflect: true }) open = false;
 	/** Location from opened */
 	@property({ type: String }) from?: topBottom | leftRight | `${topBottom}-${leftRight}` = "bottom-left";
 	/** Template Result of Trigger */
@@ -134,14 +135,17 @@ export class CtButtonMenu extends LitElement {
 			</div>`;
 	}
 	firstUpdated() {
-		this.addEventListener("focus", this.setAriaExpanded(true));
-		this.addEventListener("click", this.setAriaExpanded(true));
-		this.addEventListener("blur", this.setAriaExpanded(false));
+		this.addEventListener("focusin", () => {
+			this.open = true;
+		});
+		this.addEventListener("focusout", () => {
+			this.open = false;
+		});
 		this.addEventListener("keyup", (e: KeyboardEvent) => {
-			if (e.code === "Escape") (e.target as this)?.blur();
+			if (e.code === "Escape") this.open = false;
 		});
 
-		if (!this.keep) {
+		/* if (!this.keep) {
 			this.addEventListener("click", ev => {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -153,7 +157,7 @@ export class CtButtonMenu extends LitElement {
 					this.blur();
 				}, 100);
 			});
-		}
+		} */
 
 		switch (this.from) {
 			case "top": {
@@ -194,16 +198,22 @@ export class CtButtonMenu extends LitElement {
 				break;
 			}
 		}
-		this.extra();
+		// this.extra();
 	}
 	close() {
 		this.blur();
 	}
 
-	setAriaExpanded(value: boolean) {
-		return (e: FocusEvent) => {
-			this.setAttribute("aria-expanded", `${value}`);
-		};
+	protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+		if (_changedProperties.has("open") && _changedProperties.get("open") != undefined) {
+			if (this.open) {
+				this.setAttribute("aria-expanded", "true");
+			} else {
+				this.setAttribute("aria-expanded", "false");
+				this.popup.blur();
+				this.blur();
+			}
+		}
 	}
 
 	extra() {

@@ -80,6 +80,12 @@ export class DemoCtButtom extends CtLit {
 						<ct-list-item text="Save" icon="save"></ct-list-item>
 					</ct-button-menu>
 				</ct-button-split>
+				<ct-button-split raised>
+					<ct-button>custom</ct-button>
+					<ct-button-menu icon="expand_more" rotate keep>
+						<div style="width:200px;height:200px"><button>hola</button></div>
+					</ct-button-menu>
+				</ct-button-split>
 
 				<ct-button-split raised>
 					<a><ct-button>with &lt;a&gt;</ct-button></a>

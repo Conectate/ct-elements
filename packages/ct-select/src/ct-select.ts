@@ -23,6 +23,12 @@ export interface KeyValueCtSelect<V = any> {
  * @prop {T[]} items - items of select
  * @fires value - Cuando el valor del select Cambia
  * @fires items - Cuando se setean nuevos items al element
+ * @fires dismiss - Cuando se cierra el dialogo
+ * @cssProp --ct-indicator - Indicador de required
+ * @cssProp --ct-input-padding - Padding del input
+ * @cssProp --ct-input-height - Altura del input
+ * @cssProp --border-radius - Border radius del input
+ * @cssProp --color-error - Color de error
  */
 @customElement("ct-select")
 export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtLit {
@@ -33,7 +39,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				margin-bottom: 8px;
 				min-width: 250px;
 				cursor: pointer;
-				color: var(--color-on-surface, #535353);
 			}
 			:host > div {
 				width: 100%;
