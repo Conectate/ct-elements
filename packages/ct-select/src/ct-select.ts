@@ -315,6 +315,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
 					this.value = items[0][this.valueProperty];
+					this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value } }));
 				}
 				this.searchIn = "";
 			}, 1000);
@@ -322,14 +323,14 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	firstUpdated() {
-		this.computeValues();
+		this.computeValuesPlaceholder();
 	}
 
 	typeOf(obj: any) {
 		return {}.toString.call(obj).split(" ")[1].slice(0, -1).toLowerCase();
 	}
 
-	computeValues() {
+	computeValuesPlaceholder() {
 		if (this.multi) {
 			if (!Array.isArray(this.value)) {
 				return;
@@ -373,8 +374,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 	async setValue(val?: T["value"]) {
 		await this.updateComplete;
-		this.dispatchEvent(new CustomEvent("value", { detail: { value: val } }));
-		this.computeValues();
+		this.computeValuesPlaceholder();
 		if (this.placeholder) {
 			var isEmpty = this.value == null;
 			//console.log('if isEmpty', !isEmpty ? 'has-value' : !this.label ? 'has-value' : '--', this.$container);
@@ -432,7 +432,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		else this._items = val;
 		this.updateComplete.then(() => {
 			this.dispatchEvent(new CustomEvent("items", { detail: { value: val } }));
-			this.computeValues();
+			this.computeValuesPlaceholder();
 		});
 	}
 
@@ -520,13 +520,14 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		let value = await ctSelect.result;
 		if (value !== undefined) {
 			this.value = value;
+			this.dispatchEvent(new CustomEvent("value", { detail: { value: this.value } }));
 		} else {
 			this.dispatchEvent(new CustomEvent("dismiss", { detail: {} }));
 		}
 		if (this.required && this.value == null) {
 			this.invalid = true;
 		}
-		this.computeValues();
+		this.computeValuesPlaceholder();
 	}
 
 	validate() {
