@@ -11,11 +11,16 @@ import { ifDefined } from "lit/directives/if-defined.js";
  * @slot prefix - Content placed above the main content
  * @slot - Default content placed in the middle
  * @slot suffix - Content placed below the main content
+ * @cssProp --ct-list-item--white-space - white-space
  */
 @customElement("ct-list-item")
 export class CtListItem extends CtLit {
 	static styles = [
 		css`
+			:host {
+				--ct-icon-size: 21px;
+			}
+
 			:host,
 			a {
 				display: flex;
@@ -28,14 +33,12 @@ export class CtListItem extends CtLit {
 
 			button {
 				cursor: pointer;
-				-webkit-appearance: none;
-				-moz-appearance: none;
 				appearance: none;
 				background: none;
 				border: none;
 				display: inline-flex;
 				align-items: center;
-				white-space: nowrap;
+				white-space: var(--ct-list-item--white-space, nowrap);
 				font-family: inherit;
 				font-size: inherit;
 				font-weight: 500;
@@ -56,7 +59,6 @@ export class CtListItem extends CtLit {
 				flex: 1;
 			}
 			ct-icon {
-				--ct-icon-size: 21px;
 				margin-right: 16px;
 				width: 21px;
 				height: 21px;
@@ -82,7 +84,7 @@ export class CtListItem extends CtLit {
 	render() {
 		let button = html`<button @click=${this.closeMenu}>
 			<slot name="prefix"></slot>
-			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon)}></ct-icon>` : ""}
+			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>` : ""}
 			<div class="text">${this.text}<slot></slot></div>
 			<slot name="sufix"></slot>
 			<slot name="suffix"></slot>
