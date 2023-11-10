@@ -87,6 +87,12 @@ export class CtCard extends LitElement {
 				background: var(--color-app, linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%));
 				border-radius: 8px 8px 0 0;
 			}
+			@media only print {
+				:host {
+					border: 1px solid var(--color-borders, #8d8d8d38);
+					--ct-card-box-shadow: none;
+				}
+			}
 		`
 	];
 

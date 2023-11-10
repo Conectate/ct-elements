@@ -64,7 +64,12 @@ export interface ConectateHistory {
 	title: string;
 	href: string;
 }
-
+/**
+ * @cssProp --ct-dialog-width - Ancho del dialogo
+ * @cssProp --ct-dialog-height - Alto del dialogo
+ * @fires close - Se dispara cuando se cierra el dialogo
+ * @fires open - Se dispara cuando se abre el dialogo
+ */
 @customElement("ct-dialog")
 export class CtDialog extends CtLit {
 	@property({ type: String, reflect: true }) role: string = "alert";
@@ -108,11 +113,11 @@ export class CtDialog extends CtLit {
 				// Reviso si es menor al 5% de la pantalla
 				if ((elementY / bodyY) * 100 < 5) {
 					console.warn("[ct-dialog] El elemento no es visible");
-					if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+					if (this._element) this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
 				} else if ((elementY / bodyY) * 100 >= 78) {
 					// console.warn("El elemento esta desbordado");
 					if (!this.preferences.includes(DialogSizePreferences.fullsreen)) {
-						if (this._element) this._element.style.height = `${Math.floor(bodyY * 0.8)}px`;
+						if (this._element) this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
 					}
 				}
 			}
@@ -125,136 +130,139 @@ export class CtDialog extends CtLit {
 		}
 	}
 
-	static styles = css`
-		@keyframes in-modalFadeEffect {
-			from {
-				opacity: 0;
+	static styles = [
+		css`
+			@keyframes in-modalFadeEffect {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
 			}
-			to {
-				opacity: 1;
-			}
-		}
 
-		@keyframes in-scale-ct {
-			from {
-				transform: scale(0.1);
+			@keyframes in-scale-ct {
+				from {
+					transform: scale(0.1);
+				}
+				to {
+					transform: scale(1);
+				}
 			}
-			to {
-				transform: scale(1);
-			}
-		}
 
-		@keyframes in-scale-cupertino {
-			from {
-				transform: scale(1.2);
+			@keyframes in-scale-cupertino {
+				from {
+					transform: scale(1.2);
+				}
+				to {
+					transform: scale(1);
+				}
 			}
-			to {
-				transform: scale(1);
-			}
-		}
 
-		@keyframes in-slide-right {
-			from {
-				transform: translateX(100%);
-				transition-timing-function: ease-in-out;
+			@keyframes in-slide-right {
+				from {
+					transform: translateX(100%);
+					transition-timing-function: ease-in-out;
+				}
+				to {
+					transform: translateX(0);
+				}
 			}
-			to {
-				transform: translateX(0);
+			@keyframes in-slide-left {
+				from {
+					transform: translateX(-100%);
+					transition-timing-function: ease-in-out;
+				}
+				to {
+					transform: translateX(0);
+				}
 			}
-		}
-		@keyframes in-slide-left {
-			from {
-				transform: translateX(-100%);
-				transition-timing-function: ease-in-out;
+
+			@keyframes in-bottom-sheet {
+				from {
+					transform: translateY(100%);
+					transition-timing-function: ease-in-out;
+				}
+				to {
+					transform: translateY(0);
+				}
 			}
-			to {
-				transform: translateX(0);
+		`,
+		css`
+			:host {
+				display: flex;
+				position: fixed;
+				z-index: 110;
+				left: env(safe-area-inset-right, 0);
+				top: env(safe-area-inset-top, 0);
+				right: env(safe-area-inset-right, 0);
+				bottom: env(safe-area-inset-bottom, 0);
+				overflow-y: auto;
+				overflow-x: hidden;
+				-webkit-animation: in-modalFadeEffect 0.5s;
+				animation: in-modalFadeEffect 0.2s;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				font-family: "Roboto", sans-serif !important;
+				-webkit-box-align: center;
+				box-align: center;
+				-webkit-box-orient: vertical;
+				box-orient: vertical;
+				-webkit-flex-direction: column;
+				flex-direction: column;
+				box-sizing: border-box;
+				--mdc-theme-secondary: var(--color-primary);
+				--mdc-theme-primary: var(--color-primary);
+				--mdc-checkbox-unchecked-color: var(--color-on-background);
 			}
-		}
 
-		@keyframes in-bottom-sheet {
-			from {
-				transform: translateY(100%);
-				transition-timing-function: ease-in-out;
+			.overlay {
+				position: fixed;
+				left: env(safe-area-inset-right, 0);
+				top: env(safe-area-inset-top, 0);
+				right: env(safe-area-inset-right, 0);
+				bottom: env(safe-area-inset-bottom, 0);
+				background-color: rgba(0, 0, 0, 0.55);
+				animation: in-modalFadeEffect 0.2s;
+				z-index: -1;
 			}
-			to {
-				transform: translateY(0);
+
+			.anim-normal {
+				animation: in-scale-cupertino 0.25s;
 			}
-		}
+			.anim-cupertino {
+				animation: in-scale-cupertino 0.25s;
+			}
+			.anim-slide-right {
+				animation: in-slide-right 0.5s;
+			}
+			.anim-slide-left {
+				animation: in-slide-left 0.5s;
+			}
+			.anim-bottom-sheet {
+				animation: in-bottom-sheet 0.5s;
+			}
 
-		:host {
-			display: flex;
-			position: fixed;
-			z-index: 110;
-			left: 0;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			overflow-y: auto;
-			overflow-x: hidden;
-			-webkit-animation: in-modalFadeEffect 0.5s;
-			animation: in-modalFadeEffect 0.2s;
-			-webkit-align-items: center;
-			align-items: center;
-			-webkit-justify-content: center;
-			justify-content: center;
-			font-family: "Roboto", sans-serif !important;
-			-webkit-box-align: center;
-			box-align: center;
-			-webkit-box-orient: vertical;
-			box-orient: vertical;
-			-webkit-flex-direction: column;
-			flex-direction: column;
-			box-sizing: border-box;
-			--mdc-theme-secondary: var(--color-primary);
-			--mdc-theme-primary: var(--color-primary);
-			--mdc-checkbox-unchecked-color: var(--color-on-background);
-		}
+			.no-anim {
+				animation: none;
+			}
 
-		.overlay {
-			position: fixed;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100vh;
-			background-color: rgba(0, 0, 0, 0.55);
-			animation: in-modalFadeEffect 0.2s;
-			z-index: -1;
-		}
-
-		.anim-normal {
-			animation: in-scale-cupertino 0.25s;
-		}
-		.anim-cupertino {
-			animation: in-scale-cupertino 0.25s;
-		}
-		.anim-slide-right {
-			animation: in-slide-right 0.5s;
-		}
-		.anim-slide-left {
-			animation: in-slide-left 0.5s;
-		}
-		.anim-bottom-sheet {
-			animation: in-bottom-sheet 0.5s;
-		}
-
-		.no-anim {
-			animation: none;
-		}
-
-		.c {
-			display: block;
-			position: relative;
-			max-height: 80%;
-			max-width: 25cm;
-			width: 100%;
-			/* height: max-content; */
-			overflow: auto;
-			margin: 0;
-			box-sizing: border-box;
-			z-index: 200;
-		}
-	`;
+			.c {
+				display: block;
+				position: relative;
+				max-height: var(--ct-dialog-height, 80%);
+				max-width: var(--ct-dialog-width, 25cm);
+				width: 100%;
+				/* height: max-content; */
+				overflow: auto;
+				margin: 0;
+				box-sizing: border-box;
+				z-index: 200;
+			}
+		`
+	];
 
 	render() {
 		return html`
@@ -340,7 +348,7 @@ export class CtDialog extends CtLit {
 		};
 
 		this._clseDialogESC = (e: KeyboardEvent) => {
-			if (e.keyCode === 27) this.closeDialog(e, "keyup"); // esc
+			if (e.key === "Escape") this.closeDialog(e, "keyup"); // esc
 		};
 		window.addEventListener("popstate", this._closeDialog, false);
 		document.addEventListener("keyup", this._clseDialogESC, false);
@@ -410,6 +418,7 @@ export class CtDialog extends CtLit {
 				}
 				await sleep(70);
 				resolve(e as Event);
+				this.dispatchEvent(new CustomEvent("close", { detail: { event: e } }));
 				this.dispatchEvent(new CustomEvent("on-close", { detail: { event: e } }));
 			};
 			// espero que haga el mapping en el container
