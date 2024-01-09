@@ -127,7 +127,11 @@ export class CtButtonMenu extends LitElement {
 
 	render() {
 		return html` <span class="dropdown-trigger center">
-				${this.dropDownTrigger ? this.dropDownTrigger : this.use_slot ? html`<slot name="dropdown"></slot>` : html`<ct-icon icon="${this.icon}"></ct-icon>`}
+				${this.dropDownTrigger
+					? this.dropDownTrigger
+					: this.use_slot
+					? html`<slot name="dropdown"></slot><slot name="trigger"></slot>`
+					: html`<ct-icon icon="${this.icon}"></ct-icon>`}
 			</span>
 			<!-- <ct-icon icon="expand_more"></ct-icon> -->
 			<div class="gui-popup">

@@ -54,7 +54,8 @@ export class CtDate extends CtLit {
 			}
 
 			span {
-				min-width: 150px;
+				display: flex;
+				align-items: center;
 			}
 
 			*:focus {
@@ -82,11 +83,6 @@ export class CtDate extends CtLit {
 			#container {
 				flex: 1;
 				margin: 0;
-			}
-
-			.sep {
-				font-size: 1.2em;
-				font-weight: bold;
 			}
 			#dd,
 			#mm,
@@ -148,7 +144,7 @@ export class CtDate extends CtLit {
 							@input=${() => this.validX("dd", this.$dd?.value || "", 0, 31)}
 							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 						/>
-						<span class="sep">/</span>
+						<span>/</span>
 					</span>
 					<input
 						id="mm"
@@ -160,7 +156,7 @@ export class CtDate extends CtLit {
 						@input=${() => this.validX("mm", this.$mm?.value || "", 0, 12)}
 						onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					/>
-					<span class="sep">/</span>
+					<span>/</span>
 					<input
 						id="yyyy"
 						maxlength="4"
@@ -171,30 +167,32 @@ export class CtDate extends CtLit {
 						@input=${() => this.validX("yyyy", this.$yyyy?.value || "", this.minYYYY, this.maxYYYY)}
 						onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					/>
-					<span ?hidden=${!this.showhour}>
-						<span class="sep"> @ </span>
-						<input
-							id="hh"
-							maxlength="2"
-							size="2"
-							placeholder="HH"
-							type="tel"
-							.value=${this.hh}
-							@input=${() => this.validX("hh", this.$hh?.value || "", 0, 24)}
-							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-						/>
-						<span class="sep">:</span>
-						<input
-							id="min"
-							maxlength="2"
-							size="2"
-							placeholder="mm"
-							type="tel"
-							.value=${this.min}
-							@input=${() => this.validX("min", this.$min?.value || "", 0, 59)}
-							onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-						/>
-					</span>
+					${this.showhour
+						? html`<span>
+								<span> @ </span>
+								<input
+									id="hh"
+									maxlength="2"
+									size="2"
+									placeholder="HH"
+									type="tel"
+									.value=${this.hh}
+									@input=${() => this.validX("hh", this.$hh?.value || "", 0, 24)}
+									onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+								/>
+								<span>:</span>
+								<input
+									id="min"
+									maxlength="2"
+									size="2"
+									placeholder="mm"
+									type="tel"
+									.value=${this.min}
+									@input=${() => this.validX("min", this.$min?.value || "", 0, 59)}
+									onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+								/>
+						  </span>`
+						: ""}
 				</span>
 			</ct-input-container>
 		`;

@@ -14,13 +14,18 @@ import { css, html } from "lit";
 /**
  * `ct-input-container`
  * Input element
+ * @cssprop --color-on-surface - Text color on surface.
+ * @cssprop --ct-indicator - Indicator color for requirements.
+ * @cssprop --border-radius - Container border radius.
+ * @cssprop --ct-input-padding - Custom input padding.
+ * @cssprop --color-primary - Primary color for input.
  *
+ * @slot name="prefix" - Description of the prefix slot.
+ * @slot name="input" - Description of the input slot.
+ * @slot name="suffix" - Description of the suffix slot.
  *
  * @group ct-elements
  * @element ct-input-container
- * @demo demo/index.html
- * @hero hero.svg
- * @homepage wc.conectate.app
  */
 @customElement("ct-input-container")
 export class CtInputContainer extends CtLit {
@@ -190,6 +195,8 @@ export class CtInputContainer extends CtLit {
 	];
 
 	render() {
+		this.dispatchEvent(new CustomEvent("my-event", { detail: {} }));
+
 		return html`
 			${this.label ? html` <h4 for="input" class="label">${this.label}</h4> ` : html``}
 
@@ -214,6 +221,7 @@ export class CtInputContainer extends CtLit {
 	@query("#container") container!: HTMLElement;
 	@state() private__isFirstValueUpdate = true;
 	@property({ type: Boolean }) focused = false;
+	@property({ type: Boolean, reflect: true }) required = false;
 
 	/**
 	 * The value of the searchbox

@@ -148,7 +148,6 @@ export class CtRadio extends CtLit {
 	protected updated(_changedProperties: PropertyValueMap<this>): void {
 		if (_changedProperties.has("checked") && _changedProperties.get("checked") != undefined) {
 			// @ts-ignore
-			if (localStorage.dev || window.dev) console.log("updated checked", this, this.checked);
 			this.change();
 		}
 	}
