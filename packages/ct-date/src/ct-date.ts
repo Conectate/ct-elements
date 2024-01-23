@@ -131,7 +131,7 @@ export class CtDate extends CtLit {
 				.value=${this.placeholder}
 				?required="${this.required}"
 			>
-				<slot name="prefix" slot="prefix"></slot>
+				<slot slot="prefix" name="prefix"></slot>
 				<span slot="input" @focus=${this._onFocus}>
 					<span ?hidden="${this.nodd}">
 						<input
@@ -239,7 +239,7 @@ export class CtDate extends CtLit {
 	get value(): number | undefined {
 		// Si existe this.nodd, establece this.dd en '02'
 		if (this.nodd) {
-			this.dd = "02";
+			this.dd = "01";
 		}
 
 		// Si this.showhour es verdadero y falta alguna de las propiedades requeridas, retorna undefined
@@ -252,12 +252,9 @@ export class CtDate extends CtLit {
 		}
 
 		// Construye una fecha basada en las propiedades proporcionadas
-		let dateStr;
-		if (this.showhour) {
-			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`;
-		} else {
-			dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}`;
-		}
+		let dateStr = `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${
+			this.showhour ? `${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}` : "00:00:00"
+		}${this.usetimezone ? "" : "Z"}`;
 
 		// Obtiene el timestamp en segundos de la fecha construida
 		let val = Math.floor(new Date(dateStr).getTime() / 1000);
