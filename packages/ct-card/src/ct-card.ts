@@ -38,7 +38,6 @@ export class CtCard extends LitElement {
 			:host {
 				display: block;
 				position: relative;
-				border: 1px solid var(--color-borders, #8d8d8d38);
 				border-radius: var(--border-radius, 16px);
 				color: var(--color-on-surface);
 				background-color: var(--color-surface, #fff);

@@ -336,6 +336,10 @@ export class CtInput extends CtLit {
 				padding-left: 8px;
 				font-size: 0.75em;
 			}
+
+			[readonly] {
+				cursor: var(--ct-input--readonly-cursor, not-allowed);
+			}
 		`
 	];
 	@query("input") $input!: HTMLInputElement;
