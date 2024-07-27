@@ -9,7 +9,7 @@
     found at https://wc.conectate.app/PATENTS.txt
  */
 
-import { PushID, getClient, sleep } from "@conectate/ct-helpers";
+import { PushID, sleep } from "@conectate/ct-helpers";
 import { CtLit, css, customElement, html, property, state } from "@conectate/ct-lit";
 
 let ctDialogs: string[] = [];
@@ -72,6 +72,8 @@ export interface ConectateHistory {
  */
 @customElement("ct-dialog")
 export class CtDialog extends CtLit {
+	/** En algunas version  */
+	static checkForCriOS = false;
 	@property({ type: String, reflect: true }) role: string = "alert";
 	@property({ type: String, reflect: true, attribute: "aria-modal" })
 	ariaModal: string = "true";
@@ -81,6 +83,7 @@ export class CtDialog extends CtLit {
 	dialogID = new Date().getTime() + "";
 	_closeDialog: any;
 	_clseDialogESC: any;
+	/** Esto es para esperar que efectivamente se haya hecho el push state */
 	mappingContainer?: Promise<any>;
 	history!: ConectateHistory;
 	// @property({ type: Object }) element?: HTMLElement | TemplateResult;
@@ -123,11 +126,11 @@ export class CtDialog extends CtLit {
 			}
 		});
 
-		if (getClient().os == "ios") {
-			this.updateComplete.then(async () => {
-				if (this._element) this._element.style.borderRadius = "0px";
-			});
-		}
+		// if (getClient().os == "ios") {
+		// 	this.updateComplete.then(async () => {
+		// 		if (this._element) this._element.style.borderRadius = "0px";
+		// 	});
+		// }
 	}
 
 	static styles = [
@@ -253,6 +256,7 @@ export class CtDialog extends CtLit {
 				display: block;
 				position: relative;
 				max-height: var(--ct-dialog-height, 80%);
+				max-height: var(--ct-dialog-height, 85dvh);
 				max-width: var(--ct-dialog-width, 25cm);
 				width: 100%;
 				/* height: max-content; */
@@ -332,9 +336,6 @@ export class CtDialog extends CtLit {
 
 	constructor() {
 		super();
-		this.init();
-	}
-	async init() {
 		this._closeDialog = async (e: CustomEvent) => {
 			let lastID = ctDialogs.length > 0 ? ctDialogs[ctDialogs.length - 1] : undefined;
 			if (lastID == this.dialogID) {
@@ -357,6 +358,19 @@ export class CtDialog extends CtLit {
 			this.resolveMapping = resolve;
 		});
 	}
+	firstUpdated() {
+		// Checkeo que no sea Chrome de iOS porque esa mierda no sirve aquí 😡
+		if (CtDialog.checkForCriOS && navigator.userAgent.match(/CriOS\/([0-9\.]+)/)) this.disableHistoryAPI = true;
+
+		if (this.history == null) this.history = { title: document.title, href: window.location.href };
+		// Crea una entrada en el History API identica que solo va a servir para usar 'Atras' en Moviles y cerrar el dialogo
+		if (!this.disableHistoryAPI) window.history.pushState({ dialogID: this.dialogID }, this.history.title, this.history.href);
+		this.resolveMapping();
+		if (this.element?.classList) {
+			this.element.classList.add("c");
+			this.element.classList.add(this.computeAnimation(this.animation));
+		}
+	}
 
 	enableHistoryAPI(value = true) {
 		this.disableHistoryAPI = !value;
@@ -375,20 +389,6 @@ export class CtDialog extends CtLit {
 	setAnimation(anim: animationSupported) {
 		this.animation = anim;
 		return this;
-	}
-
-	firstUpdated() {
-		// Checkeo que no sea Chrome de iOS porque esa mierda no sirve aquí 😡
-		if (navigator.userAgent.match(/CriOS\/([0-9\.]+)/)) this.disableHistoryAPI = true;
-
-		if (this.history == null) this.history = { title: document.title, href: window.location.href };
-		// Crea una entrada en el History API identica que solo va a servir para usar 'Atras' en Moviles y cerrar el dialogo
-		if (!this.disableHistoryAPI) window.history.pushState({ dialogID: this.dialogID }, this.history.title, this.history.href);
-		this.resolveMapping();
-		if (this.element!?.classList) {
-			this.element!.classList.add("c");
-			this.element!.classList.add(this.computeAnimation(this.animation));
-		}
 	}
 
 	closeDialog(e?: Event | null, type?: string) {
@@ -441,7 +441,7 @@ export class CtDialog extends CtLit {
 					fill: "both"
 				}
 			);
-			anim.onfinish = finish;
+			anim.onfinish = () => finish();
 		});
 	}
 

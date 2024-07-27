@@ -45,16 +45,22 @@ export class CtCollapse extends CtLit {
 		this.opened = !this.opened;
 	}
 
-	async calcMaxHeight(val: boolean) {
+	async calcMaxHeight(opened: boolean) {
 		if (this.content) {
 			this.style.maxHeight = `${this.content.offsetHeight}px`;
+			if (!opened) {
+				this.style.overflow = "hidden!important";
+			}
 			await sleep(50);
-			this.classList.toggle("open", val);
+			this.classList.toggle("open", opened);
 			await sleep(250);
 			this.style.maxHeight = ``;
-		} else if (val) {
+			if (opened) {
+				this.style.overflow = "visible!important";
+			}
+		} else if (opened) {
 			await sleep(50);
-			this.calcMaxHeight(val);
+			this.calcMaxHeight(opened);
 		}
 	}
 }

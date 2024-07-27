@@ -20,9 +20,9 @@ import { css, html } from "lit";
  * @cssprop --ct-input-padding - Custom input padding.
  * @cssprop --color-primary - Primary color for input.
  *
- * @slot name="prefix" - Description of the prefix slot.
- * @slot name="input" - Description of the input slot.
- * @slot name="suffix" - Description of the suffix slot.
+ * @slot prefix - Description of the prefix slot.
+ * @slot input - Description of the input slot.
+ * @slot suffix - Description of the suffix slot.
  *
  * @group ct-elements
  * @element ct-input-container

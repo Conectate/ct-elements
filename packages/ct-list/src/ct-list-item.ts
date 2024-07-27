@@ -41,7 +41,7 @@ export class CtListItem extends CtLit {
 				white-space: var(--ct-list-item--white-space, nowrap);
 				font-family: inherit;
 				font-size: inherit;
-				font-weight: 500;
+				font-weight: inherit;
 				text-align: start;
 				padding: 8px 16px;
 				flex: 1;

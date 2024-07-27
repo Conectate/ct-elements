@@ -1,10 +1,9 @@
 export async function writeQR() {
 	let module = await import("qrcode");
-	// @ts-ignore
-	return { ...module.default } as typeof module;
+	return module;
 }
 
 export async function readQR() {
-	let module = await import("jsqr-es6");
+	let module = await import("jsqr");
 	return module.default;
 }

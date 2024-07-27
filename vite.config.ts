@@ -1,11 +1,11 @@
-import { defineConfig, Plugin } from 'vite';
+import { Plugin, defineConfig } from "vite";
 
 function LitCSSLoader(): Plugin {
 	return {
-		name: 'vite-css-plg',
+		name: "vite-css-plg",
 		transform: function (code: string, id: string) {
-			if (id.endsWith('.css')) {
-				return `import {css} from 'lit'; console.log('cssloader');export const style = css\`${code}\`\n;export default style`;
+			if (id.endsWith(".css")) {
+				return `import {css} from 'lit'; console.log('cssloader!!');export const style = css\`${code}\`\n;export default style`;
 			}
 			return code;
 		}
@@ -14,18 +14,18 @@ function LitCSSLoader(): Plugin {
 
 // https://vitejs.dev/config/
 export default (opts: any) => {
-	let development = process.env.NODE_ENV != 'production';
+	let development = process.env.NODE_ENV != "production";
 	return defineConfig({
 		server: {
 			port: 3080,
-			host: '0.0.0.0'
+			host: "0.0.0.0"
 		},
-		plugins: [LitCSSLoader()],
+		// plugins: [LitCSSLoader()],
 		resolve: {
-			conditions: ['dev']
+			conditions: ["dev"]
 		},
 		define: {
-			'process.env.NODE_ENV': JSON.stringify(development ? 'development' : 'production')
+			"process.env.NODE_ENV": JSON.stringify(development ? "development" : "production")
 		}
 	});
 };

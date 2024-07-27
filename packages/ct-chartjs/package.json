@@ -6,8 +6,8 @@
 	"types": "ct-chartjs.d.ts",
 	"module": "ct-chartjs.js",
 	"dependencies": {
-		"lit": "^2.8.0",
-		"tslib": "^2.6.1"
+		"lit": "^3.1.4",
+		"tslib": "^2.6.3"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

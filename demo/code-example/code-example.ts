@@ -1,10 +1,11 @@
 import "@conectate/ct-icon";
 
-import { CtLit, css, customElement, html, property, query, state, unsafeCSS } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, property, query, state } from "@conectate/ct-lit";
 import { stripIndent } from "common-tags";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as Prism from "prismjs";
-import Dark from "prismjs/themes/prism-okaidia.css";
+
+// import Dark from "prismjs/themes/prism-okaidia.css";
 
 @customElement("code-example")
 export class CodeExample extends CtLit {
@@ -35,7 +36,7 @@ export class CodeExample extends CtLit {
 				color: inherit;
 			}
 		`, */
-		unsafeCSS(Dark),
+		// unsafeCSS(Dark),
 		css`
 			.token.attr-name {
 				color: #a6e22e;

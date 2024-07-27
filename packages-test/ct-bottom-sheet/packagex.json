@@ -5,9 +5,11 @@
 	"main": "ct-bottom-sheet.js",
 	"types": "ct-bottom-sheet.d.ts",
 	"module": "ct-bottom-sheet.js",
-	"keywords": ["ct-elements"],
+	"keywords": [
+		"ct-elements"
+	],
 	"dependencies": {
-		"lit": "^2.8.0"
+		"lit": "^3.1.4"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc",

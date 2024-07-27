@@ -6,8 +6,8 @@
 	"types": "ct-card.d.ts",
 	"module": "ct-card.js",
 	"dependencies": {
-		"lit": "^2.8.0",
-		"tslib": "^2.6.1"
+		"lit": "^3.1.4",
+		"tslib": "^2.6.3"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

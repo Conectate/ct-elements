@@ -9,8 +9,8 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"lit": "^2.8.0",
-		"tslib": "^2.6.1"
+		"lit": "^3.1.4",
+		"tslib": "^2.6.3"
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",
