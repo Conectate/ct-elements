@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-spinner",
-	"version": "3.12.0",
+	"version": "4.0.0",
 	"description": "Spinner web component",
 	"main": "ct-spinner.js",
 	"types": "ct-spinner.d.ts",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^3.12.0",
+		"@conectate/ct-lit": "^4.0.0",
 		"lit": "^3.1.4",
 		"tslib": "^2.6.3"
 	},
