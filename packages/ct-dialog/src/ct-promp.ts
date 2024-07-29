@@ -2,11 +2,11 @@
  @license
  Copyright (c) 2020 Herberth Obregón. All rights reserved.
  This code may only be used under the BSD style license found at
- https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
- https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
- found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+ https://open.grupoconectate.com/LICENSE.txt The complete set of authors may be found at
+ https://open.grupoconectate.com/AUTHORS.txt The complete set of contributors may be
+ found at https://open.grupoconectate.com/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
- found at https://wc.conectate.app/PATENTS.txt
+ found at https://open.grupoconectate.com/PATENTS.txt
  */
 
 import "@conectate/ct-button";
@@ -150,12 +150,12 @@ class CTPromp extends CtLit {
 	}
 
 	async okbtn(e: Event) {
-		await this.dialog.closeDialog(e, "click");
+		await this.dialog.close(e, "click");
 		this.solve(this.$in.value);
 	}
 
 	async cancelbtn(e: Event) {
-		await this.dialog.closeDialog(e, "click");
+		await this.dialog.close(e, "click");
 		this.solve();
 	}
 

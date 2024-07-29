@@ -2,45 +2,45 @@
     @license
     Copyright (c) 2020 Herberth Obregón. All rights reserved.
     This code may only be used under the BSD style license found at
-    https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
-    https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
-    found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+    https://open.grupoconectate.com/LICENSE.txt The complete set of authors may be found at
+    https://open.grupoconectate.com/AUTHORS.txt The complete set of contributors may be
+    found at https://open.grupoconectate.com/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
     part of the Conectate Open Source Project is also subject to an additional IP rights grant
-    found at https://wc.conectate.app/PATENTS.txt
+    found at https://open.grupoconectate.com/PATENTS.txt
  */
 
-import { PushID, sleep } from "@conectate/ct-helpers";
+import { getClient, sleep } from "@conectate/ct-helpers";
 import { CtLit, css, customElement, html, property, state } from "@conectate/ct-lit";
 
-let ctDialogs: string[] = [];
+let ctDialogs: { id: string; dialog: CtDialog }[] = [];
 // @ts-ignore
 window.ctDialogs != null || (window.ctDialogs = []);
 // @ts-ignore
 ctDialogs = window.ctDialogs;
-let pushID = new PushID();
+
+let dialogID = 0;
+let toDelete: CtDialog | null = null;
 
 export function showCtDialog(el: HTMLElement, id?: string, history?: ConectateHistory): CtDialog {
 	let ctDialog: CtDialog;
-	let dialogID = id ? id : pushID.next(10);
 	// Inserto el ID del dialogo que voy a mostrar
-	if (ctDialogs.indexOf(dialogID) == -1) ctDialogs.push(dialogID);
 	ctDialog = new CtDialog();
-	ctDialog.dialogID = dialogID;
+	ctDialog.dialogID = id || `${dialogID++}`;
+	ctDialogs.push({ id: ctDialog.dialogID, dialog: ctDialog });
 	history && (ctDialog.history = history);
-	document.body.appendChild(ctDialog);
+	ctDialog.show();
 	ctDialog.element = el;
-	// ctDialog.element2 = el;
 	return ctDialog;
 }
 
-export function closeCtDialog(id?: string) {
+export function closeCtDialog(id?: CtDialog) {
 	return new Promise(async resolve => {
 		let m = document.querySelectorAll("ct-dialog") as NodeListOf<CtDialog>;
 		for (let mod = 0; mod < m.length; mod++) {
 			let modal = m[mod];
 			if (modal == null) return;
-			if (id == modal.dialogID || id == null) {
-				await modal.closeDialog();
+			if (id == modal || id == null) {
+				await modal.close();
 			}
 		}
 		resolve(0);
@@ -52,7 +52,7 @@ window.showCtDialog = showCtDialog;
 // @ts-ignore
 window.closeCtDialog = closeCtDialog;
 
-type animationSupported = "normal" | "cupertino" | "slide-right" | "slide-left" | "bottom-sheet";
+type typeDialog = "alert" | "cupertino" | "slide-right" | "slide-left" | "bottom-sheet";
 export enum DialogSizePreferences {
 	/** Para pantalla completa */
 	fullsreen = 0,
@@ -64,6 +64,33 @@ export interface ConectateHistory {
 	title: string;
 	href: string;
 }
+
+let _closeViaPopState = async (e: PopStateEvent) => {
+	// Si el dialogo que se esta cerrando es el mismo que el que se abrio, lo cierro [REF.1]
+	if (ctDialogs.length == 0) return;
+	let dialogPop = ctDialogs[ctDialogs.length - 1];
+	if (dialogPop.dialog) {
+		// Lo elimino de la lista de dialogos
+		if (toDelete == dialogPop.dialog) {
+			toDelete = null;
+			dialogPop.dialog.destroy();
+		} else {
+			await dialogPop.dialog.close(e, "popstate");
+		}
+	}
+};
+
+let _clseDialogESC = (e: KeyboardEvent) => {
+	if (e.key === "Escape") {
+		if (ctDialogs.length == 0) return;
+		let dialogPop = ctDialogs[ctDialogs.length - 1];
+		if (dialogPop.dialog.interactiveDismissDisabled) return;
+		dialogPop.dialog.close(e, "keyup");
+	}
+};
+
+window.addEventListener("popstate", _closeViaPopState, false);
+document.addEventListener("keyup", _clseDialogESC, false);
 /**
  * @cssProp --ct-dialog-width - Ancho del dialogo
  * @cssProp --ct-dialog-height - Alto del dialogo
@@ -74,65 +101,6 @@ export interface ConectateHistory {
 export class CtDialog extends CtLit {
 	/** En algunas version  */
 	static checkForCriOS = false;
-	@property({ type: String, reflect: true }) role: string = "alert";
-	@property({ type: String, reflect: true, attribute: "aria-modal" })
-	ariaModal: string = "true";
-
-	// Vars
-	disableHistoryAPI: boolean = false;
-	dialogID = new Date().getTime() + "";
-	_closeDialog: any;
-	_clseDialogESC: any;
-	/** Esto es para esperar que efectivamente se haya hecho el push state */
-	mappingContainer?: Promise<any>;
-	history!: ConectateHistory;
-	// @property({ type: Object }) element?: HTMLElement | TemplateResult;
-	@state() _element?: HTMLElement;
-	@property({ type: String }) animation: animationSupported = "normal";
-	@property({ type: Array }) preferences: any[] = [];
-
-	resolveMapping!: (value?: {} | PromiseLike<{}>) => void;
-	finish!: () => void;
-
-	get element() {
-		return this._element;
-	}
-
-	set element(val) {
-		let old = this._element;
-		this._element = val;
-		this.requestUpdate("element", old);
-		/**
-		 * [FIX]
-		 * [Windows Vista] Chrome v75 height 0px;
-		 * [MacOs] Overflow fix
-		 */
-		this.updateComplete.then(async () => {
-			await sleep(300);
-			let bodyY = Math.min(document.body.getBoundingClientRect().height, window.innerHeight);
-			let elementY = this._element!.offsetHeight;
-			// console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
-			if (bodyY > elementY) {
-				// Reviso si es menor al 5% de la pantalla
-				if ((elementY / bodyY) * 100 < 5) {
-					console.warn("[ct-dialog] El elemento no es visible");
-					if (this._element) this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
-				} else if ((elementY / bodyY) * 100 >= 78) {
-					// console.warn("El elemento esta desbordado");
-					if (!this.preferences.includes(DialogSizePreferences.fullsreen)) {
-						if (this._element) this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
-					}
-				}
-			}
-		});
-
-		// if (getClient().os == "ios") {
-		// 	this.updateComplete.then(async () => {
-		// 		if (this._element) this._element.style.borderRadius = "0px";
-		// 	});
-		// }
-	}
-
 	static styles = [
 		css`
 			@keyframes in-modalFadeEffect {
@@ -194,6 +162,9 @@ export class CtDialog extends CtLit {
 		css`
 			:host {
 				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 				position: fixed;
 				z-index: 110;
 				left: env(safe-area-inset-right, 0);
@@ -202,23 +173,17 @@ export class CtDialog extends CtLit {
 				bottom: env(safe-area-inset-bottom, 0);
 				overflow-y: auto;
 				overflow-x: hidden;
-				-webkit-animation: in-modalFadeEffect 0.5s;
 				animation: in-modalFadeEffect 0.2s;
-				-webkit-align-items: center;
-				align-items: center;
-				-webkit-justify-content: center;
-				justify-content: center;
 				font-family: "Roboto", sans-serif !important;
-				-webkit-box-align: center;
 				box-align: center;
-				-webkit-box-orient: vertical;
 				box-orient: vertical;
-				-webkit-flex-direction: column;
-				flex-direction: column;
 				box-sizing: border-box;
 				--mdc-theme-secondary: var(--color-primary);
 				--mdc-theme-primary: var(--color-primary);
 				--mdc-checkbox-unchecked-color: var(--color-on-background);
+			}
+			:host([type="bottom-sheet"]) {
+				justify-content: flex-end;
 			}
 
 			.overlay {
@@ -267,6 +232,70 @@ export class CtDialog extends CtLit {
 			}
 		`
 	];
+	dialogID?: string;
+	@property({ type: Boolean }) interactiveDismissDisabled: boolean = false;
+	@property({ type: String, reflect: true }) role: string = "alert";
+	@property({ type: String, reflect: true }) type: typeDialog = "alert";
+	@property({ type: String, reflect: true, attribute: "aria-modal" })
+	ariaModal: string = "true";
+
+	// Vars
+	disableHistoryAPI: boolean = false;
+	_closeViaPopState: any;
+	_clseDialogESC: any;
+	/** Esto es para esperar que efectivamente se haya hecho el push state */
+	mappingContainer?: Promise<any>;
+	history!: ConectateHistory;
+	// @property({ type: Object }) element?: HTMLElement | TemplateResult;
+	@state() _element?: HTMLElement;
+	@property({ type: Array }) preferences: any[] = [];
+
+	resolveMapping!: (value?: {} | PromiseLike<{}>) => void;
+	finish!: () => void;
+
+	get element() {
+		return this._element;
+	}
+
+	set element(val) {
+		let old = this._element;
+		this._element = val;
+		this.requestUpdate("element", old);
+		// Calc for dvh
+		let client = getClient();
+		let oldChrome = client.browser == "chrome" && client.osVersion < 108;
+		let oldSafari = client.browser == "safari" && client.osVersion < 16.4;
+		let oldFirefox = client.browser == "firefox";
+		/**
+		 * [FIX]
+		 * [Windows Vista] Chrome v75 height 0px;
+		 * [MacOs] Overflow fix
+		 */
+		this.updateComplete.then(async () => {
+			await sleep(300);
+			let bodyY = Math.min(document.body.getBoundingClientRect().height, window.innerHeight);
+			let elementY = this._element!.offsetHeight;
+			// console.log('bodyY', bodyY, 'elementY', elementY, elementY / bodyY);
+			if (bodyY > elementY) {
+				// Reviso si es menor al 5% de la pantalla
+				if ((elementY / bodyY) * 100 < 5) {
+					console.warn("[ct-dialog] El elemento no es visible");
+					if (this._element) this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
+				} else if ((elementY / bodyY) * 100 >= 80) {
+					// console.warn("El elemento esta desbordado");
+					if (this._element && !this.preferences.includes(DialogSizePreferences.fullsreen) && (oldChrome || oldSafari || oldFirefox)) {
+						this._element.style.height = `var(--ct-dialog-height, ${Math.floor(bodyY * 0.8)}px)`;
+					}
+				}
+			}
+		});
+
+		// if (getClient().os == "ios") {
+		// 	this.updateComplete.then(async () => {
+		// 		if (this._element) this._element.style.borderRadius = "0px";
+		// 	});
+		// }
+	}
 
 	render() {
 		return html`
@@ -274,8 +303,9 @@ export class CtDialog extends CtLit {
 			<div
 				class="overlay"
 				@click="${(e: MouseEvent) => {
-					this.closeDialog(e, "click");
 					e.stopPropagation();
+					if (this.interactiveDismissDisabled) return;
+					this.close(e, "click");
 				}}"
 			></div>
 
@@ -290,22 +320,10 @@ export class CtDialog extends CtLit {
 					return html`
 						<style>
 							.c {
-								max-height: 100% !important;
-								max-width: 100% !important;
-							}
-							.c > * {
-								max-width: 100% !important;
-							}
-						</style>
-					`;
-				case DialogSizePreferences.fullsize:
-					return html`
-						<style>
-							.c {
-								height: 100% !important;
-							}
-							.c > * {
-								height: 100% !important;
+								max-height: 92% !important;
+								max-height: 100dvh;
+								max-width: 100vw !important;
+								max-width: 100dvw !important;
 							}
 						</style>
 					`;
@@ -315,13 +333,13 @@ export class CtDialog extends CtLit {
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		window.removeEventListener("popstate", this._closeDialog, false);
+		window.removeEventListener("popstate", this._closeViaPopState, false);
 		document.removeEventListener("keyup", this._clseDialogESC, false);
 	}
 
-	computeAnimation(anim: animationSupported) {
+	computeAnimation(anim: typeDialog) {
 		switch (anim) {
-			case "normal":
+			case "alert":
 				return "anim-normal";
 			case "cupertino":
 				return "anim-cupertino";
@@ -336,24 +354,6 @@ export class CtDialog extends CtLit {
 
 	constructor() {
 		super();
-		this._closeDialog = async (e: CustomEvent) => {
-			let lastID = ctDialogs.length > 0 ? ctDialogs[ctDialogs.length - 1] : undefined;
-			if (lastID == this.dialogID) {
-				this.closeDialog(e, "popstate");
-			} else if (lastID == undefined) {
-				// [REF.1]
-				// @ts-ignore Elimino el null de control de la Lista
-				ctDialogs.splice(ctDialogs.indexOf(undefined), 1);
-				//ctDialogs.splice(ctDialogs.length - 1, 1);
-			}
-		};
-
-		this._clseDialogESC = (e: KeyboardEvent) => {
-			if (e.key === "Escape") this.closeDialog(e, "keyup"); // esc
-		};
-		window.addEventListener("popstate", this._closeDialog, false);
-		document.addEventListener("keyup", this._clseDialogESC, false);
-
 		this.mappingContainer = new Promise(resolve => {
 			this.resolveMapping = resolve;
 		});
@@ -368,7 +368,7 @@ export class CtDialog extends CtLit {
 		this.resolveMapping();
 		if (this.element?.classList) {
 			this.element.classList.add("c");
-			this.element.classList.add(this.computeAnimation(this.animation));
+			this.element.classList.add(this.computeAnimation(this.type));
 		}
 	}
 
@@ -386,43 +386,46 @@ export class CtDialog extends CtLit {
 		return this;
 	}
 
-	setAnimation(anim: animationSupported) {
-		this.animation = anim;
+	setAnimation(anim: typeDialog) {
+		this.type = anim;
 		return this;
 	}
 
-	closeDialog(e?: Event | null, type?: string) {
+	show() {
+		document.body.appendChild(this);
+	}
+
+	close(e?: Event | null, type?: "click" | "keyup" | "popstate") {
 		// Este dialog lo elimino de las lista de dialogos
 		return new Promise(async resolve => {
 			let finish = async () => {
 				if (!document.body.contains(this)) {
-					console.warn(`dialogID ya no se encuentra en el DOM ${this.dialogID}`, this);
+					console.warn(`dialogID ya no se encuentra en el DOM`, this);
 					return;
 				}
-				document.body.removeChild(this);
-				ctDialogs.splice(ctDialogs.indexOf(this.dialogID), 1);
-				// Si lo mande a llamar manualmente y hay mas dialogos abiertos
-				// entonces que inserte un null para que no cierre los demas dialogos en el popstate. [REF.1]
-				if ((type == null || type == "click") && ctDialogs.length > 0) {
-					// Se inserta la candidad de dialogos que hay ahorita ya que cada uno tiene un listener en el popstate
-					if (ctDialogs.length > 1000) {
-						while (ctDialogs.length > 0) {
-							ctDialogs.pop();
-						}
-					}
-					ctDialogs.push(...Array(ctDialogs.length));
-				}
-				// Deshabilitado en Chrome iOS
+
+				// Si lo cerre manual o por ESC, elimino la entrada del History API. Como ya se eliminó el dialogo de la lista, `this.close()` no se ejecutará [REF.1]
 				if (type != "popstate" && !this.disableHistoryAPI) {
+					toDelete = this;
 					window.history.back();
+				} else {
+					this.destroy();
 				}
-				await sleep(70);
+				await sleep(100);
 				resolve(e as Event);
-				this.dispatchEvent(new CustomEvent("close", { detail: { event: e } }));
-				this.dispatchEvent(new CustomEvent("on-close", { detail: { event: e } }));
 			};
 			// espero que haga el mapping en el container
 			await this.mappingContainer;
+
+			let index = ctDialogs.findIndex(d => d.dialog == this);
+			let isLast = index == ctDialogs.length - 1;
+			if (!isLast) {
+				// Cierro todos los dialogos que estan por encima de este
+				for (let i = ctDialogs.length - 1; i > index; i--) {
+					await ctDialogs[i].dialog.close();
+				}
+			}
+
 			if (!document.body.animate) {
 				await finish();
 				return;
@@ -431,18 +434,60 @@ export class CtDialog extends CtLit {
 				duration: 250,
 				fill: "both"
 			});
-			this.element!?.animate(
-				[
-					{ transform: "scale(1)", opacity: 1 },
-					{ transform: "scale(1.2)", opacity: 0 }
-				],
-				{
-					duration: 270,
-					fill: "both"
-				}
-			);
+			this.element!?.animate(this.getAnimOut(this.type), {
+				duration: 270,
+				fill: "both"
+			});
 			anim.onfinish = () => finish();
 		});
+	}
+
+	getAnimOut(type: typeDialog) {
+		switch (type) {
+			case "alert":
+				return [
+					{ transform: "scale(1)", opacity: 1 },
+					{ transform: "scale(1.2)", opacity: 0 }
+				];
+			case "cupertino":
+				return [
+					{ transform: "scale(1)", opacity: 1 },
+					{ transform: "scale(0.1)", opacity: 0 }
+				];
+			case "slide-left":
+				return [
+					{ transform: "translateX(0)", opacity: 1 },
+					{ transform: "translateX(-100%)", opacity: 0 }
+				];
+			case "slide-right":
+				return [
+					{ transform: "translateX(0)", opacity: 1 },
+					{ transform: "translateX(100%)", opacity: 0 }
+				];
+			case "bottom-sheet":
+				return [
+					{ transform: "translateY(0)", opacity: 1 },
+					{ transform: "translateY(100%)", opacity: 0 }
+				];
+		}
+	}
+
+	destroy() {
+		ctDialogs.splice(
+			ctDialogs.findIndex(d => d.dialog == this),
+			1
+		);
+		// Elimino el dialogo
+		document.body.removeChild(this);
+		this.dispatchEvent(new CustomEvent("close"));
+		this.dispatchEvent(new CustomEvent("on-close"));
+	}
+
+	/**
+	 * @deprecated Use close() instead
+	 */
+	closeDialog(e?: Event | null) {
+		this.close(e, "click");
 	}
 
 	static get properties() {

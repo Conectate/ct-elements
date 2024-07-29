@@ -4,11 +4,11 @@ import "./ct-textarea-autogrow.js";
     @license		
 	Copyright (c) 2020 Herberth Obregón. All rights reserved.
 	This code may only be used under the BSD style license found at
-	https://wc.conectate.app/LICENSE.txt The complete set of authors may be found at
-	https://wc.conectate.app/AUTHORS.txt The complete set of contributors may be
-	found at https://wc.conectate.app/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
+	https://open.grupoconectate.com/LICENSE.txt The complete set of authors may be found at
+	https://open.grupoconectate.com/AUTHORS.txt The complete set of contributors may be
+	found at https://open.grupoconectate.com/CONTRIBUTORS.txt Code distributed by Herberth Obregón as
 	part of the Conectate Open Source Project is also subject to an additional IP rights grant
-	found at https://wc.conectate.app/PATENTS.txt
+	found at https://open.grupoconectate.com/PATENTS.txt
  */
 // https://stackoverflow.com/a/56751153/4168512
 import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
@@ -22,7 +22,7 @@ import { ifDefined } from "lit/directives/if-defined.js";
 	@group ct-elements
 	@element ct-textarea
 	@demo demo/index.html
-	@homepage wc.conectate.app
+	@homepage open.grupoconectate.com
 	@slot prefix - Content placed start the main content
 	@slot suffix - Content placed end the main content
  */
