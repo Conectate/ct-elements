@@ -263,8 +263,8 @@ export class CtDialog extends CtLit {
 		this.requestUpdate("element", old);
 		// Calc for dvh
 		let client = getClient();
-		let oldChrome = client.browser == "chrome" && client.osVersion < 108;
-		let oldSafari = client.browser == "safari" && client.osVersion < 16.4;
+		let oldChrome = client.browser == "chrome" && client.browserVersion < 108;
+		let oldSafari = client.browser == "safari" && client.browserVersion < 16.4;
 		let oldFirefox = client.browser == "firefox";
 		/**
 		 * [FIX]
