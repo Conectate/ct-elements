@@ -41,9 +41,13 @@ export class DemoCtDate extends CtLit {
 		return html` <code-example class="language-html">
 			${``.replaceAll("\t", "    ")}
 			<div slot="demo">
-				<ct-date label="date"></ct-date>
-				<ct-date label="date" showhour></ct-date>
+				<ct-date label="date" @value=${this.changeDate}></ct-date>
+				<ct-date label="date" showhour @value=${this.changeDate}></ct-date>
 			</div>
 		</code-example>`;
+	}
+
+	changeDate(e: CustomEvent) {
+		console.log(e.detail);
 	}
 }

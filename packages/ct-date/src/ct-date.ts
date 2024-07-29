@@ -224,7 +224,9 @@ export class CtDate extends CtLit {
 		// this.fireValue();
 		let unix = Math.floor(
 			new Date(
-				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`
+				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh || "00", "0")}:${this.addZero(this.min || "00", "0")}${
+					this.usetimezone ? "" : "Z"
+				}`
 			).getTime() / 1000
 		);
 		if (`NaN` != `${unix}`) {
