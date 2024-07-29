@@ -496,7 +496,7 @@ export class CtDialog extends CtLit {
 	 * @deprecated Use close() instead
 	 */
 	closeDialog(e?: Event | null) {
-		this.close(e, "click");
+		return this.close(e, "click");
 	}
 
 	static get properties() {
