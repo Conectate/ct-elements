@@ -493,7 +493,7 @@ export class CtDialog extends CtLit {
 	}
 
 	/**
-	 * @deprecated Use close() instead
+	 * @deprecated Use close() instead. The method will be removed in the next major version.
 	 */
 	closeDialog(e?: Event | null) {
 		return this.close(e, "click");
