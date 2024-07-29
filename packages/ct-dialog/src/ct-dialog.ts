@@ -394,6 +394,14 @@ export class CtDialog extends CtLit {
 	show() {
 		document.body.appendChild(this);
 	}
+	async waitForDefined(param: () => any, timeout = 10_000) {
+		while (param() == undefined) {
+			await new Promise(resolve => setTimeout(resolve, 200));
+			timeout -= 200;
+			if (timeout <= 0) return false;
+		}
+		return param();
+	}
 
 	close(e?: Event | null, type?: "click" | "keyup" | "popstate") {
 		// Este dialog lo elimino de las lista de dialogos
@@ -401,6 +409,7 @@ export class CtDialog extends CtLit {
 			let finish = async () => {
 				if (!document.body.contains(this)) {
 					console.warn(`dialogID ya no se encuentra en el DOM`, this);
+					resolve(e as Event);
 					return;
 				}
 
@@ -411,7 +420,7 @@ export class CtDialog extends CtLit {
 				} else {
 					this.destroy();
 				}
-				await sleep(100);
+				await sleep(250);
 				resolve(e as Event);
 			};
 			// espero que haga el mapping en el container
