@@ -194,7 +194,14 @@ export class CtDialog extends CtLit {
 				bottom: env(safe-area-inset-bottom, 0);
 				background-color: rgba(0, 0, 0, 0.55);
 				animation: in-modalFadeEffect 0.2s;
+				transition: backdrop-filter 200ms;
 				z-index: -1;
+			}
+
+			@supports (backdrop-filter: blur(12px)) {
+				.overlay {
+					backdrop-filter: blur(12px);
+				}
 			}
 
 			.anim-normal {

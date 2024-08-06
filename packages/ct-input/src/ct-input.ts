@@ -14,69 +14,6 @@ import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
 export type CtInputType = "text" | "password" | "email" | "number" | "tel" | "url" | "search" | "date" | "time" | "datetime-local" | "month" | "week" | "color";
-export type CtInputAutoComplete =
-	| "on"
-	| "off"
-	| "one-time-code"
-	| "additional-name"
-	| "address-level1"
-	| "address-level2"
-	| "address-level3"
-	| "address-level4"
-	| "address-line1"
-	| "address-line2"
-	| "address-line3"
-	| "bday"
-	| "bday-year"
-	| "bday-day"
-	| "bday-month"
-	| "billing"
-	| "cc-additional-name"
-	| "cc-csc"
-	| "cc-exp"
-	| "cc-exp-month"
-	| "cc-exp-year"
-	| "cc-family-name"
-	| "cc-given-name"
-	| "cc-name"
-	| "cc-number"
-	| "cc-type"
-	| "country"
-	| "country-name"
-	| "current-password"
-	| "email"
-	| "family-name"
-	| "fax"
-	| "given-name"
-	| "home"
-	| "honorific-prefix"
-	| "honorific-suffix"
-	| "impp"
-	| "language"
-	| "mobile"
-	| "name"
-	| "new-password"
-	| "nickname"
-	| "organization"
-	| "organization-title"
-	| "pager"
-	| "photo"
-	| "postal-code"
-	| "sex"
-	| "shipping"
-	| "street-address"
-	| "tel-area-code"
-	| "tel"
-	| "tel-country-code"
-	| "tel-extension"
-	| "tel-local"
-	| "tel-local-prefix"
-	| "tel-local-suffix"
-	| "tel-national"
-	| "transaction-amount"
-	| "transaction-currency"
-	| "url"
-	| "username";
 export type CtInputMode = "verbatim" | "latin" | "latin-name" | "latin-prose" | "full-width-latin" | "kana" | "kana-name" | "katakana" | "numeric" | "tel" | "email" | "url";
 /**
  * ## `ct-input`
@@ -351,7 +288,7 @@ export class CtInput extends CtLit {
 	@property({ type: Number }) max?: number;
 	@property({ type: Number }) step?: number;
 	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
-	@property({ type: String }) autocomplete?: CtInputAutoComplete;
+	@property({ type: String }) autocomplete: AutoFill = "off";
 	@property({ type: String }) name?: string;
 	@property({ type: String }) accept?: string;
 	@property({ type: Number }) size = 24;
@@ -465,7 +402,7 @@ export class CtInput extends CtLit {
 								?autofocus="${this.autofocus}"
 								?readonly="${this.readonly}"
 								?multiple="${this.multiple}"
-								autocomplete="${ifDefined(this.autocomplete) as any}"
+								autocomplete="${this.autocomplete as any}"
 								inputmode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"
@@ -487,6 +424,7 @@ export class CtInput extends CtLit {
 	}
 
 	firstUpdated() {
+		this.$input.autocomplete;
 		if (this.$input) {
 			this.$input.value = this.initValue || this.getAttribute("value") || "";
 		}
