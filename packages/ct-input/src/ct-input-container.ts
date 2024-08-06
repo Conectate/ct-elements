@@ -204,7 +204,7 @@ export class CtInputContainer extends CtLit {
 				<slot name="prefix"></slot>
 				<div>
 					${this.placeholder && html` <label class="float-label">${this.placeholder}</label> `}
-					<slot name="input" id="slots"></slot>
+					<slot name="input" id="input"></slot>
 					<slot name="suffix"></slot>
 					${this.charCounter ? html` <div class="charCount">${this.countChar}/${this.maxlength}</div> ` : ``}
 				</div>

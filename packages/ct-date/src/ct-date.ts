@@ -97,28 +97,38 @@ export class CtDate extends CtLit {
 	];
 
 	constructor() {
-		// on paste "12/12/2020" or "12/12/2020 12:12", fill data properly
 		super();
+		// on paste "12/12/2020" or "12/12/2020 12:12", fill data properly
 		this.addEventListener("paste", (e: ClipboardEvent) => {
 			let data = e.clipboardData?.getData("text/plain");
-			if (data) {
-				let splitter = data.includes("/") ? "/" : "-";
-				let parts = data.split(" ");
-				let date = parts[0].split(splitter);
-				if (date.length == 3) {
+			this.plainTextToDate(data);
+		});
+	}
+
+	plainTextToDate(data?: string) {
+		if (data && (data.includes("/") || data.includes("-"))) {
+			let splitter = data.includes("/") ? "/" : "-";
+			let parts = data.split(" ");
+			let date = parts[0].split(splitter);
+			if (date.length == 3) {
+				if (date[2].length == 4) {
 					this.dd = date[0];
 					this.mm = date[1];
 					this.yyyy = date[2];
-				}
-				if (parts.length == 2) {
-					let time = parts[1].split(":");
-					if (time.length == 2) {
-						this.hh = time[0];
-						this.min = time[1];
-					}
+				} else if (date[0].length == 4) {
+					this.dd = date[2];
+					this.mm = date[1];
+					this.yyyy = date[0];
 				}
 			}
-		});
+			if (parts.length == 2) {
+				let time = parts[1].split(":");
+				if (time.length == 2) {
+					this.hh = time[0];
+					this.min = time[1];
+				}
+			}
+		}
 	}
 
 	render(): TemplateResult {
@@ -234,7 +244,7 @@ export class CtDate extends CtLit {
 		}
 	}
 
-	set value(val) {
+	set value(val: number | string | undefined) {
 		this.loadValue(val);
 	}
 
@@ -284,28 +294,32 @@ export class CtDate extends CtLit {
 	 * format yyyy-mm-dd in UI from timestamp
 	 * @param value timestamp value in seconds
 	 */
-	loadValue(value?: number) {
-		if (value != null && value != -1) {
-			let d = new Date(value * 1000);
-			if (this.usetimezone) {
-				this.dd = `${d.getDate()}`;
-				this.mm = `${d.getMonth() + 1}`;
-				this.yyyy = `${d.getFullYear()}`;
-				this.hh = `${d.getHours()}`;
-				this.min = `${d.getMinutes()}`;
-			} else {
-				this.dd = `${d.getUTCDate()}`;
-				this.mm = `${d.getUTCMonth() + 1}`;
-				this.yyyy = `${d.getUTCFullYear()}`;
-				this.hh = `${d.getUTCHours()}`;
-				this.min = `${d.getUTCMinutes()}`;
-			}
+	loadValue(value?: number | string) {
+		if (typeof value == "string") {
+			this.plainTextToDate(value);
 		} else {
-			this.dd = "";
-			this.mm = "";
-			this.yyyy = "";
-			this.hh = "";
-			this.min = "";
+			if (value != null && value != -1) {
+				let d = new Date(value * 1000);
+				if (this.usetimezone) {
+					this.dd = `${d.getDate()}`;
+					this.mm = `${d.getMonth() + 1}`;
+					this.yyyy = `${d.getFullYear()}`;
+					this.hh = `${d.getHours()}`;
+					this.min = `${d.getMinutes()}`;
+				} else {
+					this.dd = `${d.getUTCDate()}`;
+					this.mm = `${d.getUTCMonth() + 1}`;
+					this.yyyy = `${d.getUTCFullYear()}`;
+					this.hh = `${d.getUTCHours()}`;
+					this.min = `${d.getUTCMinutes()}`;
+				}
+			} else {
+				this.dd = "";
+				this.mm = "";
+				this.yyyy = "";
+				this.hh = "";
+				this.min = "";
+			}
 		}
 	}
 

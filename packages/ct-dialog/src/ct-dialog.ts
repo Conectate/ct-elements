@@ -101,6 +101,7 @@ document.addEventListener("keyup", _clseDialogESC, false);
 export class CtDialog extends CtLit {
 	/** En algunas version  */
 	static checkForCriOS = false;
+	static hiddenOverflow: HTMLElement | null = document.body;
 	static styles = [
 		css`
 			@keyframes in-modalFadeEffect {
@@ -400,6 +401,9 @@ export class CtDialog extends CtLit {
 
 	show() {
 		document.body.appendChild(this);
+		if (CtDialog.hiddenOverflow) {
+			CtDialog.hiddenOverflow.style.overflow = "hidden";
+		}
 	}
 	async waitForDefined(param: () => any, timeout = 10_000) {
 		while (param() == undefined) {
@@ -495,6 +499,9 @@ export class CtDialog extends CtLit {
 		);
 		// Elimino el dialogo
 		document.body.removeChild(this);
+		if (CtDialog.hiddenOverflow && ctDialogs.length == 0) {
+			CtDialog.hiddenOverflow.style.overflow = "";
+		}
 		this.dispatchEvent(new CustomEvent("close"));
 		this.dispatchEvent(new CustomEvent("on-close"));
 	}

@@ -302,9 +302,6 @@ export class CtTextarea extends CtLit {
 								inputMode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"
-								min="${ifDefined(this.min)}"
-								max="${ifDefined(this.max)}"
-								step="${ifDefined(this.step)}"
 								name="${ifDefined(this.name)}"
 								autocapitalize="${ifDefined(this.autocapitalize)}"
 							></ct-textarea-autogrow>
@@ -328,9 +325,6 @@ export class CtTextarea extends CtLit {
 	@property({ type: Boolean }) disabled = false;
 	@property({ type: Boolean }) autofocus = false;
 	@property({ type: String }) name?: string;
-	@property({ type: Number }) min?: number;
-	@property({ type: Number }) max?: number;
-	@property({ type: Number }) step?: number;
 	@property({ type: Boolean }) charCounter = false;
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) required = false;
@@ -422,7 +416,7 @@ export class CtTextarea extends CtLit {
 			let re = new RegExp(this.pattern);
 			this.invalid = !re.test(this.input.value);
 		} else if (this.required) {
-			this.invalid = !(this.input.value.length > 0 && this.input.value.length >= (this.min || 0));
+			this.invalid = !(this.input.value.length > 0 && this.input.value.length >= (this.minlength || 0));
 		}
 
 		if (!this.invalid) {
