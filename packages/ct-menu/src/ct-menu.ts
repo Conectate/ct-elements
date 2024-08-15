@@ -34,7 +34,7 @@ export class CtMenu extends CtLit {
 			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 			opacity: 0;
 			transform: scale(0);
-			outline: none;
+			outline: 1px solid #99999973;
 			padding: 8px 0;
 		}
 
@@ -112,7 +112,7 @@ export class CtMenu extends CtLit {
 
 		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 			.dd-menu {
-				background: var(--color-blur-surface, rgba(255, 255, 255, 0.5));
+				background: var(--color-blur-surface, #ffffffbd);
 				backdrop-filter: blur(10px);
 				-webkit-backdrop-filter: blur(10px);
 			}

@@ -47,6 +47,8 @@ export class CtTextareaAutogrow extends CtLit {
 				line-height: inherit;
 				text-align: inherit;
 				padding: 0;
+				/* Chrome 123 */
+				field-sizing: content;
 			}
 
 			::-webkit-input-placeholder {
