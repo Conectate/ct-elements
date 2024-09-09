@@ -315,8 +315,8 @@ export class CtSelectDialog extends CtLit {
 		this.searchBoxText = searchText;
 		for (let index = 0; index < items.length; index++) {
 			if (this.items[index][this.searchProperty || this.textProperty] == null) continue;
-			let text = removeAcento(this.items[index][this.searchProperty || this.textProperty].toLowerCase());
-			let texts = removeAcento(searchText.toLowerCase());
+			let text = removeAcento(this.items[index][this.searchProperty || this.textProperty].toLowerCase()).trim();
+			let texts = removeAcento(searchText.toLowerCase()).trim();
 			if (text.includes(texts)) auxArray.push(this.items[index]);
 		}
 		this.itemsFiltered = [...auxArray];
