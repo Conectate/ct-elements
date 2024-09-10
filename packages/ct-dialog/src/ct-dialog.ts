@@ -84,7 +84,7 @@ let _clseDialogESC = (e: KeyboardEvent) => {
 	if (e.key === "Escape") {
 		if (ctDialogs.length == 0) return;
 		let dialogPop = ctDialogs[ctDialogs.length - 1];
-		if (dialogPop.dialog.interactiveDismissDisabled) return;
+		// if (dialogPop.dialog.interactiveDismissDisabled) return;
 		dialogPop.dialog.close(e, "keyup");
 	}
 };
