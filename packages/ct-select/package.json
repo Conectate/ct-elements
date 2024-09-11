@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-select",
-	"version": "4.2.3",
+	"version": "4.2.4",
 	"description": "Ct Elements",
 	"main": "ct-select.js",
 	"types": "ct-select.d.ts",
