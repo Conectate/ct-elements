@@ -313,12 +313,24 @@ export class CtSelectDialog extends CtLit {
 		const items = this.items;
 		let auxArray = [];
 		this.searchBoxText = searchText;
+
+		// Divide el texto de búsqueda en palabras individuales
+		let searchTerms = removeAcento(searchText.toLowerCase()).trim().split(/\s+/);
+
 		for (let index = 0; index < items.length; index++) {
-			if (this.items[index][this.searchProperty || this.textProperty] == null) continue;
-			let text = removeAcento(this.items[index][this.searchProperty || this.textProperty].toLowerCase()).trim();
-			let texts = removeAcento(searchText.toLowerCase()).trim();
-			if (text.includes(texts)) auxArray.push(this.items[index]);
+			let itemText = this.items[index][this.searchProperty || this.textProperty];
+
+			if (itemText == null) continue;
+
+			// Convierte el texto del ítem a minúsculas y elimina acentos
+			let normalizedItemText = removeAcento(itemText.toLowerCase()).trim();
+
+			// Verifica si todos los términos de búsqueda están en el texto del ítem
+			let matches = searchTerms.every(term => normalizedItemText.includes(term));
+
+			if (matches) auxArray.push(this.items[index]);
 		}
+
 		this.itemsFiltered = [...auxArray];
 	}
 
