@@ -18,12 +18,20 @@ import { TemplateResult } from "lit";
 
 import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
-export function showCtPrompt(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { wordwrap?: boolean }): Promise<string | undefined> {
+export function showCtPrompt(
+	title: string,
+	body: string | TemplateResult,
+	ok?: string,
+	cancel?: string,
+	neutral?: string,
+	options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string }
+): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
 
 	ctPromp.ttl = title;
 	ctPromp.body = body;
 	ctPromp.ok = ok ? ok : "OK";
+	ctPromp.options = options;
 	ctPromp.wordwrap = options?.wordwrap || false;
 	neutral && (ctPromp.neutral = neutral);
 	cancel && (ctPromp.cancel = cancel);
@@ -39,10 +47,11 @@ class CTPromp extends CtLit {
 	@property({ type: String }) neutral?: string = "";
 	@property({ type: String }) cancel?: string = "Cancel";
 	@property({ type: Boolean, reflect: true }) wordwrap: boolean = false;
+	@property({ type: Object }) options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string };
 	@query("#buttons") $buttons!: HTMLDivElement;
 	@query("#neutral") $neutral!: HTMLButtonElement;
 	@query("#cancel") $cancel!: HTMLButtonElement;
-	@query("#in") $in!: HTMLInputElement;
+	@query("#in") $in!: HTMLElementTagNameMap["ct-input"];
 	reject!: (reason?: any) => void;
 	solve!: (param?: string | null) => void;
 	dialog!: CtDialog;
@@ -62,7 +71,7 @@ class CTPromp extends CtLit {
 
 			.body {
 				margin: 20px 24px 24px;
-				color: var(--color-surface, #383838);
+				color: var(--color-on-surface, #fff);
 				max-height: 62vh;
 				overflow: hidden auto;
 			}
@@ -71,7 +80,7 @@ class CTPromp extends CtLit {
 				word-wrap: break-word;
 			}
 			.actions {
-				margin: 20px 24px 24px;
+				margin: 0 16px;
 			}
 
 			.buttons {
@@ -132,6 +141,18 @@ class CTPromp extends CtLit {
 	}
 	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
+		if (this.options.label) {
+			this.$in.label = this.options.label;
+		}
+		if (this.options.value) {
+			this.$in.value = this.options.value;
+		}
+		if (this.options.placeholder) {
+			this.$in.placeholder = this.options.placeholder;
+		}
+		if (this.options.rawplaceholder) {
+			this.$in.rawPlaceholder = this.options.rawplaceholder;
+		}
 	}
 
 	computeBtns(ok: string, neutral?: string, cancel?: string) {

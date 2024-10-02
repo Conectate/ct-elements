@@ -12,13 +12,13 @@ export let tooltipStyles = css`
 		visibility: hidden;
 		opacity: 0;
 		pointer-events: none;
-		backdrop-filter: blur(6px);
-		transition: all 250ms;
+		backdrop-filter: saturate(180%) blur(15px);
+		transition: all 200ms;
 	}
 
 	/* Position tooltip above the element */
 	[data-tooltip]:before {
-		font-family: "Google Sans", Ubuntu, Roboto, arial, sans-serif;
+		font-family: var(--font-family, "Google Sans", Ubuntu, Roboto, arial, sans-serif);
 		position: absolute;
 		bottom: 150%;
 		left: 50%;

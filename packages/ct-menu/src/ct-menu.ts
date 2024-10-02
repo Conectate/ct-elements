@@ -113,8 +113,8 @@ export class CtMenu extends CtLit {
 		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 			.dd-menu {
 				background: var(--color-blur-surface, #ffffffbd);
-				backdrop-filter: blur(10px);
-				-webkit-backdrop-filter: blur(10px);
+				backdrop-filter: saturate(180%) blur(15px);
+				-webkit-backdrop-filter: saturate(180%) blur(15px);
 			}
 		}
 	`;
