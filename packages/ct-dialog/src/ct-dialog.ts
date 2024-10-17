@@ -193,17 +193,17 @@ export class CtDialog extends CtLit {
 				top: env(safe-area-inset-top, 0);
 				right: env(safe-area-inset-right, 0);
 				bottom: env(safe-area-inset-bottom, 0);
-				background-color: rgba(0, 0, 0, 0.55);
+				background-color: rgba(0, 0, 0, 0.65);
 				animation: in-modalFadeEffect 0.2s;
 				transition: backdrop-filter 200ms;
 				z-index: -1;
 			}
 
-			@supports (backdrop-filter: blur(12px)) {
+			/* @supports (backdrop-filter: blur(12px)) {
 				.overlay {
 					backdrop-filter: blur(12px);
 				}
-			}
+			} */
 
 			.anim-normal {
 				animation: in-scale-cupertino 0.25s;
