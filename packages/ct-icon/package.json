@@ -9,7 +9,7 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"lit": "^3.1.4",
+		"lit": "^3.2.1",
 		"tslib": "^2.6.3"
 	},
 	"type": "module",

@@ -20,7 +20,7 @@
 		"@conectate/ct-input": "^4.2.5",
 		"@conectate/ct-lit": "^4.0.0",
 		"@conectate/ct-spinner": "^4.0.0",
-		"lit": "^3.1.4"
+		"lit": "^3.2.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"

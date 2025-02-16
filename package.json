@@ -3,7 +3,6 @@
 	"version": "3.0.0",
 	"license": "BSD-3-Clause",
 	"dependencies": {
-		"@conectate/ct-bottom-sheet": "^3.5.0",
 		"@conectate/ct-button": "workspace:^",
 		"@conectate/ct-card": "workspace:^",
 		"@conectate/ct-chartjs": "workspace:^",
@@ -29,7 +28,7 @@
 		"@conectate/ct-tabs": "workspace:^",
 		"@conectate/ct-tooltip": "workspace:^",
 		"@conectate/lit-if": "workspace:^",
-		"lit": "^3.1.4",
+		"lit": "^3.2.1",
 		"chart.js": "^4.3.1",
 		"common-tags": "^1.8.2",
 		"prismjs": "^1.29.0"

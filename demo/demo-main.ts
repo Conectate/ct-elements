@@ -7,6 +7,7 @@ import "./demo-ct-icon.js";
 import "./demo-ct-input.js";
 import "./demo-ct-radio.js";
 import "./demo-ct-select.js";
+import "./demo-ct-tooltip.js";
 
 import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
@@ -40,6 +41,7 @@ export class DemoMain extends CtLit {
 			<demo-ct-checkbox></demo-ct-checkbox>
 			<demo-ct-button></demo-ct-button>
 			<demo-ct-dialog> </demo-ct-dialog>
+			<demo-ct-tooltip></demo-ct-tooltip>
 		`;
 	}
 }

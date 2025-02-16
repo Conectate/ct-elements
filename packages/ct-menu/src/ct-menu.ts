@@ -30,12 +30,12 @@ export class CtMenu extends CtLit {
 			transition: all 0.2s ease;
 			z-index: 99;
 			background: var(--color-surface, #fff);
-			border-radius: 8px;
+			border-radius: var(--border-radius, 8px);
 			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 			opacity: 0;
 			transform: scale(0);
 			outline: 1px solid #99999973;
-			padding: 8px 0;
+			padding: max(calc(var(--border-radius, 8px) / 2), 8px) 0;
 		}
 
 		.dd-menu.active {
@@ -72,7 +72,6 @@ export class CtMenu extends CtLit {
 			transition: all 0.25s ease;
 			transform: translateY(-30%);
 			cursor: pointer;
-			display: flex;
 			align-items: center;
 		}
 

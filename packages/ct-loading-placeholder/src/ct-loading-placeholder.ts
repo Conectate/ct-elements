@@ -1,4 +1,4 @@
-import { CtLit, css, customElement } from "@conectate/ct-lit";
+import { CtLit, css, customElement, property } from "@conectate/ct-lit";
 import { html } from "lit";
 
 /**
@@ -39,6 +39,32 @@ export class CtLoadingPlaceholder extends CtLit {
 			);
 			background-size: 1400px 140px;
 		}
+		:host([buffering]) {
+			-webkit-animation: b 2s linear infinite;
+			animation: b 2s linear infinite;
+			background: -webkit-linear-gradient(
+				135deg,
+				hsla(0, 0%, 100%, 0.4) 25%,
+				transparent 0,
+				transparent 50%,
+				hsla(0, 0%, 100%, 0.4) 0,
+				hsla(0, 0%, 100%, 0.4) 75%,
+				transparent 0,
+				transparent
+			);
+			background: linear-gradient(
+				-45deg,
+				hsla(0, 0%, 100%, 0.4) 25%,
+				transparent 0,
+				transparent 50%,
+				hsla(0, 0%, 100%, 0.4) 0,
+				hsla(0, 0%, 100%, 0.4) 75%,
+				transparent 0,
+				transparent
+			);
+			background-size: 15px 15px;
+			width: 100%;
+		}
 
 		@keyframes placeHolderShimmer {
 			0% {
@@ -49,6 +75,7 @@ export class CtLoadingPlaceholder extends CtLit {
 			}
 		}
 	`;
+	@property({ type: Boolean, reflect: true }) buffering = false;
 	render() {
 		return html``;
 	}

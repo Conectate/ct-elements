@@ -1,5 +1,6 @@
-import { css } from "lit";
-export let tooltipStyles = css`
+import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
+
+export const tooltipStyles = css`
 	/* Add this attribute to the element that needs a tooltip */
 	[data-tooltip] {
 		position: relative;
@@ -76,3 +77,90 @@ export let tooltipStyles = css`
 		z-index: 150;
 	}
 `;
+
+@customElement("ct-tooltip")
+export class CtTooltip extends CtLit {
+	static styles = [
+		css`
+			:host {
+				background-color: var(--color-surface);
+				border-radius: var(--border-radius);
+				bottom: calc(100% + 8px);
+				box-shadow: 0 0 16px 0 var(--color-disable);
+				inline-size: max-content;
+				left: 50%;
+				max-inline-size: min(calc(100vw - 48px), 400px);
+				padding: 16px;
+				position: absolute;
+				text-align: initial;
+				top: auto;
+				writing-mode: horizontal-tb;
+				z-index: 550;
+				font-size: 13px;
+				outline: none;
+			}
+			:host(:not([open])) {
+				opacity: 0;
+				transform: translateY(8px) translateX(calc(-50% + 0px));
+				pointer-events: none;
+				visibility: hidden;
+				transition:
+					opacity 0.5s cubic-bezier(0.5, 0, 0, 0.75),
+					transform 0.5s cubic-bezier(0.5, 0, 0, 0.75),
+					visibility 0s 0.5s;
+			}
+			:host([open]) {
+				transform: translateY(0px) translateX(calc(-50% + 0px));
+				opacity: 1;
+				pointer-events: inherit;
+				visibility: inherit;
+				transition:
+					opacity 0.5s cubic-bezier(0.5, 0, 0, 0.75),
+					transform 0.5s cubic-bezier(0.5, 0, 0, 0.75),
+					visibility 0s 0s;
+			}
+		`
+	];
+	@property({ type: String }) placement = "top";
+	@property({ type: String }) for = "";
+	@property({ type: Boolean, reflect: true }) open = false;
+	public context!: HTMLElement | ShadowRoot;
+
+	render() {
+		return html`<slot></slot>`;
+	}
+
+	connectedCallback(): void {
+		super.connectedCallback();
+		if (!this.for) return;
+		if (this.parentElement) {
+			this.parentElement.style.position = "relative";
+		}
+		let cnx = this.context || this.parentElement;
+		let el = cnx.querySelector(this.for) as HTMLElement;
+		if (el) {
+			el.tabIndex = -1;
+			el.addEventListener("mouseenter", () => {
+				this.open = true;
+			});
+			el.addEventListener("mouseleave", () => {
+				// if focus is on the tooltip, don't close it
+				let isTooltipFocused = document.activeElement === el || (cnx as ShadowRoot).activeElement === el;
+				if (isTooltipFocused) return;
+				this.close();
+			});
+			// if context active element changes, close the tooltip
+			el.addEventListener("blur", () => {
+				this.close();
+			});
+		}
+	}
+
+	close() {
+		let cnx = this.context || this.parentElement;
+		this.open = false;
+		this.blur();
+		let el = cnx.querySelector(this.for) as HTMLElement;
+		if (el) el.blur();
+	}
+}

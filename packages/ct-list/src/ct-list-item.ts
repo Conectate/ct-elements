@@ -43,7 +43,7 @@ export class CtListItem extends CtLit {
 				font-size: inherit;
 				font-weight: inherit;
 				text-align: start;
-				padding: 8px 16px;
+				padding: 0;
 				flex: 1;
 				line-height: 1.75;
 				color: inherit;
@@ -57,13 +57,22 @@ export class CtListItem extends CtLit {
 
 			.text {
 				flex: 1;
+				padding: 8px 16px 8px 0;
+				border-bottom: 1px solid var(--color-borders, transparent);
 			}
+			:host(:last-child) .text {
+				border-bottom: none;
+			}
+
 			ct-icon {
-				margin-right: 16px;
+				margin: 0 16px;
 				width: 21px;
 				height: 21px;
 				min-width: 21px;
 				min-height: 21px;
+			}
+			.space {
+				margin-right: 16px;
 			}
 		`
 	];
@@ -84,7 +93,9 @@ export class CtListItem extends CtLit {
 	render() {
 		let button = html`<button @click=${this.closeMenu}>
 			<slot name="prefix"></slot>
-			${this.icon || this.svg ? html`<ct-icon .svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>` : ""}
+			${this.icon || this.svg
+				? html`<ct-icon class="space" svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>`
+				: html`<div class="space"></div>`}
 			<div class="text">${this.text}<slot></slot></div>
 			<slot name="sufix"></slot>
 			<slot name="suffix"></slot>

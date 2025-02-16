@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"lit": "^3.1.4"
+		"lit": "^3.2.1"
 	},
 	"scripts": {
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
@@ -29,6 +29,16 @@
 	},
 	"bugs": {
 		"url": "https://github.com/conectate/ct-elements/issues"
+	},
+	"exports": {
+		".": {
+			"dev": "./src/ct-tooltip.ts",
+			"default": "./ct-tooltip.js"
+		},
+		"./*": {
+			"dev": "./src/*",
+			"default": "./*"
+		}
 	},
 	"publishConfig": {
 		"access": "public"

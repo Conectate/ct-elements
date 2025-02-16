@@ -167,7 +167,7 @@ export class CtDialog extends CtLit {
 				align-items: center;
 				justify-content: center;
 				position: fixed;
-				z-index: 110;
+				z-index: var(--zi-modal, 110);
 				left: env(safe-area-inset-right, 0);
 				top: env(safe-area-inset-top, 0);
 				right: env(safe-area-inset-right, 0);
@@ -179,9 +179,6 @@ export class CtDialog extends CtLit {
 				box-align: center;
 				box-orient: vertical;
 				box-sizing: border-box;
-				--mdc-theme-secondary: var(--color-primary);
-				--mdc-theme-primary: var(--color-primary);
-				--mdc-checkbox-unchecked-color: var(--color-on-background);
 			}
 			:host([type="bottom-sheet"]) {
 				justify-content: flex-end;

@@ -11,9 +11,11 @@ function addFont(family: string, css2?: boolean) {
 	link.type = "text/css";
 	link.href = `https://fonts.googleapis.com/${css2 ? "css2" : "css"}?family=${family}`;
 	document.head.appendChild(link);
+	return link;
 }
 
 /**
+ * Este es un icono
  * @element ct-icon
  */
 @customElement("ct-icon")
@@ -21,7 +23,7 @@ export class CtIcon extends LitElement {
 	/** Select Font Style */
 	static Font: "Icons" | "Symbols" = "Symbols";
 	static FontStyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
-
+	@property({ type: Boolean, reflect: true }) ready = false;
 	@property({ type: String, reflect: true }) font: "Icons" | "Symbols" = "Symbols";
 	@property({ type: String, reflect: true }) fontstyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
 
@@ -42,7 +44,12 @@ export class CtIcon extends LitElement {
 				direction: ltr;
 				-webkit-font-smoothing: antialiased;
 			}
+
 			span::before {
+				content: "";
+			}
+			
+			:host([ready]) span::before {
 				content: attr(data-icon);
 			}
 		`,
@@ -89,20 +96,29 @@ export class CtIcon extends LitElement {
 	];
 	constructor() {
 		super();
-		this.loadFonts(CtIcon.FontStyle, CtIcon.Font);
+		let link = this.loadFonts(CtIcon.FontStyle, CtIcon.Font);
+		if (!link) {
+			this.ready = true;
+		} else {
+			link.onload = () => {
+				this.ready = true;
+				CtIcon.FontLoaded.push(`${this.font}-${this.fontstyle}`);
+			}
+		}
 	}
 
-	loadFonts(FontStyle?: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded", Font?: "Icons" | "Symbols") {
+	loadFonts(FontStyle?: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded", Font?: "Icons" | "Symbols"): HTMLLinkElement | undefined {
 		if (FontStyle) this.fontstyle = FontStyle;
 		if (Font) this.font = Font;
 		let style = this.fontstyle.replace(/\s/, "+");
-		if (this.font == "Icons" && !CtIcon.FontLoaded.includes(`ctIcon${style}`)) {
-			CtIcon.FontLoaded.push(`ctIcon${style}`);
-			addFont(`Material+Icons+${style}`);
-		} else if (this.font == "Symbols" && !CtIcon.FontLoaded.includes(`ctIconSymbols${style}`)) {
-			CtIcon.FontLoaded.push(`ctIconSymbols${style}`);
-			addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, true);
-		}
+		if (this.font == "Icons" && !CtIcon.FontLoaded.includes(`${this.font}-${style}`)) {
+			CtIcon.FontLoaded.push(`${this.font}-${style}`);
+			return addFont(`Material+Icons+${style}`);
+		} else if (this.font == "Symbols" && !CtIcon.FontLoaded.includes(`${this.font}-${style}`)) {
+			CtIcon.FontLoaded.push(`${this.font}-${style}`);
+			return addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, true);
+		} 
+		return undefined;
 	}
 
 	protected firstUpdated() {
