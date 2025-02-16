@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-icon",
-	"version": "4.3.0",
+	"version": "4.3.1",
 	"description": "HTML Material Design icon made with Web Components and Lit",
 	"main": "ct-icon.js",
 	"types": "ct-icon.d.ts",
