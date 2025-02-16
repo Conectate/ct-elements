@@ -1,6 +1,7 @@
 import "@conectate/ct-button/ct-button";
 import "@conectate/ct-button/ct-button-menu";
 import "@conectate/ct-button/ct-button-split";
+import "@conectate/ct-icon";
 import "@conectate/ct-list/ct-list-item";
 import "@conectate/ct-menu/ct-menu";
 

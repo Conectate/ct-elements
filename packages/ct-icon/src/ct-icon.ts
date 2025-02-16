@@ -23,11 +23,12 @@ export class CtIcon extends LitElement {
 	/** Select Font Style */
 	static Font: "Icons" | "Symbols" = "Symbols";
 	static FontStyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
+	static ready = false;
 	@property({ type: Boolean, reflect: true }) ready = false;
 	@property({ type: String, reflect: true }) font: "Icons" | "Symbols" = "Symbols";
 	@property({ type: String, reflect: true }) fontstyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
 
-	static FontLoaded: string[] = [];
+	static FontLoaded = new Map<string, HTMLLinkElement>();
 	static styles = [
 		css`
 			:host {
@@ -97,13 +98,13 @@ export class CtIcon extends LitElement {
 	constructor() {
 		super();
 		let link = this.loadFonts(CtIcon.FontStyle, CtIcon.Font);
+		this.ready = CtIcon.ready;
 		if (!link) {
 			this.ready = true;
 		} else {
-			link.onload = () => {
-				this.ready = true;
-				CtIcon.FontLoaded.push(`${this.font}-${this.fontstyle}`);
-			}
+			link.addEventListener("load", () => {
+				this.ready = CtIcon.ready = true;
+			});
 		}
 	}
 
@@ -111,14 +112,15 @@ export class CtIcon extends LitElement {
 		if (FontStyle) this.fontstyle = FontStyle;
 		if (Font) this.font = Font;
 		let style = this.fontstyle.replace(/\s/, "+");
-		if (this.font == "Icons" && !CtIcon.FontLoaded.includes(`${this.font}-${style}`)) {
-			CtIcon.FontLoaded.push(`${this.font}-${style}`);
-			return addFont(`Material+Icons+${style}`);
-		} else if (this.font == "Symbols" && !CtIcon.FontLoaded.includes(`${this.font}-${style}`)) {
-			CtIcon.FontLoaded.push(`${this.font}-${style}`);
-			return addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, true);
+		let key = `${this.font}-${style}`;
+		if (this.font == "Icons" && !CtIcon.FontLoaded.has(key)) {
+			CtIcon.FontLoaded.set(key, addFont(`Material+Icons+${style}`));
+			return CtIcon.FontLoaded.get(key);
+		} else if (this.font == "Symbols" && !CtIcon.FontLoaded.has(key)) {
+			CtIcon.FontLoaded.set(key, addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, true));
+			return CtIcon.FontLoaded.get(key);
 		} 
-		return undefined;
+		return CtIcon.FontLoaded.get(key);
 	}
 
 	protected firstUpdated() {
