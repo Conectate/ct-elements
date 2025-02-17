@@ -44,15 +44,21 @@ export class CtCard extends LitElement {
 			}
 			:host([primary]) {
 				background-color: var(--color-primary-container, var(--color-surface, #fff));
-				color: var(--color-on-primary-container, var(--color-on-surface, #000));
+				color: var(--color-on-primary-container, var(--color-primary, var(--color-on-surface, #000)));
 			}
 			:host([secondary]) {
 				background-color: var(--color-secondary-container, var(--color-surface, #fff));
-				color: var(--color-on-secondary-container, var(--color-on-surface, #000));
+				color: var(--color-on-secondary-container, var(--color-secondary, var(--color-on-surface, #000)));
 			}
+
+			:host([tertiary]) {
+				background-color: var(--color-tertiary-container, var(--color-surface, #fff));
+				color: var(--color-on-tertiary-container, var(--color-tertiary, var(--color-on-surface, #000)));
+			}
+
 			:host([error]) {
 				background-color: var(--color-error-container, var(--color-surface, #fff));
-				color: var(--color-on-error-container, var(--color-on-surface, #000));
+				color: var(--color-on-error-container, var(--color-error, var(--color-on-surface, #000)));
 			}
 			/** @deprecated */
 			:host([shadow]) {
@@ -67,7 +73,6 @@ export class CtCard extends LitElement {
 				overflow: hidden;
 			}
 			:host([padding]) {
-				color: var(--color-on-surface, #535353);
 				padding: 16px;
 			}
 
