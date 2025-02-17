@@ -31,6 +31,7 @@ export class CtCard extends LitElement {
 	@property({ type: Boolean }) withborder = false;
 	@property({ type: Boolean }) primary = false;
 	@property({ type: Boolean }) secondary = false;
+	@property({ type: Boolean }) tertiary = false;
 	@property({ type: Boolean }) error = false;
 
 	static styles = [
