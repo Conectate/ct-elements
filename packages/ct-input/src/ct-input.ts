@@ -209,7 +209,8 @@ export class CtInput extends CtLit {
 				line-height: inherit;
 				text-shadow: inherit;
 				transition: all 0.2s;
-				caret-color: var(--color-primary, #2cb5e8);
+				caret-color: var(--color-primary, #2cb5e8);				
+				field-sizing: var(--ct-input-field-sizing, unset);
 			}
 
 			input:invalid {
@@ -379,6 +380,7 @@ export class CtInput extends CtLit {
 	 * The value of the searchbox
 	 */
 	private initValue?: string = "";
+	private internals?: ElementInternals;
 
 	render() {
 		return html`
@@ -424,21 +426,21 @@ export class CtInput extends CtLit {
 	}
 
 	firstUpdated() {
-		this.$input.autocomplete;
 		if (this.$input) {
 			this.$input.value = this.initValue || this.getAttribute("value") || "";
 		}
 		this.validate();
 		this._onInput();
+		this.internals = this.attachInternals?.(); 
 	}
 
 	_onInput() {
 		this.dispatchEvent(new CustomEvent("value", { detail: this.value }));
-		this.dispatchEvent(new CustomEvent("val", { detail: { value: this.value } }));
 		if (this.placeholder) {
 			this.isEmpty = this.value == "" || this.value == null;
 		}
 		this.countChar = this.value!.length;
+		this.internals?.setFormValue(this.value);
 	}
 
 	set value(val: string | number | undefined | null) {

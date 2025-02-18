@@ -27,12 +27,12 @@ export class CtCard extends LitElement {
 	/**
 	 * Add border-top to card with --color-app  CSS var
 	 */
-	@property({ type: Boolean }) decorator = false;
-	@property({ type: Boolean }) withborder = false;
-	@property({ type: Boolean }) primary = false;
-	@property({ type: Boolean }) secondary = false;
-	@property({ type: Boolean }) tertiary = false;
-	@property({ type: Boolean }) error = false;
+	@property({ type: Boolean, reflect: true }) decorator = false;
+	@property({ type: Boolean, reflect: true }) withborder = false;
+	@property({ type: Boolean, reflect: true }) primary = false;
+	@property({ type: Boolean, reflect: true }) secondary = false;
+	@property({ type: Boolean, reflect: true }) tertiary = false;
+	@property({ type: Boolean, reflect: true }) error = false;
 
 	static styles = [
 		css`

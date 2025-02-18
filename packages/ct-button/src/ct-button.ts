@@ -156,7 +156,7 @@ export class CtButton extends LitElement {
 				width: 100%;
 				cursor: pointer;
 				border: none;
-				white-space: nowrap;
+				white-space: var(--ct-button-white-space, nowrap);
 				font-family: inherit;
 				font-size: inherit;
 				font-weight: 500;
