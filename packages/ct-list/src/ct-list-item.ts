@@ -37,6 +37,7 @@ export class CtListItem extends CtLit {
 				background: none;
 				border: none;
 				display: inline-flex;
+				width: 100%;
 				align-items: center;
 				white-space: var(--ct-list-item--white-space, nowrap);
 				font-family: inherit;
@@ -65,10 +66,9 @@ export class CtListItem extends CtLit {
 				padding: 8px 16px 8px 0;
 				flex: 1;
 			}
-			:host(:last-child) .text, :host(:has(+ hr)) .text  {
+			:host(:last-child) .text, :host([hideoutline]) .text  {
 				border-bottom: none;
 			}
-			
 
 			ct-icon {
 				margin: 0 16px;
@@ -95,6 +95,7 @@ export class CtListItem extends CtLit {
 	@property({ type: String }) target?: "_self" | "_top" | "_blank";
 
 	@property({ type: Boolean, reflect: true, attribute: "keep-open" }) keepOpen = false;
+	@property({ type: Boolean, reflect: true }) hideoutline = false;
 
 	render() {
 		let button = html`<button @click=${this.closeMenu}>
