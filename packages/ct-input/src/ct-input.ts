@@ -280,6 +280,9 @@ export class CtInput extends CtLit {
 			}
 		`
 	];
+	static formAssociated = true;
+	private internals?: ElementInternals = this.attachInternals?.();
+	
 	@query("input") $input!: HTMLInputElement;
 	@query("container") $container!: HTMLElement;
 
@@ -380,7 +383,6 @@ export class CtInput extends CtLit {
 	 * The value of the searchbox
 	 */
 	private initValue?: string = "";
-	private internals?: ElementInternals;
 
 	render() {
 		return html`
@@ -431,7 +433,6 @@ export class CtInput extends CtLit {
 		}
 		this.validate();
 		this._onInput();
-		this.internals = this.attachInternals?.(); 
 	}
 
 	_onInput() {
