@@ -164,3 +164,9 @@ export class CtTooltip extends CtLit {
 		if (el) el.blur();
 	}
 }
+
+declare global {
+	interface HTMLElementTagNameMap {
+		"ct-tooltip": CtTooltip;
+	}
+}

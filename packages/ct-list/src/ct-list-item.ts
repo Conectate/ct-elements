@@ -65,9 +65,10 @@ export class CtListItem extends CtLit {
 				padding: 8px 16px 8px 0;
 				flex: 1;
 			}
-			:host(:last-child) .text {
+			:host(:last-child) .text, :host(:has(+ hr)) .text  {
 				border-bottom: none;
 			}
+			
 
 			ct-icon {
 				margin: 0 16px;
