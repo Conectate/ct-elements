@@ -266,8 +266,8 @@ export class CTConfirmCupertino extends CtLit {
 					padding: 11px 20px;
 					font-size: 17px;
 					/* color: rgb(24, 126, 251); */
-					border-top: 1px solid var(--color-on-surface-dividers);
-					border-left: 1px solid var(--color-on-surface-dividers);
+					border-top: 1px solid var(--color-outline);
+					border-left: 1px solid var(--color-outline);
 					flex: 1;
 				}
 

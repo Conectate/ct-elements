@@ -56,9 +56,14 @@ export class CtListItem extends CtLit {
 			}
 
 			.text {
+				display: flex;
+				flex-wrap: nowrap;
 				flex: 1;
+				border-bottom: 1px solid var(--color-outline, transparent);
+			}
+			.text span {
 				padding: 8px 16px 8px 0;
-				border-bottom: 1px solid var(--color-borders, transparent);
+				flex: 1;
 			}
 			:host(:last-child) .text {
 				border-bottom: none;
@@ -96,10 +101,12 @@ export class CtListItem extends CtLit {
 			${this.icon || this.svg
 				? html`<ct-icon class="space" svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>`
 				: html`<div class="space"></div>`}
-			<div class="text">${this.text}<slot></slot></div>
-			<slot name="sufix"></slot>
-			<slot name="suffix"></slot>
+			<div class="text">
+				<span >${this.text}<slot></slot></span>
+				<slot name="suffix"></slot>
+			</div>
 		</button>`;
+
 		let href = this.href || this.link;
 		if (href) return html`<a href="${href}" target="${ifDefined(this.target)}"> ${button}</a> `;
 		return button;

@@ -3,8 +3,15 @@ import { html } from "lit";
 /**
  * # `ct-menu`
  * @element ct-menu
- * @slot - Items in menu
- * @slot dropdown-trigger - Item trigger
+ * @description A dropdown menu component that displays a list of selectable items
+ * @slot - Contains the menu items to be displayed when opened
+ * @slot trigger - The trigger element that opens/closes the dropdown menu
+ * @slot dropdown-trigger - (Deprecated) The trigger element that opens/closes the dropdown menu
+ * @csspart menu - The dropdown menu container
+ * @csspart items - The menu items container
+ * @cssproperty --color-surface - Background color of the menu (default: #fff)
+ * @cssproperty --color-on-surface - Text color of menu items (default: #474747)
+ * @cssproperty --border-radius - Border radius of the menu (default: 8px)
  */
 @customElement("ct-menu")
 export class CtMenu extends CtLit {
@@ -59,7 +66,7 @@ export class CtMenu extends CtLit {
 			font-size: 1em;
 			text-align: left;
 			font-weight: 500;
-			/* border-bottom: 0.5px solid var(--color-on-surface-dividers,#dadce0); */
+			/* border-bottom: 0.5px solid var(--color-outline,#dadce0); */
 		}
 		.dd-menu ::slotted(button:last-of-type) {
 			border: none;
@@ -78,9 +85,9 @@ export class CtMenu extends CtLit {
 		.dd-menu ::slotted(span:empty),
 		.dd-menu ::slotted(hr) {
 			height: 1px;
-			background: var(--color-on-surface-dividers, #dadce0);
+			background: var(--color-outline, #dadce0);
 			margin: 4px 2px;
-			border: 0.5px solid var(--color-on-surface-dividers, #dadce0);
+			border: 0.5px solid var(--color-outline, #dadce0);
 		}
 		.dd-menu ::slotted(h1) {
 			padding: 8px 16px;
@@ -120,6 +127,7 @@ export class CtMenu extends CtLit {
 	render() {
 		return html`
 			<slot name="dropdown-trigger" @click="${this.toggle}"></slot>
+			<slot name="trigger" @click="${this.toggle}"></slot>
 			<div id="menu" class="dd-menu" @blur=${this._onFocusOut} tabindex="0">
 				<slot id="items"></slot>
 			</div>
@@ -202,9 +210,6 @@ export class CtMenu extends CtLit {
 		this.addedNodes.forEach((item, index) => {
 			var delay = index * 40 + "ms";
 			let o = {
-				"-webkit-transition-delay": delay,
-				"-moz-transition-delay": delay,
-				"-o-transition-delay": delay,
 				"transition-delay": delay
 			};
 			for (let key in o) {

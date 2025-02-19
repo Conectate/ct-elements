@@ -35,7 +35,7 @@ export let defaultTheme = css`
 		--color-blur: rgba(255, 255, 255, 0.7);
 		--color-blur-surface: rgba(255, 255, 255, 0.6);
 		--color-on-surface-opaque: #8e8e8e; /* Texto sencundarios */
-		--color-on-surface-dividers: #7c7c7c30; /* divisores */
+		--color-outline: #7c7c7c30; /* divisores */
 		--color-app: linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 		--dark-primary-color: #218cb3;
 	}
@@ -67,7 +67,7 @@ export let defaultTheme = css`
 			--color-disable: #ffffff61;
 
 			--color-on-surface-opaque: #8e8e8e; /* Texto sencundarios */
-			--color-on-surface-dividers: #bbbbbb24; /* divisores */
+			--color-outline: #bbbbbb24; /* divisores */
 			--color-blur: rgba(35, 35, 37, 0.7);
 			--color-blur-surface: #1a2c34b3;
 			--color-app: linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);

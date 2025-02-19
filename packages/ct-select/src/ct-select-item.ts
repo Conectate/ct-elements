@@ -14,7 +14,7 @@ export class CtSelectItem extends CtLit {
 				background-color: var(--color-surface, #fff);
 				transition: background-color 0.2s ease-in-out;
 				padding: 8px;
-				border-bottom: 1px solid var(--color-borders, #89898936);
+				border-bottom: 1px solid var(--color-outline, #89898936);
 			}
 			button {
 				min-width: 170px;

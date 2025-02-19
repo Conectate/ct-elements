@@ -68,7 +68,7 @@ export class CtCard extends LitElement {
 				border: none;
 			}
 			:host([withborder]) {
-				border: 1px solid var(--color-borders, #8d8d8d38);
+				border: 1px solid var(--color-outline, #8d8d8d38);
 			}
 			:host([decorator]) {
 				overflow: hidden;
@@ -94,7 +94,7 @@ export class CtCard extends LitElement {
 			}
 			@media only print {
 				:host {
-					border: 1px solid var(--color-borders, #8d8d8d38);
+					border: 1px solid var(--color-outline, #8d8d8d38);
 					--ct-card-box-shadow: none;
 				}
 			}
