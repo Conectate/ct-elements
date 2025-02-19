@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-dialog",
-	"version": "4.4.0",
+	"version": "4.4.3",
 	"description": "HTML dialog made with Web Components",
 	"main": "ct-dialog.js",
 	"types": "ct-dialog.d.ts",
@@ -17,7 +17,7 @@
 		"@conectate/ct-button": "^4.3.4",
 		"@conectate/ct-card": "^4.4.0",
 		"@conectate/ct-helpers": "^4.0.0",
-		"@conectate/ct-input": "^4.3.4",
+		"@conectate/ct-input": "^4.4.3",
 		"@conectate/ct-lit": "^4.3.0",
 		"@conectate/ct-spinner": "^4.3.0",
 		"lit": "^3.2.1"
