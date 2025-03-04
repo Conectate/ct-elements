@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-select",
-	"version": "4.4.4",
+	"version": "4.4.5",
 	"description": "Ct Elements",
 	"main": "ct-select.js",
 	"types": "ct-select.d.ts",
@@ -9,12 +9,12 @@
 		"ct-elements"
 	],
 	"dependencies": {
-		"@conectate/ct-button": "^4.3.4",
+		"@conectate/ct-button": "^4.4.5",
 		"@conectate/ct-card": "^4.4.0",
-		"@conectate/ct-dialog": "^4.4.4",
+		"@conectate/ct-dialog": "^4.4.5",
 		"@conectate/ct-helpers": "^4.0.0",
 		"@conectate/ct-icon": "^4.3.1",
-		"@conectate/ct-input": "^4.4.4",
+		"@conectate/ct-input": "^4.4.5",
 		"@conectate/ct-lit": "^4.3.0"
 	},
 	"scripts": {
