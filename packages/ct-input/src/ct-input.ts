@@ -397,25 +397,25 @@ export class CtInput extends CtLit {
 							<input
 								id="input"
 								class=${classMap({ "has-value": !this.isEmpty, error: this.invalid && this.errorMessage })}
-								@focus="${this._onFocus}"
-								@blur="${this._onBlur}"
-								@input="${this._onInput}"
-								.type="${this.type}"
-								.placeholder="${this.placeholder || this.rawPlaceholder}"
-								.size="${this.size}"
-								?autofocus="${this.autofocus}"
-								?readonly="${this.readonly}"
-								?multiple="${this.multiple}"
-								autocomplete="${this.autocomplete as any}"
-								inputmode="${ifDefined(this.inputmode)}"
-								minlength="${ifDefined(this.minlength)}"
-								maxlength="${ifDefined(this.maxlength)}"
-								min="${ifDefined(this.min)}"
-								max="${ifDefined(this.max)}"
-								step="${ifDefined(this.step)}"
-								name="${ifDefined(this.name)}"
-								autocapitalize="${ifDefined(this.autocapitalize)}"
-								accept="${ifDefined(this.accept)}"
+								@focus=${this._onFocus}
+								@blur=${this._onBlur}
+								@input=${this._onInput}
+								.type=${this.type}
+								.placeholder=${this.placeholder || this.rawPlaceholder}
+								.size=${this.size}
+								?autofocus=${this.autofocus}
+								?readonly=${this.readonly}
+								?multiple=${this.multiple}
+								autocomplete=${this.autocomplete as any}
+								inputmode=${ifDefined(this.inputmode)}
+								minlength=${ifDefined(this.minlength)}
+								maxlength=${ifDefined(this.maxlength)}
+								min=${ifDefined(this.min)}
+								max=${ifDefined(this.max)}
+								step=${ifDefined(this.step)}
+								name=${ifDefined(this.name)}
+								autocapitalize=${ifDefined(this.autocapitalize)}
+								accept=${ifDefined(this.accept)}
 							/>
 						</div>
 						<slot name="suffix"></slot>
@@ -445,7 +445,7 @@ export class CtInput extends CtLit {
 	}
 
 	set value(val: string | number | undefined | null) {
-		val ||= "";
+		val ??= "";
 		val = val.toString();
 		this.initValue = val;
 		if (this.$input && this.$input.value != val && val.length - 1 < this.maxlength) {

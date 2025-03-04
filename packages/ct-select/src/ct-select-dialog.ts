@@ -351,8 +351,8 @@ export class CtSelectDialog extends CtLit {
 
 	async onClickItem(e: any, value: any) {
 		if (!this.multi) {
+			await this.dialog.close();
 			this.solve(value);
-			await this.dialog.closeDialog();
 		} else {
 			let selected = Boolean(e.target.selected); //e.target.classList.contains('selected');
 			// e.target.classList.toggle('selected', !selected);
@@ -369,12 +369,12 @@ export class CtSelectDialog extends CtLit {
 	}
 
 	async okbtn() {
-		await this.dialog.closeDialog();
+		await this.dialog.close();
 		this.solve(this.multiValue);
 	}
 
 	async cancelbtn() {
-		await this.dialog.closeDialog();
+		await this.dialog.close();
 		this.solve(undefined);
 	}
 

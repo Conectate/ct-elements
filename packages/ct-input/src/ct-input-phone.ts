@@ -1,6 +1,6 @@
 import "./ct-input-container.js";
 
-import { CtLit, customElement, query } from "@conectate/ct-lit";
+import { CtLit, customElement, property, query } from "@conectate/ct-lit";
 import { css, html } from "lit";
 
 /**
@@ -14,6 +14,7 @@ export class CtInputPhone extends CtLit {
 	label: string = "";
 	errorMessage: string = "";
 	required: boolean = false;
+	@property({ type: String }) autocomplete: AutoFill = "off";
 	@query("#cd") $cd!: HTMLInputElement;
 	@query("#phone") $phone!: HTMLInputElement;
 
@@ -81,6 +82,7 @@ export class CtInputPhone extends CtLit {
 						size="1"
 						placeholder="XXX"
 						type="tel"
+						autocomplete=${this.autocomplete as "on" | "off"}
 						onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"
 					/>
 					<span class="sep">)</span>
@@ -93,6 +95,7 @@ export class CtInputPhone extends CtLit {
 						pattern="[0-9]{5,}"
 						placeholder="#### ####"
 						type="tel"
+						autocomplete=${this.autocomplete as "on" | "off"}
 						onkeypress="return (event.charCode >= 48 &amp;&amp; event.charCode <= 57) || event.charCode == 45 || event.charCode == 32"
 					/>
 				</span>
