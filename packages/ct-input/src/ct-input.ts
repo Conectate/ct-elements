@@ -400,6 +400,7 @@ export class CtInput extends CtLit {
 								@focus=${this._onFocus}
 								@blur=${this._onBlur}
 								@input=${this._onInput}
+								@keypress=${this._handleKeyPress}
 								.type=${this.type}
 								.placeholder=${this.placeholder || this.rawPlaceholder}
 								.size=${this.size}
@@ -493,6 +494,14 @@ export class CtInput extends CtLit {
 	_onBlur() {
 		this.active = false;
 		this.validate();
+	}
+
+	private _handleKeyPress(event: KeyboardEvent) {
+		if (event.key === "Enter") {
+			this.dispatchEvent(new Event("enter-pressed", { bubbles: true, composed: true }));
+			const form = this.closest("form");
+			form?.requestSubmit(); // Envía el formulario al presionar "Enter"
+		}
 	}
 
 	validate() {

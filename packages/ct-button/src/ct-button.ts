@@ -195,15 +195,24 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) light = false;
 
 	@property({ type: String, reflect: true }) role = "button";
+	@property({ type: String, reflect: true }) type: "button" | "submit" | "reset" = "button";
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
-		return html` <button ?disabled=${this.disabled} @click=${() => this.dispatchEvent(new CustomEvent("btnclick"))}>
+		return html` <button ?disabled=${this.disabled} type=${this.type} @click=${this._handleClick}>
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
 		</button>`;
 	}
+
+	private _handleClick(event: Event) {
+        // Permite que el evento `click` salga del Shadow DOM
+        this.dispatchEvent(new Event("click", { bubbles: true, composed: true }));
+		if (this.type === "submit") {
+			this.closest("form")?.requestSubmit();
+		}
+    }
 }
 
 declare global {
