@@ -10,7 +10,7 @@ found at https://open.grupoconectate.com/PATENTS.txt
  */
 
 import { LitElement, css, html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, query } from "lit/decorators.js";
 
 /**
 ## Example usage
@@ -189,6 +189,9 @@ export class CtButton extends LitElement {
 			}
 		`
 	];
+	static formAssociated = true;
+	@query(".button") private readonly buttonElement!: HTMLElement | null;
+
 	@property({ type: Boolean, reflect: true }) raised = false;
 	@property({ type: Boolean, reflect: true }) shadow = false;
 	@property({ type: Boolean, reflect: true }) flat = false;
@@ -199,20 +202,36 @@ export class CtButton extends LitElement {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) gap = false;
 	render() {
-		return html` <button ?disabled=${this.disabled} type=${this.type} @click=${this._handleClick}>
+		return html` <button ?disabled=${this.disabled} type=${this.type} @click=${this.handleClick}>
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
 		</button>`;
 	}
 
-	private _handleClick(event: Event) {
-        // Permite que el evento `click` salga del Shadow DOM
-        this.dispatchEvent(new Event("click", { bubbles: true, composed: true }));
+	constructor() {
+		super();
+		this.addEventListener("click", this.handleClick.bind(this));
+	}
+
+	override focus() {
+		this.buttonElement?.focus();
+	}
+
+	override blur() {
+		this.buttonElement?.blur();
+	}
+
+	private handleClick(event: Event) {
 		if (this.type === "submit") {
 			this.closest("form")?.requestSubmit();
 		}
-    }
+	} /* 
+	private dispatchActivationClick(element: HTMLElement) {
+		const event = new MouseEvent("click", { bubbles: true });
+		element.dispatchEvent(event);
+		return event;
+	} */
 }
 
 declare global {
