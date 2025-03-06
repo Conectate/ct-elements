@@ -227,12 +227,7 @@ export class CtButton extends LitElement {
 		if (this.type === "submit") {
 			this.internals?.form?.requestSubmit();
 		}
-	} /* 
-	private dispatchActivationClick(element: HTMLElement) {
-		const event = new MouseEvent("click", { bubbles: true });
-		element.dispatchEvent(event);
-		return event;
-	} */
+	}
 }
 
 declare global {
