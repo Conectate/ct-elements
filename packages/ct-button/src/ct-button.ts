@@ -210,11 +210,6 @@ export class CtButton extends LitElement {
 		</button>`;
 	}
 
-	constructor() {
-		super();
-		this.addEventListener("click", this.handleClick.bind(this));
-	}
-
 	override focus() {
 		this.buttonElement?.focus();
 	}
