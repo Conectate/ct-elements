@@ -190,6 +190,7 @@ export class CtButton extends LitElement {
 		`
 	];
 	static formAssociated = true;
+	private readonly internals = this.attachInternals();
 	@query(".button") private readonly buttonElement!: HTMLElement | null;
 
 	@property({ type: Boolean, reflect: true }) raised = false;
@@ -224,7 +225,7 @@ export class CtButton extends LitElement {
 
 	private handleClick(event: Event) {
 		if (this.type === "submit") {
-			this.closest("form")?.requestSubmit();
+			this.internals?.form?.requestSubmit();
 		}
 	} /* 
 	private dispatchActivationClick(element: HTMLElement) {
