@@ -1,83 +1,104 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-lit)
-
 # ct-lit
 
-It's a simple wrapper for LitElement
+Enhanced wrapper for LitElement with additional utility methods.
+
+[![Published on npm](https://img.shields.io/npm/v/@conectate/ct-lit.svg)](https://www.npmjs.com/package/@conectate/ct-lit)
 
 ## Installation
 
-To include this, type:
-
-```sh
-$ yarn add @conectate/ct-lit
-```
-
-or
-
-```sh
-$ npm i @conectate/ct-lit
+```bash
+npm install @conectate/ct-lit
 ```
 
 ## Usage
 
+`ct-lit` provides the `CtLit` class, which extends LitElement and adds useful utility methods. It also re-exports most commonly used functions and decorators from the `lit` library.
+
+### Basic Example
+
 ```typescript
-// Typescript
-import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
+import { CtLit, html, customElement } from '@conectate/ct-lit';
 
-@customElement("my-demo")
-export class MyDemo extends CtLit {
-	static styles = css`
-		:host {
-			display: block;
-		}
-	`;
-
-	render() {
-		return html``;
-	}
+@customElement('my-element')
+export class MyElement extends CtLit {
+  render() {
+    return html`
+      <div>Hello World!</div>
+    `;
+  }
 }
 ```
 
-## Properties
+### Utility Methods Example
 
-| Property | Type                    | Default |
-| -------- | ----------------------- | ------- |
-| `$`      | `{ [x: string]: any; }` | {}      |
+```typescript
+@customElement('my-element')
+export class MyElement extends CtLit {
+  firstUpdated() {
+    // Select elements using simplified selectors
+    const button = this.$$('#myButton');
 
-## Methods
+    // Fire custom events easily
+    this.fire('element-ready', { status: 'ok' });
+  }
 
-| Method      | Type                                                                                                                                             | Description                                                                                                                                                                                                                  |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `$$`        | `(name: string): HTMLElement \| Element \| undefined \| null`                                                                                    | Returns the first element that is a descendant of node that matches selectors.                                                                                                                                               |
-| `$$$`       | `(name: string): NodeListOf<HTMLElement \| Element> \| undefined`                                                                                | Returns all element descendants of node that match selectors.                                                                                                                                                                |
-| `deepClone` | `(ob: object): any`                                                                                                                              | Clone all `native` types of object in a new object reference<br /><br />**ob**: Original Object                                                                                                                              |
-| `deleteAt`  | `(listTarget: string, index: number): void`                                                                                                      | Delete item in list<br /><br />**listTarget**: List Target<br />**index**: Index                                                                                                                                             |
-| `fire`      | `(name: string, value: any): void`                                                                                                               | Fire a event with name and value                                                                                                                                                                                             |
-| `insertAt`  | `(listTarget: string, index: number, el: any): void`                                                                                             | Insert Object in list at index<br /><br />**listTarget**: List Target<br />**index**: Index<br />**el**: Object                                                                                                              |
-| `mapIDs`    | `(): void`                                                                                                                                       | Map all IDs for shadowRoot and save in `this.$` like a polymer element.<br />You should add in the first line of `firstUpdated()`                                                                                            |
-| `move`      | `(array: object, old_index: number, new_index: number): void`                                                                                    | Move item in array<br /><br />**array**: Array object<br />**old_index**: Old Index<br />**new_index**: New Index                                                                                                            |
-| `push`      | `(name: string, value: any): void`                                                                                                               | Set Value and fire event with the same name                                                                                                                                                                                  |
-| `scrollToY` | `(scrollTargetY?: number, time?: number, easing?: "easeInOutSine" \| "easeOutSine" \| "easeInOutQuint" \| "easeInOutCubic", target?: any): void` | **scrollTargetY**: pixels to scroll. Ej: <br />const ticketsBlockPositionY = this.$.contact.getBoundingClientRect().top + window.scrollTarget.scrollTop;<br />**time**: Time to scroll<br />**target**: scrollTarget Element |
-| `set`       | `(name: string, value: any): void`                                                                                                               | Set Value and fire event with the same name                                                                                                                                                                                  |
-| `setAt`     | `(listTarget: string, index: number, el: any): void`                                                                                             |                                                                                                                                                                                                                              |
-| `splice`    | `(name: string, index: number, pos: number, value: any): void`                                                                                   | Set Value and fire event with the same name                                                                                                                                                                                  |
+  handleClick() {
+    // Helper for smooth scrolling
+    this.scrollToY(500, 800, 'easeInOutQuint');
+  }
 
-## Follow me
+  render() {
+    return html`
+      <div>
+        <button id="myButton" @click=${this.handleClick}>Click me</button>
 
-[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
+        <!-- Conditional rendering helper -->
+        ${If(this.showContent, html`<div>Additional content</div>`)}
+      </div>
+    `;
+  }
+}
+```
 
-[https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
+## API Reference
 
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
+### CtLit Class
 
-## Contributing
+Extends the LitElement class with additional utility methods.
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+#### Methods
+
+| Method      | Parameters                                                                 | Return Type                                       | Description                                             |
+| ----------- | -------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------- |
+| `$$`        | `name: string`                                                             | `HTMLElement \| Element \| undefined \| null`     | Returns the first element that matches the CSS selector |
+| `$$$`       | `name: string`                                                             | `NodeListOf<HTMLElement \| Element> \| undefined` | Returns all elements that match the CSS selector        |
+| `mapIDs`    | -                                                                          | `void`                                            | Maps all elements with IDs to `this.$` (deprecated)     |
+| `deepClone` | `ob: T`                                                                    | `T`                                               | Creates a deep clone of an object                       |
+| `fire`      | `name: string, value: any`                                                 | `void`                                            | Dispatches a CustomEvent with the given name and value  |
+| `scrollToY` | `scrollTargetY?: number, time?: number, easing?: string, target?: Element` | `void`                                            | Smoothly scrolls to a position on the page              |
+
+### Helper Functions
+
+| Function | Parameters                          | Return Type | Description                      |
+| -------- | ----------------------------------- | ----------- | -------------------------------- |
+| `If`     | `condition: boolean, template: any` | `any`       | Conditionally renders a template |
+
+### Exports from Lit
+
+The library re-exports the following from the `lit` library:
+
+- `css`, `html`, `svg`, `unsafeCSS` from `lit`
+- `property`, `query`, `queryAll`, `queryAssignedNodes`, `queryAsync`, `state` from `lit/decorators.js`
+- `unsafeHTML` from `lit/directives/unsafe-html.js`
+- `until` from `lit/directives/until.js`
+- `LitElement` from `lit`
+
+### Decorators
+
+| Decorator       | Parameters        | Description              |
+| --------------- | ----------------- | ------------------------ |
+| `customElement` | `tagName: string` | Defines a custom element |
 
 ## License
 
-See [LICENSE](/LICENSE)
+MIT

@@ -21,6 +21,14 @@ ctDialogs = window.ctDialogs;
 let dialogID = 0;
 let toDelete: CtDialog | null = null;
 
+/**
+ * Creates and displays a dialog with the specified content
+ *
+ * @param {HTMLElement} el - The HTML element to display within the dialog
+ * @param {string} [id] - Optional identifier for the dialog
+ * @param {ConectateHistory} [history] - Optional history object for browser history integration
+ * @returns {CtDialog} The created dialog instance
+ */
 export function showCtDialog(el: HTMLElement, id?: string, history?: ConectateHistory): CtDialog {
 	let ctDialog: CtDialog;
 	// Inserto el ID del dialogo que voy a mostrar
@@ -33,6 +41,12 @@ export function showCtDialog(el: HTMLElement, id?: string, history?: ConectateHi
 	return ctDialog;
 }
 
+/**
+ * Closes a specific dialog or all dialogs if none specified
+ *
+ * @param {CtDialog} [id] - Optional dialog instance to close
+ * @returns {Promise<number>} Promise that resolves when the dialog(s) is closed
+ */
 export function closeCtDialog(id?: CtDialog) {
 	return new Promise(async resolve => {
 		let m = document.querySelectorAll("ct-dialog") as NodeListOf<CtDialog>;
@@ -52,16 +66,28 @@ window.showCtDialog = showCtDialog;
 // @ts-ignore
 window.closeCtDialog = closeCtDialog;
 
+/**
+ * Animation types available for dialogs
+ */
 type typeDialog = "alert" | "cupertino" | "slide-right" | "slide-left" | "bottom-sheet";
+
+/**
+ * Size preferences for dialogs
+ */
 export enum DialogSizePreferences {
-	/** Para pantalla completa */
+	/** Full screen dialog */
 	fullsreen = 0,
-	/** Para que se muestre al 80% de la ventada y 21cm de ancho */
+	/** 80% of window width with max-width */
 	fullsize = 1
 }
 
+/**
+ * Interface for history integration
+ */
 export interface ConectateHistory {
+	/** Page title for history entry */
 	title: string;
+	/** URL for history entry */
 	href: string;
 }
 
@@ -91,16 +117,57 @@ let _clseDialogESC = (e: KeyboardEvent) => {
 
 window.addEventListener("popstate", _closeViaPopState, false);
 document.addEventListener("keyup", _clseDialogESC, false);
+
 /**
- * @cssProp --ct-dialog-width - Ancho del dialogo
- * @cssProp --ct-dialog-height - Alto del dialogo
- * @fires close - Se dispara cuando se cierra el dialogo
- * @fires open - Se dispara cuando se abre el dialogo
+ * ## `ct-dialog`
+ * A versatile dialog component that supports multiple animation styles and modal behaviors.
+ *
+ * ### Usage
+ * ```javascript
+ * import { showCtDialog, closeCtDialog } from '@conectate/ct-dialog';
+ *
+ * // Create content for the dialog
+ * const content = document.createElement('div');
+ * content.textContent = 'This is a dialog';
+ *
+ * // Show the dialog
+ * const dialog = showCtDialog(content);
+ *
+ * // Configure dialog
+ * dialog.setAnimation('slide-right');
+ * dialog.interactiveDismissDisabled = true; // Prevent closing by clicking outside
+ *
+ * // Close dialog
+ * dialog.close();
+ * // or
+ * closeCtDialog(dialog);
+ * ```
+ *
+ * ### Animation Types
+ * - `alert`: Standard modal dialog (default)
+ * - `cupertino`: iOS-style dialog animation
+ * - `slide-right`: Dialog slides in from the right
+ * - `slide-left`: Dialog slides in from the left
+ * - `bottom-sheet`: Dialog slides up from the bottom
+ *
+ * @group ct-elements
+ * @element ct-dialog
+ * @fires close - Fired when the dialog closes
+ * @fires open - Fired when the dialog opens
+ * @csspart overlay - The overlay that covers the screen behind the dialog
+ * @csspart container - The container of the dialog content
+ * @cssProp --ct-dialog-width - Width of the dialog (default: 25cm)
+ * @cssProp --ct-dialog-height - Height of the dialog (default: 80%)
+ * @cssProp --ct-dialog-background - Background color of the dialog
+ * @cssProp --ct-dialog-border-radius - Border radius of the dialog
+ * @cssProp --ct-dialog-box-shadow - Shadow of the dialog
  */
 @customElement("ct-dialog")
 export class CtDialog extends CtLit {
-	/** En algunas version  */
+	/** Flag for checking CriOS browser */
 	static checkForCriOS = false;
+
+	/** Element to hide overflow on when dialog is open */
 	static hiddenOverflow: HTMLElement | null = document.body;
 	static styles = [
 		css`

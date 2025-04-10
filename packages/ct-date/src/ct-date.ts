@@ -4,14 +4,39 @@ import { CtLit, customElement, property, query } from "@conectate/ct-lit";
 import { TemplateResult, css, html } from "lit";
 
 /**
- * Simple cross-platform Date input for LitElement and Web Components
+ * ## `ct-date`
+ * A simple cross-platform date input component with optional time selection.
  *
+ * ### Usage
+ * ```html
+ * <!-- Basic date input -->
+ * <ct-date label="Select Date"></ct-date>
+ *
+ * <!-- Date input with time selection -->
+ * <ct-date label="Select Date and Time" showhour></ct-date>
+ *
+ * <!-- Date input without day selection -->
+ * <ct-date label="Select Month/Year" nodd></ct-date>
+ * ```
+ *
+ * ### Events
+ * - `value`: Fired when a valid date is selected, with timestamp in seconds as detail
+ *
+ * ### Features
+ * - Supports date input with or without time
+ * - Optional day field
+ * - Timezone awareness option
+ * - Range validation for year input
+ * - Format parsing from pasted text
+ *
+ * @group ct-elements
  * @element ct-date
+ * @fires value - Fired when a valid date is selected with timestamp in seconds as detail
  */
 @customElement("ct-date")
 export class CtDate extends CtLit {
 	/**
-	 * Hide Day Value
+	 * When true, hides the day input field
 	 */
 	@property({ type: Boolean }) nodd = false;
 	/**
@@ -105,6 +130,11 @@ export class CtDate extends CtLit {
 		});
 	}
 
+	/**
+	 * Parses a date string and sets component values
+	 * Supports formats: DD/MM/YYYY, YYYY-MM-DD, and optional time HH:MM
+	 * @param {string} data - The date string to parse
+	 */
 	plainTextToDate(data?: string) {
 		if (data && (data.includes("/") || data.includes("-"))) {
 			let splitter = data.includes("/") ? "/" : "-";
@@ -131,16 +161,13 @@ export class CtDate extends CtLit {
 		}
 	}
 
+	/**
+	 * Renders the date input component
+	 * @returns {TemplateResult} The rendered template
+	 */
 	render(): TemplateResult {
 		return html`
-			<ct-input-container
-				id="container"
-				?invalid=${this.invalid}
-				.label="${this.label}"
-				.placeholder="${this.placeholder}"
-				.value=${this.placeholder}
-				?required="${this.required}"
-			>
+			<ct-input-container id="container" ?invalid=${this.invalid} .label="${this.label}" .placeholder="${this.placeholder}" .value=${this.placeholder} ?required="${this.required}">
 				<slot slot="prefix" name="prefix"></slot>
 				<span slot="input" @focus=${this._onFocus}>
 					<span ?hidden="${this.nodd}">
@@ -201,13 +228,20 @@ export class CtDate extends CtLit {
 									@input=${() => this.validX("min", this.$min?.value || "", 0, 59)}
 									onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 								/>
-						  </span>`
+							</span>`
 						: ""}
 				</span>
 			</ct-input-container>
 		`;
 	}
 
+	/**
+	 * Validates and sets a value for a specific part of the date/time
+	 * @param {string} attr - The attribute to validate (yyyy, mm, dd, hh, min)
+	 * @param {string} val - The value to validate
+	 * @param {number} min - The minimum allowed value
+	 * @param {number} max - The maximum allowed value
+	 */
 	validX(attr: "yyyy" | "mm" | "dd" | "hh" | "min", val: string, min: number, max: number) {
 		this.resetInvalid();
 
@@ -234,9 +268,7 @@ export class CtDate extends CtLit {
 		// this.fireValue();
 		let unix = Math.floor(
 			new Date(
-				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh || "00", "0")}:${this.addZero(this.min || "00", "0")}${
-					this.usetimezone ? "" : "Z"
-				}`
+				`${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh || "00", "0")}:${this.addZero(this.min || "00", "0")}${this.usetimezone ? "" : "Z"}`
 			).getTime() / 1000
 		);
 		if (`NaN` != `${unix}`) {
@@ -244,10 +276,18 @@ export class CtDate extends CtLit {
 		}
 	}
 
+	/**
+	 * Sets the date value from a timestamp or string
+	 * @param {number|string|undefined} val - Timestamp in seconds or date string
+	 */
 	set value(val: number | string | undefined) {
 		this.loadValue(val);
 	}
 
+	/**
+	 * Gets the current date value as a timestamp in seconds
+	 * @returns {number|undefined} Timestamp in seconds or undefined if invalid
+	 */
 	get value(): number | undefined {
 		// Si existe this.nodd, establece this.dd en '02'
 		if (this.nodd) {
@@ -276,7 +316,8 @@ export class CtDate extends CtLit {
 	}
 
 	/**
-	 * Return value in yyyy-mm-dd format
+	 * Gets the current date in standard format
+	 * @returns {string|undefined} Date in YYYY-MM-DD or YYYY-MM-DDThh:mm format, or undefined if invalid
 	 */
 	get valueFormat() {
 		if (this.showhour && (!this.yyyy || !this.mm || !this.dd || !this.hh || !this.min)) return undefined;
@@ -285,14 +326,17 @@ export class CtDate extends CtLit {
 		else return `${this.yyyy}-${this.addZero(this.mm)}-${this.addZero(this.dd)}T${this.addZero(this.hh, "0")}:${this.addZero(this.min, "0")}${this.usetimezone ? "" : "Z"}`;
 	}
 
+	/**
+	 * Resets the invalid state
+	 */
 	resetInvalid() {
 		this.invalid = false;
 		//this.$container?.invalid = false;
 	}
 
 	/**
-	 * format yyyy-mm-dd in UI from timestamp
-	 * @param value timestamp value in seconds
+	 * Loads a date value from a timestamp or string
+	 * @param {number|string|undefined} value - Timestamp in seconds or date string
 	 */
 	loadValue(value?: number | string) {
 		if (typeof value == "string") {
@@ -324,7 +368,7 @@ export class CtDate extends CtLit {
 	}
 
 	/**
-	 * Cuando Hago focus en el input
+	 * Handles focus event on the input
 	 * @private
 	 */
 	_onFocus() {
@@ -333,6 +377,10 @@ export class CtDate extends CtLit {
 		}
 	}
 
+	/**
+	 * Validates the input and sets invalid state if needed
+	 * @returns {boolean} True if valid, false otherwise
+	 */
 	validate() {
 		this.resetInvalid();
 		if (this.value == undefined) {
@@ -342,10 +390,21 @@ export class CtDate extends CtLit {
 		return !this.invalid;
 	}
 
+	/**
+	 * Checks if a number is valid (not null, not zero, not NaN)
+	 * @param {number} num - The number to validate
+	 * @returns {boolean} True if valid, false otherwise
+	 */
 	validNumber(num: number) {
 		return num != null && num != 0 && `${num}` != `NaN`;
 	}
 
+	/**
+	 * Adds a leading zero to numbers less than 10
+	 * @param {number|string} n - The number to format
+	 * @param {string} onError - The value to use if n is NaN
+	 * @returns {string} Formatted number with leading zero if needed
+	 */
 	addZero(n: number | string, onError = "1") {
 		if (`${n}` == "") return "";
 		n = Number(n);

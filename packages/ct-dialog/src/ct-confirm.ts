@@ -16,6 +16,52 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
+/**
+ * Displays a confirmation dialog with standard Material Design styling
+ *
+ * @param {string} title - Dialog title
+ * @param {string} body - Content to display in the dialog (supports HTML)
+ * @param {string} [ok="Ok"] - Text for the positive button
+ * @param {string} [cancel] - Text for the negative button (will not display if not provided)
+ * @param {string} [neutral] - Text for the neutral button (will not display if not provided)
+ * @param {Object} [options] - Additional options
+ * @param {boolean} [options.history=true] - Whether to use browser history for the dialog
+ * @returns {Promise<boolean|null|undefined>} Promise that resolves with true (ok), false (cancel), or null (neutral)
+ *
+ * @example
+ * ```javascript
+ * // Basic confirmation dialog
+ * const confirmed = await showCtConfirm(
+ *   "Confirm Action",
+ *   "Are you sure you want to proceed?",
+ *   "Yes",
+ *   "No"
+ * );
+ *
+ * if (confirmed) {
+ *   // User clicked "Yes"
+ * } else {
+ *   // User clicked "No" or dismissed the dialog
+ * }
+ *
+ * // Three-option dialog
+ * const result = await showCtConfirm(
+ *   "Choose Action",
+ *   "What would you like to do?",
+ *   "Save",
+ *   "Delete",
+ *   "Cancel"
+ * );
+ *
+ * if (result === true) {
+ *   // User clicked "Save"
+ * } else if (result === false) {
+ *   // User clicked "Delete"
+ * } else {
+ *   // User clicked "Cancel"
+ * }
+ * ```
+ */
 export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
@@ -27,6 +73,27 @@ export function showCtConfirm(title: string, body: string, ok?: string, cancel?:
 	return ctConfirm.onResult();
 }
 
+/**
+ * Displays a confirmation dialog with iOS-style design (Cupertino)
+ *
+ * @param {string} title - Dialog title
+ * @param {string} body - Content to display in the dialog (supports HTML)
+ * @param {string} [ok="Ok"] - Text for the positive button
+ * @param {string} [cancel="Cancel"] - Text for the negative button
+ * @param {string} [neutral] - Text for the neutral button (will not display if not provided)
+ * @returns {Promise<boolean|null|undefined>} Promise that resolves with true (ok), false (cancel), or null (neutral)
+ *
+ * @example
+ * ```javascript
+ * // iOS-style confirmation dialog
+ * const confirmed = await showCtConfirmCupertino(
+ *   "Confirm Action",
+ *   "Are you sure you want to proceed?",
+ *   "Yes",
+ *   "No"
+ * );
+ * ```
+ */
 export function showCtConfirmCupertino(title: string, body: string, ok?: string, cancel?: string, neutral?: string) {
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
@@ -37,15 +104,58 @@ export function showCtConfirmCupertino(title: string, body: string, ok?: string,
 	ctConfirm.dialog = showCtDialog(ctConfirm);
 	return ctConfirm.onResult();
 }
+
+/**
+ * ## `ct-confirm`
+ * A dialog component that displays a confirmation with customizable buttons.
+ *
+ * This component is typically used through the `showCtConfirm` function rather than directly.
+ *
+ * @group ct-elements
+ * @element ct-confirm
+ */
 @customElement("ct-confirm")
 export class CTConfirm extends CtLit {
+	/**
+	 * Content to display in the dialog
+	 */
 	body: string = "";
+
+	/**
+	 * Dialog title text
+	 */
 	ttl: string = "Title";
+
+	/**
+	 * Text for the positive button
+	 */
 	ok: string = "OK";
+
+	/**
+	 * Text for the neutral button (not displayed if empty)
+	 */
 	neutral!: string;
+
+	/**
+	 * Text for the negative button (not displayed if empty)
+	 */
 	cancel!: string;
+
+	/**
+	 * Function to reject the promise
+	 * @private
+	 */
 	reject!: (reason?: any) => void;
+
+	/**
+	 * Function to resolve the promise
+	 * @private
+	 */
 	solve!: (param: boolean | null | undefined) => void;
+
+	/**
+	 * Reference to the dialog instance
+	 */
 	dialog!: CtDialog;
 	render() {
 		return html`

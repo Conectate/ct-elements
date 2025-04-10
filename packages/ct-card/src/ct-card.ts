@@ -12,7 +12,77 @@ import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 /**
+ * `ct-card` is a container component that provides a stylized surface for displaying content.
  *
+ * ## Usage
+ *
+ * ```html
+ * <ct-card>Basic card</ct-card>
+ *
+ * <!-- With decorator (top border) -->
+ * <ct-card decorator>Card with decorator</ct-card>
+ *
+ * <!-- With border -->
+ * <ct-card withborder>Card with border</ct-card>
+ *
+ * <!-- With padding -->
+ * <ct-card padding>Card with padding</ct-card>
+ *
+ * <!-- With theme -->
+ * <ct-card primary>Primary themed card</ct-card>
+ * <ct-card secondary>Secondary themed card</ct-card>
+ * <ct-card tertiary>Tertiary themed card</ct-card>
+ * <ct-card error>Error themed card</ct-card>
+ * ```
+ *
+ * ## Theming
+ *
+ * This component uses CSS custom properties for theming:
+ *
+ * | Property                       | Description                                |
+ * |--------------------------------|--------------------------------------------|
+ * | --border-radius                | Border radius of the card (default: 16px)  |
+ * | --color-surface                | Background color                           |
+ * | --color-on-surface             | Text color                                 |
+ * | --color-primary-container      | Background for primary variant              |
+ * | --color-on-primary-container   | Text color for primary variant              |
+ * | --color-secondary-container    | Background for secondary variant            |
+ * | --color-on-secondary-container | Text color for secondary variant            |
+ * | --color-tertiary-container     | Background for tertiary variant             |
+ * | --color-on-tertiary-container  | Text color for tertiary variant             |
+ * | --color-error-container        | Background for error variant                |
+ * | --color-on-error-container     | Text color for error variant                |
+ * | --color-outline                | Border color when using withborder attribute|
+ * | --color-primary | --color-app  | Color for the decorator (top border)        |
+ * | --ct-card-box-shadow           | Custom box-shadow when using shadow attribute |
+ *
+ * ## API
+ *
+ * ### Properties
+ *
+ * | Property    | Type    | Default | Description                              |
+ * |-------------|---------|---------|------------------------------------------|
+ * | decorator   | Boolean | false   | Add border-top with color-app            |
+ * | withborder  | Boolean | false   | Add border around the card               |
+ * | primary     | Boolean | false   | Apply primary theme colors               |
+ * | secondary   | Boolean | false   | Apply secondary theme colors             |
+ * | tertiary    | Boolean | false   | Apply tertiary theme colors              |
+ * | error       | Boolean | false   | Apply error theme colors                 |
+ *
+ * ### Slots
+ *
+ * | Name    | Description                         |
+ * |---------|-------------------------------------|
+ * | (default) | Main content area of the card     |
+ *
+ * ### CSS Classes
+ *
+ * You can use these classes inside the card to get predefined styles:
+ *
+ * | Class         | Description                          |
+ * |---------------|--------------------------------------|
+ * | .card-actions | For action buttons (adds top border) |
+ * | .card-content | For content (adds padding)           |
  *
  * @group ct-elements
  * @element ct-card
@@ -89,7 +159,7 @@ export class CtCard extends LitElement {
 			.dec {
 				height: 6px;
 				min-height: 6px;
-				background: var(--color-app, linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%));
+				background: var(--color-app, var(--color-primary, linear-gradient(90deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%)));
 				border-radius: 8px 8px 0 0;
 			}
 			@media only print {

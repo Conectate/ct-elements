@@ -18,6 +18,44 @@ import { TemplateResult } from "lit";
 
 import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
+/**
+ * Displays a prompt dialog with an input field and returns user input
+ *
+ * @param {string} title - Dialog title
+ * @param {string|TemplateResult} body - Content to display in the dialog
+ * @param {string} [ok="OK"] - Text for the positive button
+ * @param {string} [cancel="Cancel"] - Text for the negative button (will not display if not provided)
+ * @param {string} [neutral] - Text for the neutral button (will not display if not provided)
+ * @param {Object} [options] - Additional options
+ * @param {boolean} [options.wordwrap=false] - Whether to allow text wrapping in the body
+ * @param {string} [options.value] - Initial value for the input field
+ * @param {string} [options.label] - Label for the input field
+ * @param {string} [options.placeholder] - Placeholder text for the input field
+ * @param {string} [options.rawplaceholder] - Raw placeholder text for the input field
+ * @returns {Promise<string|undefined>} Promise that resolves with the input value, or undefined if canceled
+ *
+ * @example
+ * ```javascript
+ * // Basic prompt
+ * const name = await showCtPrompt("Enter Name", "Please enter your name:");
+ *
+ * // Prompt with custom buttons and initial value
+ * const email = await showCtPrompt(
+ *   "Email Address",
+ *   "Please provide your email:",
+ *   "Submit",
+ *   "Cancel",
+ *   undefined,
+ *   { label: "Email", placeholder: "user@example.com" }
+ * );
+ *
+ * if (email) {
+ *   console.log("Email provided:", email);
+ * } else {
+ *   console.log("User canceled prompt");
+ * }
+ * ```
+ */
 export function showCtPrompt(
 	title: string,
 	body: string | TemplateResult,
@@ -39,21 +77,87 @@ export function showCtPrompt(
 	return ctPromp.onResult();
 }
 
+/**
+ * ## `ct-promp`
+ * A dialog component that displays a prompt with an input field for user input.
+ *
+ * This component is typically used through the `showCtPrompt` function rather than directly.
+ *
+ * @group ct-elements
+ * @element ct-promp
+ */
 @customElement("ct-promp")
 class CTPromp extends CtLit {
+	/**
+	 * Content to display in the dialog
+	 */
 	@property({ type: String }) body: string | TemplateResult = "";
+
+	/**
+	 * Dialog title text
+	 */
 	@property({ type: String }) ttl: string = "Title";
+
+	/**
+	 * Text for the positive button
+	 */
 	@property({ type: String }) ok: string = "OK";
+
+	/**
+	 * Text for the neutral button (not displayed if empty)
+	 */
 	@property({ type: String }) neutral?: string = "";
+
+	/**
+	 * Text for the negative button (not displayed if empty)
+	 */
 	@property({ type: String }) cancel?: string = "Cancel";
+
+	/**
+	 * Whether to allow text wrapping in the body
+	 */
 	@property({ type: Boolean, reflect: true }) wordwrap: boolean = false;
+
+	/**
+	 * Additional configuration options
+	 */
 	@property({ type: Object }) options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string };
+
+	/**
+	 * Reference to the buttons container
+	 */
 	@query("#buttons") $buttons!: HTMLDivElement;
+
+	/**
+	 * Reference to the neutral button
+	 */
 	@query("#neutral") $neutral!: HTMLButtonElement;
+
+	/**
+	 * Reference to the cancel button
+	 */
 	@query("#cancel") $cancel!: HTMLButtonElement;
+
+	/**
+	 * Reference to the input field
+	 */
 	@query("#in") $in!: HTMLElementTagNameMap["ct-input"];
+
+	/**
+	 * Function to reject the promise
+	 * @private
+	 */
 	reject!: (reason?: any) => void;
+
+	/**
+	 * Function to resolve the promise
+	 * @private
+	 */
 	solve!: (param?: string | null) => void;
+
+	/**
+	 * Reference to the dialog instance
+	 */
 	dialog!: CtDialog;
 
 	static styles = [

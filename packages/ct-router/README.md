@@ -15,7 +15,7 @@ It's a simple routing system that changes the viewport depending on the route gi
 To include this, type:
 
 ```sh
-$ yarn add @conectate/ct-router
+$ pnpm i @conectate/ct-router
 or
 $ npm i @conectate/ct-router
 ```
@@ -26,11 +26,11 @@ $ npm i @conectate/ct-router
 
 You can insert JavaScript expressions as placeholders for HTML text content, attributes, Boolean attributes, properties, and event handlers.
 
--   Text content: `<p>${...}</p>`
--   Attribute: `<p id="${...}"></p>`
--   Boolean attribute: `?disabled="${...}"`
--   Property: `.value="${...}"`
--   Event handler: `@event="${...}"`
+- Text content: `<p>${...}</p>`
+- Attribute: `<p id="${...}"></p>`
+- Boolean attribute: `?disabled="${...}"`
+- Property: `.value="${...}"`
+- Event handler: `@event="${...}"`
 
 ## Usage
 
@@ -276,11 +276,11 @@ class MyRouter extends LitElement{
 
 ## Follow me
 
-[![Herberth_thumb](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
+[![Herberth_thumb](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://x.com/herberthobregon)
 
-[https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
+[https://x.com/herberthobregon](https://x.com/herberthobregon)
 
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
+[https://dev.to/herberthobregon](https://dev.to/herberthobregon)
 
 ## Contributing
 

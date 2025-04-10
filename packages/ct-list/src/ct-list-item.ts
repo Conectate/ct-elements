@@ -1,17 +1,54 @@
 import "@conectate/ct-icon";
 
 import type { icon } from "@conectate/ct-icon/icon-list.js";
-import { CtLit, customElement, property, query } from "@conectate/ct-lit";
+import { CtLit, customElement, property } from "@conectate/ct-lit";
 import { css, html } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
+import { literal } from "lit/static-html.js";
 
 /**
+ * A customizable list item component that can display icons, text, and additional content.
+ *
+ * This component can be used standalone or within menu/list structures and provides
+ * a flexible layout with slots for prefix, main content, and suffix elements.
+ * It can act as a button or as a link depending on the properties provided.
+ *
+ * Features:
+ * - Display text with optional icons
+ * - Can act as a navigation link when href/link is provided
+ * - Auto-closes parent menus when clicked (configurable)
+ * - Customizable appearance with CSS variables
+ * - Responsive hover and active states
+ *
  * @element ct-list-item
  *
- * @slot prefix - Content placed above the main content
- * @slot - Default content placed in the middle
- * @slot suffix - Content placed below the main content
- * @cssProp --ct-list-item--white-space - white-space
+ * @slot prefix - Content placed before the main content (left side in LTR layouts)
+ * @slot - Default slot for main content
+ * @slot suffix - Content placed after the main content (right side in LTR layouts)
+ *
+ * @cssprop --ct-list-item--white-space - Controls text wrapping (default: nowrap)
+ * @cssprop --ct-icon-size - Size of the icon displayed (default: 21px)
+ * @cssprop --color-outline - Color of the bottom border (default: transparent)
+ * @cssprop --color-primary - Color used for outline when focused
+ *
+ * @example
+ * ```html
+ * <!-- Basic usage with text -->
+ * <ct-list-item text="Settings"></ct-list-item>
+ *
+ * <!-- With icon -->
+ * <ct-list-item icon="settings" text="Settings"></ct-list-item>
+ *
+ * <!-- As a link -->
+ * <ct-list-item icon="home" text="Home" href="/home"></ct-list-item>
+ *
+ * <!-- With custom content -->
+ * <ct-list-item>
+ *   <span slot="prefix">🔔</span>
+ *   Custom content here
+ *   <span slot="suffix">3</span>
+ * </ct-list-item>
+ * ```
  */
 @customElement("ct-list-item")
 export class CtListItem extends CtLit {
@@ -31,7 +68,8 @@ export class CtListItem extends CtLit {
 				text-decoration: none;
 			}
 
-			button {
+			button,
+			.btn {
 				cursor: pointer;
 				appearance: none;
 				background: none;
@@ -66,7 +104,8 @@ export class CtListItem extends CtLit {
 				padding: 8px 16px 8px 0;
 				flex: 1;
 			}
-			:host(:last-child) .text, :host([hideoutline]) .text  {
+			:host(:last-child) .text,
+			:host([hideoutline]) .text {
 				border-bottom: none;
 			}
 
@@ -82,38 +121,83 @@ export class CtListItem extends CtLit {
 			}
 		`
 	];
-	@query("button") public button!: HTMLButtonElement;
+
+	/**
+	 * Custom SVG content for the icon (alternative to using the icon property)
+	 */
 	@property({ type: String }) svg = "";
+
+	/**
+	 * Material icon name to display
+	 * @see https://fonts.google.com/icons
+	 */
 	@property({ type: String }) icon?: icon;
-	/** Inner Text */
+
+	/**
+	 * Text content to display in the list item
+	 */
 	@property({ type: String }) text = "";
-	/** @deprecated use href instead */
+
+	/**
+	 * URL the item should navigate to when clicked
+	 * @deprecated use href instead
+	 */
 	@property({ type: String }) link?: string;
-	/** Link */
+
+	/**
+	 * URL the item should navigate to when clicked
+	 */
 	@property({ type: String }) href?: string;
-	/** Link */
+
+	/**
+	 * Target attribute for the link
+	 * Controls how the link opens (same window, new tab, etc.)
+	 */
 	@property({ type: String }) target?: "_self" | "_top" | "_blank";
 
+	/**
+	 * When true, clicking this item won't close parent menus
+	 * Useful for items that trigger actions that should keep the menu open
+	 */
 	@property({ type: Boolean, reflect: true, attribute: "keep-open" }) keepOpen = false;
+
+	/**
+	 * When true, hides the bottom border
+	 * Typically used for the last item or for custom styling
+	 */
 	@property({ type: Boolean, reflect: true }) hideoutline = false;
 
+	/**
+	 * When true, hides the bottom border
+	 * Typically used for the last item or for custom styling
+	 */
+	@property({ type: Boolean, reflect: true }) usebutton = false;
+
+	/**
+	 * Renders the list item as either a button or a link based on properties
+	 * @returns Rendered template
+	 */
 	render() {
-		let button = html`<button @click=${this.closeMenu}>
+		let tag = this.usebutton ? literal`button` : literal`div`;
+		let button = html`<${tag} class="btn" @click=${this.closeMenu} aria-label=${this.text} role=${this.usebutton ? "button" : "menuitem"}>
 			<slot name="prefix"></slot>
-			${this.icon || this.svg
-				? html`<ct-icon class="space" svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>`
-				: html`<div class="space"></div>`}
+			${this.icon || this.svg ? html`<ct-icon class="space" svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>` : html`<div class="space"></div>`}
 			<div class="text">
-				<span >${this.text}<slot></slot></span>
+				<span>${this.text}<slot></slot></span>
 				<slot name="suffix"></slot>
 			</div>
-		</button>`;
+		</${tag}>`;
 
 		let href = this.href || this.link;
 		if (href) return html`<a href="${href}" target="${ifDefined(this.target)}"> ${button}</a> `;
 		return button;
 	}
 
+	/**
+	 * Closes the parent menu when this item is clicked
+	 * Respects the keepOpen property
+	 * @param e Click event
+	 */
 	closeMenu(e: MouseEvent) {
 		let menu = this.closest("ct-button-menu") || this.closest("md-menu");
 		if (menu && !this.keepOpen) {

@@ -15,7 +15,7 @@ Spinner web component
 ## Install
 
 ```bash
-yarn add @conectate/ct-spinner
+pnpm i @conectate/ct-spinner
 #or
 npm i @conectate/ct-spinner
 ```

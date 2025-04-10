@@ -9,7 +9,7 @@ It's a simple wrapper for LitElement
 To include this, type:
 
 ```sh
-$ yarn add @conectate/ct-helpers
+$ pnpm i @conectate/ct-helpers
 ```
 
 or
@@ -45,11 +45,11 @@ main();
 
 ## Follow me
 
-[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
+[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://x.com/herberthobregon)
 
-[https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
+[https://x.com/herberthobregon](https://x.com/herberthobregon)
 
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
+[https://dev.to/herberthobregon](https://dev.to/herberthobregon)
 
 ## Contributing
 

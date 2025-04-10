@@ -34,7 +34,7 @@ See: [Documentation](https://github.com/Conectate/ct-elements/tree/master/packag
 ```bash
 npm i --save @conectate/ct-scroll-threshold
 # or
-yarn add @conectate/ct-scroll-threshold
+pnpm i @conectate/ct-scroll-threshold
 # or for disk savers
 pnpm add @conectate/ct-scroll-threshold
 ```

@@ -14,30 +14,116 @@ import { customElement, property, query } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 /**
- * ## `ct-img`
- * Normal and lazy images loader element
+ * An advanced image loader component that provides lazy loading functionality with various display options.
+ *
+ * This component automatically selects the best loading approach based on browser capabilities:
+ * - Uses native `loading="lazy"` if supported by the browser
+ * - Falls back to IntersectionObserver when native lazy loading is unavailable
+ * - Automatically loads a polyfill for IntersectionObserver if needed
+ *
+ * Features include:
+ * - Lazy loading images on-demand as they enter the viewport
+ * - Custom error handling with fallback images
+ * - Placeholder support while images are loading
+ * - Background image styling with contain/cover options
+ * - Smooth loading transitions with fade-in effects
+ * - Circular image option for profile pictures and avatars
+ *
  * @element ct-img
- * @attr {Boolean} contain - For contain background size
- * @attr {'left'|'right'} background-position - Position of Backgroud
+ *
+ * @example
+ * ```html
+ * <!-- Basic usage -->
+ * <ct-img src="image.jpg" alt="Description"></ct-img>
+ *
+ * <!-- Lazy loading -->
+ * <ct-img srcset="image.jpg" lazy alt="Description"></ct-img>
+ *
+ * <!-- With placeholder -->
+ * <ct-img src="image.jpg" placeholder-img="placeholder.jpg" alt="Description"></ct-img>
+ *
+ * <!-- Circular image -->
+ * <ct-img src="profile.jpg" round alt="Profile picture"></ct-img>
+ *
+ * <!-- Contained background -->
+ * <ct-img src="large-image.jpg" contain alt="Large image"></ct-img>
+ * ```
+ *
+ * @attr {Boolean} contain - Uses background-size: contain instead of cover
+ * @attr {'left'|'right'|'center'} background-position - Position of background image
+ * @cssproperty --ct-img-border-radius - Border radius of the image (default: 0px)
  */
 @customElement("ct-img")
 export class CtImg extends LitElement {
+	/**
+	 * Image source set attribute, similar to standard img srcset
+	 * For lazy loading, use srcset instead of src
+	 */
 	@property({ type: String }) srcset?: string;
+
+	/**
+	 * Alternative text for the image
+	 */
 	@property({ type: String }) alt: string = "";
+
+	/**
+	 * Image source URL
+	 */
 	@property({ type: String }) src: string = "";
+
+	/**
+	 * Enables lazy loading of the image
+	 * When true, the image will only load when it comes into view
+	 */
 	@property({ type: Boolean }) lazy = false;
+
+	/**
+	 * Disables fade-in animation when the image loads
+	 */
 	@property({ type: Boolean }) disable_anim = false;
+
+	/**
+	 * Makes the image circular (border-radius: 50%)
+	 * Useful for profile pictures and avatars
+	 */
 	@property({ type: Boolean }) round: boolean = false;
-	/** Force use IntersectionObserver instead `img.loading=lazy` */
+
+	/**
+	 * Forces use of IntersectionObserver instead of native lazy loading
+	 * Useful when more control over the loading behavior is needed
+	 */
 	@property({ type: Boolean }) intersectionobserver: boolean = false;
+
+	/**
+	 * The scrollable container that serves as the viewport for lazy loading
+	 * When the image enters this viewport, it will be loaded
+	 */
 	@property({ type: Object }) viewport: HTMLElement = document.body;
+
+	/**
+	 * URL of an image to display while the main image is loading
+	 */
 	@property({ type: String }) placeholderImg: string = "";
+
+	/**
+	 * URL or data URI of an image to display when the main image fails to load
+	 */
 	@property({ type: String }) onErrorSrc =
 		"data:image/svg+xml," +
 		encodeURIComponent(
 			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>'
 		);
+
+	/**
+	 * Reference to the internal img element
+	 * @private
+	 */
 	@query("#img") $img!: HTMLImageElement;
+
+	/**
+	 * Reference to the internal div that displays the background image
+	 * @private
+	 */
 	@query("#divimg") $divimg!: HTMLDivElement;
 
 	static styles = [
@@ -49,6 +135,7 @@ export class CtImg extends LitElement {
 				background-size: cover;
 				background-position: center;
 				height: 100%;
+				border-radius: var(--ct-img-border-radius, 0px);
 			}
 			#divimg {
 				position: absolute;
@@ -91,6 +178,11 @@ export class CtImg extends LitElement {
 			}
 		`
 	];
+
+	/**
+	 * Renders the component template
+	 * @returns The component template
+	 */
 	render() {
 		let classes = { r: this.round };
 		return html`
@@ -122,6 +214,10 @@ export class CtImg extends LitElement {
 		}
 	}
 
+	/**
+	 * Handles property changes and responds accordingly
+	 * @param cp Changed properties map
+	 */
 	updated(cp: Map<PropertyKey, unknown>) {
 		super.updated(cp);
 		if (cp.has("src")) this._srcChanged(this.src);
@@ -129,6 +225,11 @@ export class CtImg extends LitElement {
 		if (cp.has("placeholderImg")) this._placeholderImgChanged(this.placeholderImg);
 	}
 
+	/**
+	 * Responds to changes in the lazy property
+	 * @param lazy Current value of the lazy property
+	 * @private
+	 */
 	_lazyChanged(lazy: boolean) {
 		if (lazy) {
 			this._initLazyLoad(false);
@@ -136,16 +237,14 @@ export class CtImg extends LitElement {
 	}
 
 	/**
-	 * initialize lazy loading process by
-	 * creating an intersection observer and
-	 * adding this element to the observation
-	 * list.
+	 * Initialize lazy loading process by creating an intersection observer and
+	 * adding this element to the observation list.
 	 *
-	 * Waits for the polyfill to load, if necessary
+	 * Waits for the polyfill to load, if necessary.
 	 *
-	 * All instances of plastic-image share the same
-	 * IntersectionObserver.
-	 * @param {Boolean} polyfilled - is this being called after polyfill loaded
+	 * All instances of ct-img share the same IntersectionObserver.
+	 *
+	 * @param polyfilled Whether this is being called after polyfill loaded
 	 * @private
 	 */
 	_initLazyLoad(polyfilled: boolean = false) {
@@ -215,6 +314,11 @@ export class CtImg extends LitElement {
 		}
 	}
 
+	/**
+	 * Handles source changes by resetting the image state
+	 * @param src New source URL
+	 * @private
+	 */
 	_srcChanged(src: string) {
 		this.$img.removeAttribute("src");
 		this.$img.style.transition = "";
@@ -226,6 +330,11 @@ export class CtImg extends LitElement {
 		}
 	}
 
+	/**
+	 * Handles image load events by displaying the image with a transition
+	 * @fires loaded-changed - When the image has finished loading
+	 * @private
+	 */
 	_onImgLoad() {
 		if (!this.disable_anim) {
 			this.$img.style.transition = "0.5s opacity";
@@ -237,6 +346,10 @@ export class CtImg extends LitElement {
 		this.dispatchEvent(new CustomEvent("loaded-changed"));
 	}
 
+	/**
+	 * Handles image error events by displaying a fallback image
+	 * @private
+	 */
 	_onImgError() {
 		if (!this.disable_anim) this.$divimg.style.transition = "0.5s opacity";
 		this.$divimg.style.opacity = "1";
@@ -245,11 +358,17 @@ export class CtImg extends LitElement {
 		}
 	}
 
+	/**
+	 * Sets the placeholder image as the background
+	 * @param placeholder URL of the placeholder image
+	 * @private
+	 */
 	_placeholderImgChanged(placeholder: string) {
 		this.$divimg.style.opacity = "1";
 		this.$divimg.style.backgroundImage = `url(${placeholder})`;
 	}
 }
+
 declare global {
 	interface HTMLElementTagNameMap {
 		"ct-img": CtImg;

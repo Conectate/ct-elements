@@ -1,7 +1,14 @@
+/**
+ * @license
+ * Copyright (c) Conectate Team. All rights reserved.
+ * This code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { LitElement } from "lit";
 export type PropertyValues = Map<PropertyKey, any>;
 export { css, html, svg, unsafeCSS } from "lit";
-export { property, query, queryAll, queryAssignedNodes, queryAsync, state as internalProperty, state } from "lit/decorators.js";
+export { state as internalProperty, property, query, queryAll, queryAssignedNodes, queryAsync, state } from "lit/decorators.js";
 export { unsafeHTML } from "lit/directives/unsafe-html.js";
 export { until } from "lit/directives/until.js";
 export { LitElement };
@@ -46,6 +53,13 @@ export type Constructor<T> = {
 export const customElement = (tagName: string) => (classOrDescriptor: Constructor<HTMLElement> | ClassDescriptor) =>
 	typeof classOrDescriptor === "function" ? legacyCustomElement(tagName, classOrDescriptor) : standardCustomElement(tagName, classOrDescriptor);
 
+/**
+ * Legacy implementation of the customElement decorator for older browsers
+ * @param tagName The name of the custom element to define
+ * @param clazz The class to register as a custom element
+ * @returns The class passed in
+ * @internal
+ */
 const legacyCustomElement = (tagName: string, clazz: Constructor<HTMLElement>) => {
 	if (!window.customElements.get(tagName)) {
 		window.customElements.define(tagName, clazz);
@@ -61,6 +75,13 @@ const legacyCustomElement = (tagName: string, clazz: Constructor<HTMLElement>) =
 	return clazz as any;
 };
 
+/**
+ * Standard implementation of the customElement decorator for modern browsers
+ * @param tagName The name of the custom element to define
+ * @param descriptor The class descriptor
+ * @returns The modified descriptor
+ * @internal
+ */
 const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => {
 	const { kind, elements } = descriptor;
 	return {
@@ -77,7 +98,11 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
 	};
 };
 /**
- * It's a simple wrapper for LitElement
+ * CtLit - A wrapper class for LitElement with additional utility methods
+ *
+ * This class extends LitElement and provides convenient utility methods
+ * for common operations such as element selection, event dispatching,
+ * and scrolling animations.
  */
 export class CtLit extends LitElement {
 	connectedCallback(): void {
@@ -188,9 +213,20 @@ export class CtLit extends LitElement {
 	}
 }
 /**
- * If render conditions
- * @param condition Condition
- * @param template StringTemplate
+ * Conditional template rendering helper
+ *
+ * @param condition Boolean condition to evaluate
+ * @param template The template to render if the condition is true
+ * @returns The template if the condition is true, empty string otherwise
+ *
+ * @example
+ * ```ts
+ * render() {
+ *   return html`
+ *     ${If(this.isVisible, html`<div>Conditional content</div>`)}
+ *   `;
+ * }
+ * ```
  */
 export function If(condition: boolean, template: any) {
 	return condition ? template : "";

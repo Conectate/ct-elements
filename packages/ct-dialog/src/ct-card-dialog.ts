@@ -4,6 +4,14 @@ import { CtLit, customElement, html } from "@conectate/ct-lit";
 
 import { ConectateHistory, CtDialog, showCtDialog } from "./ct-dialog.js";
 
+/**
+ * Creates and displays a card-styled dialog with the specified content
+ *
+ * @param {HTMLElement} el - The HTML element to display within the card dialog
+ * @param {string} [id] - Optional identifier for the dialog
+ * @param {ConectateHistory} [history] - Optional history object for browser history integration
+ * @returns {CtDialog} The created dialog instance
+ */
 export function showCtCardDialog(el: HTMLElement, id?: string, history?: ConectateHistory) {
 	let cardDialog = document.createElement("ct-card-dialog") as CtCardDialog;
 	cardDialog.el = el;
@@ -13,9 +21,42 @@ export function showCtCardDialog(el: HTMLElement, id?: string, history?: Conecta
 // @ts-ignore
 window.showCtCardDialog = showCtCardDialog;
 
+/**
+ * ## `ct-card-dialog`
+ * A card-styled dialog component that presents content in a card format.
+ *
+ * ### Usage
+ * ```javascript
+ * import { showCtCardDialog } from '@conectate/ct-dialog';
+ *
+ * // Create content for the card dialog
+ * const content = document.createElement('div');
+ * content.innerHTML = `
+ *   <h2>Card Title</h2>
+ *   <p>This is card content with nice styling.</p>
+ *   <button>Close</button>
+ * `;
+ *
+ * // Show the card dialog
+ * const dialog = showCtCardDialog(content);
+ *
+ * // Close dialog when needed
+ * dialog.close();
+ * ```
+ *
+ * @group ct-elements
+ * @element ct-card-dialog
+ */
 @customElement("ct-card-dialog")
 export class CtCardDialog extends CtLit {
+	/**
+	 * The HTML element to display within the card dialog
+	 */
 	el!: any;
+
+	/**
+	 * Reference to the internal dialog instance
+	 */
 	dialog!: CtDialog;
 
 	static get properties() {

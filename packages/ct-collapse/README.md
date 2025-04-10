@@ -1,220 +1,123 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-router)
-[![LitElement Version](https://img.shields.io/badge/LitElement-v2.2.0-blue.svg)](https://www.polymer-project.org)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-collapse)
 
-# ct-lit
+# ct-collapse
 
-It's a simple wrapper for LitElement
+A collapsible content component that can smoothly expand and collapse with animation.
 
 ## Installation
 
-To include this, type:
-
 ```sh
-$ yarn add @conectate/ct-lit
-```
+# npm
+npm i @conectate/ct-collapse
 
-or
+# yarn
+yarn add @conectate/ct-collapse
 
-```sh
-$ npm i @conectate/ct-lit
+# pnpm
+pnpm i @conectate/ct-collapse
 ```
 
 ## Usage
 
-### Step 1️⃣
+### Basic Usage
 
-Class
+```javascript
+import '@conectate/ct-collapse';
 
-```typescript
-import { LitElement, css, customElement, html, property, svg } from "lit";
-import { unsafeHTML } from "lit/directives/unsafe-html";
-
-type PropertyValues = Map<PropertyKey, unknown>;
-
-export { html, svg, css, customElement, unsafeHTML, property, PropertyValues };
-class CtLit extends LitElement {
-	$: { [x: string]: HTMLElement | any } = {};
-
-	/**
-	 * Returns the first element within node's descendants whose ID is elementId.
-	 * @param name
-	 */
-	_(name: string): HTMLElement | null {
-		return this.shadowRoot && this.shadowRoot.getElementById(name);
-	}
-
-	/**
-	 * Returns the first element that is a descendant of node that matches selectors.
-	 * @param name
-	 */
-	$$(name: string): HTMLElement | null {
-		return this.shadowRoot && this.shadowRoot.querySelector(name);
-	}
-
-	/**
-	 * Returns all element descendants of node that match selectors.
-	 * @param name
-	 */
-	$$$(name: string) {
-		return this.shadowRoot && this.shadowRoot.querySelectorAll(name);
-	}
-	/**
-	 * Map all IDs for shadowRoot and save in this.$ like a polymer element
-	 */
-	mapIDs() {
-		let nodeList = this.shadowRoot && this.shadowRoot.querySelectorAll("[id]");
-		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
-			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
-		}
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	set(name: string, value: any) {
-		(this as any)[name] = value;
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	push(name: string, value: any) {
-		(this as any)[name].push(value);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	splice(name: string, index: number, pos: number, value: any) {
-		(this as any)[name].splice(index, pos, value);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	unshift(name: string, value: any) {
-		(this as any)[name].unshift(value);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	shift(name: string, value: any) {
-		(this as any)[name].shift(value);
-		this.requestUpdate();
-	}
-
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	move(name: string, old_index: number, new_index: number) {
-		if (new_index >= (this as any)[name].length) {
-			let k = new_index - (this as any)[name].length;
-			while (k-- + 1) {
-				this.push(name, undefined);
-			}
-		}
-		// @ts-ignore
-		this.splice(name, new_index, 0, this.splice(name, old_index, 1)[0]);
-	}
-
-	deleteAt(listTarget: string, index: number) {
-		(this as any)[listTarget].splice(index, 1);
-		this.requestUpdate();
-	}
-
-	insertAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 0, el);
-	}
-
-	setAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 1, el);
-	}
-
-	/**
-	 * Fire a event with name and value
-	 * @param name
-	 * @param value
-	 */
-	fire(name: string, value: any) {
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
-
-	/**
-     *
-     * @param scrollTargetY pixels to scroll. Ej:
-        const ticketsBlockPositionY = this.$.contact.getBoundingClientRect().top + window.scrollTarget.scrollTop;
-     * @param time Time to scroll
-     * @param easing
-     * @param target scrollTarget Element
-     */
-	scrollToY(
-		scrollTargetY: number = 0,
-		time: number = 600,
-		easing: "easeOutSine" | "easeOutSine" | "easeInOutQuint" = "easeOutSine",
-		target: Element = (window as any).scrollTarget
-	) {
-		let currentTime = 0;
-		const animationTime = time / 1000;
-
-		// easing equations from https://github.com/danro/easing-js/blob/master/easing.js
-		const easingEquations = {
-			easeOutSine: (pos: number) => Math.sin(pos * (Math.PI / 2)),
-			easeInOutSine: (pos: number) => -0.5 * (Math.cos(Math.PI * pos) - 1),
-			easeInOutQuint: (pos: number) => {
-				if ((pos /= 0.5) < 1) {
-					return 0.5 * Math.pow(pos, 5);
-				}
-				return 0.5 * (Math.pow(pos - 2, 5) + 2);
-			}
-		};
-
-		// add animation loop
-		function tick() {
-			currentTime += 1 / 60;
-
-			const p = currentTime / animationTime;
-			const t = easingEquations[easing](p);
-
-			const scrollTop = (target as any).pageYOffset || target.scrollTop || 0;
-
-			const newPosition = scrollTop + (scrollTargetY - scrollTop) * t;
-
-			if (p < 1) {
-				window.requestAnimationFrame(tick);
-				target.scrollTop = newPosition;
-			}
-		}
-		tick();
-	}
-}
-
-export { CtLit };
+// Then use in your HTML
+<ct-collapse>
+  <div>This content can be expanded or collapsed</div>
+</ct-collapse>
 ```
+
+### Examples
+
+```html
+<!-- Basic collapsed content (default state) -->
+<ct-collapse>
+	<div>This content is collapsed by default</div>
+</ct-collapse>
+
+<!-- Initially expanded content -->
+<ct-collapse opened>
+	<div>This content is expanded by default</div>
+</ct-collapse>
+
+<!-- Multiple content elements should be wrapped in a container -->
+<ct-collapse>
+	<div>
+		<h3>Collapsed Section Title</h3>
+		<p>First paragraph</p>
+		<p>Second paragraph</p>
+	</div>
+</ct-collapse>
+```
+
+### Controlling from JavaScript
+
+```javascript
+// Get reference to the element
+const collapse = document.querySelector('ct-collapse');
+
+// Toggle the collapse state
+collapse.toggle();
+
+// Or set directly
+collapse.opened = true;  // expand
+collapse.opened = false; // collapse
+```
+
+## API
+
+### Properties
+
+| Property | Attribute | Type      | Default | Description                                       |
+| -------- | --------- | --------- | ------- | ------------------------------------------------- |
+| `opened` | `opened`  | `boolean` | `false` | Controls whether content is expanded or collapsed |
+
+### Methods
+
+| Name       | Description                                  |
+| ---------- | -------------------------------------------- |
+| `toggle()` | Toggles between expanded and collapsed state |
+
+### Events
+
+This component doesn't emit any custom events.
+
+### Slots
+
+| Name        | Description                                                                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `(default)` | Content to be collapsed/expanded. Only one direct child element is supported. To include multiple elements, wrap them in a container element. |
+
+## Styling
+
+### CSS Custom Properties
+
+The component uses internal styling but can be customized by wrapping in a container or styling the content within.
+
+### Internal styles
+
+The collapse animation is handled automatically. The component:
+
+- Uses a 250ms transition for all properties
+- Calculates the appropriate height for the content
+- Manages overflow properties during transition
+
+## Notes
+
+- 🔔 Only **ONE** direct child element is supported. If you need to collapse multiple elements, wrap them in a container.
+- The component automatically calculates required heights for smooth animations.
+- The transition duration is fixed at 250ms.
 
 ## Follow me
 
-[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
+[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://x.com/herberthobregon)
 
-[https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
+[https://x.com/herberthobregon](https://x.com/herberthobregon)
 
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
+[https://dev.to/herberthobregon](https://dev.to/herberthobregon)
 
 ## Contributing
 
@@ -226,10 +129,7 @@ export { CtLit };
 
 ## History
 
--   v0.2.1 CHANGE keys to gruops in custom regex
--   v0.2.0 ADD href method
--   v0.1.8 You can use a html`` or string to define template
--   v0.1.0 Initial Release
+- v1.0.0 Initial Release
 
 ## License
 

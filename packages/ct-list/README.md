@@ -1,235 +1,292 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://github.com/conectate/ct-router)
-[![LitElement Version](https://img.shields.io/badge/LitElement-v2.2.0-blue.svg)](https://www.polymer-project.org)
+# @conectate/ct-list
 
-# ct-lit
+<div align="center">
+	<a href="https://npmcharts.com/compare/@conectate/ct-list?minimal=true">
+		<img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/ct-list.svg" height="20">
+	</a>
+	<a href="https://www.npmjs.com/package/@conectate/ct-list">
+		<img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/ct-list.svg" height="20">
+	</a>
+	<a href="https://github.com/conectate/ct-elements/graphs/contributors">
+		<img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20">
+	</a>
+</div>
 
-It's a simple wrapper for LitElement
+<br>
+
+A versatile list item component for creating navigation menus, action lists, and interactive elements with icon support and flexible styling options.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Features](#features)
+- [Basic Usage](#basic-usage)
+- [Advanced Usage](#advanced-usage)
+- [API Reference](#api-reference)
+    - [Properties](#properties)
+    - [Slots](#slots)
+    - [CSS Custom Properties](#css-custom-properties)
+    - [Methods](#methods)
+- [Common Patterns](#common-patterns)
+    - [Navigation Menu](#navigation-menu)
+    - [Settings List](#settings-list)
+    - [Action Items](#action-items)
+- [Integration](#integration)
+    - [With ct-button-menu](#with-ct-button-menu)
+    - [With Routers](#with-routers)
+- [Styling Examples](#styling-examples)
+- [Follow Me](#follow-me)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-To include this, type:
+Install via npm, yarn, or pnpm:
 
 ```sh
-$ yarn add @conectate/ct-lit
+# npm
+npm i @conectate/ct-list
+
+# yarn
+yarn add @conectate/ct-list
+
+# pnpm
+pnpm i @conectate/ct-list
 ```
 
-or
+## Features
 
-```sh
-$ npm i @conectate/ct-lit
+- **Flexible Layout**: Slots for prefix, main content, and suffix elements
+- **Icon Support**: Built-in support for Material Icons via ct-icon
+- **Link Capability**: Can function as navigation links
+- **Interactive**: Hover states and click handling
+- **Menu Integration**: Automatically closes parent menus when clicked
+- **Customizable**: Multiple styling options via CSS variables
+- **Accessible**: Built with proper semantics and keyboard navigation support
+
+## Basic Usage
+
+Import the component and use it in your HTML:
+
+```javascript
+// Import the component
+import '@conectate/ct-list/ct-list-item.js';
 ```
 
-## Usage
+```html
+<!-- Simple list item with text -->
+<ct-list-item text="Settings"></ct-list-item>
 
-### Step 1️⃣
+<!-- With icon -->
+<ct-list-item icon="settings" text="Settings"></ct-list-item>
 
-Class
+<!-- As a navigation link -->
+<ct-list-item icon="home" text="Home" href="/home"></ct-list-item>
 
-```typescript
-import { LitElement, css, customElement, html, property, svg } from "lit";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
+<!-- Using custom SVG icon -->
+<ct-list-item svg="<svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5z'/></svg>" text="Custom Icon"> </ct-list-item>
+```
 
-type PropertyValues = Map<PropertyKey, unknown>;
+## Advanced Usage
 
-export { html, svg, css, customElement, unsafeHTML, property, PropertyValues };
-class CtLit extends LitElement {
-	$: { [x: string]: HTMLElement | any } = {};
+### Custom Content with Slots
 
-	/**
-	 * Returns the first element within node's descendants whose ID is elementId.
-	 * @param name
-	 */
-	_(name: string): HTMLElement | null {
-		return this.shadowRoot && this.shadowRoot.getElementById(name);
-	}
+```html
+<ct-list-item>
+	<span slot="prefix">🔔</span>
+	Notifications
+	<span slot="suffix" class="badge">5</span>
+</ct-list-item>
+```
 
-	/**
-	 * Returns the first element that is a descendant of node that matches selectors.
-	 * @param name
-	 */
-	$$(name: string): HTMLElement | null {
-		return this.shadowRoot && this.shadowRoot.querySelector(name);
-	}
+### Keep Menu Open
 
-	/**
-	 * Returns all element descendants of node that match selectors.
-	 * @param name
-	 */
-	$$$(name: string) {
-		return this.shadowRoot && this.shadowRoot.querySelectorAll(name);
-	}
-	/**
-	 * Map all IDs for shadowRoot and save in this.$ like a polymer element
-	 */
-	mapIDs() {
-		let nodeList = this.shadowRoot && this.shadowRoot.querySelectorAll("[id]");
-		for (let i = 0; nodeList != null && i < nodeList.length; i++) {
-			this.$[nodeList[i].id] = nodeList[i] as HTMLElement;
-		}
-	}
+```html
+<ct-button-menu>
+	<ct-list-item text="Option 1"></ct-list-item>
+	<ct-list-item text="Option with submenu" keep-open></ct-list-item>
+	<ct-list-item text="Option 3"></ct-list-item>
+</ct-button-menu>
+```
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	set(name: string, value: any) {
-		(this as any)[name] = value;
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
+### Open Links in New Tab
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	push(name: string, value: any) {
-		(this as any)[name].push(value);
-		this.requestUpdate();
-	}
+```html
+<ct-list-item text="External Link" icon="open_in_new" href="https://example.com" target="_blank"> </ct-list-item>
+```
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	splice(name: string, index: number, pos: number, value: any) {
-		(this as any)[name].splice(index, pos, value);
-		this.requestUpdate();
-	}
+## API Reference
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	unshift(name: string, value: any) {
-		(this as any)[name].unshift(value);
-		this.requestUpdate();
-	}
+### Properties
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	shift(name: string, value: any) {
-		(this as any)[name].shift(value);
-		this.requestUpdate();
-	}
+| Property      | Type      | Default     | Description                                   |
+| ------------- | --------- | ----------- | --------------------------------------------- |
+| `text`        | `string`  | `""`        | Text content to display in the item           |
+| `icon`        | `string`  | `undefined` | Material Icon name to display                 |
+| `svg`         | `string`  | `""`        | Custom SVG content for the icon               |
+| `href`        | `string`  | `undefined` | URL the item navigates to when clicked        |
+| `link`        | `string`  | `undefined` | Deprecated, use `href` instead                |
+| `target`      | `string`  | `undefined` | Link target (`"_self"`, `"_top"`, `"_blank"`) |
+| `keepOpen`    | `boolean` | `false`     | When true, parent menus won't close on click  |
+| `hideoutline` | `boolean` | `false`     | Hides the bottom border                       |
 
-	/**
-	 * Set Value and fire event with the same name
-	 * @param name
-	 * @param value
-	 */
-	move(name: string, old_index: number, new_index: number) {
-		if (new_index >= (this as any)[name].length) {
-			let k = new_index - (this as any)[name].length;
-			while (k-- + 1) {
-				this.push(name, undefined);
-			}
-		}
-		// @ts-ignore
-		this.splice(name, new_index, 0, this.splice(name, old_index, 1)[0]);
-	}
+### Slots
 
-	deleteAt(listTarget: string, index: number) {
-		(this as any)[listTarget].splice(index, 1);
-		this.requestUpdate();
-	}
+| Slot      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| `default` | Main content area, used with or instead of the `text` property |
+| `prefix`  | Content shown before the main text (left side in LTR layouts)  |
+| `suffix`  | Content shown after the main text (right side in LTR layouts)  |
 
-	insertAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 0, el);
-	}
+### CSS Custom Properties
 
-	setAt(listTarget: string, index: number, el: any) {
-		this.splice(listTarget, index, 1, el);
-	}
+| Property                      | Description                         | Default       |
+| ----------------------------- | ----------------------------------- | ------------- |
+| `--ct-list-item--white-space` | Controls text wrapping              | `nowrap`      |
+| `--ct-icon-size`              | Size of the icon                    | `21px`        |
+| `--color-outline`             | Color of the bottom border          | `transparent` |
+| `--color-primary`             | Color used for outline when focused | _inherited_   |
 
-	/**
-	 * Fire a event with name and value
-	 * @param name
-	 * @param value
-	 */
-	fire(name: string, value: any) {
-		this.dispatchEvent(new CustomEvent(name, { detail: value }));
-	}
+### Methods
 
-	/**
-     *
-     * @param scrollTargetY pixels to scroll. Ej:
-        const ticketsBlockPositionY = this.$.contact.getBoundingClientRect().top + window.scrollTarget.scrollTop;
-     * @param time Time to scroll
-     * @param easing
-     * @param target scrollTarget Element
-     */
-	scrollToY(
-		scrollTargetY: number = 0,
-		time: number = 600,
-		easing: "easeOutSine" | "easeOutSine" | "easeInOutQuint" = "easeOutSine",
-		target: Element = (window as any).scrollTarget
-	) {
-		let currentTime = 0;
-		const animationTime = time / 1000;
+| Method        | Description                 | Parameters          |
+| ------------- | --------------------------- | ------------------- |
+| `closeMenu()` | Closes parent menu elements | `event: MouseEvent` |
 
-		// easing equations from https://github.com/danro/easing-js/blob/master/easing.js
-		const easingEquations = {
-			easeOutSine: (pos: number) => Math.sin(pos * (Math.PI / 2)),
-			easeInOutSine: (pos: number) => -0.5 * (Math.cos(Math.PI * pos) - 1),
-			easeInOutQuint: (pos: number) => {
-				if ((pos /= 0.5) < 1) {
-					return 0.5 * Math.pow(pos, 5);
-				}
-				return 0.5 * (Math.pow(pos - 2, 5) + 2);
-			}
-		};
+## Common Patterns
 
-		// add animation loop
-		function tick() {
-			currentTime += 1 / 60;
+### Navigation Menu
 
-			const p = currentTime / animationTime;
-			const t = easingEquations[easing](p);
+```html
+<nav>
+	<ct-list-item icon="home" text="Home" href="/"></ct-list-item>
+	<ct-list-item icon="person" text="Profile" href="/profile"></ct-list-item>
+	<ct-list-item icon="settings" text="Settings" href="/settings"></ct-list-item>
+	<ct-list-item icon="help" text="Help" href="/help"></ct-list-item>
+</nav>
+```
 
-			const scrollTop = (target as any).pageYOffset || target.scrollTop || 0;
+### Settings List
 
-			const newPosition = scrollTop + (scrollTargetY - scrollTop) * t;
+```html
+<div class="settings-group">
+	<h3>Account Settings</h3>
+	<ct-list-item icon="account_circle" text="Profile Information"></ct-list-item>
+	<ct-list-item icon="lock" text="Password & Security"></ct-list-item>
+	<ct-list-item icon="notifications" text="Notification Preferences"></ct-list-item>
+</div>
+```
 
-			if (p < 1) {
-				window.requestAnimationFrame(tick);
-				target.scrollTop = newPosition;
-			}
-		}
-		tick();
-	}
+### Action Items
+
+```html
+<div class="actions">
+	<ct-list-item icon="save" text="Save Changes" @click="${this.saveChanges}"></ct-list-item>
+	<ct-list-item icon="delete" text="Delete Item" @click="${this.deleteItem}"></ct-list-item>
+	<ct-list-item icon="share" text="Share" @click="${this.share}"></ct-list-item>
+</div>
+```
+
+## Integration
+
+### With ct-button-menu
+
+Create dropdown menus with list items:
+
+```html
+<ct-button-menu>
+	<button slot="trigger">Menu</button>
+	<ct-list-item icon="content_cut" text="Cut"></ct-list-item>
+	<ct-list-item icon="content_copy" text="Copy"></ct-list-item>
+	<ct-list-item icon="content_paste" text="Paste"></ct-list-item>
+</ct-button-menu>
+```
+
+### With Routers
+
+Works with popular routing libraries:
+
+```javascript
+import { LitElement, html } from 'lit';
+import '@conectate/ct-list/ct-list-item.js';
+import { router } from 'your-router-library';
+
+class AppNavigation extends LitElement {
+  render() {
+    return html`
+      <nav>
+        ${router.routes.map(route => html`
+          <ct-list-item
+            icon=${route.icon}
+            text=${route.name}
+            href=${route.path}
+            ?selected=${router.currentPath === route.path}>
+          </ct-list-item>
+        `)}
+      </nav>
+    `;
+  }
+}
+```
+
+## Styling Examples
+
+### Basic Styling
+
+```css
+ct-list-item {
+	--ct-icon-size: 24px;
+	--color-outline: #e0e0e0;
+}
+```
+
+### Material Design Style
+
+```css
+ct-list-item {
+	--ct-list-item--white-space: normal;
+	--color-primary: #6200ee;
+	border-radius: 4px;
+	margin: 4px 0;
 }
 
-export { CtLit };
+ct-list-item:hover {
+	background-color: rgba(98, 0, 238, 0.08);
+}
 ```
 
-## Follow me
+### Navigation Style
 
-[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://twitter.com/herberthobregon)
+```css
+ct-list-item {
+	--ct-icon-size: 24px;
+	height: 48px;
+	border-radius: 0 24px 24px 0;
+	margin-right: 8px;
+}
 
-[https://twitter.com/herberthobregon](https://twitter.com/herberthobregon)
+ct-list-item[selected] {
+	background-color: rgba(98, 0, 238, 0.12);
+	color: #6200ee;
+	font-weight: 500;
+}
+```
 
-[https://www.conectate.today/herberthobregon](https://www.conectate.today/herberthobregon)
+## Follow Me
+
+[![Herberth Obregón](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://x.com/herberthobregon)
+
+[https://x.com/herberthobregon](https://x.com/herberthobregon)
+
+[https://dev.to/herberthobregon](https://dev.to/herberthobregon)
 
 ## Contributing
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
-
-## History
-
--   v0.2.1 CHANGE keys to gruops in custom regex
--   v0.2.0 ADD href method
--   v0.1.8 You can use a html`` or string to define template
--   v0.1.0 Initial Release
+1. Fork the repo
+2. Create a new branch: `git checkout -b feature-branch`
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to your branch: `git push origin feature-branch`
+5. Open a pull request!
 
 ## License
 

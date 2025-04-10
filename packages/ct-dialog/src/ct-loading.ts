@@ -6,9 +6,37 @@ import { CtLit, customElement, html } from "@conectate/ct-lit";
 
 import { CtDialog, showCtDialog } from "./ct-dialog.js";
 
+/**
+ * ## `ct-loading`
+ * A dialog component that displays a loading spinner with customizable text.
+ *
+ * ### Usage
+ * ```javascript
+ * import { showCtLoading } from '@conectate/ct-dialog';
+ *
+ * // Show a loading dialog
+ * const loadingDialog = showCtLoading();
+ *
+ * // Show a loading dialog with custom text
+ * const customLoadingDialog = showCtLoading(undefined, 'Processing');
+ *
+ * // Close the dialog when operation completes
+ * loadingDialog.close();
+ * ```
+ *
+ * @group ct-elements
+ * @element ct-loading
+ */
 @customElement("ct-loading")
 export class CtLoading extends CtLit {
+	/**
+	 * Text to display next to the spinner
+	 */
 	ttl: string = "Loading";
+
+	/**
+	 * Reference to the internal dialog instance
+	 */
 	dialog!: CtDialog;
 
 	render() {
@@ -48,9 +76,23 @@ declare global {
 }
 
 /**
- * This shows a dialogue box with a spinner and the text "loading"
- * @param {string} [id] - If one wants to set an explicit ID to the dialog, otherwise one will automatically be generated
- * @param {string} [str] - String to show in loading
+ * Displays a loading dialog with a spinner and optional custom text
+ *
+ * @param {string} [id] - Optional identifier for the dialog
+ * @param {string} [str] - Optional custom text to display (default: "Loading")
+ * @returns {CtDialog} The created dialog instance
+ *
+ * @example
+ * ```javascript
+ * // Display a loading dialog
+ * const dialog = showCtLoading();
+ *
+ * // Do some async operation
+ * await someAsyncOperation();
+ *
+ * // Close the loading dialog when complete
+ * dialog.close();
+ * ```
  */
 export function showCtLoading(id?: string, str?: string): CtDialog {
 	let ctConfirm = document.createElement("ct-loading") as CtLoading;
@@ -58,6 +100,14 @@ export function showCtLoading(id?: string, str?: string): CtDialog {
 	ctConfirm.dialog = showCtDialog(ctConfirm, id);
 	return ctConfirm.dialog;
 }
+
+/**
+ * Displays a loading dialog and returns the CtLoading instance
+ *
+ * @param {string} [id] - Optional identifier for the dialog
+ * @param {string} [str] - Optional custom text to display (default: "Loading")
+ * @returns {CtLoading} The created CtLoading instance
+ */
 export function showCtLoading2(id?: string, str?: string): CtLoading {
 	let ctConfirm = document.createElement("ct-loading") as CtLoading;
 	if (str) ctConfirm.ttl = str;

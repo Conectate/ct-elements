@@ -6,21 +6,70 @@ import { classMap } from "lit/directives/class-map.js";
 
 /**
  * ## `ct-checkbox`
- * Checkbox element
+ * A customizable checkbox component built with LitElement.
+ *
+ * ### Usage
+ * ```html
+ * <ct-checkbox>Check me</ct-checkbox>
+ * <ct-checkbox checked>I'm checked</ct-checkbox>
+ * <ct-checkbox indeterminate>Indeterminate state</ct-checkbox>
+ * <ct-checkbox disabled>Can't check me</ct-checkbox>
+ * ```
+ *
+ * ### Events
+ * - `checked`: Fired when the checked state changes, with `detail: {checked: boolean}`
+ * - `change`: Standard input change event (redispatched)
+ *
+ * ### Styling
+ * Custom properties available for styling:
+ * - `--ct-checkbox-box-size`: Size of the checkbox (default: 24px)
+ * - `--ct-checkbox-box-border-radius`: Border radius of checkbox (default: 8px)
+ * - `--ct-checkbox-height`: Height of the checkbox component (default: same as box size)
+ * - `--ct-checkbox-box-border-size`: Border size of unchecked box (default: 3px)
+ * - `--color-primary`: Color used for the checked state
+ * - `--color-on-primary`: Color of the checkmark
+ * - `--color-on-background`: Color of the unchecked checkbox border
  *
  * @group ct-elements
  * @element ct-checkbox
- * @attr {boolean} checked
- * @attr {boolean} margin
+ * @fires checked - Fired when checked state changes
+ * @fires change - Standard input change event
  */
 @customElement("ct-checkbox")
 export class CtCheckbox extends CtLit {
+	/**
+	 * When true, the checkbox is in the indeterminate state
+	 */
 	@property({ type: Boolean, reflect: true }) indeterminate = false;
+
+	/**
+	 * When true, the checkbox is disabled and cannot be interacted with
+	 */
 	@property({ type: Boolean, reflect: true }) disabled = false;
+
+	/**
+	 * When true, the checkbox is in the checked state
+	 */
 	@property({ type: Boolean, reflect: true }) checked = false;
+
+	/**
+	 * Value associated with the checkbox
+	 */
 	@property({ type: Object }) value: any;
+
+	/**
+	 * Name attribute for form submission
+	 */
 	@property({ type: String }) name: string = "";
+
+	/**
+	 * Text label (alternative to using the slot)
+	 */
 	@property({ type: String }) label: string = "";
+
+	/**
+	 * Reference to the internal input element
+	 */
 	@query("#input") $input!: HTMLInputElement;
 	static styles = [
 		css`
@@ -142,37 +191,52 @@ export class CtCheckbox extends CtLit {
 		`
 	];
 
+	/**
+	 * Renders the checkbox component
+	 * @returns {TemplateResult} The rendered template
+	 */
 	render() {
 		return html`
 			<input id="input" type="checkbox" @click=${this.toogleCheck} .checked=${this.checked} .disabled=${this.disabled} @change=${this.handleChange} />
 			<div class="c">
 				<span id="box">
-					<ct-icon
-						id="checkmark"
-						class=${classMap({ rotate: this.indeterminate == false && this.checked })}
-						icon="${this.indeterminate ? "horizontal_rule" : `check`}"
-						dir="ltr"
-					></ct-icon>
+					<ct-icon id="checkmark" class=${classMap({ rotate: this.indeterminate == false && this.checked })} icon="${this.indeterminate ? "horizontal_rule" : `check`}" dir="ltr"></ct-icon>
 				</span>
 				<label id="label" for="input">${this.label}<slot></slot></label>
 			</div>
 		`;
 	}
 
+	/**
+	 * Handles property updates and triggers events when checked state changes
+	 * @param {PropertyValueMap<any> | Map<PropertyKey, unknown>} _changedProperties - Map of changed properties
+	 */
 	protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
 		if (_changedProperties.has("checked") && _changedProperties.get("checked") != undefined) {
 			this.change();
 		}
 	}
 
+	/**
+	 * Programmatically clicks the checkbox
+	 */
 	click() {
 		this.$input.click();
 	}
 
+	/**
+	 * Updates the checked state based on the input element's checked state
+	 * @private
+	 */
 	toogleCheck() {
 		this.checked = this.$input.checked;
 	}
 
+	/**
+	 * Handles the change event from the input element
+	 * @param {Event} event - The change event
+	 * @private
+	 */
 	private handleChange(event: Event) {
 		const target = event.target as HTMLInputElement;
 		this.checked = target.checked;
@@ -180,12 +244,23 @@ export class CtCheckbox extends CtLit {
 		redispatchEvent(this, event);
 	}
 
+	/**
+	 * Dispatches a checked event when the checked state changes
+	 * @private
+	 */
 	change() {
 		if (this.checked) this.indeterminate = false;
 		this.dispatchEvent(new CustomEvent("checked", { detail: { checked: this.$input.checked } }));
 	}
 }
 
+/**
+ * Redispatches an event from a web component
+ * @param {Element} wc - The web component element
+ * @param {Event} event - The event to redispatch
+ * @returns {boolean} Whether the event was dispatched successfully
+ * @private
+ */
 function redispatchEvent(wc: Element, event: Event) {
 	if (event.bubbles && (!wc.shadowRoot || event.composed)) event.stopPropagation();
 	const copy = Reflect.construct(event.constructor, [event.type, event]);

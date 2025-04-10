@@ -8,95 +8,157 @@
 
 </p>
 
-## `ct-input`
+A collection of customizable input components including text input, textarea, and autocomplete functionality.
 
-Input web component
+## Installation
 
-## Install
+Install via npm or pnpm:
 
-```bash
-yarn add @conectate/ct-input
-#or
+```sh
+pnpm i @conectate/ct-input
+# or
 npm i @conectate/ct-input
 ```
 
-## Usage
-
-On HTML
+## Basic Usage
 
 ```html
-<ct-input active="true"></ct-input>
+<!-- Basic text input -->
+<ct-input label="Username"></ct-input>
+
+<!-- Password input -->
+<ct-input type="password" label="Password"></ct-input>
+
+<!-- Input with error message -->
+<ct-input label="Email" type="email" errorMessage="Please enter a valid email"></ct-input>
+
+<!-- Textarea with auto-grow -->
+<ct-textarea-autogrow label="Message"></ct-textarea-autogrow>
 ```
 
-On `LitElement` with typescript
+## Usage with ES Modules
 
-```typescript
-import { LitElement, css, customElement, html, property } from "lit";
+If you are using frameworks like Lit, React, or Vue, import the component:
 
-@customElement("ct-main")
-export class CtMain extends LitElement {
-	@property({ type: Boolean, reflect: true }) active = true;
+```ts
+import "@conectate/ct-input";
+import "@conectate/ct-input/ct-textarea.js";
+import "@conectate/ct-input/ct-textarea-autogrow.js";
+import "@conectate/ct-input/ct-input-autocomplete.js";
+```
 
-	static styles = css`
-		:host {
-			display: block;
-		}
-	`;
+### Example with LitElement (TypeScript)
 
+```ts
+import { LitElement, customElement, html } from "lit";
+import "@conectate/ct-input";
+
+@customElement("my-form")
+class MyForm extends LitElement {
 	render() {
-		return html`<ct-input label="Name" placeholder="Put your name" rawPlaceholcer="John Doe"></ct-input>`;
+		return html`
+			<ct-input
+				label="Username"
+				@input=${this.handleInput}
+				required
+			></ct-input>
+		`;
+	}
+
+	handleInput(e) {
+		console.log("Input value:", e.target.value);
 	}
 }
 ```
 
-### DEMO
+## Components
 
-<img src="https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/ct-input.png"/>
+This package includes multiple input components:
+
+- `ct-input`: Standard text input component
+- `ct-textarea`: Multiline text input
+- `ct-textarea-autogrow`: Textarea that grows with content
+- `ct-input-autocomplete`: Input with autocomplete suggestions
+- `ct-input-container`: Container component for inputs
+- `ct-input-phone`: Phone number input
+- `ct-autocomplete-suggestions`: Suggestions dropdown for autocomplete
 
 ## Properties
 
-| Property         | Attribute        | Type                                                                                                                                                                                                                 | Default            | Description                                                                            |
-| ---------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------- |
-| `accept`         | `accept`         | `string`                                                                                                                                                                                                             | ""                 |                                                                                        |
-| `autocomplete`   | `autocomplete`   | `"on" \| "off" \| "additional-name" \| "address-level1" \| "address-level2" \| "address-level3" \| "address-level4" \| "address-line1" \| "address-line2" \| "address-line3" \| "bday" \| ... 50 more ... \| "work"` | "off"              |                                                                                        |
-| `autofocus`      | `autofocus`      | `boolean`                                                                                                                                                                                                            | false              |                                                                                        |
-| `charCounter`    | `charCounter`    | `boolean`                                                                                                                                                                                                            | false              | -                                                                                      |
-| `countChar`      | `countChar`      | `number`                                                                                                                                                                                                             | 0                  | Total chars on input                                                                   |
-| `disabled`       | `disabled`       | `boolean`                                                                                                                                                                                                            | false              | -                                                                                      |
-| `errorMessage`   | `errorMessage`   | `string`                                                                                                                                                                                                             | ""                 | Mensaje de error al no complir con el pattern                                          |
-| `inputmode`      | `inputmode`      | `"" \| "email" \| "tel" \| "url" \| "verbatim" \| "latin" \| "latin-name" \| "latin-prose" \| "full-width-latin" \| "kana" \| "kana-name" \| "katakana" \| "numeric"`                                                | ""                 |                                                                                        |
-| `invalid`        |                  | `boolean`                                                                                                                                                                                                            |                    |                                                                                        |
-| `label`          | `label`          | `string`                                                                                                                                                                                                             | ""                 | Change default icon to whatever you like                                               |
-| `max`            | `max`            | `string`                                                                                                                                                                                                             | ""                 |                                                                                        |
-| `maxlength`      | `maxlength`      | `number`                                                                                                                                                                                                             | "MAX_SAFE_INTEGER" | Max length on input                                                                    |
-| `min`            | `min`            | `string`                                                                                                                                                                                                             | ""                 |                                                                                        |
-| `minlength`      | `minlength`      | `number`                                                                                                                                                                                                             | 0                  |                                                                                        |
-| `multiple`       | `multiple`       | `boolean`                                                                                                                                                                                                            | false              |                                                                                        |
-| `name`           | `name`           | `string`                                                                                                                                                                                                             | ""                 |                                                                                        |
-| `noHover`        | `noHover`        | `boolean`                                                                                                                                                                                                            | false              | Do not show any effects when hovering the searchbox                                    |
-| `pattern`        | `pattern`        | `string \| RegExp`                                                                                                                                                                                                   | ""                 | regexp                                                                                 |
-| `placeholder`    | `placeholder`    | `string`                                                                                                                                                                                                             | ""                 | Placeholder text when searchbox is empty                                               |
-| `raiseForced`    | `raiseForced`    | `boolean`                                                                                                                                                                                                            | false              | Always raise the searchbox whether it is active or not, or whether is has value or not |
-| `raiseOnActive`  | `raiseOnActive`  | `boolean`                                                                                                                                                                                                            | false              | Raise searchbox is it's focused                                                        |
-| `raiseOnValue`   | `raiseOnValue`   | `boolean`                                                                                                                                                                                                            | false              | Raise searchbox if it has value                                                        |
-| `rawPlaceholder` | `rawPlaceholder` | `string`                                                                                                                                                                                                             | ""                 | Placeholder text when searchbox is empty                                               |
-| `readonly`       | `readonly`       | `boolean`                                                                                                                                                                                                            | false              |                                                                                        |
-| `required`       | `required`       | `boolean`                                                                                                                                                                                                            | false              | -                                                                                      |
-| `size`           | `size`           | `number`                                                                                                                                                                                                             | 24                 |                                                                                        |
-| `step`           | `step`           | `string`                                                                                                                                                                                                             | ""                 |                                                                                        |
-| `type`           | `type`           | `string`                                                                                                                                                                                                             | "text"             | Input type                                                                             |
-| `value`          |                  | `string`                                                                                                                                                                                                             |                    |                                                                                        |
+### ct-input
 
-## Methods
-
-| Method     | Type          | Description                                                                                                                       |
-| ---------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `mapIDs`   | `(): void`    | Map all IDs for shadowRoot and save in `this.$` like a polymer element.<br />You should add in the first line of `firstUpdated()` |
-| `validate` | `(): boolean` | Validate required input                                                                                                           |
+| Property       | Type               | Default                   | Description                             |
+| -------------- | ------------------ | ------------------------- | --------------------------------------- |
+| `type`         | `CtInputType`      | `"text"`                  | Input type (text, password, email, etc) |
+| `value`        | `string`           | `""`                      | Input value                             |
+| `label`        | `string`           | `""`                      | Label text                              |
+| `placeholder`  | `string`           | `""`                      | Placeholder text                        |
+| `errorMessage` | `string`           | `""`                      | Error message to display                |
+| `disabled`     | `boolean`          | `false`                   | Disables the input                      |
+| `required`     | `boolean`          | `false`                   | Makes the input required                |
+| `pattern`      | `string \| RegExp` | `""`                      | Validation pattern                      |
+| `charCounter`  | `boolean`          | `false`                   | Show character counter                  |
+| `maxlength`    | `number`           | `Number.MAX_SAFE_INTEGER` | Maximum input length                    |
+| `invalid`      | `boolean`          | `false`                   | Whether the input is invalid            |
 
 ## Slots
 
-| Name     | Description                           |
-| -------- | ------------------------------------- |
-| `prefix` | Content placed start the main content |
-| `suffix` | Content placed end the main content   |
+- **Default slot**: Content inside the input (rarely used)
+- **prefix**: Content placed at the start of the input
+- **suffix**: Content placed at the end of the input
+
+## CSS Variables
+
+You can customize the components using the following CSS variables:
+
+```css
+ct-input {
+	--color-primary: #2cb5e8; /* Primary color for focus */
+	--color-error: #ed4f32; /* Error color */
+	--border-radius: 16px; /* Border radius of the input */
+	--ct-input-color: inherit; /* Input text color */
+	--ct-input-placeholder-color: rgba(0, 0, 0, 0.38); /* Placeholder color */
+	--ct-input-background: transparent; /* Input background */
+	--ct-input-height: 56px; /* Input height */
+	--ct-input-padding: 0 12px; /* Input padding */
+	--ct-input-font-size: 16px; /* Input font size */
+	--ct-label-font-size: 12px; /* Label font size */
+}
+```
+
+## Validation
+
+The component includes built-in validation support:
+
+```html
+<ct-input label="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" errorMessage="Please enter a valid email address"></ct-input>
+```
+
+You can also validate programmatically:
+
+```js
+const input = document.querySelector('ct-input');
+const isValid = input.validate();
+```
+
+## Accessibility (a11y)
+
+The component supports proper focus states, keyboard navigation, and aria attributes for accessibility.
+
+## Follow Me
+
+[![Herberth_thumb](https://user-images.githubusercontent.com/6503845/74269077-8bc2e100-4cce-11ea-8a6f-1ba34b8b5cf2.jpg)](https://x.com/herberthobregon)
+
+[https://x.com/herberthobregon](https://x.com/herberthobregon)
+
+## Contributing
+
+1. Fork the repo
+2. Create a new branch: `git checkout -b feature-branch`
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to your branch: `git push origin feature-branch`
+5. Open a pull request!
+
+## License
+
+See [LICENSE](/LICENSE)
