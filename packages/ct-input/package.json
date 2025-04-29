@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-input",
-	"version": "4.4.5",
+	"version": "4.4.9",
 	"description": "HTML input made with Web Components",
 	"main": "ct-input.js",
 	"types": "ct-input.d.ts",
@@ -14,8 +14,8 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-helpers": "^4.0.0",
-		"@conectate/ct-lit": "^4.3.0",
+		"@conectate/ct-helpers": "^4.4.9",
+		"@conectate/ct-lit": "^4.4.9",
 		"tslib": "^2.6.3"
 	},
 	"scripts": {

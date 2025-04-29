@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-tooltip",
-	"version": "4.4.6",
+	"version": "4.4.9",
 	"description": "Tooltip styles for lit",
 	"main": "ct-tooltip.js",
 	"types": "ct-tooltip.d.ts",
@@ -14,7 +14,7 @@
 		"Polymer"
 	],
 	"dependencies": {
-		"@conectate/ct-lit": "^4.3.0",
+		"@conectate/ct-lit": "^4.4.9",
 		"lit": "^3.2.1"
 	},
 	"scripts": {
