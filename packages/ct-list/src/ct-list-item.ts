@@ -171,15 +171,15 @@ export class CtListItem extends CtLit {
 	 * When true, hides the bottom border
 	 * Typically used for the last item or for custom styling
 	 */
-	@property({ type: Boolean, reflect: true }) usebutton = false;
+	@property({ type: String, reflect: true }) role: "button" | "menuitem" = "menuitem";
 
 	/**
 	 * Renders the list item as either a button or a link based on properties
 	 * @returns Rendered template
 	 */
 	render() {
-		let tag = this.usebutton ? literal`button` : literal`div`;
-		let button = html`<${tag} class="btn" @click=${this.closeMenu} aria-label=${this.text} role=${this.usebutton ? "button" : "menuitem"}>
+		let tag = this.role == "button" ? literal`button` : literal`div`;
+		let button = html`<${tag} class="btn" @click=${this.closeMenu} aria-label=${this.text} role=${this.role}>
 			<slot name="prefix"></slot>
 			${this.icon || this.svg ? html`<ct-icon class="space" svg=${this.svg} icon=${ifDefined(this.icon ? this.icon : undefined)}></ct-icon>` : html`<div class="space"></div>`}
 			<div class="text">
