@@ -113,7 +113,7 @@ export class CtTextarea extends CtLit {
 				display: none !important;
 			}
 
-			:host([required]) > .label:after {
+			:host([required]) .label:after {
 				content: var(--ct-indicator, "*");
 				color: var(--color-error, #ed4f32);
 				position: absolute;
