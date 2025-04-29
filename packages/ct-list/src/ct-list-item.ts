@@ -2,9 +2,9 @@ import "@conectate/ct-icon";
 
 import type { icon } from "@conectate/ct-icon/icon-list.js";
 import { CtLit, customElement, property } from "@conectate/ct-lit";
-import { css, html } from "lit";
+import { css } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
-import { literal } from "lit/static-html.js";
+import { html, literal } from "lit/static-html.js";
 
 /**
  * A customizable list item component that can display icons, text, and additional content.
