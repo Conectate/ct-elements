@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-input",
-	"version": "4.4.9",
+	"version": "4.4.12",
 	"description": "HTML input made with Web Components",
 	"main": "ct-input.js",
 	"types": "ct-input.d.ts",
