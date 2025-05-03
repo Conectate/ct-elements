@@ -10,12 +10,12 @@ import { icon } from "./icon-list.js";
  * @param css2 Whether to use CSS2 API format
  * @returns HTMLLinkElement The created link element
  */
-function addFont(family: string, css2?: boolean) {
+function addFont(family: string, css: "css" | "css2" = "css") {
 	const link = document.createElement("link");
 	link.id = `ctIcon${family}`;
 	link.rel = "stylesheet";
 	link.type = "text/css";
-	link.href = `https://fonts.googleapis.com/${css2 ? "css2" : "css"}?family=${family}`;
+	link.href = `https://fonts.googleapis.com/${css}?family=${family}`;
 	document.head.appendChild(link);
 	return link;
 }
@@ -182,7 +182,7 @@ export class CtIcon extends LitElement {
 			CtIcon.FontLoaded.set(key, addFont(`Material+Icons+${style}`));
 			return CtIcon.FontLoaded.get(key);
 		} else if (Font == "Symbols" && !CtIcon.FontLoaded.has(key)) {
-			CtIcon.FontLoaded.set(key, addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, true));
+			CtIcon.FontLoaded.set(key, addFont(`Material+Symbols+${style}:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`, "css2"));
 			return CtIcon.FontLoaded.get(key);
 		}
 		return CtIcon.FontLoaded.get(key);

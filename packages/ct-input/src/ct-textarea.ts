@@ -271,6 +271,8 @@ export class CtTextarea extends CtLit {
 			}
 		`
 	];
+	static formAssociated = true;
+	private internals?: ElementInternals = this.attachInternals?.();
 
 	/** Check if input is empty */
 	@state() isEmpty = true;
@@ -279,56 +281,17 @@ export class CtTextarea extends CtLit {
 	 * The value of the searchbox
 	 */
 	private initValue?: string = "";
-	render() {
-		return html`
-			<div>
-				${this.label ? html`<h4 class="label">${this.label}</h4>` : html``}
-
-				<div id="container" class=${classMap({ "has-value": !this.isEmpty })}>
-					<div class="row">
-						<slot name="prefix"></slot>
-						<div class="row">
-							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this._placeholder}</label>`}
-							<ct-textarea-autogrow
-								id="input"
-								class=${classMap({ "has-value": !this.isEmpty })}
-								@focus="${this._onFocus}"
-								@blur="${this._onBlur}"
-								@input="${this._onInput}"
-								.rows="${this.rows}"
-								.placeholder="${this.placeholder || this.rawPlaceholder}"
-								?autofocus="${this.autofocus}"
-								?readonly="${this.readonly}"
-								inputMode="${ifDefined(this.inputmode)}"
-								minlength="${ifDefined(this.minlength)}"
-								maxlength="${ifDefined(this.maxlength)}"
-								name="${ifDefined(this.name)}"
-								autocapitalize="${ifDefined(this.autocapitalize)}"
-							></ct-textarea-autogrow>
-							<slot name="suffix"></slot>
-							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength}</div>` : ``}
-						</div>
-					</div>
-					<div class="underline"></div>
-				</div>
-			</div>
-		`;
-	}
 
 	@state() private __isFirstValueUpdate = true;
 	@state() private _placeholder = "";
 	@state() private _invalid = false;
-
-	/**
-	 * -
-	 */
-	@property({ type: Boolean }) disabled = false;
-	@property({ type: Boolean }) autofocus = false;
+	@property({ type: Boolean, reflect: true }) disabled = false;
+	@property({ type: Boolean, reflect: true }) autofocus = false;
 	@property({ type: String }) name?: string;
-	@property({ type: Boolean }) charCounter = false;
-	@property({ type: Boolean }) readonly = false;
-	@property({ type: Boolean }) required = false;
-	@property({ type: Boolean }) noHover = false;
+	@property({ type: Boolean, reflect: true }) charCounter = false;
+	@property({ type: Boolean, reflect: true }) readonly = false;
+	@property({ type: Boolean, reflect: true }) required = false;
+	@property({ type: Boolean, reflect: true }) noHover = false;
 	@property({ type: String }) inputmode = "";
 	@property({ type: String }) placeholder = "";
 	@property({ type: String }) pattern?: string;
@@ -350,6 +313,43 @@ export class CtTextarea extends CtLit {
 		this._placeholder = this.placeholder;
 	}
 
+	render() {
+		return html`
+			<div>
+				${this.label ? html`<h4 class="label">${this.label}</h4>` : html``}
+
+				<div id="container" class=${classMap({ "has-value": !this.isEmpty })}>
+					<div class="row">
+						<slot name="prefix"></slot>
+						<div class="row">
+							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this._placeholder}</label>`}
+							<ct-textarea-autogrow
+								id="input"
+								class=${classMap({ "has-value": !this.isEmpty })}
+								@focus="${this._onFocus}"
+								@blur="${this._onBlur}"
+								@input="${this._onInput}"
+								@keypress=${this._handleKeyPress}
+								.rows="${this.rows}"
+								.placeholder="${this.placeholder || this.rawPlaceholder}"
+								?autofocus="${this.autofocus}"
+								?readonly="${this.readonly}"
+								inputMode="${ifDefined(this.inputmode)}"
+								minlength="${ifDefined(this.minlength)}"
+								maxlength="${ifDefined(this.maxlength)}"
+								name="${ifDefined(this.name)}"
+								autocapitalize="${ifDefined(this.autocapitalize)}"
+							></ct-textarea-autogrow>
+							<slot name="suffix"></slot>
+							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength}</div>` : ``}
+						</div>
+					</div>
+					<div class="underline"></div>
+				</div>
+			</div>
+		`;
+	}
+
 	firstUpdated() {
 		if (this.input) {
 			this.input.value = this.initValue || this.getAttribute("value") || "";
@@ -364,6 +364,7 @@ export class CtTextarea extends CtLit {
 			this.isEmpty = this.value == "" || this.value == void 0;
 		}
 		this.countChar = this.value!.length;
+		this.internals?.setFormValue(this.value);
 	}
 
 	set value(val: string | number | undefined | null) {
@@ -415,6 +416,11 @@ export class CtTextarea extends CtLit {
 		if (this.pattern) {
 			let re = new RegExp(this.pattern);
 			this.invalid = !re.test(this.input.value);
+			if (this.invalid) {
+				this.internals?.setValidity({ customError: true }, this.errorMessage);
+			} else {
+				this.internals?.setValidity({});
+			}
 		} else if (this.required) {
 			this.invalid = !(this.input.value.length > 0 && this.input.value.length >= (this.minlength || 0));
 		}
@@ -429,6 +435,13 @@ export class CtTextarea extends CtLit {
 			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
 		}
 		return !this.invalid;
+	}
+	private _handleKeyPress(event: KeyboardEvent) {
+		if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+			this.dispatchEvent(new Event("enter-pressed", { bubbles: true, composed: true }));
+			const form = this.closest("form");
+			form?.requestSubmit(); // Envía el formulario al presionar "Enter"
+		}
 	}
 
 	set invalid(val) {

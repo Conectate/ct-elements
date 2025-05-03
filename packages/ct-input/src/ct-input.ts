@@ -209,7 +209,7 @@ export class CtInput extends CtLit {
 				line-height: inherit;
 				text-shadow: inherit;
 				transition: all 0.2s;
-				caret-color: var(--color-primary, #2cb5e8);				
+				caret-color: var(--color-primary, #2cb5e8);
 				field-sizing: var(--ct-input-field-sizing, unset);
 			}
 
@@ -282,7 +282,7 @@ export class CtInput extends CtLit {
 	];
 	static formAssociated = true;
 	private internals?: ElementInternals = this.attachInternals?.();
-	
+
 	@query("input") $input!: HTMLInputElement;
 	@query("container") $container!: HTMLElement;
 
@@ -484,6 +484,7 @@ export class CtInput extends CtLit {
 	_onFocus() {
 		this.active = true;
 		this.invalid = false;
+		this.internals?.setValidity({});
 		this.placeholder = this.placeholder;
 	}
 
@@ -514,6 +515,11 @@ export class CtInput extends CtLit {
 		if (this.pattern) {
 			let re = this.pattern instanceof RegExp ? this.pattern : new RegExp(this.pattern);
 			this.invalid = !this.$input?.value.match(re);
+			if (this.invalid) {
+				this.internals?.setValidity({ customError: true }, this.errorMessage);
+			} else {
+				this.internals?.setValidity({});
+			}
 		} else if (this.required) {
 			this.invalid = !(this.$input?.value.length > 0 && this.$input?.value.length >= (this.min || 0));
 		}
