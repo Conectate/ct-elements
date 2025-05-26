@@ -101,7 +101,7 @@ export class CtListItem extends CtLit {
 				border-bottom: 1px solid var(--color-outline, transparent);
 			}
 			.text span {
-				padding: 8px 16px 8px 0;
+				padding: var(--ct-list-item--padding, 8px 16px 8px 0);
 				flex: 1;
 			}
 			:host(:last-child) .text,

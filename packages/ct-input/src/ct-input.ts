@@ -515,7 +515,7 @@ export class CtInput extends CtLit {
 		if (this.pattern) {
 			let re = this.pattern instanceof RegExp ? this.pattern : new RegExp(this.pattern);
 			this.invalid = !this.$input?.value.match(re);
-			if (this.invalid) {
+			if (this.invalid && this.errorMessage) {
 				this.internals?.setValidity({ customError: true }, this.errorMessage);
 			} else {
 				this.internals?.setValidity({});
