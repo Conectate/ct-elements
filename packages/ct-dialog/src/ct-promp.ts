@@ -12,6 +12,7 @@
 import "@conectate/ct-button";
 import "@conectate/ct-card";
 import "@conectate/ct-input";
+import "@conectate/ct-input/ct-textarea.js";
 
 import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
 import { TemplateResult } from "lit";
@@ -62,7 +63,7 @@ export function showCtPrompt(
 	ok?: string,
 	cancel?: string,
 	neutral?: string,
-	options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string }
+	options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string; textarea?: boolean }
 ): Promise<string | undefined> {
 	let ctPromp = new CTPromp();
 
@@ -88,6 +89,10 @@ export function showCtPrompt(
  */
 @customElement("ct-promp")
 class CTPromp extends CtLit {
+	/**
+	 * Whether to use a textarea for the input field
+	 */
+	@property({ type: Boolean, reflect: true }) textarea: boolean = false;
 	/**
 	 * Content to display in the dialog
 	 */
@@ -141,7 +146,7 @@ class CTPromp extends CtLit {
 	/**
 	 * Reference to the input field
 	 */
-	@query("#in") $in!: HTMLElementTagNameMap["ct-input"];
+	@query("#in") $in!: HTMLElementTagNameMap["ct-textarea"];
 
 	/**
 	 * Function to reject the promise
@@ -233,9 +238,7 @@ class CTPromp extends CtLit {
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
 				<div class="body">${this.body}</div>
-				<div class="actions">
-					<ct-input id="in"></ct-input>
-				</div>
+				<div class="actions">${this.textarea ? html`<ct-textarea id="in"></ct-textarea>` : html`<ct-input id="in"></ct-input>`}</div>
 				<div id="buttons" class="buttons">
 					<ct-button id="cancel" @click="${this.cancelbtn}" shadow>${this.cancel}</ct-button>
 					<ct-button id="ok" @click="${this.okbtn}" raised>${this.ok}</ct-button>
