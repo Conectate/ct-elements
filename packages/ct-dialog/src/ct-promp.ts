@@ -90,10 +90,6 @@ export function showCtPrompt(
 @customElement("ct-promp")
 class CTPromp extends CtLit {
 	/**
-	 * Whether to use a textarea for the input field
-	 */
-	@property({ type: Boolean, reflect: true }) textarea: boolean = false;
-	/**
 	 * Content to display in the dialog
 	 */
 	@property({ type: String }) body: string | TemplateResult = "";
@@ -126,7 +122,7 @@ class CTPromp extends CtLit {
 	/**
 	 * Additional configuration options
 	 */
-	@property({ type: Object }) options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string };
+	@property({ type: Object }) options?: { wordwrap?: boolean; value?: string; label?: string; placeholder?: string; rawplaceholder?: string; textarea?: boolean };
 
 	/**
 	 * Reference to the buttons container
@@ -238,7 +234,7 @@ class CTPromp extends CtLit {
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
 				<div class="body">${this.body}</div>
-				<div class="actions">${this.textarea ? html`<ct-textarea id="in"></ct-textarea>` : html`<ct-input id="in"></ct-input>`}</div>
+				<div class="actions">${this.options?.textarea ? html`<ct-textarea id="in"></ct-textarea>` : html`<ct-input id="in"></ct-input>`}</div>
 				<div id="buttons" class="buttons">
 					<ct-button id="cancel" @click="${this.cancelbtn}" shadow>${this.cancel}</ct-button>
 					<ct-button id="ok" @click="${this.okbtn}" raised>${this.ok}</ct-button>
