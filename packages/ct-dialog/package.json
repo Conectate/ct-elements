@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-dialog",
-	"version": "4.4.13",
+	"version": "4.4.14",
 	"description": "HTML dialog made with Web Components",
 	"main": "ct-dialog.js",
 	"types": "ct-dialog.d.ts",
