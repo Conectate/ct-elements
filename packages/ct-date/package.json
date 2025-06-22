@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-date",
-	"version": "4.4.13",
+	"version": "4.4.16",
 	"description": "HTML input date type made with Web Components",
 	"main": "ct-date.js",
 	"types": "ct-date.d.ts",
@@ -27,7 +27,7 @@
 		"prepare": "rm -rf *.map *.js *.ts;tsc"
 	},
 	"dependencies": {
-		"@conectate/ct-input": "^4.4.13",
+		"@conectate/ct-input": "^4.4.16",
 		"@conectate/ct-lit": "^4.4.9",
 		"@conectate/lit-if": "^4.3.0",
 		"tslib": "^2.6.3"
