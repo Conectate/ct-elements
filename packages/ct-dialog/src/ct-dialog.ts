@@ -16,13 +16,53 @@ type Modal = { destroy: () => void; close: (e?: Event | null, type?: "click" | "
 
 declare global {
 	interface Window {
-		historyModals: { id: string; modal: Modal }[];
+		customModals: {
+			history: { id: string; modal: Modal }[];
+			toDelete: Modal | null;
+			closePopState: (() => void) | null;
+			closeESC: (() => void) | null;
+		};
 	}
 }
-window.historyModals != null || (window.historyModals = []);
+window.customModals ||= {
+	history: [],
+	toDelete: null,
+	closePopState: null,
+	closeESC: null
+};
+
+function addCustomEventListener(event: string, callback: any) {
+	window.addEventListener(event, callback, false);
+	return () => window.removeEventListener(event, callback, false);
+}
+
+if (window.customModals.closePopState == null)
+	window.customModals.closePopState = addCustomEventListener("popstate", async (e: PopStateEvent) => {
+		// Si el dialogo que se esta cerrando es el mismo que el que se abrio, lo cierro [REF.1]
+		if (window.customModals.history.length == 0) return;
+		let dialogPop = window.customModals.history[window.customModals.history.length - 1];
+		if (dialogPop.modal) {
+			// Lo elimino de la lista de dialogos
+			if (window.customModals.toDelete == dialogPop.modal) {
+				window.customModals.toDelete = null;
+				dialogPop.modal.destroy();
+			} else {
+				await dialogPop.modal.close(e, "popstate");
+			}
+		}
+	});
+
+if (window.customModals.closeESC == null)
+	window.customModals.closeESC = addCustomEventListener("keyup", (e: KeyboardEvent) => {
+		if (e.key === "Escape") {
+			if (window.customModals.history.length == 0) return;
+			let dialogPop = window.customModals.history[window.customModals.history.length - 1];
+			// if (dialogPop.dialog.interactiveDismissDisabled) return;
+			dialogPop.modal.close(e, "keyup");
+		}
+	});
 
 let dialogID = 0;
-let toDelete: CtDialog | null = null;
 
 /**
  * Creates and displays a dialog with the specified content
@@ -37,7 +77,7 @@ export function showCtDialog(el: HTMLElement, id?: string, history?: ConectateHi
 	// Inserto el ID del dialogo que voy a mostrar
 	ctDialog = new CtDialog();
 	ctDialog.dialogID = id || `${dialogID++}`;
-	window.historyModals.push({ id: ctDialog.dialogID, modal: ctDialog });
+	window.customModals.history.push({ id: ctDialog.dialogID, modal: ctDialog });
 	history && (ctDialog.history = history);
 	ctDialog.show();
 	ctDialog.element = el;
@@ -93,34 +133,6 @@ export interface ConectateHistory {
 	/** URL for history entry */
 	href: string;
 }
-
-let _closeViaPopState = async (e: PopStateEvent) => {
-	// Si el dialogo que se esta cerrando es el mismo que el que se abrio, lo cierro [REF.1]
-	if (window.historyModals.length == 0) return;
-	let dialogPop = window.historyModals[window.historyModals.length - 1];
-	if (dialogPop.modal) {
-		// Lo elimino de la lista de dialogos
-		if (toDelete == dialogPop.modal) {
-			toDelete = null;
-			dialogPop.modal.destroy();
-		} else {
-			await dialogPop.modal.close(e, "popstate");
-		}
-	}
-};
-
-let _clseDialogESC = (e: KeyboardEvent) => {
-	if (e.key === "Escape") {
-		if (window.historyModals.length == 0) return;
-		let dialogPop = window.historyModals[window.historyModals.length - 1];
-		// if (dialogPop.dialog.interactiveDismissDisabled) return;
-		dialogPop.modal.close(e, "keyup");
-	}
-};
-
-window.addEventListener("popstate", _closeViaPopState, false);
-document.addEventListener("keyup", _clseDialogESC, false);
-
 /**
  * ## `ct-dialog`
  * A versatile dialog component that supports multiple animation styles and modal behaviors.
@@ -493,7 +505,7 @@ export class CtDialog extends CtLit {
 
 				// Si lo cerre manual o por ESC, elimino la entrada del History API. Como ya se eliminó el dialogo de la lista, `this.close()` no se ejecutará [REF.1]
 				if (type != "popstate" && !this.disableHistoryAPI) {
-					toDelete = this;
+					window.customModals.toDelete = this;
 					window.history.back();
 				} else {
 					this.destroy();
@@ -504,12 +516,12 @@ export class CtDialog extends CtLit {
 			// espero que haga el mapping en el container
 			await this.mappingContainer;
 
-			let index = window.historyModals.findIndex(d => d.modal == this);
-			let isLast = index == window.historyModals.length - 1;
+			let index = window.customModals.history.findIndex(d => d.modal == this);
+			let isLast = index == window.customModals.history.length - 1;
 			if (!isLast) {
 				// Cierro todos los dialogos que estan por encima de este
-				for (let i = window.historyModals.length - 1; i > index; i--) {
-					await window.historyModals[i].modal.close();
+				for (let i = window.customModals.history.length - 1; i > index; i--) {
+					await window.customModals.history[i].modal.close();
 				}
 			}
 
@@ -560,13 +572,13 @@ export class CtDialog extends CtLit {
 	}
 
 	destroy() {
-		window.historyModals.splice(
-			window.historyModals.findIndex(d => d.modal == this),
+		window.customModals.history.splice(
+			window.customModals.history.findIndex(d => d.modal == this),
 			1
 		);
 		// Elimino el dialogo
 		document.body.removeChild(this);
-		if (CtDialog.hiddenOverflow && window.historyModals.length == 0) {
+		if (CtDialog.hiddenOverflow && window.customModals.history.length == 0) {
 			CtDialog.hiddenOverflow.style.overflow = "";
 		}
 		this.dispatchEvent(new CustomEvent("close"));

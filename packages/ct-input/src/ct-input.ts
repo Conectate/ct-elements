@@ -33,7 +33,12 @@ export class CtInput extends CtLit {
 			:host {
 				display: inline-block;
 				margin-bottom: 8px;
+				--default-color-active: #1a396008;
 			}
+			:host([dark]) {
+				--default-color-active: #3f95ff17;
+			}
+
 			.inbody {
 				width: 100%;
 			}
@@ -153,7 +158,7 @@ export class CtInput extends CtLit {
 			}
 
 			#container.active {
-				background: rgba(26, 57, 96, 0.03);
+				background: var(--default-color-active, #1a396008);
 			}
 
 			::slotted(*),
@@ -298,6 +303,7 @@ export class CtInput extends CtLit {
 	@property({ type: Number }) size = 24;
 	@property({ type: Boolean }) readonly = false;
 	@property({ type: Boolean }) multiple = false;
+	@property({ type: Boolean, reflect: true }) dark = false;
 	__isFirstValueUpdate = true;
 
 	/**
@@ -429,6 +435,7 @@ export class CtInput extends CtLit {
 	}
 
 	firstUpdated() {
+		this.dark = localStorage.theme == "dark";
 		if (this.$input) {
 			this.$input.value = this.initValue || this.getAttribute("value") || "";
 		}
