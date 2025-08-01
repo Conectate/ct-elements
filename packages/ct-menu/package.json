@@ -1,6 +1,6 @@
 {
 	"name": "@conectate/ct-menu",
-	"version": "4.4.9",
+	"version": "4.4.17",
 	"description": "Menu web component for lit",
 	"main": "ct-menu.js",
 	"types": "ct-menu.d.ts",
