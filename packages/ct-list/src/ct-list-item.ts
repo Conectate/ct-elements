@@ -131,7 +131,7 @@ export class CtListItem extends CtLit {
 	 * Material icon name to display
 	 * @see https://fonts.google.com/icons
 	 */
-	@property({ type: String }) icon?: icon;
+	@property({ type: String }) icon?: icon | (string & {});
 
 	/**
 	 * Text content to display in the list item

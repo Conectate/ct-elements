@@ -121,17 +121,13 @@ export class CtButtonMenu extends LitElement {
 	/** keep popup after click, you must close programmatically */
 	@property({ type: Boolean, reflect: true }) keep = false;
 	/** Dropdown icon */
-	@property() icon: icon = "expand_more";
+	@property() icon: icon | (string & {}) = "expand_more";
 
 	@query(".gui-popup") popup!: HTMLSpanElement;
 
 	render() {
 		return html` <span class="dropdown-trigger center">
-				${this.dropDownTrigger
-					? this.dropDownTrigger
-					: this.use_slot
-					? html`<slot name="dropdown"></slot><slot name="trigger"></slot>`
-					: html`<ct-icon icon="${this.icon}"></ct-icon>`}
+				${this.dropDownTrigger ? this.dropDownTrigger : this.use_slot ? html`<slot name="dropdown"></slot><slot name="trigger"></slot>` : html`<ct-icon icon="${this.icon}"></ct-icon>`}
 			</span>
 			<!-- <ct-icon icon="expand_more"></ct-icon> -->
 			<div class="gui-popup">

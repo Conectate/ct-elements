@@ -36,9 +36,16 @@ Menu web component for `lit`
 
 ## Slots
 
-| Name               | Description  |
-| ------------------ | ------------ |
-| `dropdown-trigger` | Item trigger |
+| Name                            | Description  |
+| ------------------------------- | ------------ |
+| `dropdown-trigger` (Deprecated) | Item trigger |
+| `trigger`                       | Item trigger |
+
+## Events
+
+| Name   | Type          | Description            | e.detail  |
+| ------ | ------------- | ---------------------- | --------- |
+| `open` | `CustomEvent` | Open or Close the menu | `boolean` |
 
 ## Installation
 

@@ -21,7 +21,18 @@ export class CtMenu extends CtLit {
 	@property({ type: String }) align: "top" | "top-right" | "top-left" | "bottom" | "bottom-right" | "bottom-left" | null = "top-right";
 	@property({ type: Array }) addedNodes: (Node & { style?: { [x: string]: string } })[] = [];
 	@property({ type: String }) icon!: string;
-	opened = false;
+	_opened = false;
+
+	get opened() {
+		return this._opened;
+	}
+	set opened(value: boolean) {
+		this._opened = value;
+		setTimeout(() => {
+			this.$menu?.classList.toggle("active", value);
+			this.dispatchEvent(new CustomEvent("open", { detail: value }));
+		}, 250);
+	}
 
 	static styles = css`
 		:host {
@@ -126,8 +137,8 @@ export class CtMenu extends CtLit {
 	`;
 	render() {
 		return html`
-			<slot name="dropdown-trigger" @click="${this.toggle}"></slot>
-			<slot name="trigger" @click="${this.toggle}"></slot>
+			<slot name="dropdown-trigger" @click="${this.open}"></slot>
+			<slot name="trigger" @click="${this.open}"></slot>
 			<div id="menu" class="dd-menu" @blur=${this._onFocusOut} tabindex="0">
 				<slot id="items"></slot>
 			</div>
@@ -137,7 +148,6 @@ export class CtMenu extends CtLit {
 	_onFocusOut() {
 		if (this.opened && !localStorage.ctmc) {
 			this.opened = false;
-			setTimeout(() => this.$menu.classList.remove("active"), 250);
 		}
 	}
 	disconnectedCallback() {
@@ -149,7 +159,7 @@ export class CtMenu extends CtLit {
 		super();
 		this.close = (e: KeyboardEvent) => {
 			if (e.key == "Escape") {
-				this.$menu.classList.remove("active");
+				this.opened = false;
 			}
 		};
 		document.body.addEventListener("keydown", this.close);
@@ -205,7 +215,7 @@ export class CtMenu extends CtLit {
 		});
 	}
 
-	toggle(e: CustomEvent) {
+	open(e: CustomEvent) {
 		this.$menu.focus();
 		this.addedNodes.forEach((item, index) => {
 			var delay = index * 40 + "ms";
@@ -217,7 +227,7 @@ export class CtMenu extends CtLit {
 				setTimeout(() => (item.style![key] = ""), index * 40 + 1000);
 			}
 		});
-		this.$menu.classList.add("active");
+		this.$menu?.classList.add("active");
 		this.opened = true;
 		e.stopPropagation();
 	}

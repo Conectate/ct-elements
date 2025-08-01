@@ -64,23 +64,6 @@ export class CtIcon extends LitElement {
 	static ready = false;
 
 	/**
-	 * Indicates if the font has been loaded for this instance
-	 */
-	@property({ type: Boolean, reflect: true }) ready = false;
-
-	/**
-	 * Font family to use for the icon
-	 * @type {"Icons" | "Symbols"}
-	 */
-	@property({ type: String, reflect: true }) font: "Icons" | "Symbols" = "Symbols";
-
-	/**
-	 * Font style to use for the icon
-	 * @type {"Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded"}
-	 */
-	@property({ type: String, reflect: true }) fontstyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
-
-	/**
 	 * Cache of loaded font stylesheets
 	 */
 	static FontLoaded = new Map<string, HTMLLinkElement>();
@@ -152,6 +135,33 @@ export class CtIcon extends LitElement {
 	];
 
 	/**
+	 * Indicates if the font has been loaded for this instance
+	 */
+	@property({ type: Boolean, reflect: true }) ready = false;
+
+	/**
+	 * Font family to use for the icon
+	 * @type {"Icons" | "Symbols"}
+	 */
+	@property({ type: String, reflect: true }) font: "Icons" | "Symbols" = "Symbols";
+
+	/**
+	 * Font style to use for the icon
+	 * @type {"Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded"}
+	 */
+	@property({ type: String, reflect: true }) fontstyle: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded" = "Rounded";
+	/**
+	 * If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string`
+	 */
+	@property({ type: String }) svg?: string;
+
+	/**
+	 * Icon name described in Google Fonts
+	 * @see https://fonts.google.com/icons
+	 */
+	@property({ type: String }) icon!: icon | (string & {});
+
+	/**
 	 * Component constructor. Sets up font styles and loading detection.
 	 */
 	constructor() {
@@ -194,17 +204,6 @@ export class CtIcon extends LitElement {
 	protected firstUpdated() {
 		CtIcon.loadFonts(this.fontstyle, this.font);
 	}
-
-	/**
-	 * If the desired icon does not exist icon in Google Fonts, you can use an `SVG` by sending it as a `string`
-	 */
-	@property({ type: String }) svg?: string;
-
-	/**
-	 * Icon name described in Google Fonts
-	 * @see https://fonts.google.com/icons
-	 */
-	@property({ type: String }) icon!: icon;
 
 	/**
 	 * Renders the icon component, either as SVG or using the material icon font
