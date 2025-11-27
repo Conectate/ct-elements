@@ -53,7 +53,7 @@ export class CtInputAutocomplete extends CtLit {
 		`;
 	}
 	@query("#autocompleteInput") $autocompleteInput!: HTMLInputElement;
-	@query("#autocompleteSuggestions") $autocompleteSuggestions!: any;
+	@query("#autocompleteSuggestions") $autocompleteSuggestions!: HTMLElementTagNameMap["ct-autocomplete-suggestions"];
 	@property({ type: String }) label = "";
 	@property({ type: String }) placeholder = "";
 	@property({ type: String }) errorMessage = "";

@@ -97,6 +97,7 @@ export class CtAutocompleteSuggestions extends CtLit {
 	}
 
 	hiddeSugg() {
+		this.source.length = 0;
 		this.source = [];
 	}
 
@@ -153,5 +154,11 @@ export class CtAutocompleteSuggestions extends CtLit {
 			output = output.replace(original.charAt(i), ascii.charAt(i));
 		}
 		return output;
+	}
+}
+
+declare global {
+	interface HTMLElementTagNameMap {
+		"ct-autocomplete-suggestions": CtAutocompleteSuggestions;
 	}
 }

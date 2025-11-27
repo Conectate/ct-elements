@@ -98,7 +98,7 @@ export class CtImg extends LitElement {
 	 * The scrollable container that serves as the viewport for lazy loading
 	 * When the image enters this viewport, it will be loaded
 	 */
-	@property({ type: Object }) viewport: HTMLElement = document.body;
+	@property({ type: Object }) viewport: HTMLElement = globalThis?.document?.body;
 
 	/**
 	 * URL of an image to display while the main image is loading

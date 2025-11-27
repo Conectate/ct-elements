@@ -11,6 +11,9 @@ import { icon } from "./icon-list.js";
  * @returns HTMLLinkElement The created link element
  */
 function addFont(family: string, css: "css" | "css2" = "css") {
+	if (globalThis.document == null) {
+		return undefined;
+	}
 	const link = document.createElement("link");
 	link.id = `ctIcon${family}`;
 	link.rel = "stylesheet";
@@ -82,6 +85,14 @@ export class CtIcon extends LitElement {
 				word-wrap: normal;
 				direction: ltr;
 				-webkit-font-smoothing: antialiased;
+				width: var(--ct-icon-size, 24px);
+				height: var(--ct-icon-size, 24px);
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+				fill: currentColor;
 			}
 
 			span::before {
@@ -166,9 +177,9 @@ export class CtIcon extends LitElement {
 	 */
 	constructor() {
 		super();
-		this.fontstyle = CtIcon.FontStyle;
-		this.font = CtIcon.Font;
-		let link = CtIcon.loadFonts(CtIcon.FontStyle, CtIcon.Font);
+		this.fontstyle = window?.CtIconPrefs?.style || CtIcon.FontStyle;
+		this.font = window?.CtIconPrefs?.font || CtIcon.Font;
+		let link = CtIcon.loadFonts(this.fontstyle, this.font);
 		this.ready = CtIcon.ready;
 		if (!link) {
 			this.ready = true;
@@ -209,27 +220,19 @@ export class CtIcon extends LitElement {
 	 * Renders the icon component, either as SVG or using the material icon font
 	 */
 	render() {
-		if (this.svg)
-			return html`<style>
-					:host {
-						width: var(--ct-icon-size, 24px);
-						height: var(--ct-icon-size, 24px);
-					}
-					svg {
-						width: 100%;
-						height: 100%;
-						fill: currentColor;
-					}
-				</style>
-				${unsafeHTML(this.svg)}`;
-		else if (this.icon) {
-			return html`<span data-icon=${this.icon}></span>`;
-		}
+		if (this.svg) return html`${unsafeHTML(this.svg)}`;
+		else if (this.icon) return html`<span data-icon=${this.icon}></span>`;
 	}
 }
 
 declare global {
 	interface HTMLElementTagNameMap {
 		"ct-icon": CtIcon;
+	}
+	interface Window {
+		CtIconPrefs?: {
+			font: "Icons" | "Symbols";
+			style: "Outlined" | "Fill" | "Sharp" | "Two Tone" | "Round" | "Rounded";
+		};
 	}
 }

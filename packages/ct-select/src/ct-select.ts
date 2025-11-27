@@ -2,7 +2,7 @@ import "./ct-select-dialog.js";
 
 import { sleep } from "@conectate/ct-helpers";
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
-import { TemplateResult, css, html } from "lit";
+import { PropertyValues, TemplateResult, css, html } from "lit";
 
 import { showCtSelect } from "./ct-select-dialog.js";
 
@@ -238,8 +238,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				color: #4a5568;
 				vertical-align: middle;
 				background: #fff
-					url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Cpath fill='%232D3748' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E")
-					no-repeat right 1.25rem center/8px 10px;
+					url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Cpath fill='%232D3748' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat
+					right 1.25rem center/8px 10px;
 				border: 1px solid #e2e8f0;
 				border-radius: 0.375rem;
 				box-shadow: inset 0 1px 2px rgba(31, 45, 61, 0.075);
@@ -253,25 +253,102 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	@query("#c") $c!: HTMLElement;
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: String }) raw_placeholder = "";
-	okPlaceholder: string = "Ok";
-	cancelPlaceholder: string = "Cancel";
-	selectedPlaceholder: string = "Items selected";
-	label: any;
-	invalid: any;
-	valuePlaceholder = "";
-	placeholder = "";
-	searchPlaceholder = "Search...";
-	preventClick = false;
-	order?: "asc" | "desc";
-	textProperty = "text";
-	valueProperty = "value";
-	multi = false;
+	@property({ type: String }) okPlaceholder: string = "Ok";
+	@property({ type: String }) cancelPlaceholder: string = "Cancel";
+	/**
+	 * Placeholder when you select more of 3 items
+	 */
+	@property({ type: String }) selectedPlaceholder: string = "Items selected";
+	/**
+	 * Label of select
+	 */
+	@property({ type: String }) label: string = "";
+	/**
+	 * if the required and this.value is null
+	 */
+	@property({ type: Boolean }) invalid: boolean = false;
+	@property({ type: String }) valuePlaceholder = "";
+	@property({ type: String }) placeholder = "";
+	/**
+	 * Search placeholder
+	 */
+	@property({ type: String }) searchPlaceholder = "Search...";
+	@property({ type: Boolean }) preventClick = false;
+	@property({ type: String }) order?: "asc" | "desc";
+	@property({ type: String }) textProperty: string = "text";
+	@property({ type: String }) valueProperty: string = "value";
+	/**
+	 * Esto si se necesita que se puedan seleccionar muchos
+	 */
+	@property({ type: Boolean }) multi: boolean = false;
+	/**
+	 * Items para seleccionar
+	 */
+	@property({ type: Array }) items: T[] = [];
+	@property({ type: String }) ttl: string = "";
+	/**
+	 * Activate searchable option
+	 */
+	@property({ type: Boolean }) searchable: boolean = false;
+	@property({ type: Boolean }) required: boolean = false;
+
 	_value?: T["value"];
 	_text: any;
-	_items: T[] = [];
-	ttl: string = "";
-	searchable = false;
-	required: boolean = false;
+
+	/**
+	 * Array de items selected
+	 */
+	@property({ type: Object })
+	set value(val: T["value"]) {
+		if (this._value !== val) {
+			this._value = val;
+			this.setValue(val);
+		}
+	}
+	get value() {
+		return this._value!;
+	}
+	get text() {
+		let items = [];
+		// return []
+		if (this.multi) {
+			if (!Array.isArray(this.value)) {
+				return;
+			}
+			for (let j = 0; j < this.value.length; j++) {
+				for (let i = 0; i < this._orderedItems.length; i++) {
+					let el = this._orderedItems[i];
+					if (el[this.valueProperty] == this.value[j]) {
+						items.push(el[this.textProperty]);
+					} else if (this.typeOf(this.value[j]) == "object") {
+						if (JSON.stringify(el[this.valueProperty]) == JSON.stringify(this.value[j])) {
+							items.push(el[this.textProperty]);
+						}
+					}
+				}
+			}
+		}
+		// return String
+		else {
+			for (let i = 0; i < this._orderedItems.length; i++) {
+				let el = this._orderedItems[i];
+				if (el[this.valueProperty] == this.value) {
+					return el[this.textProperty];
+				}
+			}
+		}
+		// Return [items? : any]
+		if (this.multi) return items;
+		// Not Found
+		else return null;
+	}
+
+	set text(val) {
+		this._text = val;
+	}
+
+	private _orderedItems: T[] = [];
+
 	renderItem?: (item: T, index: number, array: T[]) => TemplateResult<1>;
 
 	render() {
@@ -283,12 +360,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 					<slot name="prefix"></slot>
 					<input id="input" .value="${this.valuePlaceholder}" placeholder="${this.placeholder || this.raw_placeholder}" />
 					<div class="icon">
-						<svg
-							viewBox="0 0 24 24"
-							preserveAspectRatio="xMidYMid meet"
-							focusable="false"
-							style="pointer-events: none; display: block; width: 100%; height: 100%;fill:currentColor"
-						>
+						<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;fill:currentColor">
 							<g><path d="M7 10l5 5 5-5z"></path></g>
 						</svg>
 					</div>
@@ -310,12 +382,12 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			if (this.multi) return;
 			this.searchIn += e.data || "";
 			clearTimeout(this.timeout);
-			let items = this.items.filter(item => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
+			let items = this._orderedItems.filter(item => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
 			//console.log(this.searchIn, items);
 			if (items.length > 0) {
 				this.$input.value = items[0][this.textProperty];
 			} else {
-				this.$input.value = this.items.find(item => item[this.valueProperty] == this.value)?.[this.textProperty];
+				this.$input.value = this._orderedItems.find(item => item[this.valueProperty] == this.value)?.[this.textProperty];
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
@@ -326,6 +398,38 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				this.searchIn = "";
 			}, 1000);
 		});
+	}
+
+	override willUpdate(changedProperties: PropertyValues) {
+		super.willUpdate(changedProperties);
+		if (changedProperties.has("items") || changedProperties.has("order")) {
+			this._orderedItems = this.sortItems(this.items, this.order);
+			this.dispatchEvent(new CustomEvent("items", { detail: { value: this.items } }));
+			this.computeValuesPlaceholder();
+		}
+	}
+
+	private sortItems(items: T[], direction?: "asc" | "desc"): T[] {
+		if (!direction) return items;
+		const sorted = [...items];
+
+		sorted.sort((a, b) => {
+			const aVal = a[this.textProperty];
+			const bVal = b[this.textProperty];
+			if (typeof aVal === "string" && typeof bVal === "string") {
+				if (direction === "asc") {
+					return aVal.localeCompare(bVal);
+				} else {
+					return bVal.localeCompare(aVal);
+				}
+			}
+			if (direction === "asc") {
+				return a[this.textProperty].charCodeAt(0) - b[this.textProperty].charCodeAt(0);
+			} else {
+				return b[this.textProperty].charCodeAt(0) - a[this.textProperty].charCodeAt(0);
+			}
+		});
+		return sorted;
 	}
 
 	firstUpdated() {
@@ -343,8 +447,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			let strBuilder = [];
 			for (let j = 0; this.value && j < this.value.length; j++) {
-				for (let i = 0; i < this.items.length; i++) {
-					let items = this.items[i];
+				for (let i = 0; i < this._orderedItems.length; i++) {
+					let items = this._orderedItems[i];
 					let values = this.value[j];
 					if (items[this.valueProperty] == values) {
 						strBuilder.push(items[this.textProperty]);
@@ -357,8 +461,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			this.valuePlaceholder = strBuilder.length > 3 ? strBuilder.length + " " + this.selectedPlaceholder : strBuilder.join(", ");
 		} else {
-			for (let i = 0; i < this.items.length; i++) {
-				let items = this.items[i];
+			for (let i = 0; i < this._orderedItems.length; i++) {
+				let items = this._orderedItems[i];
 				if (items[this.valueProperty] == this.value) {
 					this.valuePlaceholder = items[this.textProperty];
 					return;
@@ -369,15 +473,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		}
 	}
 
-	set value(val: T["value"]) {
-		if (this._value !== val) {
-			this._value = val;
-			this.setValue(val);
-		}
-	}
-	get value() {
-		return this._value!;
-	}
 	async setValue(val?: T["value"]) {
 		await this.updateComplete;
 		this.computeValuesPlaceholder();
@@ -387,116 +482,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			this.$container.classList.toggle("has-value", !isEmpty);
 			this.$input.classList.toggle("has-value", !isEmpty);
 		}
-	}
-
-	get text() {
-		let items = [];
-		// return []
-		if (this.multi) {
-			if (!Array.isArray(this.value)) {
-				return;
-			}
-			for (let j = 0; j < this.value.length; j++) {
-				for (let i = 0; i < this.items.length; i++) {
-					let el = this.items[i];
-					if (el[this.valueProperty] == this.value[j]) {
-						items.push(el[this.textProperty]);
-					} else if (this.typeOf(this.value[j]) == "object") {
-						if (JSON.stringify(el[this.valueProperty]) == JSON.stringify(this.value[j])) {
-							items.push(el[this.textProperty]);
-						}
-					}
-				}
-			}
-		}
-		// return String
-		else {
-			for (let i = 0; i < this.items.length; i++) {
-				let el = this.items[i];
-				if (el[this.valueProperty] == this.value) {
-					return el[this.textProperty];
-				}
-			}
-		}
-		// Return [items? : any]
-		if (this.multi) return items;
-		// Not Found
-		else return null;
-	}
-
-	set text(val) {
-		this._text = val;
-	}
-
-	set items(val) {
-		if (this.order)
-			this._items = val.sort((a, b) =>
-				this.order == "asc"
-					? a[this.textProperty].charCodeAt(0) - b[this.textProperty].charCodeAt(0)
-					: b[this.textProperty].charCodeAt(0) - a[this.textProperty].charCodeAt(0)
-			);
-		else this._items = val;
-		this.updateComplete.then(() => {
-			this.dispatchEvent(new CustomEvent("items", { detail: { value: val } }));
-			this.computeValuesPlaceholder();
-		});
-	}
-
-	get items(): T[] {
-		return this._items;
-	}
-
-	static get properties() {
-		return {
-			/**
-			 * Items para seleccionar
-			 */
-			_items: { type: Array },
-			textProperty: { type: String },
-			valueProperty: { type: String },
-			order: { type: String },
-			/**
-			 * Label of select
-			 */
-			label: { type: String },
-			/**
-			 * Array de items selected
-			 */
-			value: { type: Object },
-			placeholder: { type: String },
-			valuePlaceholder: { type: String },
-			/**
-			 * Esto si se necesita que se puedan seleccionar muchos
-			 */
-			multi: { type: Boolean },
-			ttl: { type: String },
-			/**
-			 * OK btn placeholder
-			 */
-			okPlaceholder: { type: String },
-			/**
-			 * Cancel Btn placeholder
-			 */
-			cancelPlaceholder: { type: String },
-			/**
-			 * Placeholder when you select more of 3 items
-			 */
-			selectedPlaceholder: { type: String },
-			/**
-			 * Search placeholder
-			 */
-			searchPlaceholder: { type: String },
-			/**
-			 * Activate searchable option
-			 */
-			searchable: { type: Boolean },
-			preventClick: { type: Boolean },
-			/**
-			 * if the required and this.value is null
-			 */
-			invalid: { type: Boolean },
-			required: { type: Boolean }
-		};
 	}
 
 	/**
@@ -515,7 +500,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	 */
 	async showDialog(): Promise<void> {
 		this.invalid = false;
-		let ctSelect = showCtSelect<T["value"]>(this.ttl ? this.ttl : this.label, this.items, this.value, this.okPlaceholder, this.cancelPlaceholder, {
+		let ctSelect = showCtSelect<T["value"]>(this.ttl ? this.ttl : this.label, this._orderedItems, this.value, this.okPlaceholder, this.cancelPlaceholder, {
 			multi: this.multi,
 			searchable: this.searchable,
 			searchPlaceholder: this.searchPlaceholder,

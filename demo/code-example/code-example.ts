@@ -1,7 +1,7 @@
 import "@conectate/ct-icon";
 
 import { CtLit, css, customElement, html, property, query, state } from "@conectate/ct-lit";
-import { stripIndent } from "common-tags";
+import beautify from "js-beautify";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as Prism from "prismjs";
 
@@ -138,9 +138,15 @@ export class CodeExample extends CtLit {
 	public set rawcode(code: string) {
 		this._code = code;
 	}
+	quitarComentarios(html: string) {
+		return html.replace(/<!--(\?lit\$.*?\$)?-->/g, "");
+	}
 
 	public get rawcode(): string {
-		return stripIndent`${this._code || this.textContent}` || "";
+		return beautify.html(this.quitarComentarios(this._code || this.innerHTML || "").replace(`slot="demo"`, ""), {
+			indent_size: 2,
+			preserve_newlines: true
+		});
 	}
 
 	public get language(): "markup" | "javascript" {
@@ -170,7 +176,7 @@ export class CodeExample extends CtLit {
 						<div class="demo-example">
 							<slot name="demo"></slot>
 						</div>
-				  `
+					`
 				: undefined}
 			<bdo id="markup" dir="ltr" class=${this.codeTheme}>
 				${highlightedCode}

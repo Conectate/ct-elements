@@ -56,9 +56,12 @@ export class CtInputWrapper extends CtLit {
 					top: 0;
 					width: 100%;
 				}
+				input {
+					cursor: pointer;
+				}
 			</style>
 			<slot></slot>
-			<input @change=${this.callOnChange} .type="${this.type}" .accept="${this.accept}" id="inputElement" ?multiple=${this.multiple} />`;
+			<input @change=${this.callOnChange} .type="${this.type}" .accept="${this.accept}" id="inputElement" ?multiple=${this.multiple} part="input" />`;
 	}
 
 	callOnChange(e: any) {

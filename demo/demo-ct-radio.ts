@@ -3,7 +3,7 @@ import "@conectate/ct-radio";
 
 import "./code-example/code-example.js";
 
-import { css, CtLit, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
 @customElement("demo-ct-radio")
 export class DemoCtRadio extends CtLit {
@@ -39,14 +39,6 @@ export class DemoCtRadio extends CtLit {
 	}
 	example() {
 		return html` <code-example class="language-html" .codestyle=${DemoCtRadio.styles[1].toString()}>
-			${`
-		<ct-radio>Normal</ct-radio>
-		<ct-radio checked>Checked</ct-radio>
-		<ct-radio checked></ct-radio>
-		<div class="group">
-			<ct-radio name="form1">Form 1 - Option 1</ct-radio>
-			<ct-radio name="form1" checked>Form 1 - Option 2</ct-radio>
-		</div>`.replaceAll("\t", "    ")}
 			<div slot="demo">
 				<ct-radio>Normal</ct-radio>
 				<ct-radio checked>Checked</ct-radio>

@@ -198,7 +198,7 @@ export class CtInputContainer extends CtLit {
 		this.dispatchEvent(new CustomEvent("my-event", { detail: {} }));
 
 		return html`
-			${this.label ? html` <h4 for="input" class="label">${this.label}</h4> ` : html``}
+			${this.label ? html` <h4 class="label">${this.label}</h4> ` : html``}
 
 			<div id="container" class="${this.getHasValue(this.value)}">
 				<slot name="prefix"></slot>
@@ -245,7 +245,7 @@ export class CtInputContainer extends CtLit {
 	 */
 	@property({ type: String }) errorMessage = "";
 	@property({ type: String }) label = "";
-	@property({ type: String }) autocorrect = "off";
+	@property({ type: Boolean }) autocorrect: boolean = false;
 	@property({ type: String }) autocapitalize = "none";
 	@property({ type: Boolean }) noHover = false;
 	@property({ type: Boolean }) charCounter = false;

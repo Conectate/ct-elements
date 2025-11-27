@@ -14,7 +14,7 @@ export class CtScrollThreshold extends LitElement {
 		`
 	];
 	@property({ type: Number }) threshold = 0.9;
-	@property({ type: Object }) scrollTarget = document.body;
+	@property({ type: Object }) scrollTarget = globalThis?.document?.body;
 	observer?: IntersectionObserver & { POLL_INTERVAL?: number };
 	@query("#threshold") $threshold!: HTMLDivElement;
 	render() {

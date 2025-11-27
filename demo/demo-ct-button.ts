@@ -28,7 +28,8 @@ export class DemoCtButtom extends CtLit {
 	];
 
 	render() {
-		return html` <div class="btns">
+		return html` <!-- ct-button examples -->
+			<div class="btns">
 				<ct-button>Normal </ct-button>
 				<ct-button shadow>shadow</ct-button>
 				<ct-button raised>raised</ct-button>
@@ -51,7 +52,7 @@ export class DemoCtButtom extends CtLit {
 				</ct-button>
 			</div>
 
-			<!--  -->
+			<!-- ct-button-split examples -->
 			<div>
 				${["top-right", "top-left", "bottom-right", "bottom-left"].map(
 					from => html`

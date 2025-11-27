@@ -183,7 +183,7 @@ export class CtDialog extends CtLit {
 	static checkForCriOS = false;
 
 	/** Element to hide overflow on when dialog is open */
-	static hiddenOverflow: HTMLElement | null = document.body;
+	static hiddenOverflow: HTMLElement | null = globalThis?.document?.body;
 	static styles = [
 		css`
 			@keyframes in-modalFadeEffect {

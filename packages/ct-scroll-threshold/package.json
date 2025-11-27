@@ -34,8 +34,8 @@
 			"default": "./ct-scroll-threshold.js"
 		},
 		"./*": {
-			"dev": "./src/*",
-			"default": "./*"
+			"dev": "./src/*.js",
+			"default": "./*.js"
 		}
 	}
 }

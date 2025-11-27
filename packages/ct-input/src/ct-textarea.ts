@@ -297,7 +297,7 @@ export class CtTextarea extends CtLit {
 	@property({ type: String }) pattern?: string;
 	@property({ type: String }) errorMessage?: string;
 	@property({ type: String }) rawPlaceholder = "";
-	@property({ type: String }) autocorrect = "off";
+	@property({ type: Boolean }) autocorrect: boolean = false;
 	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
 	@property({ type: String }) label = "";
 	@property({ type: Number }) countChar = 0;

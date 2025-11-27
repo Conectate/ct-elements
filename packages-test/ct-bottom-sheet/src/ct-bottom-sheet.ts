@@ -134,7 +134,7 @@ export class CtBottomSheet extends LitElement {
 	constructor() {
 		super();
 		this.__onTransitionEnd = this.__onTransitionEnd.bind(this);
-		this.fitInto = window.document.body;
+		this.fitInto = globalThis?.document?.body;
 		this.opened = false;
 	}
 	close() {}

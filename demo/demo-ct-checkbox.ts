@@ -14,7 +14,9 @@ export class DemoCtCheckbox extends CtLit {
 	];
 
 	render() {
-		return html`<ct-checkbox>Vas</ct-checkbox> <ct-checkbox checked><span>Vas</span></ct-checkbox> <ct-checkbox checked></ct-checkbox>
-			<ct-checkbox indeterminate>Vas</ct-checkbox> <ct-checkbox disabled>Vas</ct-checkbox>`;
+		return html`<div><ct-checkbox>Checkbox Example</ct-checkbox></div>
+			<div><ct-checkbox checked>Checked Example</ct-checkbox></div>
+			<div><ct-checkbox indeterminate>Indeterminate Example</ct-checkbox></div>
+			<div><ct-checkbox disabled>Disabled Example</ct-checkbox></div> `;
 	}
 }

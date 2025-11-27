@@ -1,12 +1,13 @@
 import "@conectate/ct-card";
-import "@conectate/ct-icon/ct-icon-button.js";
+import "@conectate/ct-snackbar";
 
 import "./code-example/code-example.js";
 
 import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { showSnackBar } from "@conectate/ct-snackbar";
 
-@customElement("demo-ct-icon")
-export class DemoCtIcon extends CtLit {
+@customElement("demo-ct-snackbar")
+export class DemoCtSnackbar extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -20,7 +21,7 @@ export class DemoCtIcon extends CtLit {
 			}
 		`
 	];
-	name = "ct-icon";
+	name = "ct-snackbar";
 	render() {
 		return html`
 			<header class="card-content">
@@ -30,11 +31,16 @@ export class DemoCtIcon extends CtLit {
 		`;
 	}
 	example() {
-		return html` <code-example class="language-html">
-			<div slot="demo">
-				<ct-icon-button icon="power_off"></ct-icon-button>
-				<ct-icon-button icon="power_off" style="--ct-icon-size: 16px;"></ct-icon-button>
-			</div>
-		</code-example>`;
+		return html`
+			<code-example class="language-html">
+				<div slot="demo">
+					<ct-card>
+						<div class="card-content">
+							<ct-button @click=${() => showSnackBar("Hello World")}>Show Snackbar</ct-button>
+						</div>
+					</ct-card>
+				</div>
+			</code-example>
+		`;
 	}
 }

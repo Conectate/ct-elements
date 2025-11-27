@@ -3,9 +3,9 @@ import "@conectate/ct-select";
 
 import "./code-example/code-example.js";
 
-import { css, CtLit, customElement, html, query } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
 import { CtSelect } from "@conectate/ct-select";
-import { html as stripIndent } from "common-tags";
+import { stripIndents } from "common-tags";
 
 @customElement("demo-ct-select")
 export class DemoCtSelect extends CtLit {
@@ -34,24 +34,19 @@ export class DemoCtSelect extends CtLit {
 
 	@query("#ct-select") ctSelect!: CtSelect;
 	example() {
-		let code = stripIndent`
-		<!-- getItems(): {text: string;value: number;}[] -->
-
-		<ct-select label="Normal"  .items=\${this.getItems()} .value=\${1}></ct-select>
-		<ct-select label="Multi Select" multi .items=\${this.getItems()}></ct-select>
-		<ct-select id="ct-select"
-			label="Multi Select with Custom View"
-			multi
-			.items=\${this.getItems()}
-			.renderItem="\${(item: any, i: number) =>
-				html\`<render-item
-					.text="\${item.text}"
-					?selected=\${(this.ctSelect.value as any[])?.includes(item.value)}
-					.subtext=\${\`Sub \${item.text}\`}
-					.value=\${item.value}
-				></render-item>\`}"
-		></ct-select>`.replaceAll("\t", "    ");
-
+		let code = stripIndents(`<div slot="demo">
+					<ct-select .items=\${this.getItems()} label="Normal" .value=\${1}></ct-select>
+					<ct-select .items=\${this.getItems()} label="Normal searchable" .value=\${1} searchable></ct-select>
+					<ct-select .items=\${this.getItems()} label="Multi Select" multi></ct-select>
+					<ct-select
+						id="ct-select"
+						.items=\${this.getItems()}
+						label="Multi Select with Custom View"
+						multi
+						.renderItem=\${(item: any, i: number) =>
+							html\`<render-item .text=\${item.text} ?selected=\${(this.ctSelect.value as any[])?.includes(item.value)} .subtext=\${\`Sub \${item.text}\`} .value=\${item.value}></render-item>\`}
+					></ct-select>
+				</div>`);
 		return html`
 			<code-example class="language-html" .rawcode=${code}>
 				<div slot="demo">
@@ -69,7 +64,7 @@ export class DemoCtSelect extends CtLit {
 								?selected=${(this.ctSelect.value as any[])?.includes(item.value)}
 								.subtext=${`Sub ${item.text}`}
 								.value=${item.value}
-							></render-item>`}
+							></render-item>` as any}
 					></ct-select>
 				</div>
 			</code-example>

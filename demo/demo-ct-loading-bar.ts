@@ -1,12 +1,12 @@
 import "@conectate/ct-card";
-import "@conectate/ct-icon/ct-icon-button.js";
+import "@conectate/ct-loading-bar";
 
 import "./code-example/code-example.js";
 
 import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
-@customElement("demo-ct-icon")
-export class DemoCtIcon extends CtLit {
+@customElement("demo-ct-loading-bar")
+export class DemoCtLoadingBar extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -20,7 +20,7 @@ export class DemoCtIcon extends CtLit {
 			}
 		`
 	];
-	name = "ct-icon";
+	name = "ct-loading-bar";
 	render() {
 		return html`
 			<header class="card-content">
@@ -30,11 +30,14 @@ export class DemoCtIcon extends CtLit {
 		`;
 	}
 	example() {
-		return html` <code-example class="language-html">
-			<div slot="demo">
-				<ct-icon-button icon="power_off"></ct-icon-button>
-				<ct-icon-button icon="power_off" style="--ct-icon-size: 16px;"></ct-icon-button>
-			</div>
-		</code-example>`;
+		return html`
+			<code-example class="language-html">
+				<div slot="demo">
+					<ct-card>
+						<ct-loading-bar></ct-loading-bar>
+					</ct-card>
+				</div>
+			</code-example>
+		`;
 	}
 }

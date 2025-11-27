@@ -1,12 +1,12 @@
 import "@conectate/ct-card";
-import "@conectate/ct-icon/ct-icon-button.js";
+import "@conectate/ct-loading-placeholder";
 
 import "./code-example/code-example.js";
 
 import { CtLit, css, customElement, html } from "@conectate/ct-lit";
 
-@customElement("demo-ct-icon")
-export class DemoCtIcon extends CtLit {
+@customElement("demo-ct-loading-placeholder")
+export class DemoCtLoadingPlaceholder extends CtLit {
 	static styles = [
 		css`
 			:host {
@@ -18,9 +18,13 @@ export class DemoCtIcon extends CtLit {
 				margin-bottom: 0;
 				font-family: monospace;
 			}
+			ct-loading-placeholder {
+				width: 200px;
+				height: 200px;
+			}
 		`
 	];
-	name = "ct-icon";
+	name = "ct-loading-placeholder";
 	render() {
 		return html`
 			<header class="card-content">
@@ -30,11 +34,12 @@ export class DemoCtIcon extends CtLit {
 		`;
 	}
 	example() {
-		return html` <code-example class="language-html">
-			<div slot="demo">
-				<ct-icon-button icon="power_off"></ct-icon-button>
-				<ct-icon-button icon="power_off" style="--ct-icon-size: 16px;"></ct-icon-button>
-			</div>
-		</code-example>`;
+		return html`
+			<code-example class="language-html">
+				<div slot="demo">
+					<ct-loading-placeholder></ct-loading-placeholder>
+				</div>
+			</code-example>
+		`;
 	}
 }
