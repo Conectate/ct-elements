@@ -2,7 +2,7 @@ import "./ct-select-dialog.js";
 
 import { sleep } from "@conectate/ct-helpers";
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
-import { TemplateResult, css, html } from "lit";
+import { PropertyValues, TemplateResult, css, html } from "lit";
 
 import { showCtSelect } from "./ct-select-dialog.js";
 
@@ -421,6 +421,13 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 
 	firstUpdated() {
 		this.computeValuesPlaceholder();
+	}
+
+	override willUpdate(changedProperties: PropertyValues) {
+		super.willUpdate(changedProperties);
+		if (changedProperties.has("items") || changedProperties.has("order") || changedProperties.has("value")) {
+			this.computeValuesPlaceholder();
+		}
 	}
 
 	typeOf(obj: any) {
