@@ -2,7 +2,7 @@ import "./ct-select-dialog.js";
 
 import { sleep } from "@conectate/ct-helpers";
 import { CtLit, customElement, property, query } from "@conectate/ct-lit";
-import { PropertyValues, TemplateResult, css, html } from "lit";
+import { TemplateResult, css, html } from "lit";
 
 import { showCtSelect } from "./ct-select-dialog.js";
 
@@ -316,8 +316,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				return;
 			}
 			for (let j = 0; j < this.value.length; j++) {
-				for (let i = 0; i < this._orderedItems.length; i++) {
-					let el = this._orderedItems[i];
+				for (let i = 0; i < this.items.length; i++) {
+					let el = this.items[i];
 					if (el[this.valueProperty] == this.value[j]) {
 						items.push(el[this.textProperty]);
 					} else if (this.typeOf(this.value[j]) == "object") {
@@ -330,8 +330,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		}
 		// return String
 		else {
-			for (let i = 0; i < this._orderedItems.length; i++) {
-				let el = this._orderedItems[i];
+			for (let i = 0; i < this.items.length; i++) {
+				let el = this.items[i];
 				if (el[this.valueProperty] == this.value) {
 					return el[this.textProperty];
 				}
@@ -346,8 +346,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	set text(val) {
 		this._text = val;
 	}
-
-	private _orderedItems: T[] = [];
 
 	renderItem?: (item: T, index: number, array: T[]) => TemplateResult<1>;
 
@@ -382,12 +380,12 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			if (this.multi) return;
 			this.searchIn += e.data || "";
 			clearTimeout(this.timeout);
-			let items = this._orderedItems.filter(item => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
+			let items = this.items.filter(item => item[this.textProperty].toLowerCase().startsWith(this.searchIn.toLowerCase()));
 			//console.log(this.searchIn, items);
 			if (items.length > 0) {
 				this.$input.value = items[0][this.textProperty];
 			} else {
-				this.$input.value = this._orderedItems.find(item => item[this.valueProperty] == this.value)?.[this.textProperty];
+				this.$input.value = this.items.find(item => item[this.valueProperty] == this.value)?.[this.textProperty];
 			}
 			this.timeout = setTimeout(() => {
 				if (items.length > 0) {
@@ -400,36 +398,25 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		});
 	}
 
-	override willUpdate(changedProperties: PropertyValues) {
-		super.willUpdate(changedProperties);
-		if (changedProperties.has("items") || changedProperties.has("order")) {
-			this._orderedItems = this.sortItems(this.items, this.order);
-			this.dispatchEvent(new CustomEvent("items", { detail: { value: this.items } }));
-			this.computeValuesPlaceholder();
-		}
-	}
+	private get _orderedItems(): T[] {
+		if (!this.order) return this.items;
 
-	private sortItems(items: T[], direction?: "asc" | "desc"): T[] {
-		if (!direction) return items;
-		const sorted = [...items];
-
-		sorted.sort((a, b) => {
+		return [...this.items].sort((a, b) => {
 			const aVal = a[this.textProperty];
 			const bVal = b[this.textProperty];
 			if (typeof aVal === "string" && typeof bVal === "string") {
-				if (direction === "asc") {
+				if (this.order === "asc") {
 					return aVal.localeCompare(bVal);
 				} else {
 					return bVal.localeCompare(aVal);
 				}
 			}
-			if (direction === "asc") {
+			if (this.order === "asc") {
 				return a[this.textProperty].charCodeAt(0) - b[this.textProperty].charCodeAt(0);
 			} else {
 				return b[this.textProperty].charCodeAt(0) - a[this.textProperty].charCodeAt(0);
 			}
 		});
-		return sorted;
 	}
 
 	firstUpdated() {
@@ -447,8 +434,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			let strBuilder = [];
 			for (let j = 0; this.value && j < this.value.length; j++) {
-				for (let i = 0; i < this._orderedItems.length; i++) {
-					let items = this._orderedItems[i];
+				for (let i = 0; i < this.items.length; i++) {
+					let items = this.items[i];
 					let values = this.value[j];
 					if (items[this.valueProperty] == values) {
 						strBuilder.push(items[this.textProperty]);
@@ -461,8 +448,8 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 			}
 			this.valuePlaceholder = strBuilder.length > 3 ? strBuilder.length + " " + this.selectedPlaceholder : strBuilder.join(", ");
 		} else {
-			for (let i = 0; i < this._orderedItems.length; i++) {
-				let items = this._orderedItems[i];
+			for (let i = 0; i < this.items.length; i++) {
+				let items = this.items[i];
 				if (items[this.valueProperty] == this.value) {
 					this.valuePlaceholder = items[this.textProperty];
 					return;

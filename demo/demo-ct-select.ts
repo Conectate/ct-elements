@@ -53,6 +53,7 @@ export class DemoCtSelect extends CtLit {
 					<ct-select .items=${this.getItems()} label="Normal" .value=${1}></ct-select>
 					<ct-select .items=${this.getItems()} label="Normal searchable" .value=${1} searchable></ct-select>
 					<ct-select .items=${this.getItems()} label="Multi Select" multi></ct-select>
+					<ct-select .items=${this.getItems()} label="Normal Ordered" .value=${1} order="desc"></ct-select>
 					<ct-select
 						id="ct-select"
 						.items=${this.getItems()}
