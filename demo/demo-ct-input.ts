@@ -23,6 +23,7 @@ export class DemoCtInput extends CtLit {
 	];
 	@state() macs = ["00-00-00-00-00-00", "BC-A9-93-73-74-A7", "AA-AC-AE-73-00-01"];
 	@state() valueFromEvent = "";
+	@state() valueFromEvent2 = "";
 	@query("#i1") i1?: HTMLElementTagNameMap["ct-input"];
 	connectedCallback() {
 		super.connectedCallback();
@@ -41,9 +42,10 @@ export class DemoCtInput extends CtLit {
 			<hr />
 
 			<ct-input id="i1" @value=${this.handleValue}></ct-input>
-			<ct-input id="i1" value="Init html raw attribute" placeholder="como estas"></ct-input>
+			<ct-input id="i1" value="Init html raw attribute" placeholder="como estas" @value=${this.handleValue2}></ct-input>
 			<ct-input id="i2" .value=${`Init value property`}></ct-input>
 			${this.valueFromEvent ? html`<span>Value from event: ${this.valueFromEvent}</span>` : html``}
+			${this.valueFromEvent2 ? html`<span>Value from event 2: ${this.valueFromEvent2}</span>` : html``}
 
 			<ct-input id="i2" errorMessage="Este es un error" required></ct-input>
 			<ct-textarea id="i2" errorMessage="Este es un error" rows="3" required></ct-textarea>
@@ -59,6 +61,10 @@ export class DemoCtInput extends CtLit {
 	}
 	handleValue(e: CustomEvent<string>) {
 		this.valueFromEvent = e.detail;
+	}
+
+	handleValue2(e: CustomEvent<{ value: string }>) {
+		this.valueFromEvent2 = e.detail.value;
 	}
 	addItem() {
 		this.macs.push("");

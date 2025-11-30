@@ -458,7 +458,7 @@ export class CtInput extends CtLit {
 
 	_onInput() {
 		this.value = this.$input.value;
-		this.dispatchEvent(new CustomEvent("value", { detail: this.value }));
+		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(this.value, { value: this.value }) }));
 	}
 	/** @deprecated */
 	get valueAsnumber() {
