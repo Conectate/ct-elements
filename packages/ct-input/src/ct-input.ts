@@ -9,7 +9,7 @@
 	found at https://open.grupoconectate.com/PATENTS.txt
 */
 import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
-import { css, html } from "lit";
+import { PropertyValues, css, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -388,7 +388,7 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	private initValue?: string = "";
+	@property({ type: String }) value = "";
 
 	render() {
 		return html`
@@ -437,35 +437,28 @@ export class CtInput extends CtLit {
 	firstUpdated() {
 		this.dark = localStorage.theme == "dark";
 		if (this.$input) {
-			this.$input.value = this.initValue || this.getAttribute("value") || "";
+			this.$input.value = this.value;
 		}
 		this.validate();
-		this._onInput();
+	}
+
+	willUpdate(changedProperties: PropertyValues<this>) {
+		super.willUpdate(changedProperties);
+		if (changedProperties.has("value")) {
+			if (this.$input && this.$input.value != this.value) {
+				this.$input.value = this.value ?? "";
+			}
+			if (this.placeholder) {
+				this.isEmpty = this.value == "" || this.value == null;
+			}
+			this.countChar = this.value?.length || 0;
+			this.internals?.setFormValue(this.value);
+		}
 	}
 
 	_onInput() {
+		this.value = this.$input.value;
 		this.dispatchEvent(new CustomEvent("value", { detail: this.value }));
-		if (this.placeholder) {
-			this.isEmpty = this.value == "" || this.value == null;
-		}
-		this.countChar = this.value!.length;
-		this.internals?.setFormValue(this.value);
-	}
-
-	set value(val: string | number | undefined | null) {
-		val ??= "";
-		val = val.toString();
-		this.initValue = val;
-		if (this.$input && this.$input.value != val && val.length - 1 < this.maxlength) {
-			if (this.$input) {
-				this.$input.value = val;
-				this._onInput();
-			}
-		}
-	}
-
-	get value(): string {
-		return this.$input?.value || "";
 	}
 	/** @deprecated */
 	get valueAsnumber() {

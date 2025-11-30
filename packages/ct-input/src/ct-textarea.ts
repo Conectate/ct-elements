@@ -12,7 +12,7 @@ import "./ct-textarea-autogrow.js";
  */
 // https://stackoverflow.com/a/56751153/4168512
 import { CtLit, customElement, property, query, state } from "@conectate/ct-lit";
-import { css, html } from "lit";
+import { PropertyValues, css, html } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -35,51 +35,63 @@ export class CtTextarea extends CtLit {
 				margin-bottom: 8px;
 				max-width: 100%;
 				min-width: 213px;
+				--default-color-active: #1a396008;
 			}
-			:host > div {
+			:host([dark]) {
+				--default-color-active: #3f95ff17;
+			}
+			:host([block]) {
+				display: block;
+			}
+			:host([disabled]) {
+				pointer-events: none;
+				opacity: 0.33;
+			}
+			:host([hidden]) {
+				display: none !important;
+			}
+			:host([required]) .label:after {
+				content: var(--ct-indicator, "*");
+				color: var(--color-error, #ed4f32);
+				width: 1.5em;
+				margin-left: 4px;
+				text-align: center;
+			}
+
+			.inbody {
 				width: 100%;
 			}
 
 			@keyframes quantumWizPaperInputAddUnderline {
 				0% {
-					-webkit-transform: scaleX(0);
 					transform: scaleX(0);
 				}
-
 				to {
-					-webkit-transform: scaleX(1);
 					transform: scaleX(1);
 				}
 			}
 
 			@keyframes quantumWizPaperInputRemoveUnderline {
 				0% {
-					-webkit-transform: scaleX(1);
 					transform: scaleX(1);
 					opacity: 1;
 				}
-
 				to {
-					-webkit-transform: scaleX(1);
 					transform: scaleX(1);
 					opacity: 0;
 				}
 			}
 
 			#container.active > .underlinee {
-				-webkit-animation: quantumWizPaperInputAddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 				animation: quantumWizPaperInputAddUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-				-webkit-transform: scaleX(1);
 				transform: scaleX(1);
 			}
 
 			#container.active > .underline {
-				-webkit-transform: scaleX(1);
 				transform: scaleX(1);
 			}
 
 			.underline {
-				-webkit-transform: scaleX(0);
 				transform: scaleX(0);
 				background-color: var(--color-primary, #2cb5e8);
 				bottom: 0;
@@ -90,35 +102,11 @@ export class CtTextarea extends CtLit {
 				padding: 0;
 				position: absolute;
 				border-radius: 0 0 calc(var(--border-radius, 16px) / 2) calc(var(--border-radius, 16px) / 2);
-
-				-webkit-transform: scaleX(0);
-				transform: scaleX(0);
 				transition: all 300ms;
 			}
 
 			.undeline .error {
 				background-color: var(--color-error, #ed4f32);
-			}
-
-			:host([block]) {
-				display: block;
-			}
-
-			:host([disabled]) {
-				pointer-events: none;
-				opacity: 0.33;
-			}
-
-			:host([hidden]) {
-				display: none !important;
-			}
-
-			:host([required]) .label:after {
-				content: var(--ct-indicator, "*");
-				color: var(--color-error, #ed4f32);
-				position: absolute;
-				width: 1.5em;
-				text-align: center;
 			}
 
 			.row {
@@ -160,7 +148,7 @@ export class CtTextarea extends CtLit {
 			}
 
 			#container.active {
-				background: rgba(26, 57, 96, 0.03);
+				background: var(--default-color-active, #1a396008);
 			}
 
 			::slotted(*),
@@ -176,22 +164,7 @@ export class CtTextarea extends CtLit {
 				padding-right: 0.5em;
 			}
 
-			ct-textarea-autogrow:not([type]),
-			input[type="color"],
-			input[type="date"],
-			input[type="datetime-local"],
-			input[type="datetime"],
-			input[type="email"],
-			input[type="month"],
-			input[type="number"],
-			input[type="password"],
-			input[type="search"],
-			input[type="tel"],
-			input[type="text"],
-			input[type="time"],
-			input[type="url"],
-			input[type="week"],
-			select,
+			ct-textarea-autogrow,
 			textarea {
 				min-height: 1em;
 				box-sizing: border-box;
@@ -227,14 +200,9 @@ export class CtTextarea extends CtLit {
 				color: white;
 			}
 
-			::-webkit-input-placeholder {
-				color: inherit;
-				opacity: 0.5;
-			}
-
-			h4 {
+			.label {
 				margin: 5px 8px 8px;
-				color: inherit;
+				color: var(--color-on-surface, #535353);
 				display: block;
 				font-weight: 500;
 				font-size: 0.8rem;
@@ -249,7 +217,6 @@ export class CtTextarea extends CtLit {
 				position: absolute;
 				top: 6px;
 				font-size: 0.75em;
-				font-weight: 700;
 				color: #676767;
 				opacity: 0;
 				transition: all 0.2s ease-in-out;
@@ -264,6 +231,11 @@ export class CtTextarea extends CtLit {
 				visibility: visible;
 			}
 
+			#container.error > div > div > .float-label.error {
+				opacity: 1;
+				visibility: visible;
+			}
+
 			.charCount {
 				text-align: right;
 				padding-left: 8px;
@@ -274,58 +246,51 @@ export class CtTextarea extends CtLit {
 	static formAssociated = true;
 	private internals?: ElementInternals = this.attachInternals?.();
 
-	/** Check if input is empty */
-	@state() isEmpty = true;
+	@query("#container") $container!: HTMLElement;
+	@query("#input") $input!: HTMLInputElement;
 
-	/**
-	 * The value of the searchbox
-	 */
-	private initValue?: string = "";
-
-	@state() private __isFirstValueUpdate = true;
-	@state() private _placeholder = "";
-	@state() private _invalid = false;
-	@property({ type: Boolean, reflect: true }) disabled = false;
-	@property({ type: Boolean, reflect: true }) autofocus = false;
-	@property({ type: String }) name?: string;
-	@property({ type: Boolean, reflect: true }) charCounter = false;
-	@property({ type: Boolean, reflect: true }) readonly = false;
-	@property({ type: Boolean, reflect: true }) required = false;
-	@property({ type: Boolean, reflect: true }) noHover = false;
 	@property({ type: String }) inputmode = "";
-	@property({ type: String }) placeholder = "";
-	@property({ type: String }) pattern?: string;
-	@property({ type: String }) errorMessage?: string;
-	@property({ type: String }) rawPlaceholder = "";
-	@property({ type: Boolean }) autocorrect: boolean = false;
+	@property({ type: Number }) minlength = 0;
+	@property({ type: Number }) maxlength = Number.MAX_SAFE_INTEGER;
 	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
+	@property({ type: String }) name?: string;
+	@property({ type: Boolean }) readonly = false;
+	@property({ type: Boolean, reflect: true }) dark = false;
+	@property({ type: Boolean }) autofocus = false;
+	@property({ type: Boolean }) required = false;
+	@property({ type: Boolean, reflect: true }) disabled = false;
+	@property({ type: String }) rawPlaceholder = "";
+	@property({ type: String }) placeholder = "";
+	@property({ type: String }) errorMessage = "";
+	@property({ type: String }) pattern?: string;
+	@property({ type: Boolean }) noHover = false;
 	@property({ type: String }) label = "";
 	@property({ type: Number }) countChar = 0;
-	@property({ type: Number }) minlength = 0;
-	@property({ type: Number }) maxlength = 5000;
+	@property({ type: Boolean }) charCounter = false;
+	@property({ type: Boolean }) invalid = false;
+	@property({ type: Boolean }) active = false;
+	@property({ type: String }) value = "";
+
 	@property({ type: Number }) rows = 1;
+	@property({ type: Boolean }) autocorrect = false;
 
-	@query("#container") container!: HTMLElement;
-	@query("#input") input!: HTMLInputElement;
-
-	connectedCallback() {
-		super.connectedCallback();
-		this._placeholder = this.placeholder;
-	}
+	@state() isEmpty = true;
+	__isFirstValueUpdate = true;
 
 	render() {
 		return html`
-			<div>
-				${this.label ? html`<h4 class="label">${this.label}</h4>` : html``}
+			<div class="inbody">
+				${this.label ? html`<label for="input" class="label">${this.label}</label>` : html``}
 
-				<div id="container" class=${classMap({ "has-value": !this.isEmpty })}>
+				<div id="container" class=${classMap({ "has-value": !this.isEmpty, error: this.invalid, active: this.active })}>
 					<div class="row">
 						<slot name="prefix"></slot>
 						<div class="row">
-							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this._placeholder}</label>`}
+							${this.errorMessage && html`<label class="float-label error" for="input" aria-live="assertive">${this.errorMessage}</label>`}
+							${this.placeholder && html`<label class="float-label" for="input" aria-live="assertive">${this.placeholder}</label>`}
 							<ct-textarea-autogrow
 								id="input"
-								class=${classMap({ "has-value": !this.isEmpty })}
+								class=${classMap({ "has-value": !this.isEmpty, error: this.invalid && !!this.errorMessage })}
 								@focus="${this._onFocus}"
 								@blur="${this._onBlur}"
 								@input="${this._onInput}"
@@ -339,9 +304,10 @@ export class CtTextarea extends CtLit {
 								maxlength="${ifDefined(this.maxlength)}"
 								name="${ifDefined(this.name)}"
 								autocapitalize="${ifDefined(this.autocapitalize)}"
+								.value="${this.value}"
 							></ct-textarea-autogrow>
 							<slot name="suffix"></slot>
-							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength}</div>` : ``}
+							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? "1000+" : this.maxlength}</div>` : ``}
 						</div>
 					</div>
 					<div class="underline"></div>
@@ -351,58 +317,47 @@ export class CtTextarea extends CtLit {
 	}
 
 	firstUpdated() {
-		if (this.input) {
-			this.input.value = this.initValue || this.getAttribute("value") || "";
+		this.dark = localStorage.theme == "dark";
+		if (this.$input) {
+			this.$input.value = this.value;
 		}
 		this.validate();
-		this._onInput();
+	}
+
+	willUpdate(changedProperties: PropertyValues<this>) {
+		super.willUpdate(changedProperties);
+		if (changedProperties.has("value")) {
+			if (this.$input && this.$input.value != this.value) {
+				this.$input.value = this.value ?? "";
+			}
+			if (this.placeholder) {
+				this.isEmpty = this.value == "" || this.value == null;
+			}
+			this.countChar = this.value?.length || 0;
+			this.internals?.setFormValue(this.value);
+		}
 	}
 
 	_onInput() {
-		this.fire("value", this.value);
-		if (this.placeholder) {
-			this.isEmpty = this.value == "" || this.value == void 0;
-		}
-		this.countChar = this.value!.length;
-		this.internals?.setFormValue(this.value);
-	}
-
-	set value(val: string | number | undefined | null) {
-		val ||= "";
-		val = val.toString();
-		this.initValue = val;
-		if (this.input && this.input.value != val && val.length - 1 < this.maxlength) {
-			if (this.input) {
-				this.input.value = val;
-				this._onInput();
-			}
-		}
-	}
-
-	get value(): string {
-		return this.input?.value || "";
+		this.value = this.$input.value;
+		let v = this.value;
+		//@ts-ignore
+		v.value = v;
+		this.dispatchEvent(new CustomEvent("value", { detail: v }));
 	}
 
 	focus() {
-		this.input.focus();
+		this.$input?.focus();
 	}
 
-	/**
-	 * Cuando Hago focus en el input
-	 * @private
-	 */
 	_onFocus() {
-		this.container.classList.add("active");
-		this.container.classList.remove("error");
-		this._placeholder = this.placeholder;
+		this.active = true;
+		this.invalid = false;
+		this.internals?.setValidity({});
 	}
 
-	/**
-	 * Cuando dejo de enfocar el element
-	 * @private
-	 */
 	_onBlur() {
-		this.container.classList.remove("active");
+		this.active = false;
 		this.validate();
 	}
 
@@ -410,55 +365,29 @@ export class CtTextarea extends CtLit {
 		this.invalid = false;
 		if (this.__isFirstValueUpdate) {
 			this.__isFirstValueUpdate = false;
-			if (this.input.value === undefined || this.input.value === "") return !this.invalid;
+			if (this.$input?.value === undefined || this.$input?.value === "") return !this.invalid;
 		}
 
 		if (this.pattern) {
 			let re = new RegExp(this.pattern);
-			this.invalid = !re.test(this.input.value);
-			if (this.invalid) {
+			this.invalid = !re.test(this.$input?.value);
+			if (this.invalid && this.errorMessage) {
 				this.internals?.setValidity({ customError: true }, this.errorMessage);
 			} else {
 				this.internals?.setValidity({});
 			}
 		} else if (this.required) {
-			this.invalid = !(this.input.value.length > 0 && this.input.value.length >= (this.minlength || 0));
-		}
-
-		if (!this.invalid) {
-			// remover error
-			this.container.classList.remove("error");
-			this._placeholder = this.placeholder;
-		} else {
-			this.container.classList.add("error");
-			// agregar error
-			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
+			this.invalid = !(this.$input?.value.length > 0 && this.$input?.value.length >= (this.minlength || 0));
 		}
 		return !this.invalid;
 	}
+
 	private _handleKeyPress(event: KeyboardEvent) {
 		if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
 			this.dispatchEvent(new Event("enter-pressed", { bubbles: true, composed: true }));
 			const form = this.closest("form");
-			form?.requestSubmit(); // Envía el formulario al presionar "Enter"
+			form?.requestSubmit();
 		}
-	}
-
-	set invalid(val) {
-		this._invalid = val;
-		if (!val) {
-			// remover error
-			this.container.classList.remove("error");
-			this._placeholder = this.placeholder;
-		} else {
-			this.container.classList.add("error");
-			// agregar error
-			this._placeholder = this.errorMessage ? this.errorMessage : this.placeholder;
-		}
-	}
-
-	get invalid() {
-		return this._invalid;
 	}
 }
 
