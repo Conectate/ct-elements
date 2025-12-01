@@ -428,8 +428,6 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 		if (changedProperties.has("items") || changedProperties.has("order") || changedProperties.has("value")) {
 			if (this.multi) {
 				this.value ||= [];
-			} else {
-				this.value ||= "";
 			}
 			this.computeValuesPlaceholder();
 		}
