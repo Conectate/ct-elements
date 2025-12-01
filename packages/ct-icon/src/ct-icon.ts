@@ -221,6 +221,7 @@ export class CtIcon extends LitElement {
 	 */
 	render() {
 		if (this.svg) return html`${unsafeHTML(this.svg)}`;
+		if (this.innerHTML.includes("svg") || this.innerHTML.includes("</slot>")) return html`<slot></slot>`;
 		else if (this.icon) return html`<span data-icon=${this.icon}></span>`;
 	}
 }

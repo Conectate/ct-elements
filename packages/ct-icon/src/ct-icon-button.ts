@@ -1,6 +1,6 @@
 import "./ct-icon.js";
 
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 
@@ -102,7 +102,7 @@ export class CtIconButton extends LitElement {
 	 */
 	render() {
 		return html`<button aria-label="${ifDefined(this.ariaLabel || this.icon)}" ?disabled="${this.disabled}">
-			<ct-icon .icon=${this.icon} .svg=${this.svg}></ct-icon>
+			<ct-icon .icon=${this.icon} .svg=${this.svg}> ${this.innerHTML.includes("svg") ? html`<slot name="icon"></slot>` : nothing} </ct-icon>
 			<span><slot></slot></span>
 		</button>`;
 	}
