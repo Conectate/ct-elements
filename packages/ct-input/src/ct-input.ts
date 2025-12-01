@@ -436,6 +436,7 @@ export class CtInput extends CtLit {
 
 	firstUpdated() {
 		this.dark = localStorage.theme == "dark";
+		this.value ||= "";
 		if (this.$input) {
 			this.$input.value = this.value;
 		}
@@ -445,6 +446,7 @@ export class CtInput extends CtLit {
 	willUpdate(changedProperties: PropertyValues<this>) {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
+			this.value ||= "";
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
 			}

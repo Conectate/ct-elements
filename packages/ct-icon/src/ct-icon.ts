@@ -89,7 +89,8 @@ export class CtIcon extends LitElement {
 				height: var(--ct-icon-size, 24px);
 			}
 
-			svg {
+			svg,
+			::slotted(svg) {
 				width: 100%;
 				height: 100%;
 				fill: currentColor;
