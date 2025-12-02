@@ -438,6 +438,9 @@ export class CtInput extends CtLit {
 		this.dark = localStorage.theme == "dark";
 		this.value ||= "";
 		if (this.$input) {
+			if (typeof this.value === "number") {
+				this.value = `${this.value}`;
+			}
 			this.$input.value = this.value;
 		}
 		this.validate();
@@ -447,6 +450,9 @@ export class CtInput extends CtLit {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
 			this.value ||= "";
+			if (typeof this.value === "number") {
+				this.value = `${this.value}`;
+			}
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
 			}
