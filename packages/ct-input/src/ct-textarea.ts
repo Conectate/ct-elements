@@ -341,10 +341,7 @@ export class CtTextarea extends CtLit {
 
 	_onInput() {
 		this.value = this.$input.value;
-		let v = this.value;
-		//@ts-ignore
-		v.value = v;
-		this.dispatchEvent(new CustomEvent("value", { detail: v }));
+		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(this.value, { value: this.value }) }));
 	}
 
 	focus() {
