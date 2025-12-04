@@ -345,17 +345,17 @@ export class CtDate extends CtLit {
 			if (value != null && value != -1) {
 				let d = new Date(value * 1000);
 				if (this.usetimezone) {
-					this.dd = `${d.getDate()}`;
-					this.mm = `${d.getMonth() + 1}`;
-					this.yyyy = `${d.getFullYear()}`;
-					this.hh = `${d.getHours()}`;
-					this.min = `${d.getMinutes()}`;
+					this.dd = `${d.getDate()}`.padStart(2, "0");
+					this.mm = `${d.getMonth() + 1}`.padStart(2, "0");
+					this.yyyy = `${d.getFullYear()}`.padStart(4, "0");
+					this.hh = `${d.getHours()}`.padStart(2, "0");
+					this.min = `${d.getMinutes()}`.padStart(2, "0");
 				} else {
-					this.dd = `${d.getUTCDate()}`;
-					this.mm = `${d.getUTCMonth() + 1}`;
-					this.yyyy = `${d.getUTCFullYear()}`;
-					this.hh = `${d.getUTCHours()}`;
-					this.min = `${d.getUTCMinutes()}`;
+					this.dd = `${d.getUTCDate()}`.padStart(2, "0");
+					this.mm = `${d.getUTCMonth() + 1}`.padStart(2, "0");
+					this.yyyy = `${d.getUTCFullYear()}`.padStart(4, "0");
+					this.hh = `${d.getUTCHours()}`.padStart(2, "0");
+					this.min = `${d.getUTCMinutes()}`.padStart(2, "0");
 				}
 			} else {
 				this.dd = "";

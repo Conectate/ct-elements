@@ -420,7 +420,24 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	}
 
 	firstUpdated() {
+		this.computeOptionsInDOM();
 		this.computeValuesPlaceholder();
+	}
+
+	computeOptionsInDOM() {
+		let optionsNative = Array.from(this.querySelectorAll("option"));
+		if (optionsNative.length == 0) {
+			return;
+		}
+		let items: T[] = [];
+		for (let option of optionsNative) {
+			// @ts-ignore
+			items.push({
+				[this.valueProperty]: option.value,
+				[this.textProperty]: option.textContent
+			});
+		}
+		this.items = items;
 	}
 
 	override willUpdate(changedProperties: PropertyValues) {
@@ -496,6 +513,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 	 * @returns {Promise<void>}
 	 */
 	async showDialog(): Promise<void> {
+		this.computeOptionsInDOM();
 		this.invalid = false;
 		let ctSelect = showCtSelect<T["value"]>(this.ttl ? this.ttl : this.label, this._orderedItems, this.value, this.okPlaceholder, this.cancelPlaceholder, {
 			multi: this.multi,

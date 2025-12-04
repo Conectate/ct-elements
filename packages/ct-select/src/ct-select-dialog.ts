@@ -1,5 +1,6 @@
 import "@conectate/ct-button";
 import "@conectate/ct-card";
+import "@conectate/ct-checkbox";
 import "@conectate/ct-dialog";
 import "@conectate/ct-input";
 
@@ -8,6 +9,7 @@ import "./ct-select-item.js";
 import { CtDialog, showCtDialog } from "@conectate/ct-dialog";
 import { CtLit, property, query, state, unsafeHTML } from "@conectate/ct-lit";
 import { css, html } from "lit";
+import { repeat } from "lit/directives/repeat.js";
 
 function removeAcento(input: string) {
 	// Cadena de caracteres original a sustituir.
@@ -57,6 +59,8 @@ export function showCtSelect<V = any>(title: string, items: any[] = [], value: V
 	if (options.multi) {
 		selectDialog.multi = options.multi;
 		selectDialog.multiValue = value && Array.isArray(value) ? [...value] : [];
+	} else {
+		selectDialog.value = value;
 	}
 	selectDialog.dialog = showCtDialog(selectDialog);
 	// selectDialog.dialog.addEventListener("on-close", () => {
@@ -138,6 +142,8 @@ export class CtSelectBuilder {
 		if (this.#multi) {
 			selectDialog.multi = this.#multi;
 			selectDialog.multiValue = this.#value ? [...(this.#value as object[])] : [];
+		} else {
+			selectDialog.value = this.#value;
 		}
 		if (this.#renderItem) selectDialog.renderItem = this.#renderItem;
 		return selectDialog;
@@ -172,7 +178,7 @@ export class CtSelectDialog extends CtLit {
 	/**
 	 * Arrar of selected items
 	 */
-	// @property({ type: String }) value!: number | string | object | object[];
+	@property({ type: Object }) value?: any;
 	/**
 	 * If true, multiple options can be selected.
 	 */
@@ -181,10 +187,8 @@ export class CtSelectDialog extends CtLit {
 	@property({ type: Array }) multiValue: object[] = [];
 	@property({ type: Object }) dialog!: CtDialog;
 	@query("#search") $search!: HTMLElementTagNameMap["ct-input"];
-	@property({ type: Object }) renderItem = (item: any, index: number, array: any[]) => html`
-		<ct-select-item ?multi=${this.multi} ?selected="${this.multi && ((this.multiValue as object[]) ||= []).includes(item[this.valueProperty])}">
-			${unsafeHTML(item[this.textProperty])}
-		</ct-select-item>
+	@property({ type: Object }) renderItem = (item: any, index: number, array: any[], selected: boolean) => html`
+		<ct-select-item ?multi=${this.multi} ?selected=${selected}> ${unsafeHTML(item[this.textProperty])} </ct-select-item>
 	`;
 
 	static styles = [
@@ -193,8 +197,12 @@ export class CtSelectDialog extends CtLit {
 				display: block;
 				/* height: 100%; */
 			}
-			.item {
-				width: 100%;
+			.item:hover {
+				background: rgba(26, 57, 96, 0.05);
+			}
+
+			.item.selected {
+				background: var(--color-surface-variant, rgba(26, 57, 96, 0.1));
 			}
 
 			.title {
@@ -273,17 +281,30 @@ export class CtSelectDialog extends CtLit {
 	render() {
 		let items = [...this.itemsFiltered];
 		if (items.length == 0 && this.searchBoxText.length == 0) items = this.items;
+		let allSelected = items.length > 0 && items.every(item => this.multiValue?.includes(item[this.valueProperty]));
 		return html`
 			<ct-card shadow decorator>
 				<div class="title">${this.ttl}</div>
-				${this.searchable
-					? html` <ct-input id="search" @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> `
-					: ``}
+				${this.searchable ? html` <ct-input id="search" @value="${(e: CustomEvent<string>) => this._filter(e.detail)}" .placeholder="${this.searchPlaceholder}"> </ct-input> ` : ``}
+				${this.multi
+					? html`<div style="padding: 8px 24px 0; text-align: right;">
+							<ct-button style="font-weight: bold; cursor: pointer; --color-button: transparent; color: var(--color-primary);" @click="${() => this.toggleSelectAll()}"
+								>${allSelected ? "Deselect All" : "Select All"}</ct-button
+							>
+						</div>`
+					: ""}
 				<div class="body" id="confirmBody">
-					${items.map(
-						(i: any, index: number, arr: any[]) => html`
-							<div class="item " @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">${this.renderItem(i, index, arr)}</div>
-						`
+					${repeat(
+						items,
+						(i: any) => i[this.valueProperty],
+						(i: any, index: number) => {
+							let isSelected = this.multi ? this.multiValue?.includes(i[this.valueProperty]) : this.value == i[this.valueProperty];
+							return html`
+								<div class="item ${isSelected ? "selected" : ""}" @click="${(e: MouseEvent) => this.onClickItem(e, i[this.valueProperty])}">
+									${this.renderItem(i, index, items, isSelected)}
+								</div>
+							`;
+						}
 					)}
 				</div>
 				<div id="buttons" class="buttons">
@@ -294,9 +315,35 @@ export class CtSelectDialog extends CtLit {
 		`;
 	}
 
+	toggleSelectAll() {
+		let items = [...this.itemsFiltered];
+		if (items.length == 0 && this.searchBoxText.length == 0) items = this.items;
+		const allSelected = items.length > 0 && items.every(item => this.multiValue?.includes(item[this.valueProperty]));
+		if (allSelected) {
+			const values = items.map(i => i[this.valueProperty]);
+			this.multiValue = this.multiValue.filter(v => !values.includes(v));
+		} else {
+			const values = items.map(i => i[this.valueProperty]);
+			this.multiValue = [...new Set([...this.multiValue, ...values])];
+		}
+	}
+
 	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
-		this.itemsFiltered = [...this.items];
+		this.itemsFiltered = [...this.items].sort((a, b) => {
+			let aSelected = false;
+			let bSelected = false;
+			if (this.multi) {
+				aSelected = this.multiValue.includes(a[this.valueProperty]);
+				bSelected = this.multiValue.includes(b[this.valueProperty]);
+			} else {
+				aSelected = this.value != null && a[this.valueProperty] == this.value;
+				bSelected = this.value != null && b[this.valueProperty] == this.value;
+			}
+			if (aSelected && !bSelected) return -1;
+			if (!aSelected && bSelected) return 1;
+			return 0;
+		});
 		if (this.searchable)
 			setTimeout(() => {
 				this.$search?.focus();

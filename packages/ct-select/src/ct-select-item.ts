@@ -34,7 +34,7 @@ export class CtSelectItem extends CtLit {
 			}
 
 			:host([selected]) {
-				background-color: #85858508;
+				background-color: #8585851f;
 			}
 			.cicle {
 				display: flex;
@@ -56,6 +56,7 @@ export class CtSelectItem extends CtLit {
 			}
 			ct-icon {
 				font-size: 16px;
+				--ct-icon-size: 16px;
 			}
 
 			[hidden] {
@@ -68,7 +69,7 @@ export class CtSelectItem extends CtLit {
 	@property({ type: Boolean, reflect: true }) selected = false;
 
 	render() {
-		return html`<div class="cicle" ?hidden=${!this.multi}><ct-icon icon="${this.selected ? `check` : ""}"></ct-icon></div>
+		return html`<div class="cicle" ?hidden=${!this.multi && !this.selected}><ct-icon icon="${this.selected ? `check` : ""}"></ct-icon></div>
 			<button>
 				<b><slot></slot></b>
 			</button> `;
