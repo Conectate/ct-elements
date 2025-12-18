@@ -356,7 +356,7 @@ export class CtSelect<T extends KeyValueCtSelect = KeyValueCtSelect> extends CtL
 				<div id="container" @click="${this.onClickContainer}" class="${this.invalid ? "error" : ""}">
 					${this.placeholder && html` <label class="float-label">${this.placeholder}</label> `}
 					<slot name="prefix"></slot>
-					<input id="input" .value="${this.valuePlaceholder}" placeholder="${this.placeholder || this.raw_placeholder}" />
+					<input id="input" .value="${this.valuePlaceholder}" placeholder="${this.placeholder || this.raw_placeholder}" ?disabled=${this.disabled} />
 					<div class="icon">
 						<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;fill:currentColor">
 							<g><path d="M7 10l5 5 5-5z"></path></g>

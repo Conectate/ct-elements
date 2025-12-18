@@ -218,6 +218,18 @@ export class CtInput extends CtLit {
 				field-sizing: var(--ct-input-field-sizing, unset);
 			}
 
+			input[type="search"]::-webkit-search-cancel-button {
+				-webkit-appearance: none;
+				background-color: var(--color-on-surface, #7d7d7d);
+				-webkit-mask-image: var(
+					--ct-input-search-cancel-button-mask-image,
+					url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>")
+				);
+				background-size: var(--ct-input-search-cancel-button-background-size, 1.5em 1.5em);
+				height: 1.5em;
+				width: 1.5em;
+			}
+
 			input:invalid {
 				outline: none;
 			}
@@ -388,7 +400,7 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@property({ type: String }) value = "";
+	@property({ type: String }) value?: string | number | bigint | null = "";
 
 	render() {
 		return html`
@@ -402,6 +414,7 @@ export class CtInput extends CtLit {
 							${this.placeholder && html` <label class="float-label" for="input" aria-live="assertive">${this.placeholder}</label> `}
 							<input
 								id="input"
+								part="input"
 								class=${classMap({ "has-value": !this.isEmpty, error: this.invalid && this.errorMessage })}
 								@focus=${this._onFocus}
 								@blur=${this._onBlur}
@@ -413,6 +426,7 @@ export class CtInput extends CtLit {
 								?autofocus=${this.autofocus}
 								?readonly=${this.readonly}
 								?multiple=${this.multiple}
+								?disabled=${this.disabled}
 								autocomplete=${this.autocomplete as any}
 								inputmode=${ifDefined(this.inputmode)}
 								minlength=${ifDefined(this.minlength)}
@@ -438,7 +452,7 @@ export class CtInput extends CtLit {
 		this.dark = localStorage.theme == "dark";
 		this.value ||= "";
 		if (this.$input) {
-			if (typeof this.value === "number") {
+			if (typeof this.value === "number" || typeof this.value === "bigint") {
 				this.value = `${this.value}`;
 			}
 			this.$input.value = this.value;
@@ -450,7 +464,7 @@ export class CtInput extends CtLit {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
 			this.value ||= "";
-			if (typeof this.value === "number") {
+			if (typeof this.value === "number" || typeof this.value === "bigint") {
 				this.value = `${this.value}`;
 			}
 			if (this.$input && this.$input.value != this.value) {
