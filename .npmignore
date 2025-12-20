@@ -7,7 +7,7 @@ demo
 images
 node_modules
 packages-test
-src/*.ts
+src
 stories
 .npmrc
 .prettierrc

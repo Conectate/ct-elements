@@ -31,7 +31,9 @@
     "scripts": {
         "demo": "rm -rf node_modules/.vite && vite",
         "build": "tsc -p tsconfig.build.json",
-        "format": "prettier --write --ignore-unknown src demo"
+        "format": "prettier --write --ignore-unknown src demo",
+        "prepare-dist": "npm run build && node tools/prepare-dist.js",
+        "dist": "npm run prepare-dist && npm publish dist"
     },
     "private": false,
     "exports": {
