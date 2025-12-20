@@ -1,5 +1,5 @@
-import { css, CtLit, customElement, html } from "@conectate/ct-lit";
-import '@conectate/ct-tooltip';
+import { css, CtLit, customElement, html } from "@conectate/components/ct-lit";
+import "@conectate/components/ct-tooltip";
 @customElement("demo-ct-tooltip")
 export class DemoCtTooltip extends CtLit {
 	static styles = [

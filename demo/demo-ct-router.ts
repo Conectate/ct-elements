@@ -1,10 +1,10 @@
-import "@conectate/ct-card";
-import "@conectate/ct-router";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-router";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
-import { CtRouter } from "@conectate/ct-router";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
+import { CtRouter } from "@conectate/components/ct-router";
 
 @customElement("demo-ct-router")
 export class DemoCtRouter extends CtLit {

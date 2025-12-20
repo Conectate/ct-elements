@@ -1,10 +1,10 @@
-import "@conectate/ct-card";
-import "@conectate/ct-select";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-select";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
-import { CtSelect } from "@conectate/ct-select";
+import { CtLit, css, customElement, html, query } from "@conectate/components/ct-lit";
+import { CtSelect } from "@conectate/components/ct-select";
 import { stripIndents } from "common-tags";
 
 @customElement("demo-ct-select")

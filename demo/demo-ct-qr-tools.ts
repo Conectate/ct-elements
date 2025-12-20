@@ -1,9 +1,9 @@
-import "@conectate/ct-card";
+import "@conectate/components/ct-card";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html, state } from "@conectate/ct-lit";
-import { writeQR } from "@conectate/ct-qr-tools";
+import { CtLit, css, customElement, html, state } from "@conectate/components/ct-lit";
+import { writeQR } from "@conectate/components/ct-qr-tools";
 
 @customElement("demo-ct-qr-tools")
 export class DemoCtQrTools extends CtLit {
@@ -25,7 +25,7 @@ export class DemoCtQrTools extends CtLit {
 		`
 	];
 	name = "ct-qr-tools";
-	@state() text = "https://google.com";
+	@state() text = "https:/google.com";
 	render() {
 		return html`
 			<header class="card-content">

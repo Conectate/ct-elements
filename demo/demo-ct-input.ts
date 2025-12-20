@@ -1,8 +1,8 @@
-import "@conectate/ct-dialog/ct-promp.js";
-import "@conectate/ct-input";
-import "@conectate/ct-input/ct-textarea.js";
+import "@conectate/components/ct-dialog/ct-promp.js";
+import "@conectate/components/ct-input";
+import "@conectate/components/ct-input/ct-textarea.js";
 
-import { CtLit, css, customElement, html, query, state } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, query, state } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-input")
 export class DemoCtInput extends CtLit {

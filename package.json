@@ -1,82 +1,188 @@
 {
-	"name": "conectate-elements",
-	"version": "3.0.0",
-	"license": "BSD-3-Clause",
-	"type": "module",
-	"dependencies": {
-		"@conectate/ct-button": "workspace:^",
-		"@conectate/ct-card": "workspace:^",
-		"@conectate/ct-chartjs": "workspace:^",
-		"@conectate/ct-checkbox": "workspace:^",
-		"@conectate/ct-collapse": "workspace:^",
-		"@conectate/ct-date": "workspace:^",
-		"@conectate/ct-dialog": "workspace:^",
-		"@conectate/ct-helpers": "workspace:^",
-		"@conectate/ct-icon": "workspace:^",
-		"@conectate/ct-img": "workspace:^",
-		"@conectate/ct-input": "workspace:^",
-		"@conectate/ct-list": "workspace:^",
-		"@conectate/ct-lit": "workspace:^",
-		"@conectate/ct-loading-bar": "workspace:^",
-		"@conectate/ct-loading-placeholder": "workspace:^",
-		"@conectate/ct-menu": "workspace:^",
-		"@conectate/ct-phone-input": "workspace:^",
-		"@conectate/ct-qr-tools": "workspace:^",
-		"@conectate/ct-radio": "workspace:^",
-		"@conectate/ct-router": "workspace:^",
-		"@conectate/ct-scroll-threshold": "workspace:^",
-		"@conectate/ct-select": "workspace:^",
-		"@conectate/ct-snackbar": "workspace:^",
-		"@conectate/ct-spinner": "workspace:^",
-		"@conectate/ct-tabs": "workspace:^",
-		"@conectate/ct-tooltip": "workspace:^",
-		"@conectate/lit-if": "workspace:^",
-		"chart.js": "^4.3.1",
-		"common-tags": "^1.8.2",
-		"js-beautify": "^1.15.4",
-		"lit": "^3.2.1",
-		"prismjs": "^1.29.0"
-	},
-	"devDependencies": {
-		"@snelx/prettier-plugin-import-sort": "^1.0.0",
-		"@types/chart.js": "^2.9.37",
-		"@types/common-tags": "^1.8.1",
-		"@types/js-beautify": "^1.14.3",
-		"@types/node": "^20.5.8",
-		"@types/prismjs": "^1.26.0",
-		"import-sort-style-module": "^6.0.0",
-		"lerna": "^7.4.2",
-		"prettier": "^3.5.3",
-		"prettier-plugin-import-sort": "^0.0.7",
-		"tslib": "^2.6.2",
-		"typescript": "^5.4.3",
-		"vite": "^5.2.8"
-	},
-	"scripts": {
-		"xlink": "yarn link packages/ct-lit",
-		"demo": "vite",
-		"pub": "lerna publish",
-		"bootstrap": "lerna bootstrap",
-		"new-ver": "lerna version --conventional-commits --yes",
-		"clean": "lerna clean -y; find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +; find . -name 'yarn.lock' -type f -prune -exec rm -rf '{}' +; find . -name 'package-lock.json' -type f -prune -exec rm -rf '{}' +",
-		"build": "lerna run prepare",
-		"format": "prettier --write --ignore-unknown packages"
-	},
-	"private": true,
-	"exports": {
-		".": {
-			"development": "./src/ct-input.ts",
-			"default": "./ct-input.js"
-		},
-		"./*": {
-			"development": "./src/*",
-			"default": "./*"
-		}
-	},
-	"importSort": {
-		".js, .jsx, .ts, .tsx": {
-			"style": "module",
-			"parser": "typescript"
-		}
-	}
+    "name": "@conectate/components",
+    "version": "1.0.0",
+    "license": "BSD-3-Clause",
+    "type": "module",
+    "dependencies": {
+        "jsqr": "^1.4.0",
+        "lit": "^3.3.1",
+        "pwa-helpers": "^0.9.1",
+        "qrcode": "^1.5.4",
+        "tslib": "^2.8.1"
+    },
+    "devDependencies": {
+        "@snelx/prettier-plugin-import-sort": "^1.0.0",
+        "@types/chart.js": "^2.9.41",
+        "@types/common-tags": "^1.8.4",
+        "@types/js-beautify": "^1.14.3",
+        "@types/node": "^20.19.27",
+        "@types/prismjs": "^1.26.5",
+        "@types/qrcode": "^1.5.6",
+        "common-tags": "^1.8.2",
+        "import-sort-style-module": "^6.0.0",
+        "js-beautify": "^1.15.4",
+        "prettier": "^3.7.4",
+        "prettier-plugin-import-sort": "^0.0.7",
+        "prismjs": "^1.30.0",
+        "tslib": "^2.6.2",
+        "typescript": "^5.9.3",
+        "vite": "^7.3.0"
+    },
+    "scripts": {
+        "demo": "rm -rf node_modules/.vite && vite",
+        "build": "tsc -p tsconfig.build.json",
+        "format": "prettier --write --ignore-unknown src demo"
+    },
+    "private": false,
+    "exports": {
+        "./ct-bottom-sheet": {
+            "types": "./dist/ct-bottom-sheet/ct-bottom-sheet.d.ts",
+            "import": "./dist/ct-bottom-sheet/ct-bottom-sheet.js",
+            "default": "./dist/ct-bottom-sheet/ct-bottom-sheet.js"
+        },
+        "./ct-button": {
+            "types": "./dist/ct-button/ct-button.d.ts",
+            "import": "./dist/ct-button/ct-button.js",
+            "default": "./dist/ct-button/ct-button.js"
+        },
+        "./ct-card": {
+            "types": "./dist/ct-card/ct-card.d.ts",
+            "import": "./dist/ct-card/ct-card.js",
+            "default": "./dist/ct-card/ct-card.js"
+        },
+        "./ct-chartjs": {
+            "types": "./dist/ct-chartjs/ct-chartjs.d.ts",
+            "import": "./dist/ct-chartjs/ct-chartjs.js",
+            "default": "./dist/ct-chartjs/ct-chartjs.js"
+        },
+        "./ct-checkbox": {
+            "types": "./dist/ct-checkbox/ct-checkbox.d.ts",
+            "import": "./dist/ct-checkbox/ct-checkbox.js",
+            "default": "./dist/ct-checkbox/ct-checkbox.js"
+        },
+        "./ct-collapse": {
+            "types": "./dist/ct-collapse/ct-collapse.d.ts",
+            "import": "./dist/ct-collapse/ct-collapse.js",
+            "default": "./dist/ct-collapse/ct-collapse.js"
+        },
+        "./ct-date": {
+            "types": "./dist/ct-date/ct-date.d.ts",
+            "import": "./dist/ct-date/ct-date.js",
+            "default": "./dist/ct-date/ct-date.js"
+        },
+        "./ct-dialog": {
+            "types": "./dist/ct-dialog/ct-dialog.d.ts",
+            "import": "./dist/ct-dialog/ct-dialog.js",
+            "default": "./dist/ct-dialog/ct-dialog.js"
+        },
+        "./ct-helpers": {
+            "types": "./dist/ct-helpers/ct-helpers.d.ts",
+            "import": "./dist/ct-helpers/ct-helpers.js",
+            "default": "./dist/ct-helpers/ct-helpers.js"
+        },
+        "./ct-icon": {
+            "types": "./dist/ct-icon/ct-icon.d.ts",
+            "import": "./dist/ct-icon/ct-icon.js",
+            "default": "./dist/ct-icon/ct-icon.js"
+        },
+        "./ct-img": {
+            "types": "./dist/ct-img/ct-img.d.ts",
+            "import": "./dist/ct-img/ct-img.js",
+            "default": "./dist/ct-img/ct-img.js"
+        },
+        "./ct-input": {
+            "types": "./dist/ct-input/ct-input.d.ts",
+            "import": "./dist/ct-input/ct-input.js",
+            "default": "./dist/ct-input/ct-input.js"
+        },
+        "./ct-list": {
+            "types": "./dist/ct-list/ct-list-item.d.ts",
+            "import": "./dist/ct-list/ct-list-item.js",
+            "default": "./dist/ct-list/ct-list-item.js"
+        },
+        "./ct-lit": {
+            "types": "./dist/ct-lit/ct-lit.d.ts",
+            "import": "./dist/ct-lit/ct-lit.js",
+            "default": "./dist/ct-lit/ct-lit.js"
+        },
+        "./ct-loading-bar": {
+            "types": "./dist/ct-loading-bar/ct-loading-bar.d.ts",
+            "import": "./dist/ct-loading-bar/ct-loading-bar.js",
+            "default": "./dist/ct-loading-bar/ct-loading-bar.js"
+        },
+        "./ct-loading-placeholder": {
+            "types": "./dist/ct-loading-placeholder/ct-loading-placeholder.d.ts",
+            "import": "./dist/ct-loading-placeholder/ct-loading-placeholder.js",
+            "default": "./dist/ct-loading-placeholder/ct-loading-placeholder.js"
+        },
+        "./ct-menu": {
+            "types": "./dist/ct-menu/ct-menu.d.ts",
+            "import": "./dist/ct-menu/ct-menu.js",
+            "default": "./dist/ct-menu/ct-menu.js"
+        },
+        "./ct-phone-input": {
+            "types": "./dist/ct-phone-input/ct-phone-input.d.ts",
+            "import": "./dist/ct-phone-input/ct-phone-input.js",
+            "default": "./dist/ct-phone-input/ct-phone-input.js"
+        },
+        "./ct-qr-tools": {
+            "types": "./dist/ct-qr-tools/ct-qr-tools.d.ts",
+            "import": "./dist/ct-qr-tools/ct-qr-tools.js",
+            "default": "./dist/ct-qr-tools/ct-qr-tools.js"
+        },
+        "./ct-radio": {
+            "types": "./dist/ct-radio/ct-radio.d.ts",
+            "import": "./dist/ct-radio/ct-radio.js",
+            "default": "./dist/ct-radio/ct-radio.js"
+        },
+        "./ct-router": {
+            "types": "./dist/ct-router/ct-router.d.ts",
+            "import": "./dist/ct-router/ct-router.js",
+            "default": "./dist/ct-router/ct-router.js"
+        },
+        "./ct-scroll-threshold": {
+            "types": "./dist/ct-scroll-threshold/ct-scroll-threshold.d.ts",
+            "import": "./dist/ct-scroll-threshold/ct-scroll-threshold.js",
+            "default": "./dist/ct-scroll-threshold/ct-scroll-threshold.js"
+        },
+        "./ct-select": {
+            "types": "./dist/ct-select/ct-select.d.ts",
+            "import": "./dist/ct-select/ct-select.js",
+            "default": "./dist/ct-select/ct-select.js"
+        },
+        "./ct-snackbar": {
+            "types": "./dist/ct-snackbar/ct-snackbar.d.ts",
+            "import": "./dist/ct-snackbar/ct-snackbar.js",
+            "default": "./dist/ct-snackbar/ct-snackbar.js"
+        },
+        "./ct-spinner": {
+            "types": "./dist/ct-spinner/ct-spinner.d.ts",
+            "import": "./dist/ct-spinner/ct-spinner.js",
+            "default": "./dist/ct-spinner/ct-spinner.js"
+        },
+        "./ct-tabs": {
+            "types": "./dist/ct-tabs/ct-tabs.d.ts",
+            "import": "./dist/ct-tabs/ct-tabs.js",
+            "default": "./dist/ct-tabs/ct-tabs.js"
+        },
+        "./ct-tooltip": {
+            "types": "./dist/ct-tooltip/ct-tooltip.d.ts",
+            "import": "./dist/ct-tooltip/ct-tooltip.js",
+            "default": "./dist/ct-tooltip/ct-tooltip.js"
+        },
+        "./lit-if": {
+            "types": "./dist/lit-if/lit-if.d.ts",
+            "import": "./dist/lit-if/lit-if.js",
+            "default": "./dist/lit-if/lit-if.js"
+        },
+        "./*": "./dist/*"
+    },
+    "importSort": {
+        ".js, .jsx, .ts, .tsx": {
+            "style": "module",
+            "parser": "typescript"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js"
 }

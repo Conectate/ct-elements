@@ -1,9 +1,9 @@
-import "@conectate/ct-card";
-import "@conectate/ct-scroll-threshold";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-scroll-threshold";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html, state } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, state } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-scroll-threshold")
 export class DemoCtScrollThreshold extends CtLit {

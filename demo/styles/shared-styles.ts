@@ -119,17 +119,17 @@ export function addFont(family: string) {
 	const link = document.createElement("link");
 	link.rel = "stylesheet";
 	link.type = "text/css";
-	link.href = `https://fonts.googleapis.com/css?family=${family}&display=swap`;
+	link.href = `https:/fonts.googleapis.com/css?family=${family}&display=swap`;
 	document.head.appendChild(link);
 }
 
 export function applyTheme() {
 	addFont(`Ubuntu:400,500,700`);
 	addFont(`Roboto:400,500,700`);
-	addCSS(`https://unpkg.com/intro.js/minified/introjs.min.css`);
-	// addFont(`Material+Icons+Round`);
-	// addFont(`Google+Sans:400,500,700`);
-	// addFont(`Product+Sans:400,500,700`);
+	addCSS(`https:/unpkg.com/intro.js/minified/introjs.min.css`);
+	addFont(`Material+Icons+Round`);
+	addFont(`Google+Sans:400,500,700`);
+	addFont(`Product+Sans:400,500,700`);
 	const style = document.createElement("style");
 	style.id = "ctStyles";
 	style.innerHTML = defaultTheme.toString();

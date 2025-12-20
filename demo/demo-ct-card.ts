@@ -1,8 +1,8 @@
-import "@conectate/ct-card";
+import "@conectate/components/ct-card";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-card")
 export class DemoCtCard extends CtLit {

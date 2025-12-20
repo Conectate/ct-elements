@@ -1,10 +1,10 @@
-import "@conectate/ct-card";
-import "@conectate/ct-snackbar";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-snackbar";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
-import { showSnackBar } from "@conectate/ct-snackbar";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
+import { showSnackBar } from "@conectate/components/ct-snackbar";
 
 @customElement("demo-ct-snackbar")
 export class DemoCtSnackbar extends CtLit {

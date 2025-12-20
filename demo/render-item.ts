@@ -1,4 +1,4 @@
-import { CtLit, css, customElement, html, property, query } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, property } from "@conectate/components/ct-lit";
 
 @customElement("render-item")
 export class RenderItem extends CtLit {

@@ -1,7 +1,7 @@
 import "./demo-ct-bottom-sheet.js";
 import "./demo-ct-button.js";
 import "./demo-ct-card.js";
-import "./demo-ct-chartjs.js";
+// import "./demo-ct-chartjs.js";
 import "./demo-ct-checkbox.js";
 import "./demo-ct-collapse.js";
 import "./demo-ct-date.js";
@@ -24,7 +24,7 @@ import "./demo-ct-spinner.js";
 import "./demo-ct-tabs.js";
 import "./demo-ct-tooltip.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 import { applyTheme } from "./styles/shared-styles.js";
 
@@ -58,7 +58,7 @@ export class DemoMain extends CtLit {
 			<demo-ct-dialog> </demo-ct-dialog>
 			<demo-ct-tooltip></demo-ct-tooltip>
 			<demo-ct-card></demo-ct-card>
-			<demo-ct-chartjs></demo-ct-chartjs>
+			<!-- <demo-ct-chartjs></demo-ct-chartjs> -->
 			<demo-ct-collapse></demo-ct-collapse>
 			<demo-ct-img></demo-ct-img>
 			<demo-ct-list></demo-ct-list>

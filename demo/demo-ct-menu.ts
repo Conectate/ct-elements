@@ -1,11 +1,11 @@
-import "@conectate/ct-card";
-import "@conectate/ct-icon";
-import "@conectate/ct-list/ct-list-item.js";
-import "@conectate/ct-menu";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-icon";
+import "@conectate/components/ct-list/ct-list-item.js";
+import "@conectate/components/ct-menu";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-menu")
 export class DemoCtMenu extends CtLit {

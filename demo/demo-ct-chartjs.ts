@@ -1,9 +1,9 @@
-import "@conectate/ct-card";
-import "@conectate/ct-chartjs";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-chartjs";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html, state } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, state } from "@conectate/components/ct-lit";
 import { ChartData, ChartType } from "chart.js";
 
 @customElement("demo-ct-chartjs")

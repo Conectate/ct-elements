@@ -1,9 +1,9 @@
-import "@conectate/ct-card";
-import "@conectate/ct-phone-input";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-phone-input";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-phone-input")
 export class DemoCtPhoneInput extends CtLit {

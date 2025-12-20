@@ -1,8 +1,8 @@
-import "@conectate/ct-button";
-import "@conectate/ct-dialog/ct-loading.js";
+import "@conectate/components/ct-button";
+import "@conectate/components/ct-dialog/ct-loading.js";
 
-import { showCtDialog } from "@conectate/ct-dialog/ct-dialog.js";
-import { CtLit, css, customElement, html, state } from "@conectate/ct-lit";
+import { showCtDialog } from "@conectate/components/ct-dialog/ct-dialog.js";
+import { CtLit, css, customElement, html, state } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-dialog")
 export class DemoCtDialog extends CtLit {

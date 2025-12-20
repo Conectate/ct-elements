@@ -1,9 +1,9 @@
-import "@conectate/ct-button";
+import "@conectate/components/ct-button";
 
 import "./render-item.js";
 
-import { CtBottomSheet } from "@conectate/ct-bottom-sheet";
-import { css, CtLit, customElement, html, query } from "@conectate/ct-lit";
+import { CtBottomSheet } from "@conectate/components/ct-bottom-sheet";
+import { css, CtLit, customElement, html, query } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-bottom-sheet")
 export class DemoCtBottomSheet extends CtLit {

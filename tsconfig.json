@@ -1,31 +1,125 @@
 {
-	"compilerOptions": {
-		"target": "es2020",
-		"module": "es2015",
-		"moduleResolution": "node",
-		"lib": [
-			"esnext.array",
-			"esnext",
-			"es2020",
-			"dom"
-		],
-		"declaration": true,
-		"declarationMap": true,
-		"sourceMap": true,
-		"inlineSources": true,
-		"strict": true,
-		"noUnusedLocals": true,
-		// "outDir": "./dist",
-		"outDir": "./ds",
-		"baseUrl": "./packages",
-		// Only necessary because @types/uglify-js can't find types for source-map
-		"skipLibCheck": true,
-		"experimentalDecorators": true,
-		"importHelpers": true,
-		"typeRoots": [
-			"./demo/src/xconfig/typings"
-		],
-		"allowSyntheticDefaultImports": true
-	},
-	"exclude": []
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "es2020",
+        "moduleResolution": "node",
+        "lib": [
+            "esnext.array",
+            "esnext",
+            "es2020",
+            "dom"
+        ],
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "inlineSources": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "outDir": "./dist",
+        "baseUrl": ".",
+        "paths": {
+            "@conectate/components/ct-bottom-sheet": [
+                "src/ct-bottom-sheet/ct-bottom-sheet.ts"
+            ],
+            "@conectate/components/ct-button": [
+                "src/ct-button/ct-button.ts"
+            ],
+            "@conectate/components/ct-card": [
+                "src/ct-card/ct-card.ts"
+            ],
+            "@conectate/components/ct-chartjs": [
+                "src/ct-chartjs/ct-chartjs.ts"
+            ],
+            "@conectate/components/ct-checkbox": [
+                "src/ct-checkbox/ct-checkbox.ts"
+            ],
+            "@conectate/components/ct-collapse": [
+                "src/ct-collapse/ct-collapse.ts"
+            ],
+            "@conectate/components/ct-date": [
+                "src/ct-date/ct-date.ts"
+            ],
+            "@conectate/components/ct-dialog": [
+                "src/ct-dialog/ct-dialog.ts"
+            ],
+            "@conectate/components/ct-helpers": [
+                "src/ct-helpers/ct-helpers.ts"
+            ],
+            "@conectate/components/ct-icon": [
+                "src/ct-icon/ct-icon.ts"
+            ],
+            "@conectate/components/ct-img": [
+                "src/ct-img/ct-img.ts"
+            ],
+            "@conectate/components/ct-input": [
+                "src/ct-input/ct-input.ts"
+            ],
+            "@conectate/components/ct-list": [
+                "src/ct-list/ct-list-item.ts"
+            ],
+            "@conectate/components/ct-lit": [
+                "src/ct-lit/ct-lit.ts"
+            ],
+            "@conectate/components/ct-loading-bar": [
+                "src/ct-loading-bar/ct-loading-bar.ts"
+            ],
+            "@conectate/components/ct-loading-placeholder": [
+                "src/ct-loading-placeholder/ct-loading-placeholder.ts"
+            ],
+            "@conectate/components/ct-menu": [
+                "src/ct-menu/ct-menu.ts"
+            ],
+            "@conectate/components/ct-phone-input": [
+                "src/ct-phone-input/ct-phone-input.ts"
+            ],
+            "@conectate/components/ct-qr-tools": [
+                "src/ct-qr-tools/ct-qr-tools.ts"
+            ],
+            "@conectate/components/ct-radio": [
+                "src/ct-radio/ct-radio.ts"
+            ],
+            "@conectate/components/ct-router": [
+                "src/ct-router/ct-router.ts"
+            ],
+            "@conectate/components/ct-scroll-threshold": [
+                "src/ct-scroll-threshold/ct-scroll-threshold.ts"
+            ],
+            "@conectate/components/ct-select": [
+                "src/ct-select/ct-select.ts"
+            ],
+            "@conectate/components/ct-snackbar": [
+                "src/ct-snackbar/ct-snackbar.ts"
+            ],
+            "@conectate/components/ct-spinner": [
+                "src/ct-spinner/ct-spinner.ts"
+            ],
+            "@conectate/components/ct-tabs": [
+                "src/ct-tabs/ct-tabs.ts"
+            ],
+            "@conectate/components/ct-tooltip": [
+                "src/ct-tooltip/ct-tooltip.ts"
+            ],
+            "@conectate/components/lit-if": [
+                "src/lit-if/lit-if.ts"
+            ],
+            "@conectate/components/*": [
+                "src/*"
+            ]
+        },
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "typeRoots": [
+            "./demo/src/xconfig/typings"
+        ],
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "src/**/*",
+        "demo/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }

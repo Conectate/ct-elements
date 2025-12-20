@@ -1,9 +1,9 @@
-import "@conectate/ct-card";
-import "@conectate/ct-img";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-img";
 
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-img")
 export class DemoCtImg extends CtLit {
@@ -38,11 +38,11 @@ export class DemoCtImg extends CtLit {
 		return html`
 			<code-example class="language-html">
 				<div slot="demo">
-					<ct-img src="https://picsum.photos/300/200" alt="Description"></ct-img>
-					<ct-img srcset="https://picsum.photos/300/200" lazy alt="Description"></ct-img>
-					<ct-img src="https://picsum.photos/300/200" placeholderImg="https://picsum.photos/200/200" alt="Description"></ct-img>
-					<ct-img src="https://picsum.photos/300/200" round alt="Profile picture"></ct-img>
-					<ct-img src="https://picsum.photos/300/200" contain alt="Large image"></ct-img>
+					<ct-img src="https:/picsum.photos/300/200" alt="Description"></ct-img>
+					<ct-img srcset="https:/picsum.photos/300/200" lazy alt="Description"></ct-img>
+					<ct-img src="https:/picsum.photos/300/200" placeholderImg="https:/picsum.photos/200/200" alt="Description"></ct-img>
+					<ct-img src="https:/picsum.photos/300/200" round alt="Profile picture"></ct-img>
+					<ct-img src="https:/picsum.photos/300/200" contain alt="Large image"></ct-img>
 				</div>
 			</code-example>
 		`;

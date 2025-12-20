@@ -1,10 +1,10 @@
-import "@conectate/ct-card";
-import "@conectate/ct-collapse";
+import "@conectate/components/ct-card";
+import "@conectate/components/ct-collapse";
 
 import "./code-example/code-example.js";
 
-import { CtCollapse } from "@conectate/ct-collapse";
-import { CtLit, css, customElement, html, query } from "@conectate/ct-lit";
+import { CtCollapse } from "@conectate/components/ct-collapse";
+import { CtLit, css, customElement, html, query } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-collapse")
 export class DemoCtCollapse extends CtLit {

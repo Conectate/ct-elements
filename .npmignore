@@ -1,0 +1,15 @@
+.tsbuildinfo
+tsconfig.json
+.git
+.github
+.vscode
+demo
+images
+node_modules
+packages-test
+src/*.ts
+stories
+.npmrc
+.prettierrc
+index.html
+vite.config.ts

@@ -1,6 +1,6 @@
-import "@conectate/ct-icon";
+import "@conectate/components/ct-icon";
 
-import { CtLit, css, customElement, html, property, query, state } from "@conectate/ct-lit";
+import { CtLit, css, customElement, html, property, query, state } from "@conectate/components/ct-lit";
 import beautify from "js-beautify";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as Prism from "prismjs";
