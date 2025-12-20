@@ -1,6 +1,6 @@
 import "@conectate/components/ct-card";
 import "@conectate/components/ct-icon";
-import "@conectate/components/ct-list/ct-list-item.js";
+import "@conectate/components/ct-list-item.js";
 import "@conectate/components/ct-menu";
 
 import "./code-example/code-example.js";

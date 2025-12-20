@@ -1,11 +1,11 @@
-import "@conectate/components/ct-button/ct-button";
-import "@conectate/components/ct-button/ct-button-menu";
-import "@conectate/components/ct-button/ct-button-split";
+import "@conectate/components/ct-button";
+import "@conectate/components/ct-button-menu";
+import "@conectate/components/ct-button-split";
 import "@conectate/components/ct-icon";
-import "@conectate/components/ct-list/ct-list-item";
-import "@conectate/components/ct-menu/ct-menu";
+import "@conectate/components/ct-list-item";
+import "@conectate/components/ct-menu";
 
-import { CtButtonSplit } from "@conectate/components/ct-button/ct-button-split";
+import { CtButtonSplit } from "@conectate/components/ct-button-split";
 import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-button")

@@ -1,6 +1,6 @@
-import "@conectate/components/ct-dialog/ct-promp.js";
 import "@conectate/components/ct-input";
-import "@conectate/components/ct-input/ct-textarea.js";
+import "@conectate/components/ct-promp.js";
+import "@conectate/components/ct-textarea.js";
 
 import { CtLit, css, customElement, html, query, state } from "@conectate/components/ct-lit";
 

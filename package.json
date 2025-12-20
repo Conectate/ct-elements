@@ -1,6 +1,6 @@
 {
     "name": "@conectate/components",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "license": "BSD-3-Clause",
     "type": "module",
     "dependencies": {
@@ -33,158 +33,155 @@
         "build": "tsc -p tsconfig.build.json",
         "format": "prettier --write --ignore-unknown src demo",
         "prepare-dist": "npm run build && node tools/prepare-dist.js",
-        "dist": "npm run prepare-dist && npm publish dist"
+        "dist": "npm run prepare-dist && cd dist && npm publish && cd .."
     },
     "private": false,
     "exports": {
         "./ct-bottom-sheet": {
-            "types": "./dist/ct-bottom-sheet/ct-bottom-sheet.d.ts",
-            "import": "./dist/ct-bottom-sheet/ct-bottom-sheet.js",
-            "default": "./dist/ct-bottom-sheet/ct-bottom-sheet.js"
+            "types": "./ct-bottom-sheet.d.ts",
+            "import": "./ct-bottom-sheet.js",
+            "default": "./ct-bottom-sheet.js"
         },
         "./ct-button": {
-            "types": "./dist/ct-button/ct-button.d.ts",
-            "import": "./dist/ct-button/ct-button.js",
-            "default": "./dist/ct-button/ct-button.js"
+            "types": "./ct-button.d.ts",
+            "import": "./ct-button.js",
+            "default": "./ct-button.js"
         },
         "./ct-card": {
-            "types": "./dist/ct-card/ct-card.d.ts",
-            "import": "./dist/ct-card/ct-card.js",
-            "default": "./dist/ct-card/ct-card.js"
+            "types": "./ct-card.d.ts",
+            "import": "./ct-card.js",
+            "default": "./ct-card.js"
         },
         "./ct-chartjs": {
-            "types": "./dist/ct-chartjs/ct-chartjs.d.ts",
-            "import": "./dist/ct-chartjs/ct-chartjs.js",
-            "default": "./dist/ct-chartjs/ct-chartjs.js"
+            "types": "./ct-chartjs.d.ts",
+            "import": "./ct-chartjs.js",
+            "default": "./ct-chartjs.js"
         },
         "./ct-checkbox": {
-            "types": "./dist/ct-checkbox/ct-checkbox.d.ts",
-            "import": "./dist/ct-checkbox/ct-checkbox.js",
-            "default": "./dist/ct-checkbox/ct-checkbox.js"
+            "types": "./ct-checkbox.d.ts",
+            "import": "./ct-checkbox.js",
+            "default": "./ct-checkbox.js"
         },
         "./ct-collapse": {
-            "types": "./dist/ct-collapse/ct-collapse.d.ts",
-            "import": "./dist/ct-collapse/ct-collapse.js",
-            "default": "./dist/ct-collapse/ct-collapse.js"
+            "types": "./ct-collapse.d.ts",
+            "import": "./ct-collapse.js",
+            "default": "./ct-collapse.js"
         },
         "./ct-date": {
-            "types": "./dist/ct-date/ct-date.d.ts",
-            "import": "./dist/ct-date/ct-date.js",
-            "default": "./dist/ct-date/ct-date.js"
+            "types": "./ct-date.d.ts",
+            "import": "./ct-date.js",
+            "default": "./ct-date.js"
         },
         "./ct-dialog": {
-            "types": "./dist/ct-dialog/ct-dialog.d.ts",
-            "import": "./dist/ct-dialog/ct-dialog.js",
-            "default": "./dist/ct-dialog/ct-dialog.js"
+            "types": "./ct-dialog.d.ts",
+            "import": "./ct-dialog.js",
+            "default": "./ct-dialog.js"
         },
         "./ct-helpers": {
-            "types": "./dist/ct-helpers/ct-helpers.d.ts",
-            "import": "./dist/ct-helpers/ct-helpers.js",
-            "default": "./dist/ct-helpers/ct-helpers.js"
+            "types": "./ct-helpers.d.ts",
+            "import": "./ct-helpers.js",
+            "default": "./ct-helpers.js"
         },
         "./ct-icon": {
-            "types": "./dist/ct-icon/ct-icon.d.ts",
-            "import": "./dist/ct-icon/ct-icon.js",
-            "default": "./dist/ct-icon/ct-icon.js"
+            "types": "./ct-icon.d.ts",
+            "import": "./ct-icon.js",
+            "default": "./ct-icon.js"
         },
         "./ct-img": {
-            "types": "./dist/ct-img/ct-img.d.ts",
-            "import": "./dist/ct-img/ct-img.js",
-            "default": "./dist/ct-img/ct-img.js"
+            "types": "./ct-img.d.ts",
+            "import": "./ct-img.js",
+            "default": "./ct-img.js"
         },
         "./ct-input": {
-            "types": "./dist/ct-input/ct-input.d.ts",
-            "import": "./dist/ct-input/ct-input.js",
-            "default": "./dist/ct-input/ct-input.js"
+            "types": "./ct-input.d.ts",
+            "import": "./ct-input.js",
+            "default": "./ct-input.js"
         },
         "./ct-list": {
-            "types": "./dist/ct-list/ct-list-item.d.ts",
-            "import": "./dist/ct-list/ct-list-item.js",
-            "default": "./dist/ct-list/ct-list-item.js"
+            "types": "./ct-list-item.d.ts",
+            "import": "./ct-list-item.js",
+            "default": "./ct-list-item.js"
         },
         "./ct-lit": {
-            "types": "./dist/ct-lit/ct-lit.d.ts",
-            "import": "./dist/ct-lit/ct-lit.js",
-            "default": "./dist/ct-lit/ct-lit.js"
+            "types": "./ct-lit.d.ts",
+            "import": "./ct-lit.js",
+            "default": "./ct-lit.js"
         },
         "./ct-loading-bar": {
-            "types": "./dist/ct-loading-bar/ct-loading-bar.d.ts",
-            "import": "./dist/ct-loading-bar/ct-loading-bar.js",
-            "default": "./dist/ct-loading-bar/ct-loading-bar.js"
+            "types": "./ct-loading-bar.d.ts",
+            "import": "./ct-loading-bar.js",
+            "default": "./ct-loading-bar.js"
         },
         "./ct-loading-placeholder": {
-            "types": "./dist/ct-loading-placeholder/ct-loading-placeholder.d.ts",
-            "import": "./dist/ct-loading-placeholder/ct-loading-placeholder.js",
-            "default": "./dist/ct-loading-placeholder/ct-loading-placeholder.js"
+            "types": "./ct-loading-placeholder.d.ts",
+            "import": "./ct-loading-placeholder.js",
+            "default": "./ct-loading-placeholder.js"
         },
         "./ct-menu": {
-            "types": "./dist/ct-menu/ct-menu.d.ts",
-            "import": "./dist/ct-menu/ct-menu.js",
-            "default": "./dist/ct-menu/ct-menu.js"
+            "types": "./ct-menu.d.ts",
+            "import": "./ct-menu.js",
+            "default": "./ct-menu.js"
         },
         "./ct-phone-input": {
-            "types": "./dist/ct-phone-input/ct-phone-input.d.ts",
-            "import": "./dist/ct-phone-input/ct-phone-input.js",
-            "default": "./dist/ct-phone-input/ct-phone-input.js"
+            "types": "./ct-phone-input.d.ts",
+            "import": "./ct-phone-input.js",
+            "default": "./ct-phone-input.js"
         },
         "./ct-qr-tools": {
-            "types": "./dist/ct-qr-tools/ct-qr-tools.d.ts",
-            "import": "./dist/ct-qr-tools/ct-qr-tools.js",
-            "default": "./dist/ct-qr-tools/ct-qr-tools.js"
+            "types": "./ct-qr-tools.d.ts",
+            "import": "./ct-qr-tools.js",
+            "default": "./ct-qr-tools.js"
         },
         "./ct-radio": {
-            "types": "./dist/ct-radio/ct-radio.d.ts",
-            "import": "./dist/ct-radio/ct-radio.js",
-            "default": "./dist/ct-radio/ct-radio.js"
+            "types": "./ct-radio.d.ts",
+            "import": "./ct-radio.js",
+            "default": "./ct-radio.js"
         },
         "./ct-router": {
-            "types": "./dist/ct-router/ct-router.d.ts",
-            "import": "./dist/ct-router/ct-router.js",
-            "default": "./dist/ct-router/ct-router.js"
+            "types": "./ct-router.d.ts",
+            "import": "./ct-router.js",
+            "default": "./ct-router.js"
         },
         "./ct-scroll-threshold": {
-            "types": "./dist/ct-scroll-threshold/ct-scroll-threshold.d.ts",
-            "import": "./dist/ct-scroll-threshold/ct-scroll-threshold.js",
-            "default": "./dist/ct-scroll-threshold/ct-scroll-threshold.js"
+            "types": "./ct-scroll-threshold.d.ts",
+            "import": "./ct-scroll-threshold.js",
+            "default": "./ct-scroll-threshold.js"
         },
         "./ct-select": {
-            "types": "./dist/ct-select/ct-select.d.ts",
-            "import": "./dist/ct-select/ct-select.js",
-            "default": "./dist/ct-select/ct-select.js"
+            "types": "./ct-select.d.ts",
+            "import": "./ct-select.js",
+            "default": "./ct-select.js"
         },
         "./ct-snackbar": {
-            "types": "./dist/ct-snackbar/ct-snackbar.d.ts",
-            "import": "./dist/ct-snackbar/ct-snackbar.js",
-            "default": "./dist/ct-snackbar/ct-snackbar.js"
+            "types": "./ct-snackbar.d.ts",
+            "import": "./ct-snackbar.js",
+            "default": "./ct-snackbar.js"
         },
         "./ct-spinner": {
-            "types": "./dist/ct-spinner/ct-spinner.d.ts",
-            "import": "./dist/ct-spinner/ct-spinner.js",
-            "default": "./dist/ct-spinner/ct-spinner.js"
+            "types": "./ct-spinner.d.ts",
+            "import": "./ct-spinner.js",
+            "default": "./ct-spinner.js"
         },
         "./ct-tabs": {
-            "types": "./dist/ct-tabs/ct-tabs.d.ts",
-            "import": "./dist/ct-tabs/ct-tabs.js",
-            "default": "./dist/ct-tabs/ct-tabs.js"
+            "types": "./ct-tabs.d.ts",
+            "import": "./ct-tabs.js",
+            "default": "./ct-tabs.js"
         },
         "./ct-tooltip": {
-            "types": "./dist/ct-tooltip/ct-tooltip.d.ts",
-            "import": "./dist/ct-tooltip/ct-tooltip.js",
-            "default": "./dist/ct-tooltip/ct-tooltip.js"
+            "types": "./ct-tooltip.d.ts",
+            "import": "./ct-tooltip.js",
+            "default": "./ct-tooltip.js"
         },
         "./lit-if": {
-            "types": "./dist/lit-if/lit-if.d.ts",
-            "import": "./dist/lit-if/lit-if.js",
-            "default": "./dist/lit-if/lit-if.js"
-        },
-        "./*": "./dist/*"
+            "types": "./lit-if.d.ts",
+            "import": "./lit-if.js",
+            "default": "./lit-if.js"
+        }
     },
     "importSort": {
         ".js, .jsx, .ts, .tsx": {
             "style": "module",
             "parser": "typescript"
         }
-    },
-    "main": "./dist/index.js",
-    "module": "./dist/index.js"
+    }
 }

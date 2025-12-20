@@ -1,5 +1,5 @@
 import "@conectate/components/ct-card";
-import "@conectate/components/ct-icon/ct-icon-button.js";
+import "@conectate/components/ct-icon-button.js";
 
 import "./code-example/code-example.js";
 
