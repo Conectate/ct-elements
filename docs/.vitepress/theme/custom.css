@@ -1,0 +1,15 @@
+:root {
+	--color-background: var(--vp-c-bg);
+	--color-on-background: var(--vp-c-text-1);
+	--color-surface: var(--vp-c-bg-alt);
+	--color-on-surface: var(--vp-c-text-1);
+
+	/* --color-primary: var(--vp-c-brand-1);
+	--color-on-primary: var(--vp-c-text-1); */
+
+	--color-secondary: var(--vp-c-brand-2);
+	--color-on-secondary: var(--vp-c-text-1);
+
+	--color-tertiary: var(--vp-c-brand-3);
+	--color-on-tertiary: var(--vp-c-text-1);
+}

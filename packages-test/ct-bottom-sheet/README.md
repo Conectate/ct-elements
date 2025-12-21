@@ -1,8 +1,8 @@
-<h1 align="center">@conectate/ct-bottom-sheet</h1>
+<h1 align="center">@conectate/components/ct-bottom-sheet</h1>
 
 <p align="center">
-	<a href="https://npmcharts.com/compare/@conectate/ct-bottom-sheet?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/ct-bottom-sheet.svg" height="20"/></a>
-	<a href="https://www.npmjs.com/package/@conectate/ct-bottom-sheet"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/ct-bottom-sheet.svg" height="20"/></a>
+	<a href="https://npmcharts.com/compare/@conectate/components/ct-bottom-sheet?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/components/ct-bottom-sheet.svg" height="20"/></a>
+	<a href="https://www.npmjs.com/package/@conectate/components/ct-bottom-sheet"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/components/ct-bottom-sheet.svg" height="20"/></a>
 	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
 </p>
 
@@ -11,10 +11,10 @@ The `<ct-bottom-sheet>` module contains extensions to turn modal dialogs into bo
 ## Basic Example
 
 ```typescript
-import { CtBottomSheet } from "@conectate/ct-bottom-sheet";
+import { CtBottomSheet } from "@conectate/components/ct-bottom-sheet";
 // import { ... } from 'lit';
-// @conectate/ct-lit is a base class wrapper of lit
-import { CtLit, css, customElement, html, property } from "@conectate/ct-lit";
+// @conectate/components/ct-lit is a base class wrapper of lit
+import { CtLit, css, customElement, html, property } from "@conectate/components/ct-lit";
 
 @customElement("demo-ct-bottom-sheet")
 export class DemoCtBottomSheet extends CtLit {

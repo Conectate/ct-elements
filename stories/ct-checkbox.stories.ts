@@ -1,4 +1,4 @@
-import "@conectate/ct-button";
+import "@conectate/components/ct-button";
 
 import { html } from "lit";
 

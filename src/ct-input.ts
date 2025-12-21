@@ -324,7 +324,7 @@ export class CtInput extends CtLit {
 	/**
 	 * -
 	 */
-	@property({ type: Boolean }) required = false;
+	@property({ type: Boolean, reflect: true }) required = false;
 
 	/**
 	 * -
