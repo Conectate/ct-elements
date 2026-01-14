@@ -274,6 +274,7 @@ export class CtTextarea extends CtLit {
 
 	@property({ type: Number }) rows = 1;
 	@property({ type: Boolean }) autocorrect = false;
+	@property({ type: Boolean }) spellcheck = false;
 
 	@state() isEmpty = true;
 	__isFirstValueUpdate = true;
@@ -303,6 +304,7 @@ export class CtTextarea extends CtLit {
 								inputMode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"
+								spellcheck="${ifDefined(this.spellcheck)}"
 								name="${ifDefined(this.name)}"
 								autocapitalize="${ifDefined(this.autocapitalize)}"
 								.value="${this.value}"

@@ -11,7 +11,7 @@ import { CtLit, customElement, html } from "./ct-lit.js";
  *
  * ### Usage
  * ```javascript
- * import { showCtLoading } from "../ct-dialog/ct-dialog.js";
+ * import { showCtLoading } from "./ct-dialog.js";
  *
  * // Show a loading dialog
  * const loadingDialog = showCtLoading();

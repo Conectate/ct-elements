@@ -85,9 +85,9 @@ import React, { useState } from 'react';
 import "@conectate/components/ct-checkbox.js";
 
 // Declare the custom element for TypeScript
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
+declare module "react/jsx-runtime" {  // preact/jsx-runtime
+    namespace JSX {
+        interface IntrinsicElements {
 			'ct-checkbox': React.DetailedHTMLProps<
 				React.InputHTMLAttributes<HTMLInputElement> & {
 					checked?: boolean;

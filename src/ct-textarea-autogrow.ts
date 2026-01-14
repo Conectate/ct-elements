@@ -1,6 +1,8 @@
 import { css, html } from "lit";
+import { ifDefined } from "lit/directives/if-defined.js";
 
 import { CtLit, customElement, property, query, unsafeHTML } from "./ct-lit.js";
+
 /**
  * # `ct-textarea-autogrow`
  *
@@ -80,6 +82,7 @@ export class CtTextareaAutogrow extends CtLit {
 					rows="${this.rows}"
 					minlength="${this.minlength}"
 					maxlength="${this.maxlength}"
+					spellcheck="${ifDefined(this.spellcheck)}"
 				></textarea>
 			</div>
 		`;
@@ -183,6 +186,10 @@ export class CtTextareaAutogrow extends CtLit {
 	 * Bound to the textarea's `aria-label` attribute.
 	 */
 	@property({ type: String }) label = "";
+	/**
+	 * Bound to the textarea's `spellcheck` attribute.
+	 */
+	@property({ type: Boolean }) spellcheck = false;
 
 	@query("#textarea") $textarea!: HTMLTextAreaElement;
 

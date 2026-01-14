@@ -88,9 +88,9 @@ import React, { useState } from 'react';
 import "@conectate/components/ct-input.js";
 
 // Declare the custom element for TypeScript
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
+declare module "react/jsx-runtime" {  // preact/jsx-runtime
+    namespace JSX {
+        interface IntrinsicElements {
 			'ct-input': React.DetailedHTMLProps<
 				React.InputHTMLAttributes<HTMLInputElement> & {
 					label?: string;

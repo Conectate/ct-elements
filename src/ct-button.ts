@@ -28,7 +28,7 @@ import { customElement, property, query } from "lit/decorators.js";
 <ct-button disabled value="value5"></ct-button>
 
 <script type="module">
-    import "../ct-button/ct-button.js";
+    import "./ct-button.js";
 </script>
 ```
 
@@ -226,11 +226,6 @@ export class CtButton extends LitElement {
 }
 
 declare global {
-	namespace JSX {
-		interface IntrinsicElements {
-			"ct-button": any;
-		}
-	}
 	interface HTMLElementTagNameMap {
 		"ct-button": CtButton;
 	}

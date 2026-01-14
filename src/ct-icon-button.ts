@@ -102,8 +102,8 @@ export class CtIconButton extends LitElement {
 	 */
 	render() {
 		return html`<button aria-label="${ifDefined(this.ariaLabel || this.icon)}" ?disabled="${this.disabled}">
-			<ct-icon .icon=${this.icon} .svg=${this.svg}> ${this.innerHTML.includes("svg") ? html`<slot name="icon"></slot>` : nothing} </ct-icon>
-			<span><slot></slot></span>
+			<ct-icon .icon=${this.icon} .svg=${this.svg}> ${this.innerHTML.includes("svg") ? html`<slot></slot>` : nothing} </ct-icon>
+			<span><slot name="content"></slot></span>
 		</button>`;
 	}
 }

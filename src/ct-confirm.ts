@@ -8,8 +8,8 @@
  part of the Conectate Open Source Project is also subject to an additional IP rights grant
  found at https://open.grupoconectate.com/PATENTS.txt
  */
-import "../ct-button/ct-button.js";
-import "../ct-card/ct-card.js";
+import "./ct-button.js";
+import "./ct-card.js";
 
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 

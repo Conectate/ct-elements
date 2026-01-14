@@ -6,7 +6,7 @@ Usa este prompt para generar documentación de componentes siguiendo la misma es
 
 ## Prompt
 
-Basado en `@docs/ct-button/button.md` y `@docs/ct-button/README.md`, crea la documentación completa para `@docs/[COMPONENT_NAME]/[component-name].md` siguiendo exactamente la misma estructura, estilo y formato.
+Basado en `@docs/ct-button/button.md` y `@src/ct-button.ts`, crea la documentación completa para `@docs/[COMPONENT_NAME]/[component-name].md` siguiendo exactamente la misma estructura, estilo y formato.
 
 ### Estructura requerida:
 
@@ -104,7 +104,7 @@ Basado en `@docs/ct-button/button.md` y `@docs/ct-button/README.md`, crea la doc
     - Eventos que emite
     - Variantes o estados del componente
 
-2. Lee el README.md del componente si existe para obtener información adicional
+2. Lee el archivo fuente del componente (`@src/[component-name].ts`) para obtener información adicional
 
 3. Genera el archivo siguiendo exactamente la estructura de `button.md`
 
@@ -131,7 +131,6 @@ Basado en @docs/ct-button/button.md crea los docs para @docs/ct-card/card.md sig
 ## Checklist antes de generar:
 
 - [ ] Leer el archivo fuente del componente (`src/[component-name].ts`)
-- [ ] Leer el README.md del componente si existe
 - [ ] Identificar todas las propiedades, slots, eventos y CSS variables
 - [ ] Crear variables reactivas apropiadas en `<script setup>` para ejemplos interactivos
 - [ ] Generar ejemplos consistentes para Vue, React y LitElement

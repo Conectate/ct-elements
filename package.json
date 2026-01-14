@@ -1,6 +1,6 @@
 {
     "name": "@conectate/components",
-    "version": "1.0.3",
+    "version": "1.0.7",
     "license": "BSD-3-Clause",
     "type": "module",
     "dependencies": {
@@ -33,14 +33,19 @@
         "demo": "rm -rf node_modules/.vite && vite",
         "build": "tsc -p tsconfig.build.json",
         "format": "prettier --write --ignore-unknown src demo",
-        "prepare-dist": "npm run build && node tools/prepare-dist.js",
-        "dist": "npm run prepare-dist && cd dist && npm publish && cd ..",
+        "prepare-dist": "pnpm build && node tools/prepare-dist.js",
+        "dist": "pnpm prepare-dist && cd dist && npm publish && cd ..",
         "docs:dev": "rm -rf node_modules/.vite && vitepress dev docs",
         "docs:build": "rm -rf node_modules/.vite && vitepress build docs",
         "docs:preview": "rm -rf node_modules/.vite && vitepress preview docs"
     },
     "private": false,
     "exports": {
+        "./ct-autocomplete-suggestions": {
+            "types": "./ct-autocomplete-suggestions.d.ts",
+            "import": "./ct-autocomplete-suggestions.js",
+            "default": "./ct-autocomplete-suggestions.js"
+        },
         "./ct-bottom-sheet": {
             "types": "./ct-bottom-sheet.d.ts",
             "import": "./ct-bottom-sheet.js",
@@ -51,10 +56,30 @@
             "import": "./ct-button.js",
             "default": "./ct-button.js"
         },
+        "./ct-button-helpers": {
+            "types": "./ct-button-helpers.d.ts",
+            "import": "./ct-button-helpers.js",
+            "default": "./ct-button-helpers.js"
+        },
+        "./ct-button-menu": {
+            "types": "./ct-button-menu.d.ts",
+            "import": "./ct-button-menu.js",
+            "default": "./ct-button-menu.js"
+        },
+        "./ct-button-split": {
+            "types": "./ct-button-split.d.ts",
+            "import": "./ct-button-split.js",
+            "default": "./ct-button-split.js"
+        },
         "./ct-card": {
             "types": "./ct-card.d.ts",
             "import": "./ct-card.js",
             "default": "./ct-card.js"
+        },
+        "./ct-card-dialog": {
+            "types": "./ct-card-dialog.d.ts",
+            "import": "./ct-card-dialog.js",
+            "default": "./ct-card-dialog.js"
         },
         "./ct-chartjs": {
             "types": "./ct-chartjs.d.ts",
@@ -71,6 +96,11 @@
             "import": "./ct-collapse.js",
             "default": "./ct-collapse.js"
         },
+        "./ct-confirm": {
+            "types": "./ct-confirm.d.ts",
+            "import": "./ct-confirm.js",
+            "default": "./ct-confirm.js"
+        },
         "./ct-date": {
             "types": "./ct-date.d.ts",
             "import": "./ct-date.js",
@@ -80,6 +110,11 @@
             "types": "./ct-dialog.d.ts",
             "import": "./ct-dialog.js",
             "default": "./ct-dialog.js"
+        },
+        "./ct-dialog-builder": {
+            "types": "./ct-dialog-builder.d.ts",
+            "import": "./ct-dialog-builder.js",
+            "default": "./ct-dialog-builder.js"
         },
         "./ct-helpers": {
             "types": "./ct-helpers.d.ts",
@@ -91,6 +126,11 @@
             "import": "./ct-icon.js",
             "default": "./ct-icon.js"
         },
+        "./ct-icon-button": {
+            "types": "./ct-icon-button.d.ts",
+            "import": "./ct-icon-button.js",
+            "default": "./ct-icon-button.js"
+        },
         "./ct-img": {
             "types": "./ct-img.d.ts",
             "import": "./ct-img.js",
@@ -101,7 +141,37 @@
             "import": "./ct-input.js",
             "default": "./ct-input.js"
         },
+        "./ct-input-autocomplete": {
+            "types": "./ct-input-autocomplete.d.ts",
+            "import": "./ct-input-autocomplete.js",
+            "default": "./ct-input-autocomplete.js"
+        },
+        "./ct-input-container": {
+            "types": "./ct-input-container.d.ts",
+            "import": "./ct-input-container.js",
+            "default": "./ct-input-container.js"
+        },
+        "./ct-input-open": {
+            "types": "./ct-input-open.d.ts",
+            "import": "./ct-input-open.js",
+            "default": "./ct-input-open.js"
+        },
+        "./ct-input-phone": {
+            "types": "./ct-input-phone.d.ts",
+            "import": "./ct-input-phone.js",
+            "default": "./ct-input-phone.js"
+        },
+        "./ct-input-wrapper": {
+            "types": "./ct-input-wrapper.d.ts",
+            "import": "./ct-input-wrapper.js",
+            "default": "./ct-input-wrapper.js"
+        },
         "./ct-list": {
+            "types": "./ct-list-item.d.ts",
+            "import": "./ct-list-item.js",
+            "default": "./ct-list-item.js"
+        },
+        "./ct-list-item": {
             "types": "./ct-list-item.d.ts",
             "import": "./ct-list-item.js",
             "default": "./ct-list-item.js"
@@ -110,6 +180,11 @@
             "types": "./ct-lit.d.ts",
             "import": "./ct-lit.js",
             "default": "./ct-lit.js"
+        },
+        "./ct-loading": {
+            "types": "./ct-loading.d.ts",
+            "import": "./ct-loading.js",
+            "default": "./ct-loading.js"
         },
         "./ct-loading-bar": {
             "types": "./ct-loading-bar.d.ts",
@@ -130,6 +205,11 @@
             "types": "./ct-phone-input.d.ts",
             "import": "./ct-phone-input.js",
             "default": "./ct-phone-input.js"
+        },
+        "./ct-promp": {
+            "types": "./ct-promp.d.ts",
+            "import": "./ct-promp.js",
+            "default": "./ct-promp.js"
         },
         "./ct-qr-tools": {
             "types": "./ct-qr-tools.d.ts",
@@ -156,6 +236,16 @@
             "import": "./ct-select.js",
             "default": "./ct-select.js"
         },
+        "./ct-select-dialog": {
+            "types": "./ct-select-dialog.d.ts",
+            "import": "./ct-select-dialog.js",
+            "default": "./ct-select-dialog.js"
+        },
+        "./ct-select-item": {
+            "types": "./ct-select-item.d.ts",
+            "import": "./ct-select-item.js",
+            "default": "./ct-select-item.js"
+        },
         "./ct-snackbar": {
             "types": "./ct-snackbar.d.ts",
             "import": "./ct-snackbar.js",
@@ -166,20 +256,55 @@
             "import": "./ct-spinner.js",
             "default": "./ct-spinner.js"
         },
+        "./ct-tab": {
+            "types": "./ct-tab.d.ts",
+            "import": "./ct-tab.js",
+            "default": "./ct-tab.js"
+        },
         "./ct-tabs": {
             "types": "./ct-tabs.d.ts",
             "import": "./ct-tabs.js",
             "default": "./ct-tabs.js"
+        },
+        "./ct-textarea": {
+            "types": "./ct-textarea.d.ts",
+            "import": "./ct-textarea.js",
+            "default": "./ct-textarea.js"
+        },
+        "./ct-textarea-autogrow": {
+            "types": "./ct-textarea-autogrow.d.ts",
+            "import": "./ct-textarea-autogrow.js",
+            "default": "./ct-textarea-autogrow.js"
         },
         "./ct-tooltip": {
             "types": "./ct-tooltip.d.ts",
             "import": "./ct-tooltip.js",
             "default": "./ct-tooltip.js"
         },
+        "./icon-list": {
+            "types": "./icon-list.d.ts",
+            "import": "./icon-list.js",
+            "default": "./icon-list.js"
+        },
         "./lit-if": {
             "types": "./lit-if.d.ts",
             "import": "./lit-if.js",
             "default": "./lit-if.js"
+        },
+        "./path_to_regexp": {
+            "types": "./path_to_regexp.d.ts",
+            "import": "./path_to_regexp.js",
+            "default": "./path_to_regexp.js"
+        },
+        "./*.js": {
+            "types": "./*.d.ts",
+            "import": "./*.js",
+            "default": "./*.js"
+        },
+        "./*": {
+            "types": "./*.d.ts",
+            "import": "./*.js",
+            "default": "./*.js"
         }
     },
     "importSort": {

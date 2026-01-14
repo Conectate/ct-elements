@@ -1,4 +1,4 @@
-import "../ct-card/ct-card.js";
+import "./ct-card.js";
 
 import { html } from "lit";
 

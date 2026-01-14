@@ -139,7 +139,7 @@ export interface ConectateHistory {
  *
  * ### Usage
  * ```javascript
- * import { showCtDialog, closeCtDialog } from "../ct-dialog/ct-dialog.js";
+ * import { showCtDialog, closeCtDialog } from "./ct-dialog.js";
  *
  * // Create content for the dialog
  * const content = document.createElement('div');

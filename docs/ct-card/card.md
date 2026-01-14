@@ -77,9 +77,9 @@ import React from 'react';
 import "@conectate/components/ct-card.js";
 
 // Declare the custom element for TypeScript
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
+declare module "react/jsx-runtime" {  // preact/jsx-runtime
+    namespace JSX {
+        interface IntrinsicElements {
 			'ct-card': React.DetailedHTMLProps<
 				React.HTMLAttributes<HTMLElement> & {
 					decorator?: boolean;

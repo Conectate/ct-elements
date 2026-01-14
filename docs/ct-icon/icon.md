@@ -37,7 +37,6 @@ import "@conectate/components/ct-icon-button.js";
 
 <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 1rem 0;">
 	<ct-icon icon="settings"></ct-icon>
-	<ct-icon icon="favorite" fontstyle="Fill"></ct-icon>
 	<ct-icon icon="home" style="--ct-icon-size: 36px;"></ct-icon>
 	<ct-icon-button icon="search"></ct-icon-button>
 	<ct-icon-button icon="close" disabled></ct-icon-button>
@@ -46,7 +45,6 @@ import "@conectate/components/ct-icon-button.js";
 ```vue
 <template>
 	<ct-icon icon="settings"></ct-icon>
-	<ct-icon icon="favorite" fontstyle="Fill"></ct-icon>
 	<ct-icon icon="home" style="--ct-icon-size: 36px;"></ct-icon>
 	<ct-icon-button icon="search"></ct-icon-button>
 	<ct-icon-button icon="close" disabled></ct-icon-button>
@@ -88,9 +86,9 @@ import "@conectate/components/ct-icon.js";
 import "@conectate/components/ct-icon-button.js";
 
 // Declare the custom element for TypeScript
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
+declare module "react/jsx-runtime" {  // preact/jsx-runtime
+  namespace JSX {
+    interface IntrinsicElements {
 			'ct-icon': React.DetailedHTMLProps<
 				React.HTMLAttributes<HTMLElement> & {
 					icon?: string;
@@ -157,22 +155,22 @@ CtIcon.FontStyle = "Outlined";
 
 ### ct-icon
 
-| Property    | Attribute   | Type                                                                              | Default     | Description                                                       |
-| ----------- | ---------- | --------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------- |
-| `icon`      | `icon`     | `string`                                                                          | -           | Name of the Material Icon to display                              |
-| `svg`       | `svg`      | `string`                                                                          | -           | Custom SVG content if the icon is not available in Material Icons |
-| `font`      | `font`     | `"Icons" \| "Symbols"`                                                          | `"Symbols"` | Which icon font family to use                                     |
+| Property    | Attribute   | Type                                                                    | Default     | Description                                                       |
+| ----------- | ----------- | ----------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------- |
+| `icon`      | `icon`      | `string`                                                                | -           | Name of the Material Icon to display                              |
+| `svg`       | `svg`       | `string`                                                                | -           | Custom SVG content if the icon is not available in Material Icons |
+| `font`      | `font`      | `"Icons" \| "Symbols"`                                                  | `"Symbols"` | Which icon font family to use                                     |
 | `fontstyle` | `fontstyle` | `"Outlined" \| "Fill" \| "Sharp" \| "Two Tone" \| "Round" \| "Rounded"` | `"Rounded"` | Style variant of the icon                                         |
-| `ready`     | `ready`    | `boolean`                                                                         | `false`     | Whether the font has been loaded (read-only)                      |
+| `ready`     | `ready`     | `boolean`                                                               | `false`     | Whether the font has been loaded (read-only)                      |
 
 ### ct-icon-button
 
-| Property     | Attribute     | Type      | Default | Description                                                               |
-| ------------ | ------------- | --------- | ------- | ------------------------------------------------------------------------- |
-| `icon`       | `icon`        | `string`  | -       | Name of the Material Icon to display                                      |
-| `svg`        | `svg`         | `string`  | -       | Custom SVG content for the button                                         |
-| `disabled`   | `disabled`    | `boolean` | `false` | Whether the button is disabled                                            |
-| `ariaLabel`  | `aria-label`  | `string`  | `""`    | Accessible label for the button (falls back to icon name if not provided) |
+| Property    | Attribute    | Type      | Default | Description                                                               |
+| ----------- | ------------ | --------- | ------- | ------------------------------------------------------------------------- |
+| `icon`      | `icon`       | `string`  | -       | Name of the Material Icon to display                                      |
+| `svg`       | `svg`        | `string`  | -       | Custom SVG content for the button                                         |
+| `disabled`  | `disabled`   | `boolean` | `false` | Whether the button is disabled                                            |
+| `ariaLabel` | `aria-label` | `string`  | `""`    | Accessible label for the button (falls back to icon name if not provided) |
 
 ## Slots
 
@@ -182,8 +180,8 @@ CtIcon.FontStyle = "Outlined";
 
 ### ct-icon-button
 
-- **Default slot**: Additional content (rarely used)
-- **icon slot**: Custom icon content
+- **Default slot**: Custom icon content
+- **slot="content"**: Additional content (rarely used)
 
 ## CSS Variables
 
@@ -202,8 +200,8 @@ ct-icon-button {
 
 ### CSS Variables Reference Table
 
-| Variable        | Default | Description                    |
-| --------------- | ------- | ------------------------------ |
+| Variable         | Default | Description                     |
+| ---------------- | ------- | ------------------------------- |
 | `--ct-icon-size` | `24px`  | Size of the icon (width/height) |
 
 ### Custom Styling Examples
@@ -231,21 +229,39 @@ ct-icon-button {
 
 You can use custom SVG icons instead of Material Icons:
 
+Example:
+<ct-icon>
+<svg viewBox="0 0 24 24" data-astro-cid-zjewmv2f="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
+</ct-icon>
+<ct-icon-button>
+<svg viewBox="0 0 24 24" data-astro-cid-zjewmv2f="true">
+<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>
+</svg>
+</ct-icon-button>
+
 ```html
 <!-- Using custom SVG content -->
-<ct-icon svg="<svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5z'/></svg>"></ct-icon>
+<ct-icon>
+	<svg viewBox="0 0 24 24" data-astro-cid-zjewmv2f="true">
+		<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>
+	</svg>
+</ct-icon>
 
 <!-- SVG in icon button -->
-<ct-icon-button svg="<svg viewBox='0 0 24 24'><path d='M12 2L2 7l10 5 10-5-10-5z'/></svg>"></ct-icon-button>
+<ct-icon-button>
+	<svg viewBox="0 0 24 24" data-astro-cid-zjewmv2f="true">
+		<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path>
+	</svg>
+</ct-icon-button>
 ```
 
 ## Static Properties and Methods
 
 ### ct-icon Static Properties
 
-| Property    | Type                                                                              | Default     | Description                |
-| ----------- | --------------------------------------------------------------------------------- | ----------- | -------------------------- |
-| `Font`      | `"Icons" \| "Symbols"`                                                          | `"Symbols"` | Global font family setting |
+| Property    | Type                                                                    | Default     | Description                |
+| ----------- | ----------------------------------------------------------------------- | ----------- | -------------------------- |
+| `Font`      | `"Icons" \| "Symbols"`                                                  | `"Symbols"` | Global font family setting |
 | `FontStyle` | `"Outlined" \| "Fill" \| "Sharp" \| "Two Tone" \| "Round" \| "Rounded"` | `"Rounded"` | Global font style setting  |
 
 ### ct-icon Static Methods
@@ -333,4 +349,3 @@ The component provides access to all Material Icons available in the Google Font
 [https://fonts.google.com/icons](https://fonts.google.com/icons)
 
 When using TypeScript, the package provides type definitions for all available icons, giving you autocomplete support in compatible editors.
-

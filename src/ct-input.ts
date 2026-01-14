@@ -393,6 +393,9 @@ export class CtInput extends CtLit {
 	/** determinate if input es invalid */
 	@property({ type: Boolean }) active = false;
 
+	/** determinate if spellcheck is enabled */
+	@property({ type: Boolean }) spellcheck = false;
+
 	/** Check if input is empty */
 	@state() isEmpty = true;
 	/**
@@ -435,6 +438,7 @@ export class CtInput extends CtLit {
 								name=${ifDefined(this.name)}
 								autocapitalize=${ifDefined(this.autocapitalize)}
 								accept=${ifDefined(this.accept)}
+								spellcheck=${ifDefined(this.spellcheck)}
 							/>
 						</div>
 						<slot name="suffix"></slot>

@@ -1,4 +1,4 @@
-import "../ct-card/ct-card.js";
+import "./ct-card.js";
 
 import { ConectateHistory, CtDialog, showCtDialog } from "./ct-dialog.js";
 import { CtLit, customElement, html } from "./ct-lit.js";
@@ -26,7 +26,7 @@ window.showCtCardDialog = showCtCardDialog;
  *
  * ### Usage
  * ```javascript
- * import { showCtCardDialog } from "../ct-dialog/ct-dialog.js";
+ * import { showCtCardDialog } from "./ct-dialog.js";
  *
  * // Create content for the card dialog
  * const content = document.createElement('div');

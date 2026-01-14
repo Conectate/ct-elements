@@ -85,9 +85,9 @@ import React, { useState } from 'react';
 import "@conectate/components/ct-button.js";
 
 // Declare the custom element for TypeScript
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
+declare module "react/jsx-runtime" {  // preact/jsx-runtime
+    namespace JSX {
+        interface IntrinsicElements {
 			'ct-button': React.DetailedHTMLProps<
 				React.HTMLAttributes<HTMLElement> & {
 					raised?: boolean;
@@ -180,6 +180,8 @@ This package includes:
 | `light`    | `light`    | `boolean` | `false`    | Shown with a primary color border   |
 | `disabled` | `disabled` | `boolean` | `false`    | If `true`, Disable clicks           |
 | `type`     | `type`     | `string`  | `"button"` | Button type (button, submit, reset) |
+| `role`     | `role`     | `string`  | `"button"` | ARIA role                           |
+| `gap`      | `gap`      | `boolean` | `false`    | Adds a gap between slots (1ch)      |
 
 ## Slots
 

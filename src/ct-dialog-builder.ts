@@ -11,7 +11,7 @@ import { CtDialog } from "./ct-dialog.js";
  *
  * ### Usage
  * ```javascript
- * import { CtDialogBuilder } from "../ct-dialog/ct-dialog.js";
+ * import { CtDialogBuilder } from "./ct-dialog.js";
  *
  * // Create a dialog builder
  * const builder = new CtDialogBuilder();
