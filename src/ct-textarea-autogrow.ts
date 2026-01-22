@@ -60,6 +60,7 @@ export class CtTextareaAutogrow extends CtLit {
 			}
 		`
 	];
+
 	render() {
 		return html`
 			<!-- the mirror sizes the input/textarea so it grows with typing -->
@@ -189,7 +190,7 @@ export class CtTextareaAutogrow extends CtLit {
 	/**
 	 * Bound to the textarea's `spellcheck` attribute.
 	 */
-	@property({ type: Boolean }) spellcheck = false;
+	@property({ type: Boolean, converter: (value, type) => value != "false" }) spellcheck = true;
 
 	@query("#textarea") $textarea!: HTMLTextAreaElement;
 

@@ -274,7 +274,7 @@ export class CtTextarea extends CtLit {
 
 	@property({ type: Number }) rows = 1;
 	@property({ type: Boolean }) autocorrect = false;
-	@property({ type: Boolean }) spellcheck = false;
+	@property({ type: Boolean, converter: (value, type) => value != "false" }) spellcheck = true;
 
 	@state() isEmpty = true;
 	__isFirstValueUpdate = true;
@@ -304,9 +304,9 @@ export class CtTextarea extends CtLit {
 								inputMode="${ifDefined(this.inputmode)}"
 								minlength="${ifDefined(this.minlength)}"
 								maxlength="${ifDefined(this.maxlength)}"
-								spellcheck="${ifDefined(this.spellcheck)}"
 								name="${ifDefined(this.name)}"
 								autocapitalize="${ifDefined(this.autocapitalize)}"
+								.spellcheck="${this.spellcheck}"
 								.value="${this.value}"
 							></ct-textarea-autogrow>
 							<slot name="suffix"></slot>

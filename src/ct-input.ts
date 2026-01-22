@@ -394,7 +394,7 @@ export class CtInput extends CtLit {
 	@property({ type: Boolean }) active = false;
 
 	/** determinate if spellcheck is enabled */
-	@property({ type: Boolean }) spellcheck = false;
+	@property({ type: Boolean, converter: (value, type) => value != "false" }) spellcheck = true;
 
 	/** Check if input is empty */
 	@state() isEmpty = true;

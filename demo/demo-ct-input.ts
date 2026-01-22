@@ -44,7 +44,9 @@ export class DemoCtInput extends CtLit {
 			<ct-input id="i1" @value=${this.handleValue}></ct-input>
 			<ct-input id="i1" value="Init html raw attribute" placeholder="como estas" @value=${this.handleValue2}></ct-input>
 			<ct-input id="i2" .value=${`Init value property`}></ct-input>
-			<ct-input id="i2" .value=${1}></ct-input>
+			<ct-input id="i2" label="Spellcheck false" .value=${1 as any} spellcheck="false"></ct-input>
+			<ct-input id="i2" label="Spellcheck true" .value=${1 as any} spellcheck="true"></ct-input>
+			<ct-input id="i2" label="Spellcheck no value" .value=${1 as any} spellcheck></ct-input>
 			${this.valueFromEvent ? html`<span>Value from event: ${this.valueFromEvent}</span>` : html``}
 			${this.valueFromEvent2 ? html`<span>Value from event 2: ${this.valueFromEvent2}</span>` : html``}
 
