@@ -401,7 +401,7 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@property({ type: String }) value?: string | null = "";
+	@property({ type: String }) value: string = "";
 
 	render() {
 		return html`
@@ -469,6 +469,11 @@ export class CtInput extends CtLit {
 			if (typeof this.value === "number" || typeof this.value === "bigint") {
 				this.value = `${this.value}`;
 			}
+			// if is JSON Object or Array, convert to JSON string
+			if (typeof this.value === "object") {
+				this.value = JSON.stringify(this.value);
+			}
+
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
 			}
