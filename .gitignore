@@ -10,4 +10,5 @@ node_modules
 *.log
 *.map
 *.d.ts
-*.js
+src/*.js
+tmp*
