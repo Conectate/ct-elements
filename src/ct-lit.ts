@@ -31,7 +31,7 @@ interface ClassElement {
 	descriptor?: PropertyDescriptor;
 }
 
-export type Constructor<T> = {
+type Constructor<T> = {
 	// tslint:disable-next-line:no-any
 	new (...args: any[]): T;
 };
@@ -97,6 +97,8 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
 		}
 	};
 };
+
+let allShadowRoots: (HTMLElement | DocumentFragment)[] = [];
 /**
  * CtLit - A wrapper class for LitElement with additional utility methods
  *
@@ -108,6 +110,37 @@ export class CtLit extends LitElement {
 	connectedCallback(): void {
 		if (location.host.includes("usac.edu.gt") && !location.host.includes("medicina")) return;
 		super.connectedCallback();
+		allShadowRoots.push(this.renderRoot);
+	}
+
+	patchQuerySelector() {
+		let originalDocumentQuerySelector = document.querySelector;
+		let originalDocumentQuerySelectorAll = document.querySelectorAll;
+
+		document.querySelector = function (selectors: string) {
+			for (let i = 0; i < allShadowRoots.length; i++) {
+				const shadowRoot = allShadowRoots[i];
+				const element = shadowRoot.querySelector(selectors);
+				if (element) {
+					return element;
+				}
+			}
+			return originalDocumentQuerySelector.call(this, selectors);
+		};
+
+		document.querySelectorAll = function (selectors: string) {
+			let elements: (HTMLElement | Element)[] = [];
+			for (let i = 0; i < allShadowRoots.length; i++) {
+				const shadowRoot = allShadowRoots[i];
+				const element = shadowRoot.querySelectorAll(selectors);
+				if (element && element.length > 0) {
+					elements.push(...Array.from(element));
+				}
+			}
+			const originalElements = originalDocumentQuerySelectorAll.call(this, selectors);
+			elements.push(...Array.from(originalElements));
+			return elements as any as NodeListOf<HTMLElement | Element>;
+		};
 	}
 
 	/**
@@ -210,6 +243,11 @@ export class CtLit extends LitElement {
 			}
 		}
 		tick();
+	}
+
+	disconnectedCallback(): void {
+		super.disconnectedCallback();
+		allShadowRoots = allShadowRoots.filter(root => root !== this.renderRoot);
 	}
 }
 /**
