@@ -470,9 +470,9 @@ export class CtInput extends CtLit {
 				this.value = `${this.value}`;
 			}
 			// if is JSON Object or Array, convert to JSON string
-			if (typeof this.value === "object") {
-				this.value = JSON.stringify(this.value);
-			}
+			// if (typeof this.value === "object") {
+			// 	this.value = JSON.stringify(this.value);
+			// }
 
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
