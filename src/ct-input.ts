@@ -219,6 +219,10 @@ export class CtInput extends CtLit {
 			input[type="search"]::-webkit-search-cancel-button {
 				-webkit-appearance: none;
 				background-color: var(--color-on-surface, #7d7d7d);
+				mask-image: var(
+					--ct-input-search-cancel-button-mask-image,
+					url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>")
+				);
 				-webkit-mask-image: var(
 					--ct-input-search-cancel-button-mask-image,
 					url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>")
@@ -470,9 +474,9 @@ export class CtInput extends CtLit {
 				this.value = `${this.value}`;
 			}
 			// if is JSON Object or Array, convert to JSON string
-			// if (typeof this.value === "object") {
-			// 	this.value = JSON.stringify(this.value);
-			// }
+			if (typeof this.value === "object") {
+				this.value = JSON.stringify(this.value);
+			}
 
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
@@ -487,8 +491,13 @@ export class CtInput extends CtLit {
 
 	_onInput() {
 		this.value = this.$input.value;
-		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(this.value, { value: this.value }) }));
+		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(String(this.value), { value: this.value }) }));
 	}
+
+	focus() {
+		this.$input?.focus();
+	}
+
 	/** @deprecated */
 	get valueAsnumber() {
 		console.warn("valueAsnumber is deprecated, use valueAsNumber");
@@ -500,10 +509,6 @@ export class CtInput extends CtLit {
 	}
 	get valueAsDate() {
 		return this.$input?.valueAsDate;
-	}
-
-	focus() {
-		this.$input?.focus();
 	}
 
 	/**

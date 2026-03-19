@@ -251,8 +251,8 @@ export class CtTextarea extends CtLit {
 	@query("#input") $input!: HTMLInputElement;
 
 	@property({ type: String }) inputmode = "";
-	@property({ type: Number }) minlength = 0;
-	@property({ type: Number }) maxlength = Number.MAX_SAFE_INTEGER;
+	@property({ type: Number }) minlength?: number;
+	@property({ type: Number }) maxlength?: number;
 	@property({ type: String }) autocapitalize!: "off" | "none" | "on" | "sentences" | "words" | "characters";
 	@property({ type: String }) name?: string;
 	@property({ type: Boolean }) readonly = false;
@@ -310,7 +310,7 @@ export class CtTextarea extends CtLit {
 								.value="${this.value}"
 							></ct-textarea-autogrow>
 							<slot name="suffix"></slot>
-							${this.charCounter ? html`<div class="charCount">${this.countChar}/${this.maxlength > 1_000_000 ? "1000+" : this.maxlength}</div>` : ``}
+							${this.charCounter ? html`<div class="charCount">${this.countChar}${this.maxlength ? `/${this.maxlength}` : ""}</div>` : ``}
 						</div>
 					</div>
 					<div class="underline"></div>
@@ -322,6 +322,9 @@ export class CtTextarea extends CtLit {
 	firstUpdated() {
 		this.dark = localStorage.theme == "dark";
 		if (this.$input) {
+			if (typeof this.value === "number" || typeof this.value === "bigint") {
+				this.value = `${this.value}`;
+			}
 			this.$input.value = this.value;
 		}
 		this.validate();
@@ -331,6 +334,14 @@ export class CtTextarea extends CtLit {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
 			this.value ||= "";
+			if (typeof this.value === "number" || typeof this.value === "bigint") {
+				this.value = `${this.value}`;
+			}
+			// if is JSON Object or Array, convert to JSON string
+			if (typeof this.value === "object") {
+				this.value = JSON.stringify(this.value);
+			}
+
 			if (this.$input && this.$input.value != this.value) {
 				this.$input.value = this.value ?? "";
 			}
@@ -344,7 +355,7 @@ export class CtTextarea extends CtLit {
 
 	_onInput() {
 		this.value = this.$input.value;
-		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(this.value, { value: this.value }) }));
+		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(String(this.value), { value: this.value }) }));
 	}
 
 	focus() {

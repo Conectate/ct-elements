@@ -74,15 +74,15 @@ export class CtTextareaAutogrow extends CtLit {
 					.value=${this._value}
 					@input=${this._onInput}
 					.name="${this.name}"
-					aria-label="${this.label}"
 					?autofocus="${this.autofocus}"
 					.placeholder="${this.placeholder}"
 					?readonly="${this.readonly}"
 					?required="${this.required}"
 					?disabled="${this.disabled}"
 					rows="${this.rows}"
-					minlength="${this.minlength}"
-					maxlength="${this.maxlength}"
+					aria-label="${ifDefined(this.label)}"
+					minlength="${ifDefined(this.minlength)}"
+					maxlength="${ifDefined(this.maxlength)}"
 					spellcheck="${ifDefined(this.spellcheck)}"
 				></textarea>
 			</div>

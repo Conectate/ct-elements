@@ -5,13 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement } from "lit";
+import { LitElement as Lit, nothing } from "lit";
 export type PropertyValues = Map<PropertyKey, any>;
 export { css, html, svg, unsafeCSS } from "lit";
 export { state as internalProperty, property, query, queryAll, queryAssignedNodes, queryAsync, state } from "lit/decorators.js";
 export { unsafeHTML } from "lit/directives/unsafe-html.js";
 export { until } from "lit/directives/until.js";
-export { LitElement };
 
 // From the TC39 Decorators proposal
 interface ClassDescriptor {
@@ -106,9 +105,8 @@ let allShadowRoots: (HTMLElement | DocumentFragment)[] = [];
  * for common operations such as element selection, event dispatching,
  * and scrolling animations.
  */
-export class CtLit extends LitElement {
+export class LitElement extends Lit {
 	connectedCallback(): void {
-		if (location.host.includes("usac.edu.gt") && !location.host.includes("medicina")) return;
 		super.connectedCallback();
 		allShadowRoots.push(this.renderRoot);
 	}
@@ -146,19 +144,19 @@ export class CtLit extends LitElement {
 	/**
 	 * Returns the first element that is a descendant of node that matches selectors.
 	 * @param name
-	 * @returns {HTMLElement | Element | undefined | null}
+	 * @returns {T | undefined | null}
 	 */
-	$$(name: string): HTMLElement | Element | undefined | null {
-		return this.renderRoot.querySelector(name);
+	$$<T extends HTMLElement | Element>(name: string): T | undefined | null {
+		return this.renderRoot.querySelector<T>(name);
 	}
 
 	/**
 	 * Returns all element descendants of node that match selectors.
 	 * @param name
-	 * @returns {NodeListOf<HTMLElement | Element> | undefined}
+	 * @returns {NodeListOf<T> | undefined}
 	 */
-	$$$(name: string): NodeListOf<HTMLElement | Element> | undefined {
-		return this.renderRoot.querySelectorAll(name);
+	$$$<T extends HTMLElement | Element>(name: string): NodeListOf<T> | undefined {
+		return this.renderRoot.querySelectorAll<T>(name);
 	}
 	/**
 	 * Map all IDs for shadowRoot and save in `this.$` like a polymer element.
@@ -250,6 +248,8 @@ export class CtLit extends LitElement {
 		allShadowRoots = allShadowRoots.filter(root => root !== this.renderRoot);
 	}
 }
+// Alias for LitElement
+export class CtLit extends LitElement {}
 /**
  * Conditional template rendering helper
  *
@@ -267,5 +267,5 @@ export class CtLit extends LitElement {
  * ```
  */
 export function If(condition: boolean, template: any) {
-	return condition ? template : "";
+	return condition ? template : nothing;
 }

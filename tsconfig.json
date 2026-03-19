@@ -17,11 +17,6 @@
         "noUnusedLocals": true,
         "outDir": "./dist",
         "baseUrl": ".",
-        "paths": {
-            "@conectate/components/*": [
-                "src/*"
-            ]
-        },
         "skipLibCheck": true,
         "experimentalDecorators": true,
         "importHelpers": true,
