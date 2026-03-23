@@ -248,6 +248,22 @@ export class CTConfirm extends CtLit {
 	@query("#neutral") $neutral!: HTMLElement;
 	@query("#confirmBody") confirmBody!: HTMLElement;
 	@query("#buttons") buttons!: HTMLElement;
+	private onKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			void this.okbtn(e);
+		}
+	};
+
+	connectedCallback() {
+		super.connectedCallback();
+		window.addEventListener("keydown", this.onKeyDown);
+	}
+
+	disconnectedCallback() {
+		window.removeEventListener("keydown", this.onKeyDown);
+		super.disconnectedCallback();
+	}
 
 	firstUpdated() {
 		this.computeBtns(this.ok, this.neutral, this.cancel);
@@ -313,6 +329,22 @@ export class CTConfirmCupertino extends CtLit {
 	@query("#neutral") $neutral!: HTMLElement;
 	@query("#confirmBody") confirmBody!: HTMLElement;
 	@query("#buttons") buttons!: HTMLElement;
+	private onKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			void this.okbtn(e);
+		}
+	};
+
+	connectedCallback() {
+		super.connectedCallback();
+		window.addEventListener("keydown", this.onKeyDown);
+	}
+
+	disconnectedCallback() {
+		window.removeEventListener("keydown", this.onKeyDown);
+		super.disconnectedCallback();
+	}
 
 	render() {
 		return html`
