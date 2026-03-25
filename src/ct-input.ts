@@ -20,7 +20,7 @@ export type CtInputMode = "verbatim" | "latin" | "latin-name" | "latin-prose" | 
  * ## `ct-input`
  * Input element
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-input
  * @demo demo/index.html
  * @attr value - The value of the input
@@ -470,11 +470,11 @@ export class CtInput extends CtLit {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
 			this.value ||= "";
-			if (typeof this.value === "number" || typeof this.value === "bigint") {
+			if (typeof this.value.valueOf() === "number" || typeof this.value.valueOf() === "bigint") {
 				this.value = `${this.value}`;
 			}
 			// if is JSON Object or Array, convert to JSON string
-			if (typeof this.value === "object") {
+			if (typeof this.value.valueOf() === "object") {
 				this.value = JSON.stringify(this.value);
 			}
 
@@ -491,7 +491,7 @@ export class CtInput extends CtLit {
 
 	_onInput() {
 		this.value = this.$input.value;
-		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(String(this.value), { value: this.value }) }));
+		this.dispatchEvent(new CustomEvent("value", { detail: Object.assign(`${this.value}`, { value: `${this.value}` }) }));
 	}
 
 	focus() {

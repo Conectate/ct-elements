@@ -6,7 +6,7 @@
 	"types": "ct-bottom-sheet.d.ts",
 	"module": "ct-bottom-sheet.js",
 	"keywords": [
-		"ct-elements"
+		"lit-ct-components"
 	],
 	"dependencies": {
 		"lit": "^3.2.1"
@@ -17,14 +17,14 @@
 	},
 	"type": "module",
 	"license": "BSD-3-Clause",
-	"homepage": "https://github.com/conectate/ct-elements",
+	"homepage": "https://github.com/conectate/lit-ct-components",
 	"author": "Herberth Obregón <herberthobregon@gmail.com>",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/conectate/ct-elements"
+		"url": "https://github.com/conectate/lit-ct-components"
 	},
 	"bugs": {
-		"url": "https://github.com/conectate/ct-elements/issues"
+		"url": "https://github.com/conectate/lit-ct-components/issues"
 	},
 	"publishConfig": {
 		"access": "public"

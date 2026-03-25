@@ -3,7 +3,7 @@
 <p align="center">
 	<a href="https://npmcharts.com/compare/@conectate/components/ct-router?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/components/ct-router.svg" height="20"/></a>
 	<a href="https://www.npmjs.com/package/@conectate/components/ct-router"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/components/ct-router.svg" height="20"/></a>
-	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
+	<a href="https://github.com/conectate/lit-ct-components/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/lit-ct-components.svg" height="20"/></a>
 </p>
 
 # ct-router

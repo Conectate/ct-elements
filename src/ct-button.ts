@@ -71,7 +71,7 @@ _None_
 
 
 
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-button
  * @demo demo/index.html 
  * @homepage open.grupoconectate.com

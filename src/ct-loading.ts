@@ -23,7 +23,7 @@ import { CtLit, customElement, html } from "./ct-lit.js";
  * loadingDialog.close();
  * ```
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-loading
  */
 @customElement("ct-loading")

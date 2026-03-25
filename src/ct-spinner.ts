@@ -1,10 +1,11 @@
 import { css, html } from "lit";
 
 import { CtLit, customElement, property } from "./ct-lit.js";
+
 /**
  * ## `ct-spinner`
  * Spinner web Component
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-spinner
  * @cssProp --ct-spinner-1 - Spinner Color 1
  * @cssProp --ct-spinner-2 - Spinner Color 2

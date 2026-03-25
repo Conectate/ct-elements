@@ -5,7 +5,7 @@ import { CtLit, customElement, property, query } from "./ct-lit.js";
 /**
  * # `ct-input-wrapper`
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-input-wrapper
  */
 @customElement("ct-input-wrapper")

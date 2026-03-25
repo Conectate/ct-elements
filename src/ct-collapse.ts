@@ -19,7 +19,7 @@ import { CtLit, css, customElement, html, property, query } from "./ct-lit.js";
  * - Only one child element is supported. If multiple elements are needed, wrap them in a container.
  * - The component automatically calculates required heights for smooth animations.
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-collapse
  */
 @customElement("ct-collapse")

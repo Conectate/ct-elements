@@ -6,7 +6,7 @@ import { CtLit, customElement, property, query, unsafeHTML } from "./ct-lit.js";
 /**
  * # `ct-textarea-autogrow`
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-textarea-autogrow
  */
 @customElement("ct-textarea-autogrow")

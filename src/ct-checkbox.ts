@@ -31,7 +31,7 @@ import { CtLit, css, customElement, html, property, query } from "./ct-lit.js";
  * - `--color-on-primary`: Color of the checkmark
  * - `--color-on-background`: Color of the unchecked checkbox border
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-checkbox
  * @fires checked - Fired when checked state changes
  * @fires change - Standard input change event

@@ -84,7 +84,7 @@ export function showCtPrompt(
  *
  * This component is typically used through the `showCtPrompt` function rather than directly.
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-promp
  */
 @customElement("ct-promp")

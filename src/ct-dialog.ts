@@ -165,7 +165,7 @@ export interface ConectateHistory {
  * - `slide-left`: Dialog slides in from the left
  * - `bottom-sheet`: Dialog slides up from the bottom
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-dialog
  * @fires close - Fired when the dialog closes
  * @fires open - Fired when the dialog opens

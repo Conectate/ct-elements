@@ -84,7 +84,7 @@ import { customElement, property } from "lit/decorators.js";
  * | .card-actions | For action buttons (adds top border) |
  * | .card-content | For content (adds padding)           |
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-card
  * @demo demo/index.html
  * @homepage open.grupoconectate.com

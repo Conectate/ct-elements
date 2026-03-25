@@ -20,7 +20,7 @@ import { CtLit, customElement, property, query, state } from "./ct-lit.js";
 /**
 	`ct-textarea`
 	Input element
-	@group ct-elements
+	@group lit-ct-components
 	@element ct-textarea
 	@demo demo/index.html
 	@homepage open.grupoconectate.com
@@ -334,11 +334,11 @@ export class CtTextarea extends CtLit {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
 			this.value ||= "";
-			if (typeof this.value === "number" || typeof this.value === "bigint") {
+			if (typeof this.value.valueOf() === "number" || typeof this.value.valueOf() === "bigint") {
 				this.value = `${this.value}`;
 			}
 			// if is JSON Object or Array, convert to JSON string
-			if (typeof this.value === "object") {
+			if (typeof this.value.valueOf() === "object") {
 				this.value = JSON.stringify(this.value);
 			}
 

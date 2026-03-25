@@ -9,7 +9,7 @@ import { CtLit, customElement, property, query, state } from "./ct-lit.js";
 /**
  * # `ct-input-autocomplete`
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-input-autocomplete
  */
 @customElement("ct-input-autocomplete")

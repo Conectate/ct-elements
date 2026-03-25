@@ -5,7 +5,7 @@ import { html } from "lit";
 import { LitStory } from "./types.js";
 
 export default {
-	title: "ct-elements/ct-button",
+	title: "lit-ct-components/ct-button",
 	component: "ct-button",
 	argTypes: {
 		primaryColor: {

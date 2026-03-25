@@ -111,7 +111,7 @@ export function showCtConfirmCupertino(title: string, body: string, ok?: string,
  *
  * This component is typically used through the `showCtConfirm` function rather than directly.
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-confirm
  */
 @customElement("ct-confirm")

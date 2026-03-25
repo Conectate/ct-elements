@@ -30,7 +30,7 @@ import { CtLit, customElement, property, query } from "./ct-lit.js";
  * - Range validation for year input
  * - Format parsing from pasted text
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-date
  * @fires value - Fired when a valid date is selected with timestamp in seconds as detail
  */

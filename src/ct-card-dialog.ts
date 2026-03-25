@@ -43,7 +43,7 @@ window.showCtCardDialog = showCtCardDialog;
  * dialog.close();
  * ```
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-card-dialog
  */
 @customElement("ct-card-dialog")

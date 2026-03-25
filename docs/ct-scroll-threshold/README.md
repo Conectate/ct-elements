@@ -23,7 +23,7 @@ events (e.g. all data has been exhausted), the threshold property in question (e
 `lowerThreshold`) may be set to a falsy value to disable events and clear the associated
 triggered property.
 
-See: [Documentation](https://github.com/Conectate/ct-elements/tree/master/packages/ct-scroll-threshold),
+See: [Documentation](https://github.com/Conectate/lit-ct-components/tree/master/packages/ct-scroll-threshold),
 
 <!-- [Demo](https://github.com/conectate/ct-scroll-threshold/demo/demo/index.html). -->
 
@@ -104,8 +104,8 @@ the instructions for running the tests and demo locally:
 ### Installation
 
 ```sh
-git clone https://github.com/@conectate/components/ct-elements.git
-cd ct-elements
+git clone https://github.com/@conectate/components/lit-ct-components.git
+cd lit-ct-components
 # with npm
 npm i
 npm run demo

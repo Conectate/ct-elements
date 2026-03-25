@@ -10,7 +10,7 @@ type leftRight = "left" | "right";
 type topBottom = "top" | "bottom";
 
 /**
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-button-menu
  *
  * @css --menu-outline

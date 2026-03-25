@@ -17,7 +17,7 @@ import { customElement, unsafeHTML } from "./ct-lit.js";
 /**
  * # `ct-input-open`
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-input-open
  */
 @customElement("ct-input-open")

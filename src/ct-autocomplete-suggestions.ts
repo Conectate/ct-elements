@@ -20,7 +20,7 @@ var KEY_CODES = {
 /**
  * # `ct-autocomplete-suggestions`
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-autocomplete-suggestions
  */
 @customElement("ct-autocomplete-suggestions")

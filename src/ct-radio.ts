@@ -1,11 +1,12 @@
 import { PropertyValueMap, css, html } from "lit";
 
 import { CtLit, customElement, property, query } from "./ct-lit.js";
+
 /**
  * ## `ct-radio`
  * radio element
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-radio
  * @attr {boolean} checked
  */

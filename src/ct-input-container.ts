@@ -12,6 +12,7 @@
 import { css, html } from "lit";
 
 import { CtLit, customElement, property, query, state } from "./ct-lit.js";
+
 /**
  * `ct-input-container`
  * Input element
@@ -25,7 +26,7 @@ import { CtLit, customElement, property, query, state } from "./ct-lit.js";
  * @slot input - Description of the input slot.
  * @slot suffix - Description of the suffix slot.
  *
- * @group ct-elements
+ * @group lit-ct-components
  * @element ct-input-container
  */
 @customElement("ct-input-container")

@@ -3,7 +3,7 @@
 <p align="center">
 	<a href="https://npmcharts.com/compare/@conectate/components/ct-spinner?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@conectate/components/ct-spinner.svg" height="20"/></a>
 	<a href="https://www.npmjs.com/package/@conectate/components/ct-spinner"><img alt="NPM Version" src="https://img.shields.io/npm/v/@conectate/components/ct-spinner.svg" height="20"/></a>
-	<a href="https://github.com/conectate/ct-elements/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/ct-elements.svg" height="20"/></a>
+	<a href="https://github.com/conectate/lit-ct-components/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/conectate/lit-ct-components.svg" height="20"/></a>
 	<a href="https://www.webcomponents.org/element/conectate/ct-element"><img alt="Published on webcomponents.org" src="https://img.shields.io/badge/webcomponents.org-published-blue.svg" height="20"/></a>
 
 </p>
@@ -54,7 +54,7 @@ export class CtMain extends LitElement {
 
 ### DEMO
 
-<img src="https://raw.githubusercontent.com/Conectate/ct-elements/master/images/packages/ct-spinner.png"/>
+<img src="https://raw.githubusercontent.com/Conectate/lit-ct-components/master/images/packages/ct-spinner.png"/>
 
 <!--
 ```
