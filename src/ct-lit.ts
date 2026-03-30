@@ -98,6 +98,9 @@ const standardCustomElement = (tagName: string, descriptor: ClassDescriptor) => 
 };
 
 let allShadowRoots: (HTMLElement | DocumentFragment)[] = [];
+
+export type SoloClass<T extends new (...args: any) => any> = Omit<InstanceType<T>, keyof HTMLElement>;
+
 /**
  * CtLit - A wrapper class for LitElement with additional utility methods
  *
