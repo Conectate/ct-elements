@@ -14,7 +14,7 @@ import { CtLit, customElement, property, query } from "./ct-lit.js";
 export class CtRadio extends CtLit {
 	@property({ type: Boolean, reflect: true }) disabled = false;
 	@property({ type: Boolean, reflect: true }) checked = false;
-	@property({ type: Object }) value: any;
+	@property({ type: String }) value?: string;
 	@property({ type: Object }) parent: any;
 	@property({ type: String }) name!: string;
 	static styles = [

@@ -11,6 +11,7 @@
 import "./ct-button.js";
 import "./ct-card.js";
 
+import { TemplateResult, css } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
 import { CtDialog, showCtDialog } from "./ct-dialog.js";
@@ -62,7 +63,7 @@ import { CtLit, customElement, html, query } from "./ct-lit.js";
  * }
  * ```
  */
-export function showCtConfirm(title: string, body: string, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
+export function showCtConfirm(title: string, body: string | TemplateResult, ok?: string, cancel?: string, neutral?: string, options?: { history?: boolean }) {
 	let ctConfirm = new CTConfirmCupertino();
 	ctConfirm.ttl = title;
 	ctConfirm.body = body;
@@ -316,7 +317,7 @@ export class CTConfirm extends CtLit {
 
 @customElement("ct-confirm-cupertino")
 export class CTConfirmCupertino extends CtLit {
-	body: string = "";
+	body: string | TemplateResult = "";
 	ttl: string = "Title";
 	ok: string = "OK";
 	neutral!: string;
@@ -336,6 +337,95 @@ export class CTConfirmCupertino extends CtLit {
 		}
 	};
 
+	static styles = [
+		css`
+			:host {
+				display: block;
+				min-width: 276px !important;
+				max-width: 400px !important;
+				font-family: SFText, Helvetica, "Google Sans", "Ubuntu", sans-serif;
+				display: block;
+				max-height: 80vh;
+				margin: 0;
+				border-radius: 12px;
+				background-color: var(--color-background, rgba(255, 255, 255, 0.85));
+			}
+
+			@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+				:host {
+					background-color: var(--color-blur, rgba(255, 255, 255, 0.72));
+					backdrop-filter: saturate(180%) blur(20px);
+					-webkit-backdrop-filter: saturate(180%) blur(20px);
+				}
+			}
+
+			.container {
+				padding: 24px;
+			}
+
+			#title {
+				font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
+				font-size: 17px;
+				color: var(--high-emphasis, #303030);
+				font-weight: 600;
+				text-align: center;
+				margin: 0 0 4px;
+			}
+
+			.body {
+				color: var(--color-on-background, #474747);
+				font-size: 13px;
+				text-align: center;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				max-height: 60vh;
+				overflow: hidden auto;
+			}
+
+			.flex {
+				flex: 1;
+			}
+
+			.buttons {
+				color: var(--color-primary);
+				display: flex;
+				flex-direction: row-reverse;
+				text-align: center;
+			}
+
+			.btn {
+				cursor: pointer;
+				padding: 11px 20px;
+				font-size: 17px;
+				/* color: rgb(24, 126, 251); */
+				border-top: 1px solid var(--color-outline);
+				border-left: 1px solid var(--color-outline);
+				flex: 1;
+			}
+
+			#cancel {
+				font-weight: bold;
+			}
+
+			a {
+				text-decoration: none;
+				color: var(--color-primary);
+			}
+
+			.buttons_vert {
+				flex-direction: column;
+			}
+
+			.buttons_vert .ok,
+			.buttons_vert .cancel {
+				margin-top: 8px;
+			}
+			[tabindex] {
+				outline: none;
+			}
+		`
+	];
+
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener("keydown", this.onKeyDown);
@@ -348,96 +438,10 @@ export class CTConfirmCupertino extends CtLit {
 
 	render() {
 		return html`
-			<style>
-				:host {
-					display: block;
-					min-width: 276px !important;
-					max-width: 400px !important;
-					font-family: SFText, Helvetica, "Google Sans", "Ubuntu", sans-serif;
-					display: block;
-					max-height: 80vh;
-					margin: 0;
-					border-radius: 12px;
-					background-color: var(--color-background, rgba(255, 255, 255, 0.85));
-				}
-
-				@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-					:host {
-						background-color: var(--color-blur, rgba(255, 255, 255, 0.72));
-						backdrop-filter: saturate(180%) blur(20px);
-						-webkit-backdrop-filter: saturate(180%) blur(20px);
-					}
-				}
-
-				.container {
-					padding: 24px;
-				}
-
-				#title {
-					font-family: "Google Sans", "Ubuntu", "Roboto", sans-serif;
-					font-size: 17px;
-					color: var(--high-emphasis, #303030);
-					font-weight: 600;
-					text-align: center;
-					margin: 0 0 4px;
-				}
-
-				.body {
-					color: var(--color-on-background, #474747);
-					font-size: 13px;
-					text-align: center;
-					white-space: pre-wrap;
-					word-wrap: break-word;
-					max-height: 60vh;
-					overflow: hidden auto;
-				}
-
-				.flex {
-					flex: 1;
-				}
-
-				.buttons {
-					color: var(--color-primary);
-					display: flex;
-					flex-direction: row-reverse;
-					text-align: center;
-				}
-
-				.btn {
-					cursor: pointer;
-					padding: 11px 20px;
-					font-size: 17px;
-					/* color: rgb(24, 126, 251); */
-					border-top: 1px solid var(--color-outline);
-					border-left: 1px solid var(--color-outline);
-					flex: 1;
-				}
-
-				#cancel {
-					font-weight: bold;
-				}
-
-				a {
-					text-decoration: none;
-					color: var(--color-primary);
-				}
-
-				.buttons_vert {
-					flex-direction: column;
-				}
-
-				.buttons_vert .ok,
-				.buttons_vert .cancel {
-					margin-top: 8px;
-				}
-				[tabindex] {
-					outline: none;
-				}
-			</style>
 			<div role="dialog" aria-labelledby="title" tabindex="-1">
 				<div class="container">
 					<h2 id="title">${this.ttl}</h2>
-					<div class="body" id="confirmBody">${unsafeHTML(this.body)}</div>
+					<div class="body" id="confirmBody">${typeof this.body === "string" ? unsafeHTML(this.body) : this.body}</div>
 				</div>
 				<div id="buttons" class="buttons">
 					<div class="btn" role="button" tabindex="0" id="neutral" @click="${this.neutralbtn}" aria-disabled="${!!this.neutral}">${this.neutral}</div>

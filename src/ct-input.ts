@@ -405,7 +405,38 @@ export class CtInput extends CtLit {
 	/**
 	 * The value of the searchbox
 	 */
-	@property({ type: String }) value: string = "";
+	// @property({ type: String }) value: string | null | undefined | number = "";
+	_value: string = "";
+	get value(): string {
+		return this._value;
+	}
+	set value(val: string | null | undefined | number) {
+		val ||= "";
+		let value: string;
+		if (typeof val.valueOf() === "number" || typeof val.valueOf() === "bigint") {
+			value = `${val}`;
+		} else if (typeof val.valueOf() === "object") {
+			// if is JSON Object or Array, convert to JSON string
+			value = JSON.stringify(val);
+		} else {
+			value = `${val}`;
+		}
+
+		if (this.$input && this.$input.value != value) {
+			this.$input.value = value;
+		}
+		if (this.placeholder) {
+			this.isEmpty = value == "" || value == null;
+		}
+		this._value = value;
+	}
+
+	static get properties() {
+		return {
+			...super.properties,
+			value: { type: String }
+		};
+	}
 
 	render() {
 		return html`
@@ -469,21 +500,6 @@ export class CtInput extends CtLit {
 	willUpdate(changedProperties: PropertyValues<this>) {
 		super.willUpdate(changedProperties);
 		if (changedProperties.has("value")) {
-			this.value ||= "";
-			if (typeof this.value.valueOf() === "number" || typeof this.value.valueOf() === "bigint") {
-				this.value = `${this.value}`;
-			}
-			// if is JSON Object or Array, convert to JSON string
-			if (typeof this.value.valueOf() === "object") {
-				this.value = JSON.stringify(this.value);
-			}
-
-			if (this.$input && this.$input.value != this.value) {
-				this.$input.value = this.value ?? "";
-			}
-			if (this.placeholder) {
-				this.isEmpty = this.value == "" || this.value == null;
-			}
 			this.countChar = this.value?.length || 0;
 			this.internals?.setFormValue(this.value);
 		}
