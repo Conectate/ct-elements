@@ -4,6 +4,7 @@
     "license": "BSD-3-Clause",
     "type": "module",
     "dependencies": {
+        "@floating-ui/dom": "^1.7.6",
         "jsqr": "^1.4.0",
         "lit": "^3.3.2",
         "pwa-helpers": "^0.9.1",
@@ -200,6 +201,16 @@
             "types": "./ct-menu.d.ts",
             "import": "./ct-menu.js",
             "default": "./ct-menu.js"
+        },
+        "./ct-menu-shared": {
+            "types": "./ct-menu-shared.d.ts",
+            "import": "./ct-menu-shared.js",
+            "default": "./ct-menu-shared.js"
+        },
+        "./ct-submenu": {
+            "types": "./ct-submenu.d.ts",
+            "import": "./ct-submenu.js",
+            "default": "./ct-submenu.js"
         },
         "./ct-phone-input": {
             "types": "./ct-phone-input.d.ts",

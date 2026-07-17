@@ -1,11 +1,12 @@
-import "@conectate/components/ct-card";
-import "@conectate/components/ct-icon";
-import "@conectate/components/ct-list-item.js";
-import "@conectate/components/ct-menu";
-
+import "../src/ct-card";
+import "../src/ct-icon";
+import "../src/ct-icon-button";
+import "../src/ct-list-item.js";
+import "../src/ct-menu";
+import "../src/ct-submenu";
 import "./code-example/code-example.js";
 
-import { CtLit, css, customElement, html } from "@conectate/components/ct-lit";
+import { CtLit, css, customElement, html } from "../src/ct-lit";
 
 @customElement("demo-ct-menu")
 export class DemoCtMenu extends CtLit {
@@ -39,6 +40,15 @@ export class DemoCtMenu extends CtLit {
 						<ct-icon-button icon="more_vert" slot="trigger"></ct-icon-button>
 						<ct-list-item icon="settings" text="Settings"></ct-list-item>
 						<ct-list-item icon="home" text="Home" href="/home"></ct-list-item>
+						<ct-submenu text="More" icon="folder">
+							<ct-list-item icon="archive" text="Archive"></ct-list-item>
+							<ct-list-item icon="delete" text="Delete"></ct-list-item>
+							<ct-submenu text="Share" icon="share" showoutline>
+								<ct-list-item text="Copy link"></ct-list-item>
+								<ct-list-item text="Email"></ct-list-item>
+							</ct-submenu>
+							<ct-list-item icon="delete" text="Delete"></ct-list-item>
+						</ct-submenu>
 					</ct-menu>
 				</div>
 			</code-example>

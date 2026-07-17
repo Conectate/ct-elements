@@ -1,39 +1,67 @@
+import { Placement, autoUpdate, computePosition, flip, offset, shift } from "@floating-ui/dom";
 import { html } from "lit";
 
 import { CtLit, css, customElement, property, query } from "./ct-lit.js";
+import {
+	closeFloatingMenuSurface,
+	createFloatingMenuPanel,
+	getFloatingMenuSurface,
+	isEventInsideMenuTree,
+	menuPanelStyles,
+	openFloatingMenuSurface,
+	setTransformOrigin,
+	shouldKeepMenuOpen,
+	staggerMenuItems,
+	type FloatingMenuOwner
+} from "./ct-menu-shared.js";
+
+type Align = "top" | "top-right" | "top-left" | "bottom" | "bottom-right" | "bottom-left";
+
+/** Maps legacy `align` values to Floating UI placements. */
+const ALIGN_TO_PLACEMENT: Record<Align, Placement> = {
+	top: "bottom",
+	"top-right": "bottom-end",
+	"top-left": "bottom-start",
+	bottom: "top",
+	"bottom-right": "top-end",
+	"bottom-left": "top-start"
+};
+
 /**
  * # `ct-menu`
  * @element ct-menu
- * @description A dropdown menu component that displays a list of selectable items
+ * @description A dropdown menu component that displays a list of selectable items.
+ * The menu surface is portaled to `document.body` with `position: fixed` so it is
+ * not clipped by overflow/transform ancestors.
  * @slot - Contains the menu items to be displayed when opened
  * @slot trigger - The trigger element that opens/closes the dropdown menu
  * @slot dropdown-trigger - (Deprecated) The trigger element that opens/closes the dropdown menu
+ * @fires open - Fired when the menu opens or closes. `detail` is the open state.
  * @csspart menu - The dropdown menu container
- * @csspart items - The menu items container
  * @cssproperty --color-surface - Background color of the menu (default: #fff)
  * @cssproperty --color-on-surface - Text color of menu items (default: #474747)
  * @cssproperty --border-radius - Border radius of the menu (default: 8px)
+ * @cssproperty --z-index-menu - Z-index of the floating menu (default: 1000)
  */
 @customElement("ct-menu")
-export class CtMenu extends CtLit {
-	close!: (e: KeyboardEvent) => void;
-	@query("#menu") $menu!: HTMLDivElement;
+export class CtMenu extends CtLit implements FloatingMenuOwner {
 	@query("#items") $items!: HTMLSlotElement;
-	@property({ type: String }) align: "top" | "top-right" | "top-left" | "bottom" | "bottom-right" | "bottom-left" | null = "top-right";
-	@property({ type: Array }) addedNodes: (Node & { style?: { [x: string]: string } })[] = [];
-	@property({ type: String }) icon!: string;
-	_opened = false;
 
-	get opened() {
-		return this._opened;
-	}
-	set opened(value: boolean) {
-		this._opened = value;
-		setTimeout(() => {
-			this.$menu?.classList.toggle("active", value);
-			this.dispatchEvent(new CustomEvent("open", { detail: value }));
-		}, 250);
-	}
+	/**
+	 * Preferred alignment of the menu relative to the trigger.
+	 * Floating UI may flip/shift to keep the menu in view.
+	 */
+	@property({ type: String }) align: Align = "top-right";
+
+	/** Whether the menu is open */
+	@property({ type: Boolean, reflect: true }) opened = false;
+
+	/** Used by nested submenus to walk up the menu tree after portaling. */
+	_parentMenuOwner: FloatingMenuOwner | null = null;
+
+	private _panel: HTMLElement | null = null;
+	private _cleanupAutoUpdate?: () => void;
+	private _closeGeneration = 0;
 
 	static styles = css`
 		:host {
@@ -43,194 +71,207 @@ export class CtMenu extends CtLit {
 			color: inherit;
 		}
 
-		.dd-menu {
-			position: absolute;
-			-webkit-transition: all 0.2s ease;
-			transition: all 0.2s ease;
-			z-index: 99;
-			background: var(--color-surface, #fff);
-			border-radius: var(--border-radius, 8px);
-			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-			opacity: 0;
-			transform: scale(0);
-			outline: 1px solid #99999973;
-			padding: max(calc(var(--border-radius, 8px) / 2), 8px) 0;
-		}
-
-		.dd-menu.active {
-			opacity: 1;
-			-webkit-transform-origin: right top 0px;
-			-webkit-transform: scale(1);
-			transform-origin: right top 0px;
-			transform: scale(1);
-		}
-
-		.dd-menu ::slotted(button) {
-			min-width: 220px;
-			color: var(--color-on-surface, #474747);
-			margin: 0;
-			padding: 8px 16px;
-			min-height: 38px;
-			width: 100%;
-			background: none;
-			outline: none;
-			border: none;
-			font-size: 1em;
-			text-align: left;
-			font-weight: 500;
-			/* border-bottom: 0.5px solid var(--color-outline,#dadce0); */
-		}
-		.dd-menu ::slotted(button:last-of-type) {
-			border: none;
-		}
-
-		.dd-menu ::slotted(*) {
-			min-width: 220px;
-			display: block;
-			opacity: 0;
-			transition: all 0.25s ease;
-			transform: translateY(-30%);
-			cursor: pointer;
-			align-items: center;
-		}
-
-		.dd-menu ::slotted(span:empty),
-		.dd-menu ::slotted(hr) {
-			height: 1px;
-			background: var(--color-outline, #dadce0);
-			margin: 4px 2px;
-			border: 0.5px solid var(--color-outline, #dadce0);
-		}
-		.dd-menu ::slotted(h1) {
-			padding: 8px 16px;
-			font-size: 0.8em;
-			color: var(--color-primary);
-			font-weight: bold;
-			text-transform: uppercase;
-			letter-spacing: 0.15em;
-			font-family: "Google Sans", "Ubuntu", arial, sans-serif;
-			margin: 0;
-		}
-
-		.dd-menu ::slotted(button:hover) {
-			background: var(--color-primary-light);
-			color: var(--color-primary);
-			transition: all 0.15s ease;
-		}
-
-		.dd-menu ::slotted(button:active) {
-			background: #d2d2d2;
-			transition: all 0.15s ease;
-		}
-
-		.dd-menu.active ::slotted(*) {
-			opacity: 1;
-			transform: translateY(0px);
-		}
-
-		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-			.dd-menu {
-				background: var(--color-blur-surface, #ffffffbd);
-				backdrop-filter: saturate(180%) blur(15px);
-				-webkit-backdrop-filter: saturate(180%) blur(15px);
-			}
+		#items {
+			display: none;
 		}
 	`;
+
 	render() {
 		return html`
-			<slot name="dropdown-trigger" @click="${this.open}"></slot>
-			<slot name="trigger" @click="${this.open}"></slot>
-			<div id="menu" class="dd-menu" @blur=${this._onFocusOut} tabindex="0">
-				<slot id="items"></slot>
-			</div>
+			<slot name="dropdown-trigger" @click=${this._onTriggerClick}></slot>
+			<slot name="trigger" @click=${this._onTriggerClick}></slot>
+			<slot id="items"></slot>
 		`;
 	}
 
-	_onFocusOut() {
-		if (this.opened && !localStorage.ctmc) {
-			this.opened = false;
-		}
+	connectedCallback() {
+		super.connectedCallback();
+		document.addEventListener("click", this._handleOutsideClick);
+		document.addEventListener("keydown", this._handleKeydown);
 	}
+
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		document.body.removeEventListener("keydown", this.close);
+		document.removeEventListener("click", this._handleOutsideClick);
+		document.removeEventListener("keydown", this._handleKeydown);
+		void this._teardownPanel({ immediate: true });
 	}
 
-	constructor() {
-		super();
-		this.close = (e: KeyboardEvent) => {
-			if (e.key == "Escape") {
-				this.opened = false;
+	updated(changed: Map<PropertyKey, unknown>) {
+		if (changed.has("opened")) {
+			if (this.opened) {
+				this._openPanel();
+			} else {
+				this._teardownPanel();
+				this._closeNestedSubmenus();
 			}
-		};
-		document.body.addEventListener("keydown", this.close);
+			this.setAttribute("aria-expanded", String(this.opened));
+			this.dispatchEvent(new CustomEvent("open", { detail: this.opened }));
+		}
+
+		if (changed.has("align") && this.opened) {
+			void this._updatePosition();
+		}
 	}
 
-	firstUpdated() {
-		switch (this.align) {
-			case "top": {
-				this.$menu.style.top = "0";
-				this.$menu.style.right = "4px";
-				this.$menu.style.transformOrigin = "center top 0px";
-				break;
-			}
-			case "top-right": {
-				this.$menu.style.top = "0";
-				this.$menu.style.right = "4px";
-				this.$menu.style.transformOrigin = "right top 0px";
-				break;
-			}
-			case "top-left": {
-				this.$menu.style.top = "0";
-				this.$menu.style.right = "";
-				this.$menu.style.transformOrigin = "left top 0px";
-				break;
-			}
-			case "bottom": {
-				this.$menu.style.bottom = "0";
-				this.$menu.style.right = "4px";
-				this.$menu.style.transformOrigin = "center bottom 0px";
-				break;
-			}
-			case "bottom-right": {
-				this.$menu.style.bottom = "0";
-				this.$menu.style.right = "4px";
-				this.$menu.style.transformOrigin = "right bottom 0px";
-				break;
-			}
-			case "bottom-left": {
-				this.$menu.style.bottom = "0";
-				this.$menu.style.right = "";
-				this.$menu.style.transformOrigin = "left bottom 0px";
-				break;
-			}
-			default: {
-				this.$menu.style.top = "8px";
-				this.$menu.style.right = "4px";
-				this.$menu.style.transformOrigin = "right top 0px";
-				break;
+	/** Opens the menu */
+	open(e?: Event) {
+		e?.stopPropagation();
+		this.opened = true;
+	}
+
+	/** Closes the menu */
+	close() {
+		this.opened = false;
+	}
+
+	/** Toggles the menu open state */
+	toggle(e?: Event) {
+		e?.stopPropagation();
+		this.opened = !this.opened;
+	}
+
+	private _onTriggerClick = (e: Event) => {
+		e.stopPropagation();
+		this.opened = !this.opened;
+	};
+
+	private _handleOutsideClick = (e: MouseEvent) => {
+		if (!this.opened) return;
+		if (!isEventInsideMenuTree(e.composedPath(), this, this._panel)) {
+			this.close();
+		}
+	};
+
+	private _handleKeydown = (e: KeyboardEvent) => {
+		if (e.key === "Escape" && this.opened) {
+			this.close();
+		}
+	};
+
+	private _getReference(): Element {
+		const triggers = this.shadowRoot?.querySelectorAll("slot[name='trigger'], slot[name='dropdown-trigger']");
+		if (triggers) {
+			for (let i = 0; i < triggers.length; i++) {
+				const [el] = (triggers[i] as HTMLSlotElement).assignedElements({ flatten: true });
+				if (el) return el;
 			}
 		}
-		this.addedNodes = this.$items.assignedNodes().filter(function (node) {
-			return node.nodeType === Node.ELEMENT_NODE;
+		return this;
+	}
+
+	private _getItemNodes(): Node[] {
+		return this.$items?.assignedNodes({ flatten: false }) ?? [];
+	}
+
+	private async _openPanel() {
+		this._closeGeneration++;
+		await this.updateComplete;
+		if (!this.opened) return;
+
+		if (!this._panel) {
+			this._panel = createFloatingMenuPanel(this, menuPanelStyles);
+			this._panel.addEventListener("click", this._onPanelClick);
+		}
+
+		const nodes = this._getItemNodes();
+		for (const node of nodes) {
+			this._panel.appendChild(node);
+		}
+
+		if (!this._panel.isConnected) {
+			document.body.appendChild(this._panel);
+		}
+
+		openFloatingMenuSurface(getFloatingMenuSurface(this._panel));
+
+		this._startPositioning();
+		staggerMenuItems(Array.from(this._panel.children));
+	}
+
+	private async _teardownPanel(options?: { immediate?: boolean }) {
+		this._stopPositioning();
+
+		if (!this._panel) return;
+
+		const panel = this._panel;
+		const generation = ++this._closeGeneration;
+		const surface = getFloatingMenuSurface(panel);
+
+		if (!options?.immediate) {
+			await closeFloatingMenuSurface(surface);
+			// Reopened (or another close started) while the animation was running.
+			if (generation !== this._closeGeneration || this.opened) return;
+			if (this._panel !== panel) return;
+		} else {
+			surface?.classList.remove("active", "closing");
+		}
+
+		while (panel.firstChild) {
+			this.appendChild(panel.firstChild);
+		}
+
+		panel.removeEventListener("click", this._onPanelClick);
+		panel.remove();
+		this._panel = null;
+	}
+
+	private _onPanelClick = (e: Event) => {
+		if (!shouldKeepMenuOpen(e.composedPath())) {
+			this.close();
+		}
+	};
+
+	private _closeNestedSubmenus() {
+		const roots: ParentNode[] = [this];
+		if (this._panel) roots.push(this._panel);
+		for (const root of roots) {
+			root.querySelectorAll("ct-submenu").forEach(el => {
+				(el as HTMLElement & { close(): void }).close();
+			});
+		}
+	}
+
+	private _startPositioning() {
+		const reference = this._getReference();
+		const floating = this._panel;
+		if (!floating) return;
+
+		this._stopPositioning();
+		this._cleanupAutoUpdate = autoUpdate(reference, floating, () => {
+			void this._updatePosition();
 		});
 	}
 
-	open(e: CustomEvent) {
-		this.$menu.focus();
-		this.addedNodes.forEach((item, index) => {
-			var delay = index * 40 + "ms";
-			let o = {
-				"transition-delay": delay
-			};
-			for (let key in o) {
-				item.style![key] = o[key as "transition-delay"];
-				setTimeout(() => (item.style![key] = ""), index * 40 + 1000);
-			}
+	private _stopPositioning() {
+		this._cleanupAutoUpdate?.();
+		this._cleanupAutoUpdate = undefined;
+	}
+
+	private async _updatePosition() {
+		const floating = this._panel;
+		if (!floating || !this.opened) return;
+
+		const reference = this._getReference();
+		const placement = ALIGN_TO_PLACEMENT[this.align] ?? "bottom-end";
+
+		const {
+			x,
+			y,
+			placement: finalPlacement
+		} = await computePosition(reference, floating, {
+			placement,
+			strategy: "fixed",
+			middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })]
 		});
-		this.$menu?.classList.add("active");
-		this.opened = true;
-		e.stopPropagation();
+
+		Object.assign(floating.style, {
+			left: `${x}px`,
+			top: `${y}px`
+		});
+
+		const surface = getFloatingMenuSurface(floating);
+		if (surface) setTransformOrigin(surface, finalPlacement);
 	}
 }
 

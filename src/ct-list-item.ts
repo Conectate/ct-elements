@@ -57,6 +57,11 @@ export class CtListItem extends CtLit {
 		css`
 			:host {
 				--ct-icon-size: 21px;
+				user-select: none;
+			}
+
+			:host([selectable]) {
+				user-select: text;
 			}
 
 			:host,
@@ -97,6 +102,7 @@ export class CtListItem extends CtLit {
 
 			.text {
 				display: flex;
+				align-items: center;
 				flex-wrap: nowrap;
 				flex: 1;
 				border-bottom: 1px solid var(--color-outline, transparent);
@@ -108,6 +114,9 @@ export class CtListItem extends CtLit {
 			:host(:last-child) .text,
 			:host([hideoutline]) .text {
 				border-bottom: none;
+			}
+			:host([showoutline]) .text {
+				border-bottom: 1px solid var(--color-outline, transparent);
 			}
 
 			ct-icon {
@@ -163,10 +172,22 @@ export class CtListItem extends CtLit {
 	@property({ type: Boolean, reflect: true, attribute: "keep-open" }) keepOpen = false;
 
 	/**
+	 * When true, allows text selection inside the list item.
+	 * By default text is not selectable.
+	 */
+	@property({ type: Boolean, reflect: true }) selectable = false;
+
+	/**
 	 * When true, hides the bottom border
 	 * Typically used for the last item or for custom styling
 	 */
 	@property({ type: Boolean, reflect: true }) hideoutline = false;
+
+	/**
+	 * When true, shows the bottom border
+	 * Typically used for the last item or for custom styling
+	 */
+	@property({ type: Boolean, reflect: true }) showoutline = false;
 
 	/**
 	 * When true, hides the bottom border
@@ -200,11 +221,16 @@ export class CtListItem extends CtLit {
 	 * @param e Click event
 	 */
 	closeMenu(e: MouseEvent) {
-		let menu = this.closest("ct-button-menu") || this.closest("md-menu");
-		if (menu && !this.keepOpen) {
-			this.blur();
+		const submenu = this.closest("ct-submenu") as (HTMLElement & { close(): void }) | null;
+		const menu = this.closest("ct-menu") || this.closest("ct-button-menu") || this.closest("md-menu");
+		if (this.keepOpen) return;
+		this.blur();
+		submenu?.close();
+		if (menu) {
 			// @ts-ignore
-			menu.open = false;
+			if ("opened" in menu) menu.opened = false;
+			// @ts-ignore
+			else menu.open = false;
 		}
 	}
 }
